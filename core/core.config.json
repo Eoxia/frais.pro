@@ -1,0 +1,11 @@
+{
+	"name": "Note de frais Core",
+	"slug": "core",
+	"version": "1.0.0.0",
+	"description": "Le module boot de Note de frais",
+	"path": "core/",
+	"dependencies": {
+		"action": {},
+		"class": {}
+	}
+}

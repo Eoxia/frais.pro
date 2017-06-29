@@ -1,0 +1,27 @@
+{
+	"name": "Note de frais",
+	"slug": "note-de-frais",
+	"version": "1.0.0.0",
+	"description": "L'application Note de frais",
+	"insert_scripts_pages_js": [
+		"note-de-frais"
+	],
+	"insert_scripts_pages_css": [
+		"note-de-frais"
+	],
+	"externals": [
+		"core/external/wpeo_log/wpeo_log.config.json",
+		"core/external/wpeo_model/wpeo_model.config.json"
+	],
+	"modules": [
+		"core/core.config.json",
+
+		"modules/group-ndf/group-ndf.config.json",
+		"modules/ndf/ndf.config.json"
+	],
+	"debug": true,
+	"categories": [
+		"Trajet",
+		"Autres"
+	]
+}

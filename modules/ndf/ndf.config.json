@@ -1,0 +1,13 @@
+{
+	"name": "NDF",
+	"slug": "ndf",
+	"version": "1.0.0.0",
+	"description": "Le module gérant les NDF",
+	"path": "modules/ndf/",
+	"dependencies": {
+		"model": {},
+		"class": {},
+		"action": {},
+		"helper": {}
+	}
+}
