@@ -1,0 +1,10 @@
+{
+	"name": "Utilisateurs",
+	"slug": "user",
+	"version": "1.0.0.0",
+	"description": "Le module gérant les utilisateurs",
+	"path": "modules/user/",
+	"dependencies": {
+		"action": {}
+	}
+}

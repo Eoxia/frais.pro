@@ -1,0 +1,11 @@
+{
+	"name": "Document",
+	"slug": "document",
+	"version": "1.0.0.0",
+	"description": "Le module gérant les documents de Digirisk",
+	"path": "modules/document/",
+	"dependencies": {
+		"model": {},
+		"class": {}
+	}
+}
