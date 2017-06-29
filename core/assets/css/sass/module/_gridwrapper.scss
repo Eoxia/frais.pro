@@ -1,0 +1,13 @@
+.gridwrapper {
+	@include flexbox();
+	margin-left: -0.5em;
+	margin-right: -0.5em;
+	> * {
+		padding: 0.5em;
+	}
+	@for $i from 1 through 6 {
+		&.w#{$i} > * {
+			width: 100%/$i
+		}
+	}
+}

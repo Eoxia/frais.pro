@@ -1,0 +1,35 @@
+.single-note {
+
+	.header {
+		.title {
+			width: 100%;
+			margin-right: 160px;
+			margin-left: 15px;
+			padding: 0 0 4px 0;
+			border-bottom: 1px solid rgba(255,255,255,0.5);
+			@include transition;
+			&:focus {
+				border-bottom: 1px solid rgba(255,255,255,1);
+			}
+		}
+		.export {
+			right: 80px;
+		}
+		.close {
+			color: rgba(255,255,255,0.6);
+			position: absolute;
+			right: 15px;
+			line-height: 50px;
+			font-size: 74px;
+			&:hover {
+				cursor: pointer;
+				color: rgba(255,255,255,1);
+			}
+		}
+	}
+	.content {
+		background: #fff;
+		padding: 20px;
+	}
+
+}

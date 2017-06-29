@@ -12,9 +12,10 @@ namespace note_de_frais;
 
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
-<h2>
-	<?php esc_html_e( 'Note de frais', 'note-de-frais' ); ?>
-	<a href="#" class="action-attribute add-new-h2" data-action="create_task" data-nonce="66c8857434"><?php esc_html_e( 'Nouveau', 'note-de-frais' ); ?></a>
-</h2>
+<section class="eox-note-frais">
 
+	<h1>Mes notes de frais</h1>
+	<div class="button blue"><i class="icon ion-plus-round"></i><span>Ajout</span></div>
+
+</section>
 <?php Group_NDF_Class::g()->display();

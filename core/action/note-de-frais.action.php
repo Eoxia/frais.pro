@@ -105,7 +105,7 @@ class Note_De_Frais_Action {
 	 * @version 6.2.7.0
 	 */
 	public function callback_admin_enqueue_scripts_css() {
-		wp_register_style( 'note-de-frais-style', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/css/style.min.css', array(), \eoxia\Config_Util::$init['note-de-frais']->version );
+		wp_register_style( 'note-de-frais-style', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/css/style.css', array(), \eoxia\Config_Util::$init['note-de-frais']->version );
 		wp_enqueue_style( 'note-de-frais-style' );
 
 		wp_enqueue_style( 'note-de-frais-datepicker', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/css/jquery.datetimepicker.css', array(), \eoxia\Config_Util::$init['note-de-frais']->version );
