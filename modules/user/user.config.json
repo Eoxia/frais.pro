@@ -5,6 +5,8 @@
 	"description": "Le module gérant les utilisateurs",
 	"path": "modules/user/",
 	"dependencies": {
-		"action": {}
+		"model": {},
+		"action": {},
+		"class": {}
 	}
 }

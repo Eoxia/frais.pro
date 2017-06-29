@@ -4,10 +4,13 @@
 	"version": "1.0.0.0",
 	"description": "L'application Note de frais",
 	"insert_scripts_pages_js": [
-		"note-de-frais"
+		"note-de-frais",
+		"profile.php",
+		""
 	],
 	"insert_scripts_pages_css": [
-		"note-de-frais"
+		"note-de-frais",
+		""
 	],
 	"externals": [
 		"core/external/wpeo_log/wpeo_log.config.json",
@@ -15,6 +18,7 @@
 	],
 	"modules": [
 		"core/core.config.json",
+		"modules/file_management/file_management.config.json",
 
 		"modules/document/document.config.json",
 		"modules/user/user.config.json",

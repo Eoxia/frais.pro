@@ -33,8 +33,14 @@ class User_Action {
 		add_action( 'edit_user_profile_update', array( $this, 'callback_user_profile_edit' ) );
 	}
 
-	public function callback_edit_user_profile() {
-		\eoxia\View_Util::exec( 'note-de-frais', 'user', 'main' );
+	public function callback_edit_user_profile( $user  ) {
+		$user = User_Class::g()->get( array(
+			'include' => array( $user->ID ),
+		), true );
+
+		\eoxia\View_Util::exec( 'note-de-frais', 'user', 'main', array(
+			'user' => $user,
+		) );
 	}
 
 	public function callback_user_profile_edit( $user_id ) {
@@ -42,6 +48,7 @@ class User_Action {
 			return false;
 		}
 
+		$_POST['id'] = $user_id;
 		User_Class::g()->update( $_POST );
 	}
 

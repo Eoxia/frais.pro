@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	<tbody>
 		<tr class="user-marque-wrap">
 			<th><label for="marque">Marque</label></th>
-			<td><input type="text" name="marque" id="marque" class="regular-text ltr"></td>
+			<td><input type="text" name="marque" id="marque" value="<?php echo esc_attr( $user->marque ); ?>" class="regular-text ltr"></td>
 		</tr>
 
 		<tr class="user-marque-wrap">
@@ -29,8 +29,13 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
 				if ( ! empty( \eoxia\Config_Util::$init['note-de-frais']->chevaux ) ) :
 					foreach ( \eoxia\Config_Util::$init['note-de-frais']->chevaux as $chevaux ) :
+						$selected = '';
+
+						if ( $chevaux === $user->chevaux ) :
+							$selected = 'selected="selected"';
+						endif;
 						?>
-						<option><?php echo esc_html( $chevaux ); ?></option>
+						<option <?php echo $selected; ?>><?php echo esc_html( $chevaux ); ?></option>
 						<?php
 					endforeach;
 				endif;
@@ -41,12 +46,12 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
 		<tr class="user-marque-wrap">
 			<th><label for="prixkm">Prix/km</label></th>
-			<td><input type="text" name="prixkm" id="prixkm" class="regular-text ltr"></td>
+			<td><input type="text" name="prixkm" id="prixkm" value="<?php echo esc_attr( $user->prixkm ); ?>" class="regular-text ltr"></td>
 		</tr>
 
 		<tr class="user-marque-wrap">
 			<th><label for="marque">Carte grise</label></th>
-			<td>test</td>
+			<td><?php echo do_shortcode( '[eo_upload_button id="' . $user->id . '"]'); ?></td>
 		</tr>
 	</tbody>
 </table>

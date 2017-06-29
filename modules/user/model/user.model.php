@@ -35,6 +35,12 @@ class User_Model extends \eoxia\User_Model {
 		);
 
 		$this->model['chevaux'] = array(
+			'type'			=> 'string',
+			'meta_type' => 'single',
+			'field' 		=> '_ndf_chevaux',
+		);
+
+		$this->model['thumbnail_id'] = array(
 			'type'			=> 'integer',
 			'meta_type' => 'single',
 			'field' 		=> '_ndf_chevaux',
@@ -45,6 +51,18 @@ class User_Model extends \eoxia\User_Model {
 			'meta_type' => 'single',
 			'field' 		=> '_ndf_prixkm',
 		);
+
+		$this->model['associated_document_id'] = array(
+			'type'				=> 'array',
+			'meta_type'	=> 'multiple',
+			'child' => array(
+				'image' => array(
+					'type'				=> 'array',
+					'meta_type'	=> 'multiple',
+				),
+			),
+		);
+
 		parent::__construct( $object );
 	}
 }
