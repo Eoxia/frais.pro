@@ -1,10 +1,10 @@
-=== Note de frais ===
+﻿=== Note de frais ===
 Contributors: Evarisk
 Tags:
 Donate link: http://www.evarisk.com/document-unique-logiciel
 Requires at least: 4.4
 Tested up to: 4.7.3
-Stable tag: 1.0.0.0
+Stable tag: 1.0.0.1
 
 Le plugin Digirisk vous pourrez réaliser, de façon simple et intuitive, le Document Unique de votre entreprise.
 
