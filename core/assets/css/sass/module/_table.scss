@@ -119,6 +119,8 @@
 		.row {
 			flex-wrap: wrap;
 			margin-bottom: 10px;
+			padding-bottom: 10px;
+			border-bottom: 1px solid rgba(0,0,0,0.1);
 			li {
 				margin: 0;
 				max-height: none;
@@ -136,15 +138,23 @@
 				max-width: none;
 				min-width: 0;
 			}
-			.date { width: 30%; }
-			.libelle { width: 70%; }
-			.type { width: 50%; }
-			.km { width: 50%; }
-			.ttc, .ht, .tva { width: 33.333333% }
-			.photo { max-width: 50px; min-width: 50px; }
-			.action { width: auto; margin-left: auto; }
+			.date { width: 70%; order: 2; }
+			.libelle { width: 100%; order: 4; }
+			.type { width: 50%; order: 5; }
+			.km { width: 50%; order: 6; }
+			.ttc { width: 33.333333%; order: 7; }
+			.ht { width: 33.333333%; order: 8; }
+			.tva { width: 33.333333%; order: 9; }
+			.photo { order: 1; max-width: 50px; min-width: 50px; }
+			.action { order: 3; width: auto; margin-left: auto; }
 		}
 	}
-
-
+	@media ( max-width: 360px ) {
+		.row {
+			li {
+				width: 100% !important;
+			}
+			.action { order: 20; }
+		}
+	}
 }
