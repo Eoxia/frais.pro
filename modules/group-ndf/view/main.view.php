@@ -15,7 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 <section class="eox-note-frais">
 
 	<h1>Mes notes de frais</h1>
-	<div class="add-ndf button blue"><i class="icon ion-plus-round"></i><span>Ajout</span></div>
+	<div class="add-ndf button blue action-attribute"
+			data-action="open_note_de_frais"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_note_de_frais' ) ); ?>"><i class="icon ion-plus-round"></i><span>Ajout</span></div>
 
 	<div class="main-container">
 		<div class="liste-note gridwrapper w3">

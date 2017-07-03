@@ -55,16 +55,17 @@ class NDF_Action {
 			$all_old_row[] = $row->id;
 		}
 
-		if ( isset( $_POST['row'] ) ) {
-			foreach ( $_POST['row'] as $row ) {
-				$row['post_parent'] = $group_id;
+		$post_row = $_POST['row'];
+		unset( $_POST['row'] );
+		$group_ndf = Group_NDF_Class::g()->update( $_POST );
+
+		if ( isset( $post_row ) ) {
+			foreach ( $post_row as $row ) {
+				$row['post_parent'] = $group_ndf->id;
 				$current_row = NDF_Class::g()->update( $row );
 				$all_new_row[] = $current_row->id;
 			}
-			unset( $_POST['row'] );
 		}
-
-		Group_NDF_Class::g()->update( $_POST );
 
 		foreach ( array_diff( $all_old_row, $all_new_row ) as $row_to_delete ) {
 			wp_delete_post( $row_to_delete, true );

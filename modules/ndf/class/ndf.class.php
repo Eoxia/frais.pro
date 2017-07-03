@@ -68,15 +68,17 @@ class NDF_Class extends \eoxia\Post_Class {
 	 */
 	protected $post_type_name = 'NDF';
 
-	public function display( $group_id ) {
-		\eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'main', array(
-			'group' => Group_NDF_Class::g()->get( array(
-				'id' => $group_id,
-			), true ),
-			'notes' => $this->get( array(
-				'post_parent' => $group_id,
-			) ),
+	public function display( $group_id = -1 ) {
+		$notes = $this->get( array(
+			'post_parent' => $group_id,
 		) );
+		$template_vars = array(
+			'notes' => $notes,
+		);
+		$template_vars['group'] = Group_NDF_Class::g()->get( array(
+			'id' => $group_id,
+		), true );
+		\eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'main', $template_vars );
 	}
 }
 

@@ -5,8 +5,10 @@ namespace note_de_frais;
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <div class="note">
+	<?php if ( ! empty( $group ) ) { ?>
 	<input type="hidden" name="id" value="<?php echo $group->id; ?>">
 	<input type="hidden" name="group_id" value="<?php echo $group->id; ?>">
+	<?php } ?>
 	<input type="hidden" name="action" value="modify_note_de_frais">
 	<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'modify_note_de_frais' ) ); ?>">
 	<div class="container">
@@ -23,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				<ul class="heading">
 					<li class="date">Date</li>
 					<li class="libelle">Libellé</li>
-					<li class="type">Type de note</li>
+					<!--<li class="type">Type de note</li>-->
 					<li class="km">Km</li>
 					<li class="ttc">TTC (€)</li>
 					<li class="ht">HT (€)</li>
@@ -33,8 +35,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				</ul>
 
 				<?php
+				$i = 0;
 				if ( ! empty( $notes ) ) :
-					$i = 0;
 					foreach ( $notes as $ndf ) :
 						if ( ! empty( $ndf ) ) {
 							\eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'item', array(
@@ -50,8 +52,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				<ul class="row add" data-i="<?php echo $i; ?>">
 					<li class="date" data-title="Date"><span contenteditable="true" data-input-name="date" data-default-value="<?php echo current_time( 'mysql' ); ?>"><?php echo current_time( 'mysql' ); ?></span></li>
 					<li class="libelle" data-title="Libellé"><span contenteditable="true" data-input-name="title"></span></li>
-					<li class="type toggle list" data-title="Type de note">
-						<span contenteditable="false" class="action" data-input-name="type">
+					<!--<li class="type toggle list" data-title="Type de note">
+						<span class="action" data-default-value="Type de note" data-input-name="type" contenteditable="false" data-parent="type" data-target="content">
 							<span class="label">Type de note</span>
 							<i class="icon ion-ios-arrow-down"></i>
 						</span>
@@ -59,11 +61,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 							<li class="item">Auto</li>
 							<li class="item">Trajet</li>
 						</ul>
-					</li>
-					<li class="km" data-title="Km"><span contenteditable="true" data-input-name="km"></span></li>
-					<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-input-name="ttc"></span></li>
-					<li class="ht" data-title="HT (€)"><span contenteditable="true" data-input-name="ht"></span></li>
-					<li class="tva" data-title="TVA récup."><span contenteditable="true" data-input-name="tva"></span></li>
+					</li>-->
+					<li class="km" data-title="Km"><span contenteditable="true" data-input-name="distance"></span></li>
+					<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-input-name="TaxInclusiveAmount" data-default-value="0">0</span></li>
+					<li class="ht" data-title="HT (€)"><span contenteditable="true" data-input-name="TaxableAmount" data-default-value="0">0</span></li>
+					<li class="tva" data-title="TVA récup."><span contenteditable="true" data-input-name="TaxAmount" data-default-value="0">0</span></li>
 					<li class="photo" data-title="Photo"><span contenteditable="true" data-input-name="photo"></span></li>
 					<li class="action"><span class="icon ion-ios-plus"></span><span class="icon ion-trash-a"></span></li>
 				</ul>
