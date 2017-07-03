@@ -28,34 +28,46 @@ class NDF_Model extends \eoxia\Post_Model {
 	 * @version 1.0.0.0
 	 */
 	public function __construct( $object ) {
+		$this->model['date'] = array(
+			'type'          => 'float',
+			'meta_type' => 'single',
+			'field'         => '_ndf_ttc',
+		);
+
 		$this->model['category_name'] = array(
-			'type' 			=> 'string',
-			'meta_type'	=> 'single',
-			'field' 		=> '_ndf_category_name',
+			'type'          => 'string',
+			'meta_type' => 'single',
+			'field'         => '_ndf_category_name',
+		);
+
+		$this->model['vehicule'] = array(
+			'type'          => 'string',
+			'meta_type' => 'single',
+			'field'         => '_ndf_vehicule',
 		);
 
 		$this->model['distance'] = array(
-			'type'			=> 'integer',
+			'type'          => 'integer',
 			'meta_type' => 'single',
-			'field' 		=> '_ndf_distance',
+			'field'         => '_ndf_distance',
 		);
 
-		$this->model['ttc'] = array(
-			'type'			=> 'float',
+		$this->model['TaxInclusiveAmount'] = array(
+			'type'          => 'float',
 			'meta_type' => 'single',
-			'field'			=> '_ndf_ttc',
+			'field'         => '_ndf_tax_inclusive_amount',
 		);
 
-		$this->model['ht'] = array(
-			'type'			=> 'float',
+		$this->model['TaxableAmount'] = array(
+			'type'          => 'float',
 			'meta_type' => 'single',
-			'field'			=> '_ndf_ht',
+			'field'         => '_ndf_taxable_amount',
 		);
 
-		$this->model['tx_tva'] = array(
-			'type'			=> 'float',
-			'meta_type'	=> 'single',
-			'field' 		=> '_ndf_tx_tva',
+		$this->model['TaxAmount'] = array(
+			'type'          => 'float',
+			'meta_type' => 'single',
+			'field'         => '_ndf_tax_amount',
 		);
 
 		parent::__construct( $object );

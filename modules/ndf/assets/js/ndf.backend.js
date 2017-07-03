@@ -16,3 +16,12 @@ window.eoxiaJS.noteDeFrais.NDF = {};
  * @version 1.0.0.0
  */
 window.eoxiaJS.noteDeFrais.NDF.init = function() {};
+
+window.eoxiaJS.noteDeFrais.NDF.openNdf = function( triggeredElement, response ) {
+	jQuery( '.liste-note' ).hide();
+	jQuery( '.single-note' ).html( response.data.view );
+};
+
+window.eoxiaJS.noteDeFrais.NDF.addNDF = function( triggeredElement, response ) {
+	jQuery( '.single-note' ).html( response.data.view );
+};
