@@ -17,20 +17,22 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<h1>Mes notes de frais</h1>
 	<div class="button blue"><i class="icon ion-plus-round"></i><span>Ajout</span></div>
 
-	<div class="liste-note gridwrapper w3">
-		<?php
-		if ( ! empty( $groups_ndf ) ) :
-			foreach ( $groups_ndf as $ndf ) :
-				\eoxia\View_Util::exec( 'note-de-frais', 'group-ndf', 'item', array(
-					'ndf' => $ndf,
-				) );
-			endforeach;
-		endif;
-		?>
-	</div>
+	<div class="main-container">
+		<div class="liste-note gridwrapper w3">
+			<?php
+			if ( ! empty( $groups_ndf ) ) :
+				foreach ( $groups_ndf as $ndf ) :
+					\eoxia\View_Util::exec( 'note-de-frais', 'group-ndf', 'item', array(
+						'ndf' => $ndf,
+					) );
+				endforeach;
+			endif;
+			?>
+		</div>
 
-	<div class="single-note">
+		<div class="single-note">
 
+		</div>
 	</div>
 
 </section>

@@ -3,6 +3,10 @@
 	pointer-events: none;
 	transform: translateY(-40px);
 	z-index: 50;
+	position: absolute;
+	top: 10px;
+	left: 0;
+	width: 100%;
 	@include transition;
 
 	.header {

@@ -3535,6 +3535,10 @@ h1, h2, h3, h4, h5, h6 {
        -o-transform: translateY(-40px);
           transform: translateY(-40px);
   z-index: 50;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
@@ -3586,6 +3590,9 @@ h1, h2, h3, h4, h5, h6 {
       -ms-transform: translateY(0);
        -o-transform: translateY(0);
           transform: translateY(0); }
+
+.eox-note-frais .main-container {
+  position: relative; }
 
 /*--------------------------------------------------------------
 # Modules
