@@ -17,7 +17,13 @@ window.eoxiaJS.noteDeFrais.NDF = {};
  */
 window.eoxiaJS.noteDeFrais.NDF.init = function() {
 	jQuery( document ).on( 'click', '.note .close', window.eoxiaJS.noteDeFrais.NDF.closeNDF );
-	jQuery( document ).on( 'click', '.row.add .action .ion-ios-plus', window.eoxiaJS.noteDeFrais.NDF.addRowNDF );
+	jQuery( document ).on( 'click', '.row.add .action', window.eoxiaJS.noteDeFrais.NDF.addRowNDF );
+	jQuery( document ).on( 'keydown', '.row.add span[contenteditable="true"]', function( event ) {
+		if ( event.ctrlKey && 13 === event.keyCode ) {
+			jQuery( this ).closest( '.row' ).find( '.action' ).click();
+		}
+	} );
+	jQuery( document ).on( 'click', '.saveNDF', window.eoxiaJS.noteDeFrais.NDF.saveNDF );
 };
 
 window.eoxiaJS.noteDeFrais.NDF.openNdf = function( triggeredElement, response ) {
@@ -39,8 +45,16 @@ window.eoxiaJS.noteDeFrais.NDF.addRowNDF = function( event ) {
 	rowClone.removeClass( 'add' );
 	addForm.before( rowClone );
 	addForm.find( 'span[contenteditable="true"]' ).each( function( index ) {
-		jQuery( this ).text( '' );
+		var defaultValue = '';
+		if ( undefined !== jQuery( this ).data( 'defaultValue' ) ) {
+			defaultValue = jQuery( this ).data( 'defaultValue' );
+		}
+		jQuery( this ).text( defaultValue );
 	} );
+};
+
+window.eoxiaJS.noteDeFrais.NDF.saveNDF = function() {
+
 };
 
 window.eoxiaJS.noteDeFrais.NDF.isModified = function() {

@@ -39,20 +39,20 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				?>
 
 				<ul class="row add">
-					<li class="date"><span contenteditable="true"><?php echo current_time( 'mysql' ); ?></span></li>
-					<li class="libelle"><span contenteditable="true"></span></li>
-					<li class="type"><span contenteditable="true"></span></li>
-					<li class="km"><span contenteditable="true"></span></li>
-					<li class="ttc"><span contenteditable="true"></span></li>
-					<li class="ht"><span contenteditable="true"></span></li>
-					<li class="tva"><span contenteditable="true"></span></li>
-					<li class="photo"><span contenteditable="true"></span></li>
+					<li class="date" data-title="Date"><span contenteditable="true" data-default-value="<?php echo current_time( 'mysql' ); ?>"><?php echo current_time( 'mysql' ); ?></span></li>
+					<li class="libelle" data-title="Libellé"><span contenteditable="true"></span></li>
+					<li class="type" data-title="Type de note"><span contenteditable="true"></span></li>
+					<li class="km" data-title="Km"><span contenteditable="true"></span></li>
+					<li class="ttc" data-title="TTC (€)"><span contenteditable="true"></span></li>
+					<li class="ht" data-title="HT (#)"><span contenteditable="true"></span></li>
+					<li class="tva" data-title="TVA récup."><span contenteditable="true"></span></li>
+					<li class="photo" data-title="Photo"><span contenteditable="true"></span></li>
 					<li class="action"><span class="icon ion-ios-plus"></span><span class="icon ion-trash-a"></span></li>
 				</ul>
 
 			</div>
 
-			<span class="button blue float right action-input" data-parent="note">Mettre à jour</span>
+			<span class="button blue float right saveNDF" data-parent="note">Mettre à jour</span>
 
 		</div>
 
