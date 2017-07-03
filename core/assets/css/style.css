@@ -3761,6 +3761,9 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.8); }
 
+.flex-table .row:not(.add) .icon.ion-ios-plus {
+  display: none; }
+
 .flex-table .row.add {
   margin-top: 20px; }
 
@@ -3769,6 +3772,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .flex-table .row.add .icon:hover {
   color: #74c4f7; }
+
+.flex-table .row.add .icon.ion-trash-a {
+  display: none; }
 
 body {
   background: #f5f5f5; }

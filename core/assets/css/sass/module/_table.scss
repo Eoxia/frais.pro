@@ -71,12 +71,20 @@
 				}
 			}
 		}
+		&:not(.add) {
+			.icon.ion-ios-plus {
+				display: none;
+			}
+		}
 		&.add {
 			margin-top: 20px;
 			.icon {
 				color: $color__blue;
 				&:hover {
 					color: lighten($color__blue, 20%);
+				}
+				&.ion-trash-a {
+					display: none;
 				}
 			}
 		}
