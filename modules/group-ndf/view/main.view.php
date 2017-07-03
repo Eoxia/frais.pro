@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 <section class="eox-note-frais">
 
 	<h1>Mes notes de frais</h1>
-	<div class="button blue"><i class="icon ion-plus-round"></i><span>Ajout</span></div>
+	<div class="add-ndf button blue"><i class="icon ion-plus-round"></i><span>Ajout</span></div>
 
 	<div class="main-container">
 		<div class="liste-note gridwrapper w3">

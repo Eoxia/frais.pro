@@ -3180,6 +3180,9 @@ textarea {
 h1, h2, h3, h4, h5, h6 {
   clear: both; }
 
+h1 {
+  float: left; }
+
 /*--------------------------------------------------------------
 # Elements
 --------------------------------------------------------------*/
@@ -3576,6 +3579,9 @@ h1, h2, h3, h4, h5, h6 {
   background: #fff;
   padding: 20px; }
 
+.eox-note-frais.active-single .add-ndf {
+  display: none; }
+
 .eox-note-frais.active-single .liste-note {
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
@@ -3591,7 +3597,11 @@ h1, h2, h3, h4, h5, h6 {
        -o-transform: translateY(0);
           transform: translateY(0); }
 
+.eox-note-frais .add-ndf {
+  margin: 20px 0 0 20px; }
+
 .eox-note-frais .main-container {
+  clear: both;
   position: relative; }
 
 /*--------------------------------------------------------------
