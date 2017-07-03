@@ -9,6 +9,7 @@
 		padding: 0;
 		li {
 			list-style-type: none;
+			margin: 0;
 		}
 		.photo, .action { max-width: 50px; min-width: 50px; }
 		.ttc, .ht { max-width: 80px; min-width: 80px; }
@@ -50,12 +51,25 @@
 					border: 1px solid rgba( $color__main, 0.8 );
 				}
 			}
-			span[contenteditable="false"] {
+			&.disabled span {
+				background: url("images/disabled-pattern.png") $color__grey;
+				pointer-events: none;
+				&:hover {
+					cursor: default;
+				}
+			}
+			&.ttc, &.tva {
+				font-weight: 700;
 			}
 		}
 		&:nth-of-type( odd ) {
-			span[contenteditable] {
+			span[contenteditable], .toggle .content, .toggle .content:before {
 				background: darken( $color__grey, 6% );
+			}
+			.toggle .content {
+				&:before {
+
+				}
 			}
 		}
 		.action {
