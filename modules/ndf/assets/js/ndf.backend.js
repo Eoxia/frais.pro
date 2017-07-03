@@ -17,12 +17,12 @@ window.eoxiaJS.noteDeFrais.NDF = {};
  */
 window.eoxiaJS.noteDeFrais.NDF.init = function() {
 	jQuery( document ).on( 'click', '.note .close', window.eoxiaJS.noteDeFrais.NDF.closeNDF );
+	jQuery( document ).on( 'click', '.row .add', window.eoxiaJS.noteDeFrais.NDF.addRowNDF );
 };
 
 window.eoxiaJS.noteDeFrais.NDF.openNdf = function( triggeredElement, response ) {
 	jQuery( '.eox-note-frais' ).addClass( 'active-single' );
 	jQuery( '.single-note' ).html( response.data.view );
-	//JQuery( '.single-note' ).addClass( 'active' );
 };
 
 window.eoxiaJS.noteDeFrais.NDF.closeNDF = function( event ) {
@@ -32,4 +32,8 @@ window.eoxiaJS.noteDeFrais.NDF.closeNDF = function( event ) {
 
 window.eoxiaJS.noteDeFrais.NDF.addNDF = function( triggeredElement, response ) {
 	jQuery( '.single-note' ).html( response.data.view );
+};
+
+window.eoxiaJS.noteDeFrais.NDF.addRowNDF = function() {
+
 };

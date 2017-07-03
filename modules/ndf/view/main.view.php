@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<li class="ht"><span contenteditable="true"></span></li>
 					<li class="tva"><span contenteditable="true"></span></li>
 					<li class="photo"><span contenteditable="true"></span></li>
-					<li class="action"><span class="icon ion-ios-plus"></span></li>
+					<li class="action"><span class="icon ion-ios-plus"></span><span class="icon ion-trash-a"></span></li>
 				</ul>
 
 			</div>
