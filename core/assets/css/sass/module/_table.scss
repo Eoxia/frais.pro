@@ -10,10 +10,10 @@
 		li {
 			list-style-type: none;
 		}
-		.photo, .action { max-width: 50px; }
-		.ttc, .ht { max-width: 80px; }
-		.km, .tva { max-width: 100px; }
-		.type, .date { max-width: 200px; }
+		.photo, .action { max-width: 50px; min-width: 50px; }
+		.ttc, .ht { max-width: 80px; min-width: 80px; }
+		.km, .tva { max-width: 100px; min-width: 100px; }
+		.type, .date { max-width: 200px; min-width: 200px; }
 	}
 
 	.heading {
@@ -87,6 +87,48 @@
 					display: none;
 				}
 			}
+		}
+	}
+
+	@media ( max-width: 1200px ) {
+		.heading, .row {
+			.photo, .action { max-width: 50px; min-width: 50px; }
+			.ttc, .ht { max-width: 80px; min-width: 80px; }
+			.km, .tva { max-width: 80px; min-width: 80px; }
+			.type, .date { max-width: 120px; min-width: 120px; }
+		}
+	}
+	@media ( max-width: 1000px ) {
+		.heading {
+			display: none;
+		}
+		.row {
+			flex-wrap: wrap;
+			margin-bottom: 10px;
+			li {
+				margin: 0;
+				max-height: none;
+				&:before {
+					display: block;
+					color: $color__main;
+					font-weight: 800;
+					font-size: 14px;
+					padding: 0 4px;
+					margin-bottom: 4px;
+					content: attr(data-title);
+				}
+			}
+			.photo, .action, .ttc, .ht, .km, .tva, .type, .date  {
+				max-width: none;
+				min-width: 0;
+			}
+			.date { width: 30%; }
+			.libelle { width: 70%; }
+			.type { width: 50%; }
+			.km { width: 50%; }
+			.ttc, .ht, .tva { width: 33.333333% }
+			.photo { max-width: 50px; min-width: 50px; }
+			.action { width: auto; margin-left: auto; }
 		}
 	}
 

@@ -3663,6 +3663,16 @@ h1, h2, h3, h4, h5, h6 {
 .gridwrapper.w6 > * {
   width: 16.66667%; }
 
+@media (max-width: 1000px) {
+  .gridwrapper.w1 > * {
+    width: 100%; }
+  .gridwrapper.w2 > *, .gridwrapper.w3 > *, .gridwrapper.w4 > *, .gridwrapper.w5 > *, .gridwrapper.w6 > * {
+    width: 50%; } }
+
+@media (max-width: 600px) {
+  .gridwrapper.w1 > *, .gridwrapper.w2 > *, .gridwrapper.w3 > *, .gridwrapper.w4 > *, .gridwrapper.w5 > *, .gridwrapper.w6 > * {
+    width: 100%; } }
+
 .flex-table {
   width: 100%; }
 
@@ -3695,16 +3705,20 @@ h1, h2, h3, h4, h5, h6 {
   list-style-type: none; }
 
 .flex-table .heading .photo, .flex-table .heading .action, .flex-table .row .photo, .flex-table .row .action {
-  max-width: 50px; }
+  max-width: 50px;
+  min-width: 50px; }
 
 .flex-table .heading .ttc, .flex-table .heading .ht, .flex-table .row .ttc, .flex-table .row .ht {
-  max-width: 80px; }
+  max-width: 80px;
+  min-width: 80px; }
 
 .flex-table .heading .km, .flex-table .heading .tva, .flex-table .row .km, .flex-table .row .tva {
-  max-width: 100px; }
+  max-width: 100px;
+  min-width: 100px; }
 
 .flex-table .heading .type, .flex-table .heading .date, .flex-table .row .type, .flex-table .row .date {
-  max-width: 200px; }
+  max-width: 200px;
+  min-width: 200px; }
 
 .flex-table .heading {
   margin: 0;
@@ -3775,6 +3789,59 @@ h1, h2, h3, h4, h5, h6 {
 
 .flex-table .row.add .icon.ion-trash-a {
   display: none; }
+
+@media (max-width: 1200px) {
+  .flex-table .heading .photo, .flex-table .heading .action, .flex-table .row .photo, .flex-table .row .action {
+    max-width: 50px;
+    min-width: 50px; }
+  .flex-table .heading .ttc, .flex-table .heading .ht, .flex-table .row .ttc, .flex-table .row .ht {
+    max-width: 80px;
+    min-width: 80px; }
+  .flex-table .heading .km, .flex-table .heading .tva, .flex-table .row .km, .flex-table .row .tva {
+    max-width: 80px;
+    min-width: 80px; }
+  .flex-table .heading .type, .flex-table .heading .date, .flex-table .row .type, .flex-table .row .date {
+    max-width: 120px;
+    min-width: 120px; } }
+
+@media (max-width: 1000px) {
+  .flex-table .heading {
+    display: none; }
+  .flex-table .row {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    margin-bottom: 10px; }
+  .flex-table .row li {
+    margin: 0;
+    max-height: none; }
+  .flex-table .row li:before {
+    display: block;
+    color: #9b59b6;
+    font-weight: 800;
+    font-size: 14px;
+    padding: 0 4px;
+    margin-bottom: 4px;
+    content: attr(data-title); }
+  .flex-table .row .photo, .flex-table .row .action, .flex-table .row .ttc, .flex-table .row .ht, .flex-table .row .km, .flex-table .row .tva, .flex-table .row .type, .flex-table .row .date {
+    max-width: none;
+    min-width: 0; }
+  .flex-table .row .date {
+    width: 30%; }
+  .flex-table .row .libelle {
+    width: 70%; }
+  .flex-table .row .type {
+    width: 50%; }
+  .flex-table .row .km {
+    width: 50%; }
+  .flex-table .row .ttc, .flex-table .row .ht, .flex-table .row .tva {
+    width: 33.333333%; }
+  .flex-table .row .photo {
+    max-width: 50px;
+    min-width: 50px; }
+  .flex-table .row .action {
+    width: auto;
+    margin-left: auto; } }
 
 body {
   background: #f5f5f5; }
