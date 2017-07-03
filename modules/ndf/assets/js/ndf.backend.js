@@ -54,7 +54,16 @@ window.eoxiaJS.noteDeFrais.NDF.addRowNDF = function( event ) {
 };
 
 window.eoxiaJS.noteDeFrais.NDF.saveNDF = function() {
-
+	var serialize = jQuery( '.note input' ).serialize();
+	jQuery( '.note *[contenteditable="true"]' ).each( function( index ) {
+		if ( undefined !== jQuery( this ).data( 'name' ) ) {
+			if ( 0 !== serialize.length ) {
+				serialize += '&';
+			}
+			serialize += jQuery( this ).data( 'name' ) + '=' + jQuery( this ).text();
+		}
+	} );
+	jQuery.post( ajaxurl, serialize );
 };
 
 window.eoxiaJS.noteDeFrais.NDF.isModified = function() {
