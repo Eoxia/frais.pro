@@ -2,6 +2,7 @@
 	opacity: 0;
 	pointer-events: none;
 	transform: translateY(-40px);
+	z-index: 50;
 	@include transition;
 
 	.header {
@@ -34,11 +35,6 @@
 	.content {
 		background: #fff;
 		padding: 20px;
-	}
-	&:active {
-		opacity: 1;
-		pointer-events: all;
-		transform: translateY(0);
 	}
 
 }

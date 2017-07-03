@@ -1,4 +1,6 @@
 .liste-note {
+	opacity: 1;
+	@include transition;
 
 	.note {
 		.header, .content {

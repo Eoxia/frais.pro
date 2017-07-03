@@ -3467,6 +3467,14 @@ h1, h2, h3, h4, h5, h6 {
 .note .header .export:hover {
   background: rgba(255, 255, 255, 0.3); }
 
+.liste-note {
+  opacity: 1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
+
 .liste-note .note .header, .liste-note .note .content {
   width: 100%; }
 
@@ -3526,6 +3534,7 @@ h1, h2, h3, h4, h5, h6 {
       -ms-transform: translateY(-40px);
        -o-transform: translateY(-40px);
           transform: translateY(-40px);
+  z-index: 50;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
@@ -3563,7 +3572,12 @@ h1, h2, h3, h4, h5, h6 {
   background: #fff;
   padding: 20px; }
 
-.single-note:active {
+.eox-note-frais.active-single .liste-note {
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  pointer-events: none; }
+
+.eox-note-frais.active-single .single-note {
   opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   pointer-events: all;
