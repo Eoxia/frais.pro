@@ -17,10 +17,11 @@ window.eoxiaJS.noteDeFrais.NDF = {};
  */
 window.eoxiaJS.noteDeFrais.NDF.init = function() {
 	jQuery( document ).on( 'click', '.note .close', window.eoxiaJS.noteDeFrais.NDF.closeNDF );
-	jQuery( document ).on( 'click', '.row.add .action', window.eoxiaJS.noteDeFrais.NDF.addRowNDF );
-	jQuery( document ).on( 'keydown', '.row.add span[contenteditable="true"]', function( event ) {
+	jQuery( document ).on( 'click', '.row.add .action .ion-ios-plus', window.eoxiaJS.noteDeFrais.NDF.addRowNDF );
+	jQuery( document ).on( 'click', '.row .action .ion-trash-a', window.eoxiaJS.noteDeFrais.NDF.deleteRowNDF );
+	jQuery( document ).on( 'keydown', '.row.add span[contenteditable]', function( event ) {
 		if ( event.ctrlKey && 13 === event.keyCode ) {
-			jQuery( this ).closest( '.row' ).find( '.action' ).click();
+			jQuery( this ).closest( '.row' ).find( '.action .ion-ios-plus' ).click();
 		}
 	} );
 	jQuery( document ).on( 'click', '.saveNDF', window.eoxiaJS.noteDeFrais.NDF.saveNDF );
@@ -44,13 +45,22 @@ window.eoxiaJS.noteDeFrais.NDF.addRowNDF = function( event ) {
 	var rowClone = addForm.clone();
 	rowClone.removeClass( 'add' );
 	addForm.before( rowClone );
-	addForm.find( 'span[contenteditable="true"]' ).each( function( index ) {
+	rowClone.find( 'span[contenteditable]' ).each( function( index ) {
+		this.dataset.name = 'row[' + addForm.data( 'i' ) + '][' + this.dataset.inputName + ']';
+		delete this.dataset.inputName;
+	} );
+	addForm.find( 'span[contenteditable]' ).each( function( index ) {
 		var defaultValue = '';
 		if ( undefined !== jQuery( this ).data( 'defaultValue' ) ) {
 			defaultValue = jQuery( this ).data( 'defaultValue' );
 		}
 		jQuery( this ).text( defaultValue );
 	} );
+	addForm.data( 'i', parseInt( addForm.data( 'i' ) ) + 1 );
+};
+
+window.eoxiaJS.noteDeFrais.NDF.deleteRowNDF = function( event ) {
+	jQuery( this ).closest( '.row' ).remove();
 };
 
 window.eoxiaJS.noteDeFrais.NDF.saveNDF = function() {
@@ -64,6 +74,7 @@ window.eoxiaJS.noteDeFrais.NDF.saveNDF = function() {
 		}
 	} );
 	jQuery.post( ajaxurl, serialize );
+	jQuery( '.note .close' ).click();
 };
 
 window.eoxiaJS.noteDeFrais.NDF.isModified = function() {
