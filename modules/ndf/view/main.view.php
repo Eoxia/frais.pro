@@ -37,12 +37,34 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<li class="action"></li>
 				</ul>
 
+				<ul class="row add" data-i="<?php echo $i; ?>">
+					<li class="date" data-title="Date"><span contenteditable="true" data-name="row[0][date]"><?php echo current_time( 'mysql' ); ?></span></li>
+					<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[0][title]"></span></li>
+					<!--<li class="type toggle list" data-title="Type de note">
+						<span class="action" data-name="row[0][type]" contenteditable="false" data-parent="type" data-target="content">
+							<span class="label">Type de note</span>
+							<i class="icon ion-ios-arrow-down"></i>
+						</span>
+						<ul class="content">
+							<li class="item">Auto</li>
+							<li class="item">Trajet</li>
+						</ul>
+					</li>-->
+					<li class="km" data-title="Km"><span contenteditable="true" data-name="row[0][distance]"></span></li>
+					<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-name="row[0][TaxInclusiveAmount]">0</span></li>
+					<li class="ht" data-title="HT (€)"><span contenteditable="true" data-name="row[0][TaxableAmount]">0</span></li>
+					<li class="tva" data-title="TVA récup."><span contenteditable="true" data-name="row[0][TaxAmount]">0</span></li>
+					<li class="photo" data-title="Photo"><span contenteditable="true" data-name="row[0][photo]"></span></li>
+					<li class="action"><span class="icon ion-ios-plus"></span><span class="icon ion-trash-a"></span></li>
+				</ul>
+
 				<?php
 				$i = 0;
 				if ( ! empty( $notes ) ) :
 					foreach ( $notes as $ndf ) :
 						if ( ! empty( $ndf ) ) {
 							\eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'item', array(
+								'group' => $group,
 								'ndf' => $ndf,
 								'i' => $i,
 							) );
@@ -52,30 +74,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				endif;
 				?>
 
-				<ul class="row add" data-i="<?php echo $i; ?>">
-					<li class="date" data-title="Date"><span contenteditable="true" data-input-name="date" data-default-value="<?php echo current_time( 'mysql' ); ?>"><?php echo current_time( 'mysql' ); ?></span></li>
-					<li class="libelle" data-title="Libellé"><span contenteditable="true" data-input-name="title"></span></li>
-					<!--<li class="type toggle list" data-title="Type de note">
-						<span class="action" data-default-value="Type de note" data-input-name="type" contenteditable="false" data-parent="type" data-target="content">
-							<span class="label">Type de note</span>
-							<i class="icon ion-ios-arrow-down"></i>
-						</span>
-						<ul class="content">
-							<li class="item">Auto</li>
-							<li class="item">Trajet</li>
-						</ul>
-					</li>-->
-					<li class="km" data-title="Km"><span contenteditable="true" data-input-name="distance"></span></li>
-					<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-input-name="TaxInclusiveAmount" data-default-value="0">0</span></li>
-					<li class="ht" data-title="HT (€)"><span contenteditable="true" data-input-name="TaxableAmount" data-default-value="0">0</span></li>
-					<li class="tva" data-title="TVA récup."><span contenteditable="true" data-input-name="TaxAmount" data-default-value="0">0</span></li>
-					<li class="photo" data-title="Photo"><span contenteditable="true" data-input-name="photo"></span></li>
-					<li class="action"><span class="icon ion-ios-plus"></span><span class="icon ion-trash-a"></span></li>
-				</ul>
-
 			</div>
 
-			<span class="button blue float right saveNDF" data-parent="note">Mettre à jour</span>
+			<!-- <span class="button blue float right saveNDF" data-parent="note">Mettre à jour</span> -->
 
 		</div>
 

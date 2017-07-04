@@ -22,6 +22,7 @@ class NDF_Action {
 	public function __construct() {
 		add_action( 'wp_ajax_open_note_de_frais', array( $this, 'callback_open_note_de_frais' ) );
 		add_action( 'wp_ajax_modify_note_de_frais', array( $this, 'callback_modify_note_de_frais' ) );
+		add_action( 'wp_ajax_delete_note_de_frais', array( $this, 'callback_delete_note_de_frais' ) );
 		add_action( 'wp_ajax_add_note_de_frais', array( $this, 'callback_add_note_de_frais' ) );
 	}
 
@@ -45,18 +46,7 @@ class NDF_Action {
 	public function callback_modify_note_de_frais() {
 		check_ajax_referer( 'modify_note_de_frais' );
 
-		error_reporting(E_ALL);
-		ini_set('display_errors', 'on');
-
 		$group_id = isset( $_POST['group_id'] ) ? intval( $_POST['group_id'] ) : -1;
-
-		$all_old_row = array();
-
-		foreach ( NDF_Class::g()->get( array(
-			'post_parent' => $group_id,
-		) ) as $row ) {
-			$all_old_row[] = $row->id;
-		}
 
 		$post_row = $_POST['row'];
 		unset( $_POST['row'] );
@@ -70,11 +60,36 @@ class NDF_Action {
 			}
 		}
 
-		foreach ( array_diff( $all_old_row, $all_new_row ) as $row_to_delete ) {
-			wp_delete_post( $row_to_delete, true );
-		}
+		ob_start();
+		NDF_Class::g()->display( $group_id );
+		$response = ob_get_clean();
 
-		wp_send_json_success();
+		wp_send_json_success( array(
+			'namespace' => 'noteDeFrais',
+			'module' => 'NDF',
+			'callback_success' => 'refreshNDF',
+			'view' => $response,
+		) );
+	}
+
+	public function callback_delete_note_de_frais() {
+		check_ajax_referer( 'delete_note_de_frais' );
+
+		$group_id = isset( $_POST['group_id'] ) ? intval( $_POST['group_id'] ) : -1;
+		$row_to_delete = isset( $_POST['ndf_id'] ) ? intval( $_POST['ndf_id'] ) : -1;
+
+		wp_delete_post( $row_to_delete, true );
+
+		ob_start();
+		NDF_Class::g()->display( $group_id );
+		$response = ob_get_clean();
+
+		wp_send_json_success( array(
+			'namespace' => 'noteDeFrais',
+			'module' => 'NDF',
+			'callback_success' => 'refreshNDF',
+			'view' => $response,
+		) );
 	}
 
 	public function callback_add_note_de_frais() {

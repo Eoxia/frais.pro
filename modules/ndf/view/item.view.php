@@ -23,5 +23,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<li class="ht" data-title="HT (€)"><span contenteditable="true" data-name="row[<?php echo $i; ?>][TaxableAmount]"><?php echo esc_html( $ndf->TaxableAmount ); ?></span></li>
 	<li class="tva" data-title="TVA récup."><span contenteditable="true" data-name="row[<?php echo $i; ?>][TaxAmount]"><?php echo esc_html( $ndf->TaxAmount ); ?></span></li>
 	<li class="photo" data-title="Photo"><span contenteditable="true" data-name="row[<?php echo $i; ?>][photo]"></span></li>
-	<li class="action"><span class="icon ion-trash-a"></span></li>
+	<li class="action"><span class="icon ion-trash-a action-attribute"
+		data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>"
+		data-group-id="<?php echo esc_attr( $group->id ); ?>"
+		data-action="delete_note_de_frais"
+		data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_note_de_frais' ) ); ?>"></span></li>
 </ul>

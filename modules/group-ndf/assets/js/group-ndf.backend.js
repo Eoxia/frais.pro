@@ -15,4 +15,17 @@ window.eoxiaJS.noteDeFrais.groupNDF = {};
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.eoxiaJS.noteDeFrais.groupNDF.init = function() {};
+window.eoxiaJS.noteDeFrais.groupNDF.init = function() {
+	jQuery( document ).on( 'focusout', '.single-note .note .title[contenteditable]', window.eoxiaJS.noteDeFrais.groupNDF.saveGroup );
+};
+
+window.eoxiaJS.noteDeFrais.groupNDF.saveGroup = function( event ) {
+	var serialize = jQuery( '.single-note .note' ).not( '.row' ).children( 'input' ).serialize();
+	if ( undefined !== jQuery( this ).data( 'name' ) ) {
+		if ( 0 !== serialize.length ) {
+			serialize += '&';
+		}
+		serialize += jQuery( this ).data( 'name' ) + '=' + jQuery( this ).text();
+	}
+	jQuery.post( ajaxurl, serialize );
+};
