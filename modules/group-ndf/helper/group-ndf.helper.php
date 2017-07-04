@@ -18,8 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return Object L'objet avec tous les éléments ajoutés par cette méthode.
  */
 function get_full_group( $data ) {
+	/*
 	$data->ttc = 0;
-	$data->tx_tva = 0;
+	$data->tx_tva = 0;*/
 
 	return $data;
 }

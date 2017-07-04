@@ -72,7 +72,7 @@ window.eoxiaJS.noteDeFrais.NDF.saveNDF = function() {
 	} );
 	jQuery.post( ajaxurl, serialize );
 	//JQuery( '.note .close' ).click();
-	location.reload();
+//	location.reload();
 };
 
 window.eoxiaJS.noteDeFrais.NDF.select = function() {

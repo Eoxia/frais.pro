@@ -17,7 +17,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param  Object $data L'objet.
  * @return Object L'objet avec tous les éléments ajoutés par cette méthode.
  */
-function sanitize_ndf_class( $data ) {
-	// var_dump( $data );
+function update_ndf( $data ) {
+	$group = Group_NDF_Class::g()->get( array(
+		'id' => $data->parent_id,
+	), true );
+	$compilated_tva = 0;
+	$compilated_ttc = 0;
+	foreach ( NDF_Class::g()->get( array(
+		'post_parent' => $group->id,
+	) ) as $ndf ) {
+		$compilated_ttc += $ndf->TaxInclusiveAmount;
+		$compilated_tva += $ndf->TaxAmount;
+	}
+	$group->ttc = $compilated_ttc;
+	$group->tx_tva = $compilated_tva;
+	Group_NDF_Class::g()->update( $group );
 	return $data;
 }

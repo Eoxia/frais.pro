@@ -14,7 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<div class="container">
 		<div class="header">
 			<h2 class="title" contenteditable="true" data-name="title"><?php echo $group->title; ?></h2>
-			<span class="button export"><i class="icon ion-share"></i></span>
+			<span class="button export action-attribute"
+				data-id="<?php echo esc_attr( $group->id ); ?>"
+				data-action="export_note_de_frais"
+				data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_note_de_frais' ) ); ?>"><i class="icon ion-share"></i></span>
 			<span class="button close"><i class="icon ion-ios-close-empty"></i></span>
 		</div>
 

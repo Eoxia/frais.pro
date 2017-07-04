@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				<span class="currency">€</span>
 				<span class="taxe">TVA</span>
 			</div>
-			<div class="update">MAJ : <?php echo esc_html( $ndf->post_modified ); ?></div>
+			<div class="update">MAJ : <?php echo esc_html( $ndf->date_modified ); ?></div>
 		</div>
 	</div>
 </div>
