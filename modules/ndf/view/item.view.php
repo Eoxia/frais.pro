@@ -22,6 +22,6 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-name="row[<?php echo $i; ?>][TaxInclusiveAmount]"><?php echo esc_html( $ndf->TaxInclusiveAmount ); ?></span></li>
 	<li class="ht" data-title="HT (€)"><span contenteditable="true" data-name="row[<?php echo $i; ?>][TaxableAmount]"><?php echo esc_html( $ndf->TaxableAmount ); ?></span></li>
 	<li class="tva" data-title="TVA récup."><span contenteditable="true" data-name="row[<?php echo $i; ?>][TaxAmount]"><?php echo esc_html( $ndf->TaxAmount ); ?></span></li>
-	<li class="photo" data-title="Photo"><span contenteditable="true" data-name="row[<?php echo $i; ?>][photo]"></span></li>
+	<li class="photo" data-title="Photo"><?php do_shortcode( '[eo_upload_button id="' . $ndf->id . '" type="ndf" namespace="note_de_frais"]' ); ?></li>
 	<li class="action"><span class="icon ion-trash-a"></span></li>
 </ul>

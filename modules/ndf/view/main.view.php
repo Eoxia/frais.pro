@@ -66,7 +66,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-input-name="TaxInclusiveAmount" data-default-value="0">0</span></li>
 					<li class="ht" data-title="HT (€)"><span contenteditable="true" data-input-name="TaxableAmount" data-default-value="0">0</span></li>
 					<li class="tva" data-title="TVA récup."><span contenteditable="true" data-input-name="TaxAmount" data-default-value="0">0</span></li>
-					<li class="photo" data-title="Photo"><span contenteditable="true" data-input-name="photo"></span></li>
+					<li class="photo" data-title="Photo"><?php do_shortcode( '[eo_upload_button type="ndf"]' ); ?></span></li>
 					<li class="action"><span class="icon ion-ios-plus"></span><span class="icon ion-trash-a"></span></li>
 				</ul>
 

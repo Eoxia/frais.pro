@@ -11,7 +11,7 @@
  * @subpackage view
  */
 
-namespace digi;
+namespace note_de_frais;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 <span data-id="<?php echo esc_attr( $id ); ?>"
@@ -21,15 +21,15 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			data-namespace="<?php echo esc_attr( $namespace ); ?>"
 			data-action="<?php echo esc_attr( $action ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'associate_file' ) ); ?>"
-			class="media <?php echo empty( $element->thumbnail_id ) ? esc_attr( 'no-file' ) : ''; ?>">ok
+			class="media <?php echo empty( $element->thumbnail_id ) ? esc_attr( 'no-file' ) : ''; ?>">
 
-	<i class="add animated fa fa-plus-circle"></i>
+	<i class="add animated ion-android-add-circle"></i>
 	<?php
 	if ( ! empty( $element ) && ! empty( $element->thumbnail_id ) ) :
 		echo wp_get_attachment_image( $element->thumbnail_id, 'thumbnail', false, array( 'class' => 'wp-post-image wp-digi-element-thumbnail' ) );
 	else :
 		?>
-		<i class="default-image fa fa-picture-o"></i>
+		<i class="default-image ion-image"></i>
 		<img src="" class="hidden"/>
 		<input class="input-file-image" type="hidden" name="associated_document_id[image][]" />
 		<input class="input-file-image" type="hidden" name="thumbnail_id" />

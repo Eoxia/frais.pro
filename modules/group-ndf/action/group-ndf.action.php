@@ -61,23 +61,22 @@ class Group_NDF_Action {
 				$sheet_details['ndf']['value'][] = array(
 					'date' => $ndf->date,
 					'libelle' => $ndf->title,
-					'typedenote' => 'Trajet',
-					'vehicule' => 'C2',
 					'km' => $ndf->distance,
-					'ttc' => $ndf->ttc,
-					'tva' => $ndf->tx_tva,
-					'tvarecup' => 'tva recup',
+					'ttc' => $ndf->TaxInclusiveAmount,
+					'tva' => $ndf->TaxAmount,
+					'tvarecup' => 'Je n\'existe pas',
 					'photo' => 'photo',
 				);
 			}
 		}
 
-		document_class::g()->create_document( $group_ndf, $sheet_details );
-
+		$response = document_class::g()->create_document( $group_ndf, $sheet_details );
 		wp_send_json_success( array(
-			'namespace' => '',
-			'module' => '',
-			'callback_success' => '',
+			'namespace' => 'noteDeFrais',
+			'module' => 'groupNDF',
+			'link' => $response['link'],
+			'filename' => $response['filename'],
+			'callback_success' => 'exportedNoteDeFraisSuccess',
 		) );
 	}
 }

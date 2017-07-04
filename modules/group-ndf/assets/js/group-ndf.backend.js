@@ -16,3 +16,7 @@ window.eoxiaJS.noteDeFrais.groupNDF = {};
  * @version 1.0.0.0
  */
 window.eoxiaJS.noteDeFrais.groupNDF.init = function() {};
+
+window.eoxiaJS.noteDeFrais.groupNDF.exportedNoteDeFraisSuccess = function( triggeredElement, response ) {
+	window.eoxiaJS.global.downloadFile( response.data.link, response.data.filename );
+};
