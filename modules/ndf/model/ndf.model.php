@@ -28,12 +28,6 @@ class NDF_Model extends \eoxia\Post_Model {
 	 * @version 1.0.0.0
 	 */
 	public function __construct( $object ) {
-		$this->model['date'] = array(
-			'type'          => 'float',
-			'meta_type' => 'single',
-			'field'         => '_ndf_ttc',
-		);
-
 		$this->model['category_name'] = array(
 			'type'          => 'string',
 			'meta_type' => 'single',
@@ -68,6 +62,17 @@ class NDF_Model extends \eoxia\Post_Model {
 			'type'          => 'float',
 			'meta_type' => 'single',
 			'field'         => '_ndf_tax_amount',
+		);
+
+		$this->model['associated_document_id'] = array(
+			'type'				=> 'array',
+			'meta_type'	=> 'multiple',
+			'child' => array(
+				'image' => array(
+					'type'				=> 'array',
+					'meta_type'	=> 'multiple'
+				),
+			),
 		);
 
 		parent::__construct( $object );

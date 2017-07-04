@@ -18,12 +18,12 @@
 	],
 	"modules": [
 		"core/core.config.json",
-		"modules/file_management/file_management.config.json",
 
 		"modules/document/document.config.json",
 		"modules/user/user.config.json",
 		"modules/group-ndf/group-ndf.config.json",
-		"modules/ndf/ndf.config.json"
+		"modules/ndf/ndf.config.json",
+		"modules/file_management/file_management.config.json"
 	],
 	"debug": true,
 	"categories": [

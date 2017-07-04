@@ -15,6 +15,7 @@ window.eoxiaJS.noteDeFrais.groupNDF = {};
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
+
 window.eoxiaJS.noteDeFrais.groupNDF.init = function() {
 	jQuery( document ).on( 'focusout', '.single-note .note .title[contenteditable]', window.eoxiaJS.noteDeFrais.groupNDF.saveGroup );
 };
@@ -28,4 +29,8 @@ window.eoxiaJS.noteDeFrais.groupNDF.saveGroup = function( event ) {
 		serialize += jQuery( this ).data( 'name' ) + '=' + jQuery( this ).text();
 	}
 	jQuery.post( ajaxurl, serialize );
+};
+
+window.eoxiaJS.noteDeFrais.groupNDF.exportedNoteDeFraisSuccess = function( triggeredElement, response ) {
+	window.eoxiaJS.global.downloadFile( response.data.link, response.data.filename );
 };

@@ -48,7 +48,7 @@ class Gallery_Class extends \eoxia\Singleton_Util {
 		if ( ! $post_type ) {
 			return false;
 		}
-		$model_name = '\\' . $namespace . '\\' . str_replace( 'digi-', '', $post_type ) . '_class';
+		$model_name = '\\note_de_frais\\' . $post_type  . '_class';
 		$establishment = $model_name::g()->get( array( 'include' => array( $element_id ) ) );
 		$element = $establishment[0];
 
@@ -58,7 +58,16 @@ class Gallery_Class extends \eoxia\Singleton_Util {
 		$list_id = ! empty( $element->associated_document_id['image'] ) ? $element->associated_document_id['image'] : array();
 		$thumbnail_id = $element->thumbnail_id;
 
-		\eoxia\View_Util::exec( 'digirisk', 'file_management', 'gallery', array( 'param' => $param, 'title' => $title, 'namespace' => $namespace, 'element_id' => $element_id, 'element' => $element, 'action' => $action, 'list_id' => $list_id, 'thumbnail_id' => $thumbnail_id ) );
+		\eoxia\View_Util::exec( 'note-de-frais', 'file_management', 'gallery', array(
+			'param' => $param,
+			'title' => $title,
+			'namespace' => 'note_de_frais',
+			'element_id' => $element_id,
+			'element' => $element,
+			'action' => $action,
+			'list_id' => $list_id,
+			'thumbnail_id' => $thumbnail_id,
+		) );
 	}
 }
 

@@ -40,7 +40,7 @@ class File_Management_Shortcode {
 	 */
 	public function callback_eo_upload_button( $param ) {
 		$id = 0;
-		$type = 'User';
+		$type = ! empty( $param['type'] ) ? sanitize_text_field( $param['type'] ) : 'User';
 		$action = ! empty( $param['action'] ) ? sanitize_text_field( $param['action'] ) : 'eo_associate_file';
 		$title = ! empty( $param['title'] ) ? sanitize_text_field( $param['title'] ) : '';
 
@@ -49,7 +49,9 @@ class File_Management_Shortcode {
 		}
 
 		if ( 0 !== $id ) {
-			$element = User_Class::g()->get( array(
+			$type .= '_class';
+			$type_class = '\\note_de_frais\\' . $type;
+			$element = $type_class::g()->get( array(
 				'include' => array( $id ),
 			), true );
 		} else {
