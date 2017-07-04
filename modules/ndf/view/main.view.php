@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<li class="action"></li>
 				</ul>
 
-				<ul class="row add" data-i="<?php echo $i; ?>">
+				<ul class="row add" data-i="0">
 					<li class="date" data-title="Date"><span contenteditable="true" data-name="row[0][date]"><?php echo current_time( 'mysql' ); ?></span></li>
 					<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[0][title]"></span></li>
 					<!--<li class="type toggle list" data-title="Type de note">
@@ -59,7 +59,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				</ul>
 
 				<?php
-				$i = 0;
+				$i = 1;
 				if ( ! empty( $notes ) ) :
 					foreach ( $notes as $ndf ) :
 						if ( ! empty( $ndf ) ) {

@@ -4,7 +4,7 @@ namespace note_de_frais;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
-<ul class="row">
+<ul class="row" data-i="<?php echo $i; ?>">
 	<input type="hidden" name="row[<?php echo $i; ?>][id]" value="<?php echo $ndf->id; ?>">
 	<li class="date" data-title="Date"><span contenteditable="true" data-name="row[<?php echo $i; ?>][date]"><?php echo $ndf->date_modified; ?></span></li>
 	<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[<?php echo $i; ?>][title]"><?php echo esc_html( $ndf->title ); ?></span></li>

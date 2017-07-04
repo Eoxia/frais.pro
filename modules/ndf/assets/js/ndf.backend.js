@@ -47,7 +47,14 @@ window.eoxiaJS.noteDeFrais.NDF.saveNDF = function( event ) {
 	if ( 0 !== serialize.length ) {
 		serialize += '&';
 	}
-	serialize += jQuery( this ).closest( '.row' ).children( 'input' ).serialize();
+	//Serialize += jQuery( this ).closest( '.row' ).find( 'input' ).serialize();
+	jQuery( this ).closest( '.row' ).find( 'input' ).each( function() {
+		if ( 0 !== serialize.length ) {
+			serialize += '&';
+		}
+		serialize += 'row[' + jQuery( this ).closest( '.row' ).data( 'i' ) + '][' + jQuery( this ).serialize() + ']';
+		//Row[0][associated_document_id[image][]:105]
+	} );
 	jQuery( this ).closest( '.row' ).find( 'span[contenteditable]' ).each( function( index ) {
 		if ( undefined !== jQuery( this ).data( 'name' ) ) {
 			if ( 0 !== serialize.length ) {
