@@ -45,6 +45,9 @@ class NDF_Action {
 	public function callback_modify_note_de_frais() {
 		check_ajax_referer( 'modify_note_de_frais' );
 
+		error_reporting(E_ALL);
+		ini_set('display_errors', 'on');
+
 		$group_id = isset( $_POST['group_id'] ) ? intval( $_POST['group_id'] ) : -1;
 
 		$all_old_row = array();

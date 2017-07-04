@@ -45,22 +45,21 @@ class NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\note_de_frais\sanitize_ndf_class' );
+	protected $after_post_function = array( '\note_de_frais\update_ndf' );
 
 	/**
 	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée
 	 *
 	 * @var array
 	 */
-	protected $before_put_function = array( '\note_de_frais\sanitize_ndf_class' );
+	protected $after_put_function = array( '\note_de_frais\update_ndf' );
 
 	/**
 	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array( '\note_de_frais\sanitize_ndf_class' );
-
+	// protected $after_get_function = array( '\note_de_frais\sanitize_ndf_class' );
 	/**
 	 * Le nom pour le resgister post type
 	 *

@@ -19,6 +19,18 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  */
 class Group_NDF_Model extends \eoxia\Post_Model {
 	public function __construct( $data ) {
+		$this->model['ttc'] = array(
+			'type'          => 'float',
+			'meta_type' => 'single',
+			'field'         => '_group_ndf_ttc_amount',
+		);
+
+		$this->model['tx_tva'] = array(
+			'type'          => 'float',
+			'meta_type' => 'single',
+			'field'         => '_group_ndf_tva_amount',
+		);
+
 		parent::__construct( $data );
 	}
 }
