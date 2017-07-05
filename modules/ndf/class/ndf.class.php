@@ -41,18 +41,33 @@ class NDF_Class extends \eoxia\Post_Class {
 	protected $meta_key                     = '_ndf';
 
 	/**
+	 * Fonction de callback avant d'insérer les données en mode POST.
+	 *
+	 * @var array
+	 */
+	protected $before_post_function = array( '\note_de_frais\before_update_ndf' );
+
+
+	/**
+	 * Fonction de callback avant de mêttre à jour les données en mode PUT.
+	 *
+	 * @var array
+	 */
+	protected $before_put_function = array( '\note_de_frais\before_update_ndf' );
+
+	/**
 	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée
 	 *
 	 * @var array
 	 */
-	protected $after_post_function = array( '\note_de_frais\update_ndf' );
+	protected $after_post_function = array( '\note_de_frais\after_update_ndf' );
 
 	/**
 	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée
 	 *
 	 * @var array
 	 */
-	protected $after_put_function = array( '\note_de_frais\update_ndf' );
+	protected $after_put_function = array( '\note_de_frais\after_update_ndf' );
 
 	/**
 	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée

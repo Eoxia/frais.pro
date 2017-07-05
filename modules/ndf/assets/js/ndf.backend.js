@@ -16,6 +16,7 @@ window.eoxiaJS.noteDeFrais.NDF = {};
  * @version 1.0.0.0
  */
 window.eoxiaJS.noteDeFrais.NDF.init = function() {
+	var currentFocusout = true;
 	jQuery( document ).on( 'click', '.single-note .note .close', window.eoxiaJS.noteDeFrais.NDF.closeNDF );
 	jQuery( document ).on( 'click', '.row.add .action .ion-ios-plus', window.eoxiaJS.noteDeFrais.NDF.saveNDF );
 	jQuery( document ).on( 'keydown', '.row.add span[contenteditable]', function( event ) {
@@ -24,7 +25,13 @@ window.eoxiaJS.noteDeFrais.NDF.init = function() {
 		}
 	} );
 	jQuery( document ).on( 'keydown', '.row:not(.add) span[contenteditable]', function( event ) {
-		jQuery( this ).focusout( window.eoxiaJS.noteDeFrais.NDF.saveNDF );
+		if ( currentFocusout ) {
+			jQuery( this ).focusout( function( event ) {
+				jQuery( this ).each( window.eoxiaJS.noteDeFrais.NDF.saveNDF );
+				currentFocusout = true;
+			} );
+		}
+		currentFocusout = false;
 	} );
 	jQuery( document ).on( 'click', '.toggle .content .item', window.eoxiaJS.noteDeFrais.NDF.select );
 };
@@ -75,8 +82,11 @@ window.eoxiaJS.noteDeFrais.NDF.saveNDF = function( event ) {
 window.eoxiaJS.noteDeFrais.NDF.select = function( event ) {
 	event.stopPropagation();
 	jQuery( this ).closest( '.row' ).find( '.toggle .label' ).text( jQuery( this ).text() );
-	jQuery( this ).closest( '.row' ).find( '.toggle .input' ).val( jQuery( this ).text() );
+	jQuery( this ).closest( '.row' ).find( '.toggle input' ).val( jQuery( this ).text() );
 	jQuery( this ).closest( '.row' ).find( '.toggle .content' ).removeClass( 'active' );
+	if ( ! jQuery( this ).closest( '.row' ).hasClass( 'add' ) ) {
+		jQuery( this ).each( window.eoxiaJS.noteDeFrais.NDF.saveNDF );
+	}
 };
 
 window.eoxiaJS.noteDeFrais.NDF.isModified = function() {

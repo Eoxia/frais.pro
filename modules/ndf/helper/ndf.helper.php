@@ -17,7 +17,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param  Object $data L'objet.
  * @return Object L'objet avec tous les éléments ajoutés par cette méthode.
  */
-function update_ndf( $data ) {
+function before_update_ndf( $data ) {
+	if ( 'Trajet' === $data->category_name ) {
+		$user = User_Class::g()->get( array(
+			'include' => array( get_current_user_id() ),
+		), true );
+		$data->ttc = $data->distance * $user->prixkm;
+		$data->tva = 0;
+	} else {
+		$data->distance = 0;
+	}
+	return $data;
+}
+
+function after_update_ndf( $data ) {
 	$group = Group_NDF_Class::g()->get( array(
 		'id' => $data->parent_id,
 	), true );
@@ -32,5 +45,4 @@ function update_ndf( $data ) {
 	$group->ttc = $compilated_ttc;
 	$group->tx_tva = $compilated_tva;
 	Group_NDF_Class::g()->update( $group );
-	return $data;
 }

@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 							<li class="item">Trajet</li>
 						</ul>
 					</li>
-					<li class="km" data-title="Km"><span contenteditable="true" data-name="row[0][distance]"></span></li>
+					<li class="km" data-title="Km"><span contenteditable="true" data-name="row[0][distance]">0</span></li>
 					<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-name="row[0][TaxInclusiveAmount]">0</span></li>
 					<li class="ht" data-title="HT (€)"><span contenteditable="true" data-name="row[0][TaxableAmount]">0</span></li>
 					<li class="tva" data-title="TVA récup."><span contenteditable="true" data-name="row[0][TaxAmount]">0</span></li>
