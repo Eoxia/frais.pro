@@ -40,8 +40,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				<ul class="row add" data-i="0">
 					<li class="date" data-title="Date"><span contenteditable="true" data-name="row[0][date]"><?php echo current_time( 'mysql' ); ?></span></li>
 					<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[0][title]"></span></li>
-					<!--<li class="type toggle list" data-title="Type de note">
-						<span class="action" data-name="row[0][type]" contenteditable="false" data-parent="type" data-target="content">
+					<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
+						<span class="action" data-name="row[0][category_name]" contenteditable="false" data-value="Auto">
 							<span class="label">Type de note</span>
 							<i class="icon ion-ios-arrow-down"></i>
 						</span>
@@ -49,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 							<li class="item">Auto</li>
 							<li class="item">Trajet</li>
 						</ul>
-					</li>-->
+					</li>
 					<li class="km" data-title="Km"><span contenteditable="true" data-name="row[0][distance]"></span></li>
 					<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-name="row[0][TaxInclusiveAmount]">0</span></li>
 					<li class="ht" data-title="HT (€)"><span contenteditable="true" data-name="row[0][TaxableAmount]">0</span></li>

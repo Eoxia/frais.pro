@@ -8,16 +8,16 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<input type="hidden" name="row[<?php echo $i; ?>][id]" value="<?php echo $ndf->id; ?>">
 	<li class="date" data-title="Date"><span contenteditable="true" data-name="row[<?php echo $i; ?>][date]"><?php echo $ndf->date_modified; ?></span></li>
 	<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[<?php echo $i; ?>][title]"><?php echo esc_html( $ndf->title ); ?></span></li>
-	<!--<li class="type toggle list" data-title="Type de note">
-		<span contenteditable="false" class="action" data-name="row[<?php echo $i; ?>][type]" data-parent="type" data-target="content">
-			<span class="label">Type de note</span>
+	<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
+		<span class="action" data-name="row[0][category_name]" contenteditable="false" data-value="<?php echo esc_attr( $ndf->category_name ); ?>">
+			<span class="label"><?php echo esc_attr( $ndf->category_name ); ?></span>
 			<i class="icon ion-ios-arrow-down"></i>
 		</span>
 		<ul class="content">
 			<li class="item">Auto</li>
 			<li class="item">Trajet</li>
 		</ul>
-	</li>-->
+	</li>
 	<li class="km" data-title="Km"><span contenteditable="true" data-name="row[<?php echo $i; ?>][distance]"></span></li>
 	<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-name="row[<?php echo $i; ?>][TaxInclusiveAmount]"><?php echo esc_html( $ndf->TaxInclusiveAmount ); ?></span></li>
 	<li class="ht" data-title="HT (€)"><span contenteditable="true" data-name="row[<?php echo $i; ?>][TaxableAmount]"><?php echo esc_html( $ndf->TaxableAmount ); ?></span></li>

@@ -32,6 +32,7 @@ class NDF_Model extends \eoxia\Post_Model {
 			'type'          => 'string',
 			'meta_type' => 'single',
 			'field'         => '_ndf_category_name',
+			'bydefault' => 'Auto',
 		);
 
 		$this->model['vehicule'] = array(
