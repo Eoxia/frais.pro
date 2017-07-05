@@ -9,7 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<li class="date" data-title="Date"><span contenteditable="true" data-name="row[<?php echo $i; ?>][date]"><?php echo $ndf->date_modified; ?></span></li>
 	<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[<?php echo $i; ?>][title]"><?php echo esc_html( $ndf->title ); ?></span></li>
 	<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
-		<span class="action" data-name="row[0][category_name]" contenteditable="false" data-value="<?php echo esc_attr( $ndf->category_name ); ?>">
+		<input name="category_name" type="hidden" value="<?php echo esc_attr( $ndf->category_name ); ?>"/>
+		<span class="action" contenteditable="false">
 			<span class="label"><?php echo esc_attr( $ndf->category_name ); ?></span>
 			<i class="icon ion-ios-arrow-down"></i>
 		</span>

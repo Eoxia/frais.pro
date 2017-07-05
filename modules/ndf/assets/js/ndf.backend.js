@@ -67,7 +67,6 @@ window.eoxiaJS.noteDeFrais.NDF.saveNDF = function( event ) {
 		}
 	} );
 
-	serialize += '&' + jQuery( this ).closest( '.row' ).find( '.toggle .action' ).attr( 'data-value' );
 	jQuery.post( ajaxurl, serialize, function( response ) {
 		window.eoxiaJS.noteDeFrais.NDF.refreshNDF( null, response );
 	}, 'json' );
@@ -76,7 +75,7 @@ window.eoxiaJS.noteDeFrais.NDF.saveNDF = function( event ) {
 window.eoxiaJS.noteDeFrais.NDF.select = function( event ) {
 	event.stopPropagation();
 	jQuery( this ).closest( '.row' ).find( '.toggle .label' ).text( jQuery( this ).text() );
-	jQuery( this ).closest( '.row' ).find( '.toggle .action' ).attr( 'data-value', jQuery( this ).text() );
+	jQuery( this ).closest( '.row' ).find( '.toggle .input' ).val( jQuery( this ).text() );
 	jQuery( this ).closest( '.row' ).find( '.toggle .content' ).removeClass( 'active' );
 };
 
