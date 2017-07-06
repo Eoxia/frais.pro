@@ -34,8 +34,8 @@ function after_update_ndf( $data ) {
 	$group = Group_NDF_Class::g()->get( array(
 		'id' => $data->parent_id,
 	), true );
-	$compilated_tva = 0;
-	$compilated_ttc = 0;
+	$compilated_tva = $data->TaxAmount;
+	$compilated_ttc = $data->TaxInclusiveAmount;
 	foreach ( NDF_Class::g()->get( array(
 		'post_parent' => $group->id,
 	) ) as $ndf ) {
