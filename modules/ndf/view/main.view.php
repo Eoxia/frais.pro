@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'modify_note_de_frais' ) ); ?>">
 	<div class="container">
 		<div class="header">
-			<h2 class="title" contenteditable="true" data-name="title"><?php echo $group->title; ?></h2>
+			<h2 class="title"><?php echo $group->title; ?></h2>
 			<span class="button export action-attribute"
 				data-id="<?php echo esc_attr( $group->id ); ?>"
 				data-action="export_note_de_frais"

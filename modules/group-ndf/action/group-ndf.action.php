@@ -26,7 +26,51 @@ class Group_NDF_Action {
 	 * @version 1.0.0.0
 	 */
 	public function __construct() {
+		add_action( 'wp_ajax_create_group_ndf', array( $this, 'callback_create_group_ndf' ) );
 		add_action( 'wp_ajax_export_note_de_frais', array( $this, 'callback_export_note_de_frais' ) );
+	}
+
+	public function callback_create_group_ndf() {
+		check_ajax_referer( 'create_group_ndf' );
+
+		$user = User_Class::g()->get( array(
+			'user__in' => get_current_user_id(),
+		), true );
+
+		$date = current_time( 'Y-m' );
+
+		$identifier = get_user_meta( get_current_user_id(), 'ndf_' . $date . '_identifier', true );
+
+		if ( empty( $identifier ) ) {
+			$identifier = 001;
+		} else {
+			$identifier++;
+		}
+
+		if ( strlen( $identifier ) == 1 ) {
+			$identifier = '00' . $identifier;
+		}
+
+		if ( strlen( $identifier ) == 2 ) {
+			$identifier = '0' . $identifier;
+		}
+
+		$group_ndf = Group_NDF_Class::g()->update( array(
+			'post_title' => strtoupper( $user->initial ) . '-' . $date . '-' . $identifier,
+		) );
+
+		update_user_meta( get_current_user_id(), 'ndf_' . $date . '_identifier', $identifier );
+
+		ob_start();
+		NDF_Class::g()->display( $group_ndf->id );
+		$response = ob_get_clean();
+
+		wp_send_json_success( array(
+			'namespace' => 'noteDeFrais',
+			'module' => 'NDF',
+			'callback_success' => 'openNdf',
+			'view' => $response,
+		) );
 	}
 
 	/**

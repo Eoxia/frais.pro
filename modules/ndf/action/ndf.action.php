@@ -48,14 +48,9 @@ class NDF_Action {
 
 		$group_id = isset( $_POST['group_id'] ) ? intval( $_POST['group_id'] ) : -1;
 
-		$post_row = $_POST['row'];
-		unset( $_POST['row'] );
-		$group_ndf = Group_NDF_Class::g()->update( $_POST );
-
-		if ( isset( $post_row ) ) {
-			foreach ( $post_row as $row ) {
-				$row['id'] = (int) $row['id'];
-				$row['post_parent'] = $group_ndf->id;
+		if ( isset( $_POST['row'] ) ) {
+			foreach ( $_POST['row'] as $row ) {
+				$row['post_parent'] = $group_id;
 				$current_row = NDF_Class::g()->update( $row );
 				$all_new_row[] = $current_row->id;
 			}

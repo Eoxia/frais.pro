@@ -47,3 +47,7 @@ function after_update_ndf( $data ) {
 	Group_NDF_Class::g()->update( $group );
 	return $data;
 }
+
+function get_last_identifier( $date ) {
+
+}
