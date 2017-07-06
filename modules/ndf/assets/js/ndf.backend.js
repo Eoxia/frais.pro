@@ -34,6 +34,7 @@ window.eoxiaJS.noteDeFrais.NDF.init = function() {
 		currentFocusout = false;
 	} );
 	jQuery( document ).on( 'click', '.content .toggle .content .item', window.eoxiaJS.noteDeFrais.NDF.select );
+	jQuery( document ).on( 'keydown', '.libelle span', window.eoxiaJS.noteDeFrais.NDF.focusSelect );
 };
 
 window.eoxiaJS.noteDeFrais.NDF.refreshNDF = function( triggeredElement, response ) {
@@ -90,12 +91,30 @@ window.eoxiaJS.noteDeFrais.NDF.select = function( event ) {
 	jQuery( this ).closest( '.row' ).find( '.toggle .content' ).removeClass( 'active' );
 	if ( ! jQuery( this ).closest( '.row' ).hasClass( 'add' ) ) {
 		jQuery( this ).each( window.eoxiaJS.noteDeFrais.NDF.saveNDF );
+	} else {
+		if ( 'Auto' == jQuery( this ).text() ) {
+			jQuery( this ).closest( '.row' ).find( '.km span[contenteditable]' ).attr( 'contenteditable', false );
+			jQuery( this ).closest( '.row' ).find( '.km' ).addClass( 'disabled' );
+			jQuery( this ).closest( '.row' ).find( '.ttc.disabled span[contenteditable]' ).attr( 'contenteditable', true );
+			jQuery( this ).closest( '.row' ).find( '.ttc.disabled' ).removeClass( 'disabled' );
+			jQuery( this ).closest( '.row' ).find( '.tva.disabled span[contenteditable]' ).attr( 'contenteditable', true );
+			jQuery( this ).closest( '.row' ).find( '.tva.disabled' ).removeClass( 'disabled' );
+		} else {
+			jQuery( this ).closest( '.row' ).find( '.km.disabled span[contenteditable]' ).attr( 'contenteditable', true );
+			jQuery( this ).closest( '.row' ).find( '.km.disabled' ).removeClass( 'disabled' );
+			jQuery( this ).closest( '.row' ).find( '.ttc span[contenteditable]' ).attr( 'contenteditable', false );
+			jQuery( this ).closest( '.row' ).find( '.ttc' ).addClass( 'disabled' );
+			jQuery( this ).closest( '.row' ).find( '.tva span[contenteditable]' ).attr( 'contenteditable', false );
+			jQuery( this ).closest( '.row' ).find( '.tva' ).addClass( 'disabled' );
+		}
 	}
 };
 
-window.eoxiaJS.noteDeFrais.NDF.isModified = function() {
-	jQuery( window ).on( 'beforeunload.edit-post', function() {
-		return true;
-	} );
-	jQuery( window ).trigger( 'beforeunload' );
+window.eoxiaJS.noteDeFrais.NDF.focusSelect = function( event ) {
+	var code = ( event.keyCode ? event.keyCode : event.which );
+	if ( 9 == code ) {
+		event.preventDefault();
+		jQuery( this ).blur();
+		jQuery( this ).closest( '.row' ).find( '.toggle .content' ).addClass( 'active' );
+	}
 };

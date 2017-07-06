@@ -57,7 +57,7 @@ class Group_NDF_Action {
 		}
 
 		$group_ndf = Group_NDF_Class::g()->update( array(
-			'post_title' => strtoupper( $user->initial ) . '-' . $date . '-' . $identifier,
+			'post_title' => strtoupper( $user->login ) . '-' . $date . '-' . $identifier,
 		) );
 
 		update_user_meta( get_current_user_id(), 'ndf_' . $date . '_identifier', $identifier );
