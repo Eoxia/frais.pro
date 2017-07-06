@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <ul class="row" data-i="<?php echo $i; ?>">
 	<input type="hidden" name="id" value="<?php echo $ndf->id; ?>">
-	<li class="date" data-title="Date"><span contenteditable="true" data-name="row[<?php echo $i; ?>][date]"><?php echo $ndf->date_modified; ?></span></li>
+	<li class="date" data-title="Date"><span contenteditable="true" class="date-time" data-name="row[<?php echo $i; ?>][date]"><?php echo $ndf->date; ?></span></li>
 	<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[<?php echo $i; ?>][title]"><?php echo esc_html( $ndf->title ); ?></span></li>
 	<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
 		<input name="category_name" type="hidden" value="<?php echo esc_attr( $ndf->category_name ); ?>"/>

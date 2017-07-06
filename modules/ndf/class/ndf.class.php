@@ -45,7 +45,7 @@ class NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\note_de_frais\before_update_ndf' );
+	protected $before_post_function = array( '\eoxia\convert_date_time', '\note_de_frais\before_update_ndf' );
 
 
 	/**
@@ -53,7 +53,7 @@ class NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_put_function = array( '\note_de_frais\before_update_ndf' );
+	protected $before_put_function = array( '\eoxia\convert_date_time', '\note_de_frais\before_update_ndf' );
 
 	/**
 	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée
@@ -68,6 +68,13 @@ class NDF_Class extends \eoxia\Post_Class {
 	 * @var array
 	 */
 	protected $after_put_function = array( '\note_de_frais\after_update_ndf' );
+
+	/**
+	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée
+	 *
+	 * @var array
+	 */
+	protected $after_get_function = array( '\eoxia\construct_current_date_time' );
 
 	/**
 	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée
