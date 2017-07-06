@@ -22,8 +22,8 @@ function before_update_ndf( $data ) {
 		$user = User_Class::g()->get( array(
 			'include' => array( get_current_user_id() ),
 		), true );
-		$data->ttc = $data->distance * $user->prixkm;
-		$data->tva = 0;
+		$data->TaxInclusiveAmount = $data->distance * $user->prixkm;
+		$data->TaxAmount = 0;
 	} else {
 		$data->distance = 0;
 	}
@@ -45,4 +45,5 @@ function after_update_ndf( $data ) {
 	$group->ttc = $compilated_ttc;
 	$group->tx_tva = $compilated_tva;
 	Group_NDF_Class::g()->update( $group );
+	return $data;
 }

@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	</li>
 	<li class="km<?php echo $ndf->category_name == 'Trajet' ? '': ' disabled'; ?>" data-title="Km"><span contenteditable="<?php echo $ndf->category_name == 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][distance]"><?php echo esc_html( $ndf->distance ); ?></span></li>
 	<li class="ttc<?php echo $ndf->category_name != 'Trajet' ? '': ' disabled'; ?>" data-title="TTC (€)"><span contenteditable="<?php echo $ndf->category_name != 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][TaxInclusiveAmount]"><?php echo esc_html( $ndf->TaxInclusiveAmount ); ?></span></li>
-	<li class="ht<?php echo $ndf->category_name != 'Trajet' ? '': ' disabled'; ?>" data-title="HT (€)"><span contenteditable="<?php echo $ndf->category_name != 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][TaxableAmount]"><?php echo esc_html( $ndf->TaxableAmount ); ?></span></li>
+	<?php // <li class="ht<?php echo $ndf->category_name != 'Trajet' ? '': ' disabled'; " data-title="HT (€)"><span contenteditable="<?php echo $ndf->category_name != 'Trajet' ? 'true': 'false'; " data-name="row[<?php echo $i; ][TaxableAmount]"><?php echo esc_html( $ndf->TaxableAmount ); </span></li> ?>
 	<li class="tva<?php echo $ndf->category_name != 'Trajet' ? '': ' disabled'; ?>" data-title="TVA récup."><span contenteditable="<?php echo $ndf->category_name != 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][TaxAmount]"><?php echo esc_html( $ndf->TaxAmount ); ?></span></li>
 	<li class="photo" data-title="Photo"><?php do_shortcode( '[eo_upload_button id="' . $ndf->id . '" type="ndf" namespace="note_de_frais"]' ); ?></li>
 	<li class="action"><span class="icon ion-trash-a action-attribute"

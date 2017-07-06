@@ -53,11 +53,12 @@ class NDF_Model extends \eoxia\Post_Model {
 			'field'         => '_ndf_tax_inclusive_amount',
 		);
 
+		/*
 		$this->model['TaxableAmount'] = array(
 			'type'          => 'float',
 			'meta_type' => 'single',
 			'field'         => '_ndf_taxable_amount',
-		);
+		);*/
 
 		$this->model['TaxAmount'] = array(
 			'type'          => 'float',
@@ -66,12 +67,12 @@ class NDF_Model extends \eoxia\Post_Model {
 		);
 
 		$this->model['associated_document_id'] = array(
-			'type'				=> 'array',
-			'meta_type'	=> 'multiple',
+			'type'              => 'array',
+			'meta_type' => 'multiple',
 			'child' => array(
 				'image' => array(
-					'type'				=> 'array',
-					'meta_type'	=> 'multiple'
+					'type'              => 'array',
+					'meta_type' => 'multiple',
 				),
 			),
 		);

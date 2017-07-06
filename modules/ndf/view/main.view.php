@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<!--<li class="type">Type de note</li>-->
 					<li class="km">Km</li>
 					<li class="ttc">TTC (€)</li>
-					<li class="ht">HT (€)</li>
+					<?php // <li class="ht">HT (€)</li> ?>
 					<li class="tva">TVA récup.</li>
 					<li class="photo">Photo</li>
 					<li class="action"></li>
@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					</li>
 					<li class="km" data-title="Km"><span contenteditable="true" data-name="row[0][distance]">0</span></li>
 					<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-name="row[0][TaxInclusiveAmount]">0</span></li>
-					<li class="ht" data-title="HT (€)"><span contenteditable="true" data-name="row[0][TaxableAmount]">0</span></li>
+					<?php // <li class="ht" data-title="HT (€)"><span contenteditable="true" data-name="row[0][TaxableAmount]">0</span></li> ?>
 					<li class="tva" data-title="TVA récup."><span contenteditable="true" data-name="row[0][TaxAmount]">0</span></li>
 					<li class="photo" data-title="Photo"><?php do_shortcode( '[eo_upload_button type="ndf"]' ); ?></span></li>
 					<li class="action"><span class="icon ion-ios-plus"></span><span class="icon ion-trash-a"></span></li>

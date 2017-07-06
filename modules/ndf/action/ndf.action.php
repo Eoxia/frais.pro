@@ -54,6 +54,7 @@ class NDF_Action {
 
 		if ( isset( $post_row ) ) {
 			foreach ( $post_row as $row ) {
+				$row['id'] = (int) $row['id'];
 				$row['post_parent'] = $group_ndf->id;
 				$current_row = NDF_Class::g()->update( $row );
 				$all_new_row[] = $current_row->id;
