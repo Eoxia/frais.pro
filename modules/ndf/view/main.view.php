@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				</ul>
 
 				<ul class="row add" data-i="0">
-					<li class="date" data-title="Date"><span contenteditable="true" data-name="row[0][date]"><?php echo current_time( 'mysql' ); ?></span></li>
+					<li class="date" data-title="Date"><span contenteditable="true" class="date-time" data-name="row[0][date]"><?php echo current_time( 'd/m/Y H:i' ); ?></span></li>
 					<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[0][title]"></span></li>
 					<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
 						<input name="category_name" type="hidden" value="Auto"/>
