@@ -59,7 +59,7 @@ class Group_NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array( '\note_de_frais\get_full_group' );
+	protected $after_get_function = array( '\eoxia\construct_current_date_time', '\note_de_frais\get_full_group' );
 
 	/**
 	 * Le nom pour le resgister post type

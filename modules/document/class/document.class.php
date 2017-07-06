@@ -164,7 +164,7 @@ class Document_Class extends \eoxia\Post_Class {
 
 
   	/**	Enregistrement de la fiche dans la base de donnée / Save sheet into database	*/
-  	$response[ 'filename' ] = mysql2date( 'Ymd', current_time( 'mysql', 0 ) ) . '_' . sanitize_title( str_replace( ' ', '_', $main_title_part ) ) . '.odt';
+  	$response[ 'filename' ] = sanitize_title( str_replace( ' ', '_', $main_title_part ) ) . '.odt';
   	$document_args = array(
 			'post_content'	=> '',
 			'post_status'	=> 'inherit',

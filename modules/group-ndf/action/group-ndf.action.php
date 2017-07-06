@@ -103,6 +103,7 @@ class Group_NDF_Action {
 	public function callback_export_note_de_frais() {
 		// check_ajax_referer( 'callback_export_note_de_frais' );
 		$total_ttc = 0;
+		$total_tva = 0;
 		$group_ndf = Group_NDF_Class::g()->get( array(
 			'include' => array( $_POST['id'] ),
 		), true );
@@ -135,6 +136,9 @@ class Group_NDF_Action {
 			$sheet_details['utilisateur_prenom_nom'] = $user->login;
 		}
 
+		$sheet_details['status'] = $group_ndf->validation_status;
+		$sheet_details['miseajour'] = $group_ndf->date_modified;
+
 		if ( ! empty( $ndfs ) ) {
 			foreach ( $ndfs as $ndf ) {
 				$sheet_details['ndf']['value'][] = array(
@@ -148,8 +152,11 @@ class Group_NDF_Action {
 				);
 
 				$total_ttc += $ndf->TaxInclusiveAmount;
+				$total_tva += $ndf->TaxAmount;
 			}
 		}
+
+		$sheet_details['totaltva'] = $total_tva . '€';
 
 		$sheet_details['totalttc'] = $total_ttc . '€';
 
