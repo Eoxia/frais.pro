@@ -19,6 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  */
 class Group_NDF_Model extends \eoxia\Post_Model {
 	public function __construct( $data ) {
+		$this->model['validation_status'] = array(
+			'type'          => 'string',
+			'meta_type' => 'single',
+			'field'         => '_group_ndf_validation_status',
+			'bydefault' => 'En cours',
+		);
 		$this->model['ttc'] = array(
 			'type'          => 'float',
 			'meta_type' => 'single',

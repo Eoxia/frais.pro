@@ -17,17 +17,17 @@ window.eoxiaJS.noteDeFrais.groupNDF = {};
  */
 
 window.eoxiaJS.noteDeFrais.groupNDF.init = function() {
-	jQuery( document ).on( 'focusout', '.single-note .note .title[contenteditable]', window.eoxiaJS.noteDeFrais.groupNDF.saveGroup );
+	jQuery( document ).on( 'click', '.validation_status.toggle .content .item', window.eoxiaJS.noteDeFrais.groupNDF.saveStatus );
 };
 
-window.eoxiaJS.noteDeFrais.groupNDF.saveGroup = function( event ) {
-	var serialize = jQuery( '.single-note .note' ).not( '.row' ).children( 'input' ).serialize();
-	if ( undefined !== jQuery( this ).data( 'name' ) ) {
-		if ( 0 !== serialize.length ) {
-			serialize += '&';
-		}
-		serialize += jQuery( this ).data( 'name' ) + '=' + jQuery( this ).text();
-	}
+window.eoxiaJS.noteDeFrais.groupNDF.saveStatus = function( event ) {
+	var toggle = jQuery( this ).closest( '.validation_status.toggle' );
+	var serialize = '';
+	event.stopPropagation();
+	toggle.find( '.label' ).text( jQuery( this ).text() );
+	toggle.find( 'input[name="validation_status"]' ).val( jQuery( this ).text() );
+	toggle.find( '.content' ).removeClass( 'active' );
+	serialize = toggle.find( 'input' ).serialize();
 	jQuery.post( ajaxurl, serialize );
 };
 

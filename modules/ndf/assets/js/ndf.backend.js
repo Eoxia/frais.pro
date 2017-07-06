@@ -33,13 +33,15 @@ window.eoxiaJS.noteDeFrais.NDF.init = function() {
 		}
 		currentFocusout = false;
 	} );
-	jQuery( document ).on( 'click', '.toggle .content .item', window.eoxiaJS.noteDeFrais.NDF.select );
+	jQuery( document ).on( 'click', '.content .toggle .content .item', window.eoxiaJS.noteDeFrais.NDF.select );
 };
 
 window.eoxiaJS.noteDeFrais.NDF.refreshNDF = function( triggeredElement, response ) {
 	jQuery( '.single-note' ).html( response.data.view );
 	jQuery( '.note[data-group_id="' + response.data.group.id + '"] .ttc .value' ).text( response.data.group.ttc );
 	jQuery( '.note[data-group_id="' + response.data.group.id + '"] .tva .value' ).text( response.data.group.tx_tva );
+	jQuery( '.note[data-group_id="' + response.data.group.id + '"] .update .value' ).text( response.data.group.date_modified );
+	jQuery( '.note[data-group_id="' + response.data.group.id + '"] .status .value' ).text( response.data.group.validation_status );
 };
 
 window.eoxiaJS.noteDeFrais.NDF.openNdf = function( triggeredElement, response ) {

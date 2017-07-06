@@ -27,6 +27,7 @@ class Group_NDF_Action {
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_create_group_ndf', array( $this, 'callback_create_group_ndf' ) );
+		add_action( 'wp_ajax_modify_group_ndf', array( $this, 'callback_modify_group_ndf' ) );
 		add_action( 'wp_ajax_export_note_de_frais', array( $this, 'callback_export_note_de_frais' ) );
 	}
 
@@ -73,6 +74,24 @@ class Group_NDF_Action {
 		) );
 	}
 
+	public function callback_modify_group_ndf() {
+		check_ajax_referer( 'modify_group_ndf' );
+
+		$group = Group_NDF_Class::g()->update( $_POST );
+
+		ob_start();
+		NDF_Class::g()->display( $group_ndf->id );
+		$response = ob_get_clean();
+
+		wp_send_json_success( array(
+			'namespace' => 'noteDeFrais',
+			'module' => 'NDF',
+			'callback_success' => 'refreshNDF',
+			'group' => $group,
+			'view' => $response,
+		) );
+	}
+
 	/**
 	 * Génère un document .odt avec les données qui vont bien
 	 *
@@ -83,7 +102,6 @@ class Group_NDF_Action {
 	 */
 	public function callback_export_note_de_frais() {
 		// check_ajax_referer( 'callback_export_note_de_frais' );
-
 		$total_ttc = 0;
 		$group_ndf = Group_NDF_Class::g()->get( array(
 			'include' => array( $_POST['id'] ),
@@ -100,8 +118,7 @@ class Group_NDF_Action {
 		$sheet_details = array(
 			'ndf' => array(
 				'type' => 'segment',
-				'value' => array(
-				),
+				'value' => array(),
 			),
 		);
 

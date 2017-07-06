@@ -82,4 +82,23 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		</div>
 
 	</div>
+	<div class="status">Status :
+		<span class="validation_status toggle list" data-parent="toggle" data-target="content" data-title="En cours">
+			<input type="hidden" name="id" value="<?php echo esc_attr( $group->id ); ?>">
+			<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'modify_group_ndf' ) ); ?>">
+			<input name="action" type="hidden" value="modify_group_ndf"/>
+			<input name="validation_status" type="hidden" value="<?php echo esc_html( $group->validation_status ); ?>"/>
+			<span class="action" contenteditable="false">
+				<span class="label"><?php echo esc_attr( $group->validation_status ); ?></span>
+				<i class="icon ion-ios-arrow-down"></i>
+			</span>
+			<ul class="content">
+				<li class="item">En cours</li>
+				<li class="item">Validée</li>
+				<li class="item">Payée</li>
+				<li class="item">Refusée</li>
+			</ul>
+		</span>
+	</div>
+	<div class="update">MAJ : <?php echo esc_html( $group->date_modified ); ?></div>
 </div>
