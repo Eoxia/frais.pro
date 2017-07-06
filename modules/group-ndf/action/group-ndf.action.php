@@ -84,6 +84,7 @@ class Group_NDF_Action {
 	public function callback_export_note_de_frais() {
 		// check_ajax_referer( 'callback_export_note_de_frais' );
 
+		$total_ttc = 0;
 		$group_ndf = Group_NDF_Class::g()->get( array(
 			'include' => array( $_POST['id'] ),
 		), true );
@@ -91,6 +92,10 @@ class Group_NDF_Action {
 		$ndfs = NDF_Class::g()->get( array(
 			'post_parent' => $_POST['id'],
 		) );
+
+		$user = User_Class::g()->get( array(
+			'user__in' => $group_ndf->author_id,
+		), true );
 
 		$sheet_details = array(
 			'ndf' => array(
@@ -100,19 +105,36 @@ class Group_NDF_Action {
 			),
 		);
 
+		$periode = explode( '-', $group_ndf->title );
+		$periode = $periode[2] . '/' . $periode[1];
+
+		if ( ! empty( $user->firstname ) && ! empty( $user->lastname ) ) {
+			$sheet_details['utilisateur_prenom_nom'] = $user->firstname . ' ' . $user->lastname;
+		}
+		$sheet_details['utilisateur_email'] = $user->email;
+		$sheet_details['periode'] = $periode;
+
+		if ( empty( $sheet_details['utilisateur_prenom_nom'] ) ) {
+			$sheet_details['utilisateur_prenom_nom'] = $user->login;
+		}
+
 		if ( ! empty( $ndfs ) ) {
 			foreach ( $ndfs as $ndf ) {
 				$sheet_details['ndf']['value'][] = array(
 					'date' => $ndf->date,
 					'libelle' => $ndf->title,
 					'km' => $ndf->distance,
-					'ttc' => $ndf->TaxInclusiveAmount,
-					'tva' => $ndf->TaxAmount,
+					'ttc' => $ndf->TaxInclusiveAmount . '€',
+					'tva' => $ndf->TaxAmount . '€',
 					'tvarecup' => 'Je n\'existe pas',
 					'photo' => 'photo',
 				);
+
+				$total_ttc += $ndf->TaxInclusiveAmount;
 			}
 		}
+
+		$sheet_details['totalttc'] = $total_ttc . '€';
 
 		$response = document_class::g()->create_document( $group_ndf, $sheet_details );
 		wp_send_json_success( array(

@@ -60,10 +60,15 @@ class NDF_Action {
 		NDF_Class::g()->display( $group_id );
 		$response = ob_get_clean();
 
+		$group = Group_NDF_Class::g()->get( array(
+			'post__in' => array( $group_id ),
+		), true );
+
 		wp_send_json_success( array(
 			'namespace' => 'noteDeFrais',
 			'module' => 'NDF',
 			'callback_success' => 'refreshNDF',
+			'group' => $group,
 			'view' => $response,
 		) );
 	}
@@ -74,7 +79,12 @@ class NDF_Action {
 		$group_id = isset( $_POST['group_id'] ) ? intval( $_POST['group_id'] ) : -1;
 		$row_to_delete = isset( $_POST['ndf_id'] ) ? intval( $_POST['ndf_id'] ) : -1;
 
-		wp_delete_post( $row_to_delete, true );
+		$row = NDF_Class::g()->get( array(
+			'post__in' => array( $row_to_delete ),
+		), true );
+
+		$row->status = 'trash';
+		NDF_Class::g()->update( $row );
 
 		ob_start();
 		NDF_Class::g()->display( $group_id );
