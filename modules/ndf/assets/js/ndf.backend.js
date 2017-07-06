@@ -89,6 +89,22 @@ window.eoxiaJS.noteDeFrais.NDF.select = function( event ) {
 	jQuery( this ).closest( '.row' ).find( '.toggle .content' ).removeClass( 'active' );
 	if ( ! jQuery( this ).closest( '.row' ).hasClass( 'add' ) ) {
 		jQuery( this ).each( window.eoxiaJS.noteDeFrais.NDF.saveNDF );
+	} else {
+		if ( jQuery( this ).text() == 'Auto' ) {
+			jQuery( this ).closest( '.row' ).find( '.km span[contenteditable]' ).attr( 'contenteditable', false );
+			jQuery( this ).closest( '.row' ).find( '.km' ).addClass( 'disabled' );
+			jQuery( this ).closest( '.row' ).find( '.ttc.disabled span[contenteditable]' ).attr( 'contenteditable', true );
+			jQuery( this ).closest( '.row' ).find( '.ttc.disabled' ).removeClass( 'disabled' );
+			jQuery( this ).closest( '.row' ).find( '.tva.disabled span[contenteditable]' ).attr( 'contenteditable', true );
+			jQuery( this ).closest( '.row' ).find( '.tva.disabled' ).removeClass( 'disabled' );
+		} else {
+			jQuery( this ).closest( '.row' ).find( '.km.disabled span[contenteditable]' ).attr( 'contenteditable', true );
+			jQuery( this ).closest( '.row' ).find( '.km.disabled' ).removeClass( 'disabled' );
+			jQuery( this ).closest( '.row' ).find( '.ttc span[contenteditable]' ).attr( 'contenteditable', false );
+			jQuery( this ).closest( '.row' ).find( '.ttc' ).addClass( 'disabled' );
+			jQuery( this ).closest( '.row' ).find( '.tva span[contenteditable]' ).attr( 'contenteditable', false );
+			jQuery( this ).closest( '.row' ).find( '.tva' ).addClass( 'disabled' );
+		}
 	}
 };
 
