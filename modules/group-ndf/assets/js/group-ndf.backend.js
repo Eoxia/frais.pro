@@ -22,6 +22,7 @@ window.eoxiaJS.noteDeFrais.groupNDF.init = function() {
 
 window.eoxiaJS.noteDeFrais.groupNDF.saveStatus = function( event ) {
 	var toggle = jQuery( this ).closest( '.validation_status.toggle' );
+	var type = jQuery( this ).closest( 'li' ).data( 'type' );
 	var serialize = '';
 	event.stopPropagation();
 	toggle.find( '.label' ).html( jQuery( this ).text() );
@@ -30,6 +31,8 @@ window.eoxiaJS.noteDeFrais.groupNDF.saveStatus = function( event ) {
 	toggle.find( '.content' ).removeClass( 'active' );
 	serialize = toggle.find( 'input' ).serialize();
 	jQuery.post( ajaxurl, serialize, function( response ) {
+		console.log(jQuery( '.note[data-group_id="' + response.data.group.id + '"] span.value' )[0]);
+		jQuery( '.note[data-group_id="' + response.data.group.id + '"] .status span.value' )[0].className = 'value pin-status ' + type;
 		window.eoxiaJS.noteDeFrais.NDF.refreshNDF( null, response );
 	}, 'json' );
 };
