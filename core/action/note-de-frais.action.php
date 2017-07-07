@@ -145,7 +145,7 @@ class Note_De_Frais_Action {
 	 * @version 1.0.0.0
 	 */
 	public function callback_admin_menu() {
-		add_menu_page( __( 'Note de frais', 'note-de-frais' ), __( 'Note de frais', 'note-de-frais' ), 'manage_options', 'note-de-frais', array( Note_De_Frais_Class::g(), 'display' ) );
+		add_menu_page( __( 'Note de frais', 'note-de-frais' ), __( 'Note de frais', 'note-de-frais' ), 'manage_options', 'note-de-frais', array( Note_De_Frais_Class::g(), 'display' ), 'dashicons-format-aside' );
 		add_submenu_page( 'note-de-frais', __( 'Archives', 'note-de-frais' ), __( 'Archives', 'note-de-frais' ), 'manage_options', 'note-de-frais-archive', array( Note_De_Frais_Class::g(), 'display_archive' ) );
 	}
 
