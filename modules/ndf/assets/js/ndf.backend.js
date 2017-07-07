@@ -43,7 +43,7 @@ window.eoxiaJS.noteDeFrais.NDF.refreshNDF = function( triggeredElement, response
 		jQuery( '.note[data-group_id="' + response.data.group.id + '"] .ttc .value' ).text( response.data.group.ttc );
 		jQuery( '.note[data-group_id="' + response.data.group.id + '"] .tva .value' ).text( response.data.group.tx_tva );
 		jQuery( '.note[data-group_id="' + response.data.group.id + '"] .update .value' ).text( response.data.group.date_modified );
-		jQuery( '.note[data-group_id="' + response.data.group.id + '"] .status .value' ).text( response.data.group.validation_status );
+		jQuery( '.note[data-group_id="' + response.data.group.id + '"] .status .value' ).html( response.data.group.validation_status );
 	}
 };
 

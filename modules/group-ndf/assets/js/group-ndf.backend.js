@@ -28,7 +28,9 @@ window.eoxiaJS.noteDeFrais.groupNDF.saveStatus = function( event ) {
 	toggle.find( 'input[name="validation_status"]' ).val( jQuery( this ).html() );
 	toggle.find( '.content' ).removeClass( 'active' );
 	serialize = toggle.find( 'input' ).serialize();
-	jQuery.post( ajaxurl, serialize );
+	jQuery.post( ajaxurl, serialize, function( response ) {
+		window.eoxiaJS.noteDeFrais.NDF.refreshNDF( null, response );
+	}, 'json' );
 };
 
 window.eoxiaJS.noteDeFrais.groupNDF.exportedNoteDeFraisSuccess = function( triggeredElement, response ) {
