@@ -3481,6 +3481,27 @@
 .eox-note-frais .note .header .export:hover {
   background: rgba(255, 255, 255, 0.3); }
 
+.eox-note-frais .note .header .status .pin-status, .eox-note-frais .note .header .validation_status .pin-status {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  background: #fff; }
+
+.eox-note-frais .note .header .status .pin-status.en-cours, .eox-note-frais .note .header .validation_status .pin-status.en-cours {
+  background: #9b59b6; }
+
+.eox-note-frais .note .header .status .pin-status.valide, .eox-note-frais .note .header .validation_status .pin-status.valide {
+  background: #139bf2; }
+
+.eox-note-frais .note .header .status .pin-status.paye, .eox-note-frais .note .header .validation_status .pin-status.paye {
+  background: #47e58e; }
+
+.eox-note-frais .note .header .status .pin-status.refuse, .eox-note-frais .note .header .validation_status .pin-status.refuse {
+  background: #e05353; }
+
 .eox-note-frais .liste-note {
   opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
@@ -3564,8 +3585,7 @@
   width: 100%;
   margin-right: 160px;
   margin-left: 15px;
-  padding: 0 0 4px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 0;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
@@ -3574,15 +3594,23 @@
 .eox-note-frais .single-note .header .title:focus {
   border-bottom: 1px solid white; }
 
-.eox-note-frais .single-note .header .export {
-  right: 80px; }
+.eox-note-frais .single-note .header .validation_status {
+  margin: auto 80px auto 0;
+  width: 220px; }
+
+.eox-note-frais .single-note .header .validation_status .action {
+  padding: 1em;
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  display: inline-block; }
+
+.eox-note-frais .single-note .header .validation_status .action .icon:before {
+  color: #fff; }
 
 .eox-note-frais .single-note .header .close {
   color: rgba(255, 255, 255, 0.6);
-  position: absolute;
-  right: 15px;
-  line-height: 50px;
-  font-size: 74px; }
+  font-size: 40px;
+  margin: auto 0; }
 
 .eox-note-frais .single-note .header .close:hover {
   cursor: pointer;
@@ -3957,7 +3985,11 @@
   position: absolute;
   top: 16px;
   right: 20px;
-  color: rgba(0, 0, 0, 0.6) !important; }
+  color: rgba(0, 0, 0, 0.6) !important;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
 
 .eox-note-frais .toggle .action:hover {
   cursor: pointer; }
@@ -3987,7 +4019,9 @@
   z-index: 99;
   padding: 0;
   width: 100%;
-  max-width: 220px; }
+  max-width: 220px;
+  -webkit-box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.2); }
 
 .eox-note-frais .toggle .content:before {
   display: block;
@@ -4013,6 +4047,7 @@
 
 .eox-note-frais .toggle .content .item {
   padding: 8px 12px;
+  margin: 0;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
