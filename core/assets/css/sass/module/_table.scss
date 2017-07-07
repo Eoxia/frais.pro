@@ -61,14 +61,30 @@
 			&.ttc, &.tva {
 				font-weight: 700;
 			}
+			&.photo {
+				.media {
+					background: $color__grey;
+				}
+			}
 		}
 		&:nth-of-type( odd ) {
-			span[contenteditable], .toggle .content, .toggle .content:before {
-				background: darken( $color__grey, 6% );
+			span[contenteditable], .toggle .content {
+				background: darken( $color__grey, 5% );
+			}
+			.disabled span {
+				background: url("images/disabled-pattern.png") darken( $color__grey, 5% ) !important;
+			}
+			.toggle .content:before {
+				border-color: transparent transparent darken( $color__grey, 6% ) transparent;
 			}
 			.toggle .content {
 				&:before {
 
+				}
+			}
+			.photo {
+				.media {
+					background: darken( $color__grey, 6% );
 				}
 			}
 		}
@@ -91,7 +107,7 @@
 			}
 		}
 		&.add {
-			margin-top: 20px;
+			margin-bottom: 20px;
 			.icon {
 				color: $color__blue;
 				&:hover {

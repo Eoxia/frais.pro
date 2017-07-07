@@ -26,11 +26,15 @@
 			width: 220px;
 			.action {
 				padding: 1em;
-				background: rgba(255, 255, 255, 0.3);
+				background: rgba(255, 255, 255, 0.2);
 				color: #fff;
 				display: inline-block;
+				@include transition();
 				.icon:before {
 					color: #fff;
+				}
+				&:hover {
+					background: rgba(255, 255, 255, 0.3);
 				}
 			}
 		}
