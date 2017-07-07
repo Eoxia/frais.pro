@@ -85,7 +85,7 @@ class Group_NDF_Action {
 		$group = Group_NDF_Class::g()->update( $_POST );
 
 		ob_start();
-		NDF_Class::g()->display( $group_ndf->id );
+		NDF_Class::g()->display( $group->id );
 		$response = ob_get_clean();
 
 		wp_send_json_success( array(
