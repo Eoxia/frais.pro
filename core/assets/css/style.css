@@ -4029,3 +4029,67 @@
   .eox-note-frais .toggle.option .content:before {
     left: auto;
     right: 20px; } }
+
+.eox-note-frais .loading, .eox-note-frais.loading {
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  pointer-events: none;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  position: relative; }
+
+.eox-note-frais .loading:before, .eox-note-frais.loading:before {
+  display: inline-block;
+  content: '';
+  border: 3px solid #a7a7a7;
+  border-top: 3px solid #9b59b6;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  z-index: 99;
+  left: 50%;
+  top: 50%;
+  -webkit-animation: spin 1s ease-out infinite;
+     -moz-animation: spin 1s ease-out infinite;
+       -o-animation: spin 1s ease-out infinite;
+          animation: spin 1s ease-out infinite; }
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: translate(-50%, -50%) rotate(0deg);
+            transform: translate(-50%, -50%) rotate(0deg); }
+  100% {
+    -webkit-transform: translate(-50%, -50%) rotate(360deg);
+            transform: translate(-50%, -50%) rotate(360deg); } }
+
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: translate(-50%, -50%) rotate(0deg);
+         transform: translate(-50%, -50%) rotate(0deg); }
+  100% {
+    -moz-transform: translate(-50%, -50%) rotate(360deg);
+         transform: translate(-50%, -50%) rotate(360deg); } }
+
+@-o-keyframes spin {
+  0% {
+    -o-transform: translate(-50%, -50%) rotate(0deg);
+       transform: translate(-50%, -50%) rotate(0deg); }
+  100% {
+    -o-transform: translate(-50%, -50%) rotate(360deg);
+       transform: translate(-50%, -50%) rotate(360deg); } }
+
+@keyframes spin {
+  0% {
+    -webkit-transform: translate(-50%, -50%) rotate(0deg);
+       -moz-transform: translate(-50%, -50%) rotate(0deg);
+         -o-transform: translate(-50%, -50%) rotate(0deg);
+            transform: translate(-50%, -50%) rotate(0deg); }
+  100% {
+    -webkit-transform: translate(-50%, -50%) rotate(360deg);
+       -moz-transform: translate(-50%, -50%) rotate(360deg);
+         -o-transform: translate(-50%, -50%) rotate(360deg);
+            transform: translate(-50%, -50%) rotate(360deg); } }
