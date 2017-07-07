@@ -66,6 +66,11 @@
 					background: $color__grey;
 				}
 			}
+			&.libelle {
+				span { 
+					white-space: normal;
+				}
+			}
 		}
 		&:nth-of-type( odd ) {
 			span[contenteditable], .toggle .content {

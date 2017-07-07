@@ -28,10 +28,10 @@
 		pointer-events: none;
 	}
 	&:not(.no-file) .add {
-		opacity: 0;
-		left: 18px;
-		top: 18px;
-		color: #fff;
+		opacity: 1;
+		right: -4px;
+		top: -4px;
+		color: rgba(0,0,0,0.6);
 	}
 	&.no-file .add {
 		opacity: 1;

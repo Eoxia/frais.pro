@@ -3492,8 +3492,9 @@
 .eox-note-frais .note .header .export:hover {
   background: rgba(255, 255, 255, 0.3); }
 
-.eox-note-frais .note .status .pin-status, .eox-note-frais .note .validation_status .pin-status {
+.eox-note-frais .note .status .pin-status:before, .eox-note-frais .note .validation_status .pin-status:before {
   display: inline-block;
+  content: '';
   width: 8px;
   height: 8px;
   margin-right: 8px;
@@ -3501,16 +3502,16 @@
           border-radius: 50%;
   background: #fff; }
 
-.eox-note-frais .note .status .pin-status.en-cours, .eox-note-frais .note .validation_status .pin-status.en-cours {
+.eox-note-frais .note .status .pin-status.en-cours:before, .eox-note-frais .note .validation_status .pin-status.en-cours:before {
   background: #9b59b6; }
 
-.eox-note-frais .note .status .pin-status.valide, .eox-note-frais .note .validation_status .pin-status.valide {
+.eox-note-frais .note .status .pin-status.valide:before, .eox-note-frais .note .validation_status .pin-status.valide:before {
   background: #139bf2; }
 
-.eox-note-frais .note .status .pin-status.paye, .eox-note-frais .note .validation_status .pin-status.paye {
+.eox-note-frais .note .status .pin-status.paye:before, .eox-note-frais .note .validation_status .pin-status.paye:before {
   background: #47e58e; }
 
-.eox-note-frais .note .status .pin-status.refuse, .eox-note-frais .note .validation_status .pin-status.refuse {
+.eox-note-frais .note .status .pin-status.refuse:before, .eox-note-frais .note .validation_status .pin-status.refuse:before {
   background: #e05353; }
 
 .eox-note-frais .liste-note {
@@ -3850,6 +3851,9 @@
 
 .eox-note-frais .flex-table .row li.photo .media {
   background: #f3f3f3; }
+
+.eox-note-frais .flex-table .row li.libelle span {
+  white-space: normal; }
 
 .eox-note-frais .flex-table .row:nth-of-type(odd) span[contenteditable], .eox-note-frais .flex-table .row:nth-of-type(odd) .toggle .content {
   background: #e6e6e6; }
@@ -4220,11 +4224,11 @@
   pointer-events: none; }
 
 .eox-note-frais .media:not(.no-file) .add {
-  opacity: 0;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  left: 18px;
-  top: 18px;
-  color: #fff; }
+  opacity: 1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  right: -4px;
+  top: -4px;
+  color: rgba(0, 0, 0, 0.6); }
 
 .eox-note-frais .media.no-file .add {
   opacity: 1;
