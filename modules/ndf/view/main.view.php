@@ -31,9 +31,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<li data-type="refuse" class="item pin-status refuse">Refusée</li>
 				</ul>
 			</div>
-			<span class="button export action-attribute"
+			<span class="button export action-attribute tooltip hover"
 				data-id="<?php echo esc_attr( $group->id ); ?>"
 				data-action="export_note_de_frais"
+				aria-label="Exporter"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_note_de_frais' ) ); ?>"><i class="icon ion-share"></i></span>
 		</div>
 
