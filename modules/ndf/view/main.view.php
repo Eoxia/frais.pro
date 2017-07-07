@@ -21,14 +21,14 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				<input name="action" type="hidden" value="modify_group_ndf"/>
 				<input name="validation_status" type="hidden" value="<?php echo esc_html( $group->validation_status ); ?>"/>
 				<span class="action">
-					<span class="label"><?php echo $group->validation_status; ?></span>
+					<span class="label pin-status en-cours"><?php echo $group->validation_status; ?></span>
 					<i class="icon ion-ios-arrow-down"></i>
 				</span>
 				<ul class="content">
-					<li class="item"><span class="pin-status en-cours"></span>En cours</li>
-					<li class="item"><span class="pin-status valide"></span>Validée</li>
-					<li class="item"><span class="pin-status paye"></span>Payée</li>
-					<li class="item"><span class="pin-status refuse"></span>Refusée</li>
+					<li class="item pin-status en-cours">En cours</li>
+					<li class="item pin-status valide">Validée</li>
+					<li class="item pin-status paye">Payée</li>
+					<li class="item pin-status refuse">Refusée</li>
 				</ul>
 			</div>
 			<span class="button export action-attribute"
