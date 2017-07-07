@@ -59,6 +59,10 @@ window.eoxiaJS.noteDeFrais.NDF.closeNDF = function( event ) {
 	jQuery( '.eox-note-frais' ).removeClass( 'active-single' );
 };
 
+window.eoxiaJS.noteDeFrais.NDF.confirmDeletion = function( element ) {
+	return confirm( jQuery( element ).data().confirmText );
+}
+
 window.eoxiaJS.noteDeFrais.NDF.saveNDF = function( event ) {
 	var name, extra, value = '';
 	var serialize = jQuery( '.single-note .note' ).not( '.row' ).children( 'input' ).serialize();

@@ -28,5 +28,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>"
 		data-group-id="<?php echo esc_attr( $group->id ); ?>"
 		data-action="delete_note_de_frais"
+		data-namespace="noteDeFrais"
+		data-module="NDF"
+		data-before-method="confirmDeletion"
+		data-confirm-text="Confirmer"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_note_de_frais' ) ); ?>"></span></li>
 </ul>
