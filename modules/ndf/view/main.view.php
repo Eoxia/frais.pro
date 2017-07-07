@@ -13,12 +13,28 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'modify_note_de_frais' ) ); ?>">
 	<div class="container">
 		<div class="header">
+			<span class="button close"><i class="icon ion-ios-arrow-left"></i></span>
 			<h2 class="title"><?php echo $group->title; ?></h2>
+			<div class="validation_status toggle list" data-parent="toggle" data-target="content" data-title="En cours">
+				<input type="hidden" name="id" value="<?php echo esc_attr( $group->id ); ?>">
+				<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'modify_group_ndf' ) ); ?>">
+				<input name="action" type="hidden" value="modify_group_ndf"/>
+				<input name="validation_status" type="hidden" value="<?php echo esc_html( $group->validation_status ); ?>"/>
+				<span class="action">
+					<span class="label"><?php echo $group->validation_status; ?></span>
+					<i class="icon ion-ios-arrow-down"></i>
+				</span>
+				<ul class="content">
+					<li class="item"><span class="pin-status en-cours"></span>En cours</li>
+					<li class="item"><span class="pin-status valide"></span>Validée</li>
+					<li class="item"><span class="pin-status paye"></span>Payée</li>
+					<li class="item"><span class="pin-status refuse"></span>Refusée</li>
+				</ul>
+			</div>
 			<span class="button export action-attribute"
 				data-id="<?php echo esc_attr( $group->id ); ?>"
 				data-action="export_note_de_frais"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_note_de_frais' ) ); ?>"><i class="icon ion-share"></i></span>
-			<span class="button close"><i class="icon ion-ios-close-empty"></i></span>
 		</div>
 
 		<div class="content gridwrapper">
@@ -81,24 +97,6 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 		</div>
 
-	</div>
-	<div class="status">Status :
-		<span class="validation_status toggle list" data-parent="toggle" data-target="content" data-title="En cours">
-			<input type="hidden" name="id" value="<?php echo esc_attr( $group->id ); ?>">
-			<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'modify_group_ndf' ) ); ?>">
-			<input name="action" type="hidden" value="modify_group_ndf"/>
-			<input name="validation_status" type="hidden" value="<?php echo esc_html( $group->validation_status ); ?>"/>
-			<span class="action" contenteditable="false">
-				<span class="label"><?php echo esc_attr( $group->validation_status ); ?></span>
-				<i class="icon ion-ios-arrow-down"></i>
-			</span>
-			<ul class="content">
-				<li class="item">En cours</li>
-				<li class="item">Validée</li>
-				<li class="item">Payée</li>
-				<li class="item">Refusée</li>
-			</ul>
-		</span>
 	</div>
 	<div class="update">MAJ : <?php echo esc_html( $group->date_modified ); ?></div>
 </div>

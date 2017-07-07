@@ -15,22 +15,29 @@
 			width: 100%;
 			margin-right: 160px;
 			margin-left: 15px;
-			padding: 0 0 4px 0;
-			border-bottom: 1px solid rgba(255,255,255,0.5);
+			padding: 0;
 			@include transition;
 			&:focus {
 				border-bottom: 1px solid rgba(255,255,255,1);
 			}
 		}
-		.export {
-			right: 80px;
+		.validation_status {
+			margin: auto 80px auto 0;
+			width: 220px;
+			.action {
+				padding: 1em;
+				background: rgba(255, 255, 255, 0.3);
+				color: #fff;
+				display: inline-block;
+				.icon:before {
+					color: #fff;
+				}
+			}
 		}
 		.close {
 			color: rgba(255,255,255,0.6);
-			position: absolute;
-			right: 15px;
-			line-height: 50px;
-			font-size: 74px;
+			font-size: 40px;
+			margin: auto 0;
 			&:hover {
 				cursor: pointer;
 				color: rgba(255,255,255,1);
