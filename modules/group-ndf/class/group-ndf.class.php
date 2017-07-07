@@ -90,6 +90,7 @@ class Group_NDF_Class extends \eoxia\Post_Class {
 
 		\eoxia\View_Util::exec( 'note-de-frais', 'group-ndf', 'main', array(
 			'groups_ndf' => $groups_ndf,
+			'status' => $status,
 		) );
 	}
 

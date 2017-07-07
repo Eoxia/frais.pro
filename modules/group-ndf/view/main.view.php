@@ -14,10 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <section class="eox-note-frais">
 
-	<h1>Mes notes de frais</h1>
-	<div class="add-ndf button blue action-attribute"
-			data-action="create_group_ndf"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_group_ndf' ) ); ?>"><i class="icon ion-plus-round"></i><span>Ajout</span></div>
+	<h1>Mes notes de frais <?php echo ! empty( $status ) && 'archive' === $status ? 'archivées': ''; ?></h1>
+
+	<?php if ( ! empty( $status ) && 'publish' === $status ) : ?>
+		<div class="add-ndf button blue action-attribute"
+				data-action="create_group_ndf"
+				data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_group_ndf' ) ); ?>"><i class="icon ion-plus-round"></i><span>Ajout</span></div>
+	<?php endif; ?>
 
 	<div class="main-container">
 		<div class="liste-note gridwrapper w3">
