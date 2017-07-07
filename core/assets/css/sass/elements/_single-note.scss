@@ -13,7 +13,6 @@
 	.header {
 		.title {
 			width: 100%;
-			margin-right: 160px;
 			margin-left: 15px;
 			padding: 0;
 			@include transition;
@@ -23,7 +22,7 @@
 		}
 		.validation_status {
 			margin: auto 80px auto 0;
-			width: 220px;
+			min-width: 160px;
 			.action {
 				padding: 1em;
 				background: rgba(255, 255, 255, 0.2);
@@ -61,6 +60,24 @@
     font-style: italic;
     padding: 0;
 		margin-top: 1em;
+	}
+
+	@media ( max-width: 620px ) {
+		.header {
+			flex-wrap: wrap;
+			height: auto;
+			.close {
+				width: 20%;
+			}
+			.title {
+				width: 80%;
+				margin: auto 0;
+			}
+			.export {
+				position: static;
+				margin-left: auto;
+			}
+		}
 	}
 
 }

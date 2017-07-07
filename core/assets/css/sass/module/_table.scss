@@ -67,7 +67,7 @@
 				}
 			}
 			&.libelle {
-				span { 
+				span {
 					white-space: normal;
 				}
 			}
@@ -139,8 +139,8 @@
 		}
 		.row {
 			flex-wrap: wrap;
-			margin-bottom: 10px;
-			padding-bottom: 10px;
+			margin-bottom: 40px !important;
+			padding-bottom: 40px;
 			border-bottom: 1px solid rgba(0,0,0,0.1);
 			li {
 				margin: 0;
@@ -159,15 +159,15 @@
 				max-width: none;
 				min-width: 0;
 			}
-			.date { width: 70%; order: 2; }
+			.date { width: 70%; order: 2; margin-left: 4px; }
 			.libelle { width: 100%; order: 4; }
 			.type { width: 50%; order: 5; }
 			.km { width: 50%; order: 6; }
-			.ttc { width: 33.333333%; order: 7; }
-			.ht { width: 33.333333%; order: 8; }
-			.tva { width: 33.333333%; order: 9; }
+			.ttc { width: 50%; order: 7; }
+			// .ht { width: 50%; order: 8; }
+			.tva { width: 50%; order: 9; }
 			.photo { order: 1; max-width: 50px; min-width: 50px; }
-			.action { order: 3; width: auto; margin-left: auto; }
+			.action { order: 3; width: auto; margin: auto 0 auto auto; }
 		}
 	}
 	@media ( max-width: 360px ) {
