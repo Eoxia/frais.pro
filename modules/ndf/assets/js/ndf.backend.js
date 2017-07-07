@@ -80,7 +80,7 @@ window.eoxiaJS.noteDeFrais.NDF.saveNDF = function( event ) {
 			serialize += jQuery( this ).data( 'name' ) + '=' + jQuery( this ).text();
 		}
 	} );
-
+	jQuery( this ).closest( '.row' ).addClass( 'loading' );
 	jQuery.post( ajaxurl, serialize, function( response ) {
 		window.eoxiaJS.noteDeFrais.NDF.refreshNDF( null, response );
 	}, 'json' );
