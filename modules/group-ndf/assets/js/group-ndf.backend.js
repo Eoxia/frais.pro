@@ -39,3 +39,6 @@ window.eoxiaJS.noteDeFrais.groupNDF.saveStatus = function( event ) {
 window.eoxiaJS.noteDeFrais.groupNDF.exportedNoteDeFraisSuccess = function( triggeredElement, response ) {
 	window.eoxiaJS.global.downloadFile( response.data.link, response.data.filename );
 };
+window.eoxiaJS.noteDeFrais.groupNDF.archived = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).closest( '.note' ).fadeOut();
+};

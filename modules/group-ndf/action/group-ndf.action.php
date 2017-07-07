@@ -28,6 +28,7 @@ class Group_NDF_Action {
 	public function __construct() {
 		add_action( 'wp_ajax_create_group_ndf', array( $this, 'callback_create_group_ndf' ) );
 		add_action( 'wp_ajax_modify_group_ndf', array( $this, 'callback_modify_group_ndf' ) );
+		add_action( 'wp_ajax_archive_group_ndf', array( $this, 'callback_archive_group_ndf' ) );
 		add_action( 'wp_ajax_export_note_de_frais', array( $this, 'callback_export_note_de_frais' ) );
 	}
 
@@ -97,6 +98,30 @@ class Group_NDF_Action {
 		) );
 	}
 
+	public function callback_archive_group_ndf() {
+		check_ajax_referer( 'archive_group_ndf' );
+
+		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		if ( empty( $id ) ) {
+			wp_send_json_error();
+		}
+
+		$group = Group_NDF_Class::g()->get( array(
+			'post__in' => array( $id ),
+		), true );
+
+		$group->status = 'archive';
+
+		Group_NDF_Class::g()->update( $group );
+
+		wp_send_json_success( array(
+			'namespace' => 'noteDeFrais',
+			'module' => 'groupNDF',
+			'callback_success' => 'archived',
+			'group' => $group,
+		) );
+	}
 	/**
 	 * Génère un document .odt avec les données qui vont bien
 	 *

@@ -22,7 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
 					data-action="export_note_de_frais"
 					data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_note_de_frais' ) ); ?>"><i class="icon ion-share"></i></span>
-			<span class="button archive"><i class="icon ion-archive"></i></span>
+			<span class="button archive action-attribute"
+						data-id="<?php echo esc_attr( $ndf->id ); ?>"
+						data-action="archive_group_ndf"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'archive_group_ndf' ) ); ?>"><i class="icon ion-archive"></i></span>
 		</div>
 		<div class="content gridwrapper">
 			<div class="ttc element">

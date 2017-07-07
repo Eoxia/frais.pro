@@ -83,8 +83,10 @@ class Group_NDF_Class extends \eoxia\Post_Class {
 	 * @since 1.0.0.0
 	 * @version 1.0.0.0
 	 */
-	public function display() {
-		$groups_ndf = $this->get();
+	public function display( $status = 'publish' ) {
+		$groups_ndf = $this->get( array(
+			'post_status' => $status,
+		) );
 
 		\eoxia\View_Util::exec( 'note-de-frais', 'group-ndf', 'main', array(
 			'groups_ndf' => $groups_ndf,

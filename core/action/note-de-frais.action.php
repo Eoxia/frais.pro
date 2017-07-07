@@ -129,6 +129,13 @@ class Note_De_Frais_Action {
 	 * @version 6.2.5.0
 	 */
 	public function callback_plugins_loaded() {
+			register_post_status( 'archive', array(
+			'label'                     => 'Archive',
+			'public'                    => true,
+			'exclude_from_search'       => false,
+			'show_in_admin_all_list'    => true,
+			'show_in_admin_status_list' => true,
+		) );
 	}
 
 	/**
@@ -139,6 +146,7 @@ class Note_De_Frais_Action {
 	 */
 	public function callback_admin_menu() {
 		add_menu_page( __( 'Note de frais', 'note-de-frais' ), __( 'Note de frais', 'note-de-frais' ), 'manage_options', 'note-de-frais', array( Note_De_Frais_Class::g(), 'display' ) );
+		add_submenu_page( 'note-de-frais', __( 'Archives', 'note-de-frais' ), __( 'Archives', 'note-de-frais' ), 'manage_options', 'note-de-frais-archive', array( Note_De_Frais_Class::g(), 'display_archive' ) );
 	}
 
 }

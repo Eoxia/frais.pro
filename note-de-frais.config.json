@@ -5,12 +5,13 @@
 	"description": "L'application Note de frais",
 	"insert_scripts_pages_js": [
 		"note-de-frais",
+		"note-de-frais-archive",
 		"profile.php",
 		""
 	],
 	"insert_scripts_pages_css": [
 		"note-de-frais",
-		""
+		"note-de-frais-archive"
 	],
 	"externals": [
 		"core/external/wpeo_log/wpeo_log.config.json",
