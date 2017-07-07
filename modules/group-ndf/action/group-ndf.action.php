@@ -36,7 +36,7 @@ class Group_NDF_Action {
 		check_ajax_referer( 'create_group_ndf' );
 
 		$user = User_Class::g()->get( array(
-			'user__in' => get_current_user_id(),
+			'include' => get_current_user_id(),
 		), true );
 
 		$date = current_time( 'Y-m' );
@@ -59,6 +59,7 @@ class Group_NDF_Action {
 
 		$group_ndf = Group_NDF_Class::g()->update( array(
 			'post_title' => strtoupper( $user->login ) . '-' . $date . '-' . $identifier,
+			'post_status' => 'publish',
 		) );
 
 		update_user_meta( get_current_user_id(), 'ndf_' . $date . '_identifier', $identifier );
