@@ -24,7 +24,7 @@ window.eoxiaJS.noteDeFrais.groupNDF.saveStatus = function( event ) {
 	var toggle = jQuery( this ).closest( '.validation_status.toggle' );
 	var serialize = '';
 	event.stopPropagation();
-	toggle.find( '.label' ).text( jQuery( this ).html() );
+	toggle.find( '.label' ).html( jQuery( this ).html() );
 	toggle.find( 'input[name="validation_status"]' ).val( jQuery( this ).html() );
 	toggle.find( '.content' ).removeClass( 'active' );
 	serialize = toggle.find( 'input' ).serialize();
