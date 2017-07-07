@@ -26,7 +26,7 @@ window.eoxiaJS.noteDeFrais.media.init = function() {
 };
 
 window.eoxiaJS.noteDeFrais.media.event = function() {
-  jQuery( document ).on( 'click', '.media:not(.loading), .upload-model', window.eoxiaJS.noteDeFrais.media.open_popup );
+  jQuery( document ).on( 'click', '.media:not(.loading):not(.disabled), .upload-model', window.eoxiaJS.noteDeFrais.media.open_popup );
 };
 
 window.eoxiaJS.noteDeFrais.media.open_popup = function( event ) {
