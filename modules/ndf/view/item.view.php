@@ -31,6 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		data-namespace="noteDeFrais"
 		data-module="NDF"
 		data-before-method="confirmDeletion"
-		data-confirm-text="Confirmer"
+		data-confirm-text="La ligne de saisie ne pourra pas être récupérée"
+		data-loader="row"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_note_de_frais' ) ); ?>"></span></li>
 </ul>
