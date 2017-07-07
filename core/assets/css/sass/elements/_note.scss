@@ -29,19 +29,19 @@
 				background: rgba(255,255,255,0.3);
 			}
 		}
-		.status, .validation_status {
-			.pin-status {
-				display: inline-block;
-				width: 8px;
-				height: 8px;
-				margin-right: 8px;
-				border-radius: 50%;
-				background: #fff;
-				&.en-cours { background: $color__main; }
-				&.valide { background: $color__blue; }
-				&.paye { background: $color__green; }
-				&.refuse { background: $color__red; }
-			}
+	}
+	.status, .validation_status {
+		.pin-status {
+			display: inline-block;
+			width: 8px;
+			height: 8px;
+			margin-right: 8px;
+			border-radius: 50%;
+			background: #fff;
+			&.en-cours { background: $color__main; }
+			&.valide { background: $color__blue; }
+			&.paye { background: $color__green; }
+			&.refuse { background: $color__red; }
 		}
 	}
 

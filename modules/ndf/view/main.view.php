@@ -94,9 +94,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			</div>
 
 			<!-- <span class="button blue float right saveNDF" data-parent="note">Mettre à jour</span> -->
+			<div class="update">MAJ : <?php echo esc_html( $group->date_modified ); ?></div>
 
 		</div>
 
 	</div>
-	<div class="update">MAJ : <?php echo esc_html( $group->date_modified ); ?></div>
 </div>
