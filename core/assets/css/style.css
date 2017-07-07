@@ -4223,12 +4223,36 @@
   transition: all 0.2s ease-out;
   pointer-events: none; }
 
+.eox-note-frais .media:not(.no-file):hover .add {
+  -webkit-animation: none;
+     -moz-animation: none;
+       -o-animation: none;
+          animation: none; }
+
 .eox-note-frais .media:not(.no-file) .add {
   opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-  right: -4px;
-  top: -4px;
-  color: rgba(0, 0, 0, 0.6); }
+  right: -6px;
+  top: -6px;
+  color: #fff;
+  z-index: 10;
+  pointer-events: auto;
+  background: #5d5d5d;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  line-height: 18px;
+  font-size: 12px; }
+
+.eox-note-frais .media:not(.no-file) .add:before {
+  content: "\f2bf"; }
+
+.eox-note-frais .media:not(.no-file) .add:hover {
+  background: #989898;
+  color: #fff;
+  cursor: pointer; }
 
 .eox-note-frais .media.no-file .add {
   opacity: 1;
