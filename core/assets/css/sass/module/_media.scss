@@ -27,11 +27,31 @@
 		transition: all 0.2s ease-out;
 		pointer-events: none;
 	}
+	&:not(.no-file):hover .add {
+		animation: none;
+	}
 	&:not(.no-file) .add {
 		opacity: 1;
-		right: -4px;
-		top: -4px;
-		color: rgba(0,0,0,0.6);
+		right: -6px;
+		top: -6px;
+		color: #fff;
+		z-index: 10;
+		pointer-events: auto;
+		background: #5d5d5d;
+		border-radius: 50%;
+		width: 18px;
+		height: 18px;
+		text-align: center;
+		line-height: 18px;
+		font-size: 12px;
+		&:before {
+			content: "\f2bf";
+		}
+		&:hover {
+			background: #989898;
+			color: #fff;
+			cursor: pointer;
+		}
 	}
 	&.no-file .add {
 		opacity: 1;
