@@ -15,20 +15,20 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<div class="header">
 			<span class="button close"><i class="icon ion-ios-arrow-left"></i></span>
 			<h2 class="title"><?php echo $group->title; ?></h2>
-			<div class="validation_status toggle list" data-parent="toggle" data-target="content" data-title="En cours">
+			<div class="validation_status toggle list" data-parent="toggle" data-target="content" data-title="<?php echo esc_attr( $group->validation_status ); ?>">
 				<input type="hidden" name="id" value="<?php echo esc_attr( $group->id ); ?>">
 				<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'modify_group_ndf' ) ); ?>">
 				<input name="action" type="hidden" value="modify_group_ndf"/>
 				<input name="validation_status" type="hidden" value="<?php echo esc_html( $group->validation_status ); ?>"/>
 				<span class="action">
-					<span class="label pin-status en-cours"><?php echo $group->validation_status; ?></span>
+					<span class="label pin-status <?php echo Group_NDF_Class::g()->get_status( $group->validation_status ); ?>"><?php echo $group->validation_status; ?></span>
 					<i class="icon ion-ios-arrow-down"></i>
 				</span>
 				<ul class="content">
-					<li class="item pin-status en-cours">En cours</li>
-					<li class="item pin-status valide">Validée</li>
-					<li class="item pin-status paye">Payée</li>
-					<li class="item pin-status refuse">Refusée</li>
+					<li data-type="en-cours" class="item pin-status en-cours">En cours</li>
+					<li data-type="valide"class="item pin-status valide">Validée</li>
+					<li data-type="paye" class="item pin-status paye">Payée</li>
+					<li data-type="refuse" class="item pin-status refuse">Refusée</li>
 				</ul>
 			</div>
 			<span class="button export action-attribute"

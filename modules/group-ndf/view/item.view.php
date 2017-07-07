@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				<span class="currency">€</span>
 				<span class="taxe">TVA</span>
 			</div>
-			<div class="status"><span class="value"><?php echo $ndf->validation_status; ?></span></div>
+			<div class="status"><span class="value pin-status <?php echo ! empty( $ndf->validation_status ) ? esc_attr( Group_NDF_Class::g()->get_status( $ndf->validation_status ) ) : ''; ?>"><?php echo $ndf->validation_status; ?></span></div>
 			<div class="update">MAJ : <span class="value"><?php echo esc_html( $ndf->date_modified ); ?></span></div>
 		</div>
 	</div>

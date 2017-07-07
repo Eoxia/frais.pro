@@ -68,6 +68,13 @@ class Group_NDF_Class extends \eoxia\Post_Class {
 	 */
 	protected $post_type_name = 'Groupe NDF';
 
+	public $status = array(
+		'En cours' => 'en-cours',
+		'Validée' => 'valide',
+		'Payée' => 'paye',
+		'Refusée' => 'refuse',
+	);
+
 	/**
 	 * Récupères les groupes NDF et les envoies à la vue principale.
 	 *
@@ -82,6 +89,10 @@ class Group_NDF_Class extends \eoxia\Post_Class {
 		\eoxia\View_Util::exec( 'note-de-frais', 'group-ndf', 'main', array(
 			'groups_ndf' => $groups_ndf,
 		) );
+	}
+
+	public function get_status( $status ) {
+		return $this->status[ $status ];
 	}
 }
 

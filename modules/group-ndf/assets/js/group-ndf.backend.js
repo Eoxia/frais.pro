@@ -24,8 +24,9 @@ window.eoxiaJS.noteDeFrais.groupNDF.saveStatus = function( event ) {
 	var toggle = jQuery( this ).closest( '.validation_status.toggle' );
 	var serialize = '';
 	event.stopPropagation();
-	toggle.find( '.label' ).html( jQuery( this ).html() );
-	toggle.find( 'input[name="validation_status"]' ).val( jQuery( this ).html() );
+	toggle.find( '.label' ).html( jQuery( this ).text() );
+	toggle.find( 'input[name="validation_status"]' ).val( jQuery( this ).text() );
+	toggle.find( '.action .label' )[0].className = 'label pin-status ' + jQuery( this ).closest( 'li' ).data( 'type' );
 	toggle.find( '.content' ).removeClass( 'active' );
 	serialize = toggle.find( 'input' ).serialize();
 	jQuery.post( ajaxurl, serialize, function( response ) {
