@@ -18,11 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<div class="container">
 		<div class="header">
 			<h2 class="title"><?php echo esc_html( $ndf->title ); ?></h2>
-			<span class="button export action-attribute"
+			<span class="button export action-attribute tooltip hover"
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
 					data-action="export_note_de_frais"
+					aria-label="Exporter"
 					data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_note_de_frais' ) ); ?>"><i class="icon ion-share"></i></span>
-			<span class="button archive"><i class="icon ion-archive"></i></span>
+			<span class="button archive tooltip hover" aria-label="Archiver"><i class="icon ion-archive"></i></span>
 		</div>
 		<div class="content gridwrapper">
 			<div class="ttc element">

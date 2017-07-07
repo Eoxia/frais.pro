@@ -11,16 +11,17 @@
 		pointer-events: none;
 		transform: translate(-50%, -6px);
 		transition: all 0.2s ease-out;
+		line-height: 1;
+		z-index: 90;
 	}
 	// Cadre
 	&:after {
 		content: attr(aria-label);
 		position: absolute;
 		left: 50%;
-		z-index: 99;
 		white-space: nowrap;
 		padding: 5px 14px;
-		background: $color__main;
+		background: #3a353c;
 		color: #fff;
 		border-radius: 6px;
 		font-size: 0.8rem;
@@ -34,9 +35,9 @@
 		height: 0;
 		border-style: solid;
 		border-width: 6px 6px 0 6px;
-		border-color: $color__main transparent transparent transparent;
+		border-color: #3a353c transparent transparent transparent;
 		position: absolute;
-		top: -0.8em;
+		top: -0.6em;
 		left: 50%;
 	}
 	// Fond rouge
