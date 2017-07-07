@@ -66,11 +66,16 @@ class Group_NDF_Action {
 		NDF_Class::g()->display( $group_ndf->id );
 		$response = ob_get_clean();
 
+		ob_start();
+		Group_NDF_Class::g()->display();
+		$response_main_view = ob_get_clean();
+
 		wp_send_json_success( array(
 			'namespace' => 'noteDeFrais',
 			'module' => 'NDF',
 			'callback_success' => 'openNdf',
 			'view' => $response,
+			'main_view' => $response_main_view,
 		) );
 	}
 
