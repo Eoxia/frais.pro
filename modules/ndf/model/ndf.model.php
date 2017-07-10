@@ -1,6 +1,6 @@
 <?php
 /**
- * Définition du modèle de ndf
+ * Définition du modèle de note de frais.
  *
  * @author eoxia
  * @since 1.0.0.0
@@ -12,71 +12,33 @@
 
 namespace note_de_frais;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
- * Définition du modèle de group ndf
+ * Définition du modèle de note de frais.
  */
 class NDF_Model extends \eoxia\Post_Model {
-
-	/**
-	 * Le constructeur définis le schéma
-	 *
-	 * @param object $object L'objet courant.
-	 *
-	 * @since 1.0.0.0
-	 * @version 1.0.0.0
-	 */
-	public function __construct( $object ) {
-		$this->model['category_name'] = array(
+	public function __construct( $data ) {
+		$this->model['validation_status'] = array(
 			'type'          => 'string',
-			'meta_type' => 'single',
-			'field'         => '_ndf_category_name',
-			'bydefault' => 'Auto',
+			'meta_type'     => 'single',
+			'field'         => '_ndf_validation_status',
+			'bydefault'     => 'En cours',
 		);
-
-		$this->model['vehicule'] = array(
-			'type'          => 'string',
-			'meta_type' => 'single',
-			'field'         => '_ndf_vehicule',
-		);
-
-		$this->model['distance'] = array(
-			'type'          => 'integer',
-			'meta_type' => 'single',
-			'field'         => '_ndf_distance',
-		);
-
-		$this->model['TaxInclusiveAmount'] = array(
+		$this->model['tax_inclusive_amount'] = array(
 			'type'          => 'float',
-			'meta_type' => 'single',
-			'field'         => '_ndf_tax_inclusive_amount',
+			'meta_type'     => 'single',
+			'field'         => '_ndf_tia_amount',
 		);
 
-		/*
-		$this->model['TaxableAmount'] = array(
+		$this->model['tax_amount'] = array(
 			'type'          => 'float',
-			'meta_type' => 'single',
-			'field'         => '_ndf_taxable_amount',
-		);*/
-
-		$this->model['TaxAmount'] = array(
-			'type'          => 'float',
-			'meta_type' => 'single',
-			'field'         => '_ndf_tax_amount',
+			'meta_type'     => 'single',
+			'field'         => '_ndf_ta_amount',
 		);
 
-		$this->model['associated_document_id'] = array(
-			'type'              => 'array',
-			'meta_type' => 'multiple',
-			'child' => array(
-				'image' => array(
-					'type'              => 'array',
-					'meta_type' => 'multiple',
-				),
-			),
-		);
-
-		parent::__construct( $object );
+		parent::__construct( $data );
 	}
 }

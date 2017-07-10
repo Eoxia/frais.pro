@@ -1,0 +1,13 @@
+{
+	"name": "NDFL",
+	"slug": "ndfl",
+	"version": "1.0.0.0",
+	"description": "Le module gérant les lignes de note de frais",
+	"path": "modules/ndfl/",
+	"dependencies": {
+		"model": {},
+		"class": {},
+		"action": {},
+		"helper": {}
+	}
+}

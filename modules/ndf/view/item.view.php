@@ -1,37 +1,50 @@
 <?php
+/**
+ * Vue principale de l'application
+ *
+ * @package Eoxia\Plugin
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
 
 namespace note_de_frais;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
-<ul class="row" data-i="<?php echo $i; ?>">
-	<input type="hidden" name="id" value="<?php echo $ndf->id; ?>">
-	<li class="date" data-title="Date"><span contenteditable="true" class="date-time" data-name="row[<?php echo $i; ?>][date]"><?php echo $ndf->date; ?></span></li>
-	<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[<?php echo $i; ?>][title]"><?php echo esc_html( $ndf->title ); ?></span></li>
-	<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
-		<input name="category_name" type="hidden" value="<?php echo esc_attr( $ndf->category_name ); ?>"/>
-		<span class="action" contenteditable="false">
-			<span class="label"><?php echo esc_attr( $ndf->category_name ); ?></span>
-			<i class="icon ion-ios-arrow-down"></i>
-		</span>
-		<ul class="content">
-			<li class="item">Autres</li>
-			<li class="item">Trajet</li>
-		</ul>
-	</li>
-	<li class="km<?php echo $ndf->category_name == 'Trajet' ? '': ' disabled'; ?>" data-title="Km"><span contenteditable="<?php echo $ndf->category_name == 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][distance]"><?php echo esc_html( $ndf->distance ); ?></span></li>
-	<li class="ttc<?php echo $ndf->category_name != 'Trajet' ? '': ' disabled'; ?>" data-title="TTC (€)"><span contenteditable="<?php echo $ndf->category_name != 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][TaxInclusiveAmount]"><?php echo esc_html( $ndf->TaxInclusiveAmount ); ?></span></li>
-	<?php // <li class="ht<?php echo $ndf->category_name != 'Trajet' ? '': ' disabled'; " data-title="HT (€)"><span contenteditable="<?php echo $ndf->category_name != 'Trajet' ? 'true': 'false'; " data-name="row[<?php echo $i; ][TaxableAmount]"><?php echo esc_html( $ndf->TaxableAmount ); </span></li> ?>
-	<li class="tva<?php echo $ndf->category_name != 'Trajet' ? '': ' disabled'; ?>" data-title="TVA récup."><span contenteditable="<?php echo $ndf->category_name != 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][TaxAmount]"><?php echo esc_html( $ndf->TaxAmount ); ?></span></li>
-	<li class="photo" data-title="Photo"><?php do_shortcode( '[eo_upload_button id="' . $ndf->id . '" type="ndf" namespace="note_de_frais"]' ); ?></li>
-	<li class="action"><span class="icon ion-trash-a action-attribute"
-		data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>"
-		data-group-id="<?php echo esc_attr( $group->id ); ?>"
-		data-action="delete_note_de_frais"
-		data-namespace="noteDeFrais"
-		data-module="NDF"
-		data-before-method="confirmDeletion"
-		data-confirm-text="La ligne de saisie ne pourra pas être récupérée"
-		data-loader="row"
-		data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_note_de_frais' ) ); ?>"></span></li>
-</ul>
+<div class="note action-attribute"
+		data-id="<?php echo esc_attr( $ndf->id ); ?>"
+		data-action="open_ndf"
+		data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_note_de_frais' ) ); ?>">
+	<div class="container">
+		<div class="header">
+			<h2 class="title"><?php echo esc_html( $ndf->title ); ?></h2>
+			<span class="button export action-attribute tooltip hover"
+					data-id="<?php echo esc_attr( $ndf->id ); ?>"
+					data-action="export_ndf"
+					aria-label="Exporter"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"><i class="icon ion-share"></i></span>
+			<span class="button archive action-attribute tooltip hover"
+						data-id="<?php echo esc_attr( $ndf->id ); ?>"
+						data-action="archive_ndf"
+						aria-label="Archiver"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'archive_ndf' ) ); ?>"><i class="icon ion-archive"></i></span>
+		</div>
+		<div class="content gridwrapper">
+			<div class="ttc element">
+				<span class="value"><?php echo esc_html( $ndf->tax_inclusive_amount ); ?></span>
+				<span class="currency">€</span>
+				<span class="taxe">TTC</span>
+			</div>
+			<div class="tva element">
+				<span class="value"><?php echo esc_html( $ndf->tax_amount ); ?></span>
+				<span class="currency">€</span>
+				<span class="taxe">TVA</span>
+			</div>
+			<div class="status"><span class="value pin-status <?php echo ! empty( $ndf->validation_status ) ? esc_attr( NDF_Class::g()->get_status( $ndf->validation_status ) ) : ''; ?>"><?php echo $ndf->validation_status; ?></span></div>
+			<div class="update">MAJ : <span class="value"><?php echo esc_html( $ndf->date_modified ); ?></span></div>
+		</div>
+	</div>
+</div>
