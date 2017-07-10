@@ -144,7 +144,7 @@ class Group_NDF_Action {
 		) );
 
 		$user = User_Class::g()->get( array(
-			'user__in' => $group_ndf->author_id,
+			'include' => array( $group_ndf->author_id ),
 		), true );
 
 		$sheet_details = array(
