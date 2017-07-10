@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
 		<tr class="user-marque-wrap">
 			<th><label for="marque">Carte grise</label></th>
-			<td><?php echo do_shortcode( '[eo_upload_button id="' . $user->id . '"]'); ?></td>
+			<td><?php echo do_shortcode( '[eo_upload_button id="' . $user->id . '" type="user" namespace="note_de_frais"]'); ?></td>
 		</tr>
 	</tbody>
 </table>

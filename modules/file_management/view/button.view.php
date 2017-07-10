@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	if ( ! empty( $element ) && ! empty( $element->thumbnail_id ) ) :
 		?>
 		<span>
-			<a class="media disabled" href="<?php echo esc_attr( wp_get_attachment_image_url( $element->thumbnail_id, 'full' ) ); ?>" target="_blank">
+			<a  data-id="<?php echo esc_attr( $id ); ?>" class="media disabled" href="<?php echo esc_attr( wp_get_attachment_image_url( $element->thumbnail_id, 'full' ) ); ?>" target="_blank">
 				<i class="upload-model add animated ion-android-add-circle" data-id="<?php echo esc_attr( $id ); ?>"
 							data-type="<?php echo esc_attr( $type ); ?>"
 							data-title="<?php echo esc_attr( $title ); ?>"
@@ -41,7 +41,6 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					data-action="<?php echo esc_attr( $action ); ?>"
 					data-nonce="<?php echo esc_attr( wp_create_nonce( 'associate_file' ) ); ?>"
 					class="media <?php echo empty( $element->thumbnail_id ) ? esc_attr( 'no-file' ) : ''; ?>">
-
 			<i class="add animated ion-android-add-circle"></i>
 			<i class="default-image ion-image"></i>
 			<img src="" class="hidden"/>

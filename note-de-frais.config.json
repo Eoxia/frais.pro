@@ -11,7 +11,9 @@
 	],
 	"insert_scripts_pages_css": [
 		"note-de-frais",
-		"note-de-frais-archive"
+		"note-de-frais-archive",
+		"profile.php",
+		""
 	],
 	"externals": [
 		"core/external/wpeo_log/wpeo_log.config.json",

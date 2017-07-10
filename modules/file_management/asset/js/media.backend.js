@@ -116,7 +116,7 @@ window.eoxiaJS.noteDeFrais.media.associate_file = function( selectedFileId ) {
       jQuery( '#digi-handle-model' ).html( response.data.template );
     }
     else {
-      jQuery( 'span.media[data-id="'+ window.eoxiaJS.noteDeFrais.media.element_id + '"]' ).replaceWith( response.data.template );
+      jQuery( '.media[data-id="'+ window.eoxiaJS.noteDeFrais.media.element_id + '"]' ).replaceWith( response.data.template );
 			jQuery( '.gallery' ).remove();
     }
   });
