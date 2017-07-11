@@ -48,13 +48,13 @@ class NDF_Action {
 		$ndf_id = isset( $_POST['id'] ) ? intval( $_POST['id'] ) : -1;
 
 		ob_start();
-		NDF_Class::g()->display( $ndf_id );
+		NDFL_Class::g()->display( $ndf_id );
 		$response = ob_get_clean();
 
 		wp_send_json_success( array(
 			'namespace' => 'noteDeFrais',
 			'module' => 'NDF',
-			'callback_success' => 'openNdf',
+			'callback_success' => 'open',
 			'view' => $response,
 		) );
 	}
@@ -110,7 +110,7 @@ class NDF_Action {
 		wp_send_json_success( array(
 			'namespace'        => 'noteDeFrais',
 			'module'           => 'NDF',
-			'callback_success' => 'openNdf',
+			'callback_success' => 'open',
 			'view'             => $response,
 			'main_view'        => $response_main_view,
 		) );
@@ -131,13 +131,13 @@ class NDF_Action {
 		$ndf = NDF_Class::g()->update( $_POST );
 
 		ob_start();
-		NDF_Class::g()->display( $ndf->id );
+		NDFL_Class::g()->display( $ndf->id );
 		$response = ob_get_clean();
 
 		wp_send_json_success( array(
 			'namespace' => 'noteDeFrais',
 			'module' => 'NDF',
-			'callback_success' => 'refreshNDF',
+			'callback_success' => 'refresh',
 			'ndf' => $ndf,
 			'view' => $response,
 		) );

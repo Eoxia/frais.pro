@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="note action-attribute"
 		data-id="<?php echo esc_attr( $ndf->id ); ?>"
 		data-action="open_ndf"
-		data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_note_de_frais' ) ); ?>">
+		data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>">
 	<div class="container">
 		<div class="header">
 			<h2 class="title"><?php echo esc_html( $ndf->title ); ?></h2>

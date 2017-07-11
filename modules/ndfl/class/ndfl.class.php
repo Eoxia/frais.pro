@@ -12,7 +12,9 @@
 
 namespace note_de_frais;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Classe gérant les lignes de notes de frais.

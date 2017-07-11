@@ -17,7 +17,6 @@ window.eoxiaJS.noteDeFrais.NDFL = {};
  */
 window.eoxiaJS.noteDeFrais.NDFL.init = function() {
 	var currentFocusout = true;
-	jQuery( document ).on( 'click', '.single-note .note .close', window.eoxiaJS.noteDeFrais.NDFL.closeNDF );
 	jQuery( document ).on( 'click', '.row.add .action .ion-ios-plus', window.eoxiaJS.noteDeFrais.NDFL.saveNDF );
 	jQuery( document ).on( 'keydown', '.row.add span[contenteditable]', function( event ) {
 		if ( event.ctrlKey && 13 === event.keyCode ) {
@@ -35,28 +34,6 @@ window.eoxiaJS.noteDeFrais.NDFL.init = function() {
 	} );
 	jQuery( document ).on( 'click', '.content .toggle .content .item', window.eoxiaJS.noteDeFrais.NDFL.select );
 	jQuery( document ).on( 'keydown', '.libelle span', window.eoxiaJS.noteDeFrais.NDFL.focusSelect );
-};
-
-window.eoxiaJS.noteDeFrais.NDFL.refreshNDF = function( triggeredElement, response ) {
-	jQuery( '.single-note' ).html( response.data.view );
-	if ( response.data.ndf ) {
-		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .ttc .value' ).text( response.data.ndf.tax_inclusive_amount );
-		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .tva .value' ).text( response.data.ndf.tax_amount );
-		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .update .value' ).text( response.data.ndf.date_modified );
-		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .status .value' ).html( response.data.ndf.validation_status );
-	}
-};
-
-window.eoxiaJS.noteDeFrais.NDFL.openNdf = function( triggeredElement, response ) {
-	if ( response.data.main_view ) {
-		jQuery( '.eox-note-frais' ).replaceWith( response.data.main_view );
-	}
-	jQuery( '.eox-note-frais' ).addClass( 'active-single' );
-	window.eoxiaJS.noteDeFrais.NDFL.refreshNDF( triggeredElement, response );
-};
-
-window.eoxiaJS.noteDeFrais.NDFL.closeNDF = function( event ) {
-	jQuery( '.eox-note-frais' ).removeClass( 'active-single' );
 };
 
 window.eoxiaJS.noteDeFrais.NDFL.confirmDeletion = function( element ) {
@@ -89,7 +66,7 @@ window.eoxiaJS.noteDeFrais.NDFL.saveNDF = function( event ) {
 	} );
 	jQuery( this ).closest( '.row' ).addClass( 'loading' );
 	jQuery.post( ajaxurl, serialize, function( response ) {
-		window.eoxiaJS.noteDeFrais.NDFL.refreshNDF( null, response );
+		window.eoxiaJS.noteDeFrais.NDF.refresh( null, response );
 	}, 'json' );
 };
 

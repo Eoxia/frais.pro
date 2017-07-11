@@ -27,12 +27,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<li class="photo" data-title="Photo"><?php do_shortcode( '[eo_upload_button id="' . $ndfl->id . '" type="ndfl" namespace="note_de_frais"]' ); ?></li>
 	<li class="action"><span class="icon ion-trash-a action-attribute"
 		data-ndfl-id="<?php echo esc_attr( $ndfl->id ); ?>"
-		data-ndf-id="<?php echo esc_attr( $ndfl->id ); ?>"
-		data-action="delete_ndf"
+		data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>"
+		data-action="delete_ndfl"
 		data-namespace="noteDeFrais"
-		data-module="NDF"
+		data-module="NDFL"
 		data-before-method="confirmDeletion"
 		data-confirm-text="La ligne de saisie ne pourra pas être récupérée"
 		data-loader="row"
-		data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_ndf' ) ); ?>"></span></li>
+		data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_ndfl' ) ); ?>"></span></li>
 </ul>
