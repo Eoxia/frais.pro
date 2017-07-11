@@ -32,41 +32,41 @@ class NDFL_Model extends \eoxia\Post_Model {
 	public function __construct( $object ) {
 		$this->model['category_name'] = array(
 			'type'          => 'string',
-			'meta_type' => 'single',
-			'field'         => '_ndf_category_name',
-			'bydefault' => 'Auto',
+			'meta_type'     => 'single',
+			'field'         => '_ndfl_category_name',
+			'bydefault'     => 'Auto',
 		);
 
 		$this->model['vehicule'] = array(
 			'type'          => 'string',
-			'meta_type' => 'single',
-			'field'         => '_ndf_vehicule',
+			'meta_type'     => 'single',
+			'field'         => '_ndfl_vehicule',
 		);
 
 		$this->model['distance'] = array(
 			'type'          => 'integer',
-			'meta_type' => 'single',
-			'field'         => '_ndf_distance',
+			'meta_type'     => 'single',
+			'field'         => '_ndfl_distance',
 		);
 
 		$this->model['tax_inclusive_amount'] = array(
 			'type'          => 'float',
-			'meta_type' => 'single',
-			'field'         => '_ndf_tax_inclusive_amount',
+			'meta_type'     => 'single',
+			'field'         => '_ndfl_tax_inclusive_amount',
 		);
 
 		$this->model['tax_amount'] = array(
 			'type'          => 'float',
-			'meta_type' => 'single',
-			'field'         => '_ndf_tax_amount',
+			'meta_type'     => 'single',
+			'field'         => '_ndfl_tax_amount',
 		);
 
 		$this->model['associated_document_id'] = array(
 			'type'              => 'array',
-			'meta_type' => 'multiple',
+			'meta_type'         => 'multiple',
 			'child' => array(
 				'image' => array(
-					'type'              => 'array',
+					'type'      => 'array',
 					'meta_type' => 'multiple',
 				),
 			),

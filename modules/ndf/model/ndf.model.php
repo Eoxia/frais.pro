@@ -30,13 +30,13 @@ class NDF_Model extends \eoxia\Post_Model {
 		$this->model['tax_inclusive_amount'] = array(
 			'type'          => 'float',
 			'meta_type'     => 'single',
-			'field'         => '_ndf_tia_amount',
+			'field'         => '_ndf_tax_inclusive_amount',
 		);
 
 		$this->model['tax_amount'] = array(
 			'type'          => 'float',
 			'meta_type'     => 'single',
-			'field'         => '_ndf_ta_amount',
+			'field'         => '_ndf_tax_amount',
 		);
 
 		parent::__construct( $data );
