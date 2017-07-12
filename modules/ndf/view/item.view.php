@@ -24,13 +24,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<span class="button export action-attribute tooltip hover"
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
 					data-action="export_ndf"
-					aria-label="Exporter"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"><i class="icon ion-share"></i></span>
+					aria-label="Télécharger"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"><i class="icon ion-ios-download-outline"></i></span>
 			<span class="button archive action-attribute tooltip hover"
 						data-id="<?php echo esc_attr( $ndf->id ); ?>"
 						data-action="archive_ndf"
-						aria-label="Archiver"
-						data-nonce="<?php echo esc_attr( wp_create_nonce( 'archive_ndf' ) ); ?>"><i class="icon ion-archive"></i></span>
+						aria-label="Supprimer"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'archive_ndf' ) ); ?>"><i class="icon ion-ios-trash-outline"></i></span>
 		</div>
 		<div class="content gridwrapper">
 			<div class="ttc element">

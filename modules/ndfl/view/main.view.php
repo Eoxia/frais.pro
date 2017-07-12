@@ -36,8 +36,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<span class="button export action-attribute tooltip hover"
 				data-id="<?php echo esc_attr( $ndf->id ); ?>"
 				data-action="export_ndf"
-				aria-label="Exporter"
-				data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"><i class="icon ion-share"></i></span>
+				aria-label="Télécharger"
+				data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"><i class="icon ion-ios-download-outline"></i></span>
 		</div>
 
 		<div class="content gridwrapper">
@@ -74,7 +74,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php // <li class="ht" data-title="HT (€)"><span contenteditable="true" data-name="row[0][TaxableAmount]">0</span></li> ?>
 					<li class="tva" data-title="TVA récup."><span contenteditable="true" data-name="row[0][tax_amount]">0</span></li>
 					<li class="photo" data-title="Photo"><?php do_shortcode( '[eo_upload_button type="ndfl"]' ); ?></span></li>
-					<li class="action"><span class="icon ion-ios-plus"></span><span class="icon ion-trash-a"></span></li>
+					<li class="action action-ligne"><span class="icon ion-ios-plus"></span><span class="icon ion-trash-a"></span></li>
 				</ul>
 
 				<?php
