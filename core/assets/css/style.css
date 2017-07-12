@@ -3905,7 +3905,7 @@
 
 .eox-note-frais .flex-table .row .action .icon:hover {
   cursor: pointer;
-  color: rgba(0, 0, 0, 0.8); }
+  color: #e05353; }
 
 .eox-note-frais .flex-table .row .action-ligne .icon {
   font-size: 26px; }
@@ -3964,7 +3964,12 @@
     max-width: none;
     min-width: 0; }
   .eox-note-frais .flex-table .row .date {
-    width: 70%;
+    width: auto;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+       -moz-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
     -webkit-box-ordinal-group: 3;
     -webkit-order: 2;
        -moz-box-ordinal-group: 3;
@@ -4015,11 +4020,11 @@
     max-width: 50px;
     min-width: 50px; }
   .eox-note-frais .flex-table .row .action {
-    -webkit-box-ordinal-group: 4;
-    -webkit-order: 3;
-       -moz-box-ordinal-group: 4;
-        -ms-flex-order: 3;
-            order: 3;
+    -webkit-box-ordinal-group: 11;
+    -webkit-order: 10;
+       -moz-box-ordinal-group: 11;
+        -ms-flex-order: 10;
+            order: 10;
     width: auto;
     margin: auto 0 auto auto; } }
 

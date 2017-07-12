@@ -102,7 +102,7 @@
 				@include transition;
 				&:hover {
 					cursor: pointer;
-					color: rgba(0,0,0,0.8);
+					color: $color__red;
 				}
 			}
 		}
@@ -164,7 +164,7 @@
 				max-width: none;
 				min-width: 0;
 			}
-			.date { width: 70%; order: 2; margin-left: 4px; }
+			.date { width: auto; flex-grow: 1; order: 2; margin-left: 4px; }
 			.libelle { width: 100%; order: 4; }
 			.type { width: 50%; order: 5; }
 			.km { width: 50%; order: 6; }
@@ -172,7 +172,7 @@
 			// .ht { width: 50%; order: 8; }
 			.tva { width: 50%; order: 9; }
 			.photo { order: 1; max-width: 50px; min-width: 50px; }
-			.action { order: 3; width: auto; margin: auto 0 auto auto; }
+			.action { order: 10; width: auto; margin: auto 0 auto auto; }
 		}
 	}
 	@media ( max-width: 360px ) {
