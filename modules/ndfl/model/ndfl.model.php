@@ -34,7 +34,7 @@ class NDFL_Model extends \eoxia\Post_Model {
 			'type'          => 'string',
 			'meta_type'     => 'single',
 			'field'         => '_ndfl_category_name',
-			'bydefault'     => 'Auto',
+			'bydefault'     => 'Autre',
 		);
 
 		$this->model['vehicule'] = array(

@@ -59,13 +59,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<li class="date" data-title="Date"><span contenteditable="true" class="date-time" data-name="row[0][date]"><?php echo current_time( 'd/m/Y H:i' ); ?></span></li>
 					<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[0][title]"></span></li>
 					<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
-						<input name="category_name" type="hidden" value="Auto"/>
+						<input name="category_name" type="hidden" value="Autre"/>
 						<span class="action" contenteditable="false">
 							<span class="label">Type de note</span>
 							<i class="icon ion-ios-arrow-down"></i>
 						</span>
 						<ul class="content">
-							<li class="item">Auto</li>
+							<li class="item">Autre</li>
 							<li class="item">Trajet</li>
 						</ul>
 					</li>
