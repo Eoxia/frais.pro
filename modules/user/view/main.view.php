@@ -10,7 +10,9 @@
 
 namespace note_de_frais;
 
-if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <h2><?php esc_html_e( 'Informations de la voiture', 'note-de-frais' ); ?></h2>
 
@@ -32,10 +34,10 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 						$selected = '';
 
 						if ( $chevaux === $user->chevaux ) :
-							$selected = 'selected="selected"';
+							$selected = ' selected="selected"';
 						endif;
 						?>
-						<option <?php echo $selected; ?>><?php echo esc_html( $chevaux ); ?></option>
+						<option value="<?php echo esc_attr( $chevaux ); ?>"<?php echo $selected; ?>><?php echo esc_html( $chevaux ); ?></option>
 						<?php
 					endforeach;
 				endif;
@@ -51,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
 		<tr class="user-marque-wrap">
 			<th><label for="marque">Carte grise</label></th>
-			<td><?php echo do_shortcode( '[eo_upload_button id="' . $user->id . '" type="user" namespace="note_de_frais"]'); ?></td>
+			<td class="eox-note-frais"><?php echo do_shortcode( '[eo_upload_button id="' . $user->id . '" type="user" namespace="note_de_frais"]'); ?></td>
 		</tr>
 	</tbody>
 </table>

@@ -43,7 +43,7 @@ class User_Model extends \eoxia\User_Model {
 		$this->model['thumbnail_id'] = array(
 			'type'			=> 'integer',
 			'meta_type' => 'single',
-			'field' 		=> '_ndf_chevaux',
+			'field' 		=> '_ndf_thumbnail_id',
 		);
 
 		$this->model['prixkm'] = array(

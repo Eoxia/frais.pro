@@ -48,8 +48,12 @@ class User_Action {
 			return false;
 		}
 
-		$_POST['id'] = $user_id;
-		User_Class::g()->update( $_POST );
+		User_Class::g()->update( array_merge(
+			array(
+				'id' => $user_id,
+			),
+			$_POST
+		) );
 	}
 
 }
