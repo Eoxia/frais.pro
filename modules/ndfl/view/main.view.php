@@ -86,6 +86,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								'ndf' => $ndf,
 								'ndfl' => $ndfl_single,
 								'i' => $i,
+								'user' => $user,
 							) );
 							$i++;
 						}
@@ -96,7 +97,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<!-- <span class="button blue float right saveNDF" data-parent="note">Mettre à jour</span> -->
-			<div class="update">MAJ : <?php echo esc_html( $ndf->date_modified ); ?></div>
+			<div class="update">MAJ : <span class="date_modified_value"><?php echo esc_html( $ndf->date_modified ); ?></span></div>
 
 		</div>
 

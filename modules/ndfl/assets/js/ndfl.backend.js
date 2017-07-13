@@ -65,6 +65,7 @@ window.eoxiaJS.noteDeFrais.NDFL.saveNDF = function( event ) {
 		}
 	} );
 	jQuery( this ).closest( '.row' ).addClass( 'loading' );
+	jQuery( '.single-note' ).find( '.date_modified_value' ).addClass( 'loading' );
 	jQuery.post( ajaxurl, serialize, function( response ) {
 		window.eoxiaJS.noteDeFrais.NDF.refresh( null, response );
 	}, 'json' );
@@ -78,7 +79,7 @@ window.eoxiaJS.noteDeFrais.NDFL.select = function( event ) {
 	if ( ! jQuery( this ).closest( '.row' ).hasClass( 'add' ) ) {
 		jQuery( this ).each( window.eoxiaJS.noteDeFrais.NDFL.saveNDF );
 	} else {
-		if ( 'Auto' == jQuery( this ).text() ) {
+		if ( 'Autre' == jQuery( this ).text() ) {
 			jQuery( this ).closest( '.row' ).find( '.km span[contenteditable]' ).attr( 'contenteditable', false );
 			jQuery( this ).closest( '.row' ).find( '.km' ).addClass( 'disabled' );
 			jQuery( this ).closest( '.row' ).find( '.ttc.disabled span[contenteditable]' ).attr( 'contenteditable', true );

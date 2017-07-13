@@ -53,6 +53,7 @@ window.eoxiaJS.noteDeFrais.NDF.saveStatus = function( event ) {
 	toggle.find( '.action .label' )[0].className = 'label pin-status ' + jQuery( this ).closest( 'li' ).data( 'type' );
 	toggle.find( '.content' ).removeClass( 'active' );
 	serialize = toggle.find( 'input' ).serialize();
+	jQuery( '.single-note' ).find( '.date_modified_value' ).addClass( 'loading' );
 	jQuery.post( ajaxurl, serialize, function( response ) {
 		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .status span.value' )[0].className = 'value pin-status ' + type;
 		window.eoxiaJS.noteDeFrais.NDF.refresh( null, response );

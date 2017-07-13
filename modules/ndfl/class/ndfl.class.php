@@ -95,6 +95,9 @@ class NDFL_Class extends \eoxia\Post_Class {
 		$template_vars['ndf'] = NDF_Class::g()->get( array(
 			'id' => $ndf_id,
 		), true );
+		$template_vars['user'] = User_Class::g()->get( array(
+			'id' => get_current_user_id(),
+		), true );
 		\eoxia\View_Util::exec( 'note-de-frais', 'ndfl', 'main', $template_vars );
 	}
 }
