@@ -42,6 +42,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="content gridwrapper">
 
+			<?php echo empty( $user->prixkm ) ? '<div class="notice error">Votre <strong>prix/km</strong> n\'est pas configuré, veuillez modifier votre <a target="_blank" href="' . get_edit_profile_url() . '">profil</a>.</div>' : ''; ?>
+
 			<div class="flex-table">
 
 				<ul class="heading">
