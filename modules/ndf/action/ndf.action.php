@@ -100,7 +100,7 @@ class NDF_Action {
 		update_user_meta( get_current_user_id(), 'ndf_' . $date . '_identifier', $identifier );
 
 		ob_start();
-		NDF_Class::g()->display( $ndf->id );
+		NDFL_Class::g()->display( $ndf->id );
 		$response = ob_get_clean();
 
 		ob_start();
