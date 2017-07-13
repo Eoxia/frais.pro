@@ -26,7 +26,7 @@ window.eoxiaJS.noteDeFrais.media.init = function() {
 };
 
 window.eoxiaJS.noteDeFrais.media.event = function() {
-  jQuery( document ).on( 'click', '.media:not(.loading), .upload-model', window.eoxiaJS.noteDeFrais.media.open_popup );
+  jQuery( document ).on( 'click', '.media:not(.loading):not(.disabled), .upload-model', window.eoxiaJS.noteDeFrais.media.open_popup );
 };
 
 window.eoxiaJS.noteDeFrais.media.open_popup = function( event ) {
@@ -45,11 +45,7 @@ window.eoxiaJS.noteDeFrais.media.open_popup = function( event ) {
   window.eoxiaJS.noteDeFrais.media.have_thumbnail = element.hasClass( 'wp-digi-element-thumbnail' ) ? true : false;
   window.wp.media.model.settings.post.id = element.data( 'id' );
 
-  if ( 0 === element.find( '.wp-digi-element-thumbnail' ).length ) {
-    window.eoxiaJS.noteDeFrais.media.load_media_upload( element, element.data( 'id' )  );
-  } else {
-    window.eoxiaJS.noteDeFrais.gallery.open( element, element.data( 'id' ), element.data( 'type' ), element.data( 'namespace' ) );
-  }
+  window.eoxiaJS.noteDeFrais.media.load_media_upload( element, element.data( 'id' )  );
 };
 
 window.eoxiaJS.noteDeFrais.media.load_media_upload = function( element, post_id ) {
@@ -120,7 +116,7 @@ window.eoxiaJS.noteDeFrais.media.associate_file = function( selectedFileId ) {
       jQuery( '#digi-handle-model' ).html( response.data.template );
     }
     else {
-      jQuery( 'span.media[data-id="'+ window.eoxiaJS.noteDeFrais.media.element_id + '"]' ).replaceWith( response.data.template );
+      jQuery( '.media[data-id="'+ window.eoxiaJS.noteDeFrais.media.element_id + '"]' ).replaceWith( response.data.template );
 			jQuery( '.gallery' ).remove();
     }
   });

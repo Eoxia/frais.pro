@@ -29,7 +29,7 @@ class Document_Class extends \eoxia\Post_Class {
 	*/
 	public function get_digirisk_dir_path( $path_type = 'basedir' ) {
 		$upload_dir = wp_upload_dir();
-		return str_replace( '\\', '/', $upload_dir[ $path_type ] ) . '/digirisk';
+		return str_replace( '\\', '/', $upload_dir[ $path_type ] ) . '/ndf';
 	}
 
 	/**
@@ -164,7 +164,7 @@ class Document_Class extends \eoxia\Post_Class {
 
 
   	/**	Enregistrement de la fiche dans la base de donnée / Save sheet into database	*/
-  	$response[ 'filename' ] = mysql2date( 'Ymd', current_time( 'mysql', 0 ) ) . '_' . sanitize_title( str_replace( ' ', '_', $main_title_part ) ) . '.odt';
+  	$response[ 'filename' ] = sanitize_title( str_replace( ' ', '_', $main_title_part ) ) . '.odt';
   	$document_args = array(
 			'post_content'	=> '',
 			'post_status'	=> 'inherit',
@@ -178,7 +178,7 @@ class Document_Class extends \eoxia\Post_Class {
   	$filetype = 'unknown';
 
 
-		$path = 'document/' . $element->id . '/test.odt';
+		$path = 'document/' . $element->id . '/' . $response['filename'];
 		$document_creation = $this->generate_document( str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf.odt' ), $document_meta, $path );
 
 
@@ -199,6 +199,8 @@ class Document_Class extends \eoxia\Post_Class {
 			'status'								=> 'inherit'
   	);
 		Document_Class::g()->update( $document_args );
+
+		$response['link'] = $this->get_digirisk_dir_path( 'baseurl' ) . '/' . $path;
 
 		return $response;
 	}

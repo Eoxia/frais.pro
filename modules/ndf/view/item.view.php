@@ -1,27 +1,50 @@
 <?php
+/**
+ * Vue principale de l'application
+ *
+ * @package Eoxia\Plugin
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
 
 namespace note_de_frais;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
-<ul class="row">
-	<input type="hidden" name="row[<?php echo $i; ?>][id]" value="<?php echo $ndf->id; ?>">
-	<li class="date" data-title="Date"><span contenteditable="true" data-name="row[<?php echo $i; ?>][date]"><?php echo $ndf->date_modified; ?></span></li>
-	<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[<?php echo $i; ?>][title]"><?php echo esc_html( $ndf->title ); ?></span></li>
-	<!--<li class="type toggle list" data-title="Type de note">
-		<span contenteditable="false" class="action" data-name="row[<?php echo $i; ?>][type]" data-parent="type" data-target="content">
-			<span class="label">Type de note</span>
-			<i class="icon ion-ios-arrow-down"></i>
-		</span>
-		<ul class="content">
-			<li class="item">Auto</li>
-			<li class="item">Trajet</li>
-		</ul>
-	</li>-->
-	<li class="km" data-title="Km"><span contenteditable="true" data-name="row[<?php echo $i; ?>][distance]"></span></li>
-	<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-name="row[<?php echo $i; ?>][TaxInclusiveAmount]"><?php echo esc_html( $ndf->TaxInclusiveAmount ); ?></span></li>
-	<li class="ht" data-title="HT (€)"><span contenteditable="true" data-name="row[<?php echo $i; ?>][TaxableAmount]"><?php echo esc_html( $ndf->TaxableAmount ); ?></span></li>
-	<li class="tva" data-title="TVA récup."><span contenteditable="true" data-name="row[<?php echo $i; ?>][TaxAmount]"><?php echo esc_html( $ndf->TaxAmount ); ?></span></li>
-	<li class="photo" data-title="Photo"><span contenteditable="true" data-name="row[<?php echo $i; ?>][photo]"></span></li>
-	<li class="action"><span class="icon ion-trash-a"></span></li>
-</ul>
+<div class="note action-attribute"
+		data-id="<?php echo esc_attr( $ndf->id ); ?>"
+		data-action="open_ndf"
+		data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>">
+	<div class="container">
+		<div class="header">
+			<h2 class="title"><?php echo esc_html( $ndf->title ); ?></h2>
+			<span class="button export action-attribute tooltip hover"
+					data-id="<?php echo esc_attr( $ndf->id ); ?>"
+					data-action="export_ndf"
+					aria-label="Télécharger"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"><i class="icon ion-ios-download-outline"></i></span>
+			<span class="button archive action-attribute tooltip hover"
+						data-id="<?php echo esc_attr( $ndf->id ); ?>"
+						data-action="archive_ndf"
+						aria-label="Supprimer"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'archive_ndf' ) ); ?>"><i class="icon ion-ios-trash-outline"></i></span>
+		</div>
+		<div class="content gridwrapper">
+			<div class="ttc element">
+				<span class="value"><?php echo esc_html( $ndf->tax_inclusive_amount ); ?></span>
+				<span class="currency">€</span>
+				<span class="taxe">TTC</span>
+			</div>
+			<div class="tva element">
+				<span class="value"><?php echo esc_html( $ndf->tax_amount ); ?></span>
+				<span class="currency">€</span>
+				<span class="taxe">TVA récup.</span>
+			</div>
+			<div class="status"><span class="value pin-status <?php echo ! empty( $ndf->validation_status ) ? esc_attr( NDF_Class::g()->get_status( $ndf->validation_status ) ) : ''; ?>"><?php echo $ndf->validation_status; ?></span></div>
+			<div class="update">MAJ : <span class="value"><?php echo esc_html( $ndf->date_modified ); ?></span></div>
+		</div>
+	</div>
+</div>

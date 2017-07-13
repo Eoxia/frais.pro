@@ -27,14 +27,15 @@ class Note_De_Frais_Action {
 	public function __construct() {
 		// Initialises ses actions que si nous sommes sur une des pages réglés dans le fichier digirisk.config.json dans la clé "insert_scripts_pages".
 		$page = ( ! empty( $_REQUEST['page'] ) ) ? sanitize_text_field( $_REQUEST['page'] ) : '';
+		$post = ( ! empty( $_REQUEST['post'] ) ) ? intval( $_REQUEST['post'] ) : '';
 
-		if ( in_array( $page, \eoxia\Config_Util::$init['note-de-frais']->insert_scripts_pages_css, true ) ) {
+		if ( in_array( $page, \eoxia\Config_Util::$init['note-de-frais']->insert_scripts_pages_css, true ) && empty( $post ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts_css' ), 10 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts_css' ), 11 );
 			add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts_css' ) );
 		}
 
-		if ( in_array( $page, \eoxia\Config_Util::$init['note-de-frais']->insert_scripts_pages_js, true ) ) {
+		if ( in_array( $page, \eoxia\Config_Util::$init['note-de-frais']->insert_scripts_pages_js, true ) && empty( $post ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts_js' ), 10 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts_js' ), 11 );
 			add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts_js' ) );
@@ -129,6 +130,13 @@ class Note_De_Frais_Action {
 	 * @version 6.2.5.0
 	 */
 	public function callback_plugins_loaded() {
+			register_post_status( 'archive', array(
+			'label'                     => 'Archive',
+			'public'                    => true,
+			'exclude_from_search'       => false,
+			'show_in_admin_all_list'    => true,
+			'show_in_admin_status_list' => true,
+		) );
 	}
 
 	/**
@@ -138,7 +146,8 @@ class Note_De_Frais_Action {
 	 * @version 1.0.0.0
 	 */
 	public function callback_admin_menu() {
-		add_menu_page( __( 'Note de frais', 'note-de-frais' ), __( 'Note de frais', 'note-de-frais' ), 'manage_options', 'note-de-frais', array( Note_De_Frais_Class::g(), 'display' ) );
+		add_menu_page( __( 'Note de frais', 'note-de-frais' ), __( 'Note de frais', 'note-de-frais' ), 'manage_options', 'note-de-frais', array( Note_De_Frais_Class::g(), 'display' ), 'dashicons-format-aside' );
+		add_submenu_page( 'note-de-frais', __( 'Archives', 'note-de-frais' ), __( 'Archives', 'note-de-frais' ), 'manage_options', 'note-de-frais-archive', array( Note_De_Frais_Class::g(), 'display_archive' ) );
 	}
 
 }

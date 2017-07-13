@@ -5,11 +5,14 @@
 	"description": "L'application Note de frais",
 	"insert_scripts_pages_js": [
 		"note-de-frais",
+		"note-de-frais-archive",
 		"profile.php",
 		""
 	],
 	"insert_scripts_pages_css": [
 		"note-de-frais",
+		"note-de-frais-archive",
+		"profile.php",
 		""
 	],
 	"externals": [
@@ -18,17 +21,17 @@
 	],
 	"modules": [
 		"core/core.config.json",
-		"modules/file_management/file_management.config.json",
 
 		"modules/document/document.config.json",
 		"modules/user/user.config.json",
-		"modules/group-ndf/group-ndf.config.json",
-		"modules/ndf/ndf.config.json"
+		"modules/ndf/ndf.config.json",
+		"modules/ndfl/ndfl.config.json",
+		"modules/file_management/file_management.config.json"
 	],
 	"debug": true,
 	"categories": [
 		"Trajet",
-		"Autres"
+		"Autre"
 	],
 	"chevaux": [
 		"3 CV et moins",

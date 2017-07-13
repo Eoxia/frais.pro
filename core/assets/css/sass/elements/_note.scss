@@ -9,10 +9,10 @@
 			font-size: 24px;
 			font-weight: 100;
 			color: #fff;
-			padding: 0 80px 0 15px;
+			padding: 0 120px 0 15px;
 			margin: auto 0;
 		}
-		.export {
+		.export, .archive {
 			background: rgba(255,255,255,0.2);
 			padding: 0 0 0 2px !important;
 			color: #fff;
@@ -28,6 +28,26 @@
 			&:hover {
 				background: rgba(255,255,255,0.3);
 			}
+		}
+		.export {
+			right: 80px;
+		}
+	}
+	.status, .validation_status {
+		.pin-status {
+			&:before {
+				display: inline-block;
+				content: '';
+				width: 8px;
+				height: 8px;
+				margin-right: 8px;
+				border-radius: 50%;
+				background: #fff;
+			}
+			&.en-cours:before { background: $color__main; }
+			&.valide:before { background: $color__blue; }
+			&.paye:before { background: $color__green; }
+			&.refuse:before { background: $color__red; }
 		}
 	}
 

@@ -12,4 +12,4 @@ namespace note_de_frais;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-NDF_Class::g()->display();
+NDF_Class::g()->display( 'archive' );

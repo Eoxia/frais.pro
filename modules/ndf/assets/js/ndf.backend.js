@@ -1,5 +1,5 @@
 /**
- * Initialise l'objet "NDF" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
+ * Initialise l'objet note de frais ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
  * @since 1.0.0.0
  * @version 1.0.0.0
@@ -15,73 +15,54 @@ window.eoxiaJS.noteDeFrais.NDF = {};
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
+
 window.eoxiaJS.noteDeFrais.NDF.init = function() {
-	jQuery( document ).on( 'click', '.note .close', window.eoxiaJS.noteDeFrais.NDF.closeNDF );
-	jQuery( document ).on( 'click', '.row.add .action .ion-ios-plus', window.eoxiaJS.noteDeFrais.NDF.addRowNDF );
-	jQuery( document ).on( 'click', '.row .action .ion-trash-a', window.eoxiaJS.noteDeFrais.NDF.deleteRowNDF );
-	jQuery( document ).on( 'keydown', '.row.add span[contenteditable]', function( event ) {
-		if ( event.ctrlKey && 13 === event.keyCode ) {
-			jQuery( this ).closest( '.row' ).find( '.action .ion-ios-plus' ).click();
-		}
-	} );
-	jQuery( document ).on( 'click', '.saveNDF', window.eoxiaJS.noteDeFrais.NDF.saveNDF );
-	jQuery( document ).on( 'click', '.toggle .content .item', window.eoxiaJS.noteDeFrais.NDF.select );
+	jQuery( document ).on( 'click', '.validation_status.toggle .content .item', window.eoxiaJS.noteDeFrais.NDF.saveStatus );
+	jQuery( document ).on( 'click', '.single-note .note .close', window.eoxiaJS.noteDeFrais.NDF.close );
 };
 
-window.eoxiaJS.noteDeFrais.NDF.openNdf = function( triggeredElement, response ) {
-	jQuery( '.eox-note-frais' ).addClass( 'active-single' );
+window.eoxiaJS.noteDeFrais.NDF.refresh = function( triggeredElement, response ) {
 	jQuery( '.single-note' ).html( response.data.view );
+	if ( response.data.ndf ) {
+		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .ttc .value' ).text( response.data.ndf.tax_inclusive_amount );
+		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .tva .value' ).text( response.data.ndf.tax_amount );
+		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .update .value' ).text( response.data.ndf.date_modified );
+		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .status .value' ).html( response.data.ndf.validation_status );
+	}
 };
 
-window.eoxiaJS.noteDeFrais.NDF.closeNDF = function( event ) {
+window.eoxiaJS.noteDeFrais.NDF.open = function( triggeredElement, response ) {
+	if ( response.data.main_view ) {
+		jQuery( '.eox-note-frais' ).replaceWith( response.data.main_view );
+	}
+	jQuery( '.eox-note-frais' ).addClass( 'active-single' );
+	window.eoxiaJS.noteDeFrais.NDF.refresh( triggeredElement, response );
+};
+
+window.eoxiaJS.noteDeFrais.NDF.close = function( event ) {
 	jQuery( '.eox-note-frais' ).removeClass( 'active-single' );
 };
 
-window.eoxiaJS.noteDeFrais.NDF.addRowNDF = function( event ) {
-	var addForm = jQuery( this ).closest( '.row' );
-	var rowClone = addForm.clone();
-	rowClone.removeClass( 'add' );
-	jQuery( '.heading' ).after( rowClone );
-	rowClone.find( 'span[contenteditable]' ).each( function( index ) {
-		this.dataset.name = 'row[' + addForm.data( 'i' ) + '][' + this.dataset.inputName + ']';
-		delete this.dataset.inputName;
-	} );
-	addForm.find( 'span[contenteditable]' ).each( function( index ) {
-		var defaultValue = '';
-		if ( undefined !== jQuery( this ).data( 'defaultValue' ) ) {
-			defaultValue = jQuery( this ).data( 'defaultValue' );
-		}
-		jQuery( this ).text( defaultValue );
-	} );
-	addForm.data( 'i', parseInt( addForm.data( 'i' ) ) + 1 );
+window.eoxiaJS.noteDeFrais.NDF.saveStatus = function( event ) {
+	var toggle = jQuery( this ).closest( '.validation_status.toggle' );
+	var type = jQuery( this ).closest( 'li' ).data( 'type' );
+	var serialize = '';
+	event.stopPropagation();
+	toggle.find( '.label' ).html( jQuery( this ).text() );
+	toggle.find( 'input[name="validation_status"]' ).val( jQuery( this ).text() );
+	toggle.find( '.action .label' )[0].className = 'label pin-status ' + jQuery( this ).closest( 'li' ).data( 'type' );
+	toggle.find( '.content' ).removeClass( 'active' );
+	serialize = toggle.find( 'input' ).serialize();
+	jQuery( '.single-note' ).find( '.date_modified_value' ).addClass( 'loading' );
+	jQuery.post( ajaxurl, serialize, function( response ) {
+		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .status span.value' )[0].className = 'value pin-status ' + type;
+		window.eoxiaJS.noteDeFrais.NDF.refresh( null, response );
+	}, 'json' );
 };
 
-window.eoxiaJS.noteDeFrais.NDF.deleteRowNDF = function( event ) {
-	jQuery( this ).closest( '.row' ).remove();
+window.eoxiaJS.noteDeFrais.NDF.exportedNoteDeFraisSuccess = function( triggeredElement, response ) {
+	window.eoxiaJS.global.downloadFile( response.data.link, response.data.filename );
 };
-
-window.eoxiaJS.noteDeFrais.NDF.saveNDF = function() {
-	var serialize = jQuery( '.note input' ).serialize();
-	jQuery( '.note *[contenteditable="true"]' ).each( function( index ) {
-		if ( undefined !== jQuery( this ).data( 'name' ) ) {
-			if ( 0 !== serialize.length ) {
-				serialize += '&';
-			}
-			serialize += jQuery( this ).data( 'name' ) + '=' + jQuery( this ).text();
-		}
-	} );
-	jQuery.post( ajaxurl, serialize );
-	//JQuery( '.note .close' ).click();
-	location.reload();
-};
-
-window.eoxiaJS.noteDeFrais.NDF.select = function() {
-
-};
-
-window.eoxiaJS.noteDeFrais.NDF.isModified = function() {
-	jQuery( window ).on( 'beforeunload.edit-post', function() {
-		return true;
-	} );
-	jQuery( window ).trigger( 'beforeunload' );
+window.eoxiaJS.noteDeFrais.NDF.archived = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).closest( '.note' ).fadeOut();
 };

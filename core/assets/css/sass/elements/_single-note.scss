@@ -13,24 +13,37 @@
 	.header {
 		.title {
 			width: 100%;
-			margin-right: 160px;
 			margin-left: 15px;
-			padding: 0 0 4px 0;
-			border-bottom: 1px solid rgba(255,255,255,0.5);
+			padding: 0;
 			@include transition;
 			&:focus {
 				border-bottom: 1px solid rgba(255,255,255,1);
 			}
 		}
 		.export {
-			right: 80px;
+			right: 15px;
+		}
+		.validation_status {
+			margin: auto 80px auto 0;
+			min-width: 160px;
+			.action {
+				padding: 1em;
+				background: rgba(255, 255, 255, 0.2);
+				color: #fff;
+				display: inline-block;
+				@include transition();
+				.icon:before {
+					color: #fff;
+				}
+				&:hover {
+					background: rgba(255, 255, 255, 0.3);
+				}
+			}
 		}
 		.close {
 			color: rgba(255,255,255,0.6);
-			position: absolute;
-			right: 15px;
-			line-height: 50px;
-			font-size: 74px;
+			font-size: 40px;
+			margin: auto 0;
 			&:hover {
 				cursor: pointer;
 				color: rgba(255,255,255,1);
@@ -41,6 +54,33 @@
 		background: #fff;
 		padding: 20px;
 		margin: 0;
+	}
+	.update {
+		width: 100%;
+		text-align: right;
+		font-size: 12px;
+    color: rgba(0, 0, 0, 0.3);
+    font-style: italic;
+    padding: 0;
+		margin-top: 1em;
+	}
+
+	@media ( max-width: 620px ) {
+		.header {
+			flex-wrap: wrap;
+			height: auto;
+			.close {
+				width: 20%;
+			}
+			.title {
+				width: 80%;
+				margin: auto 0;
+			}
+			.export {
+				position: static;
+				margin-left: auto;
+			}
+		}
 	}
 
 }

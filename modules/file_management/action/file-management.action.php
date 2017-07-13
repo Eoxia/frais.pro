@@ -43,7 +43,7 @@ class File_Management_Action {
 		$file_id = ! empty( $_POST['file_id'] ) ? (int) $_POST['file_id'] : 0;
 		$type = str_replace( 'digi-', '', $_POST['object_name'] );
 		$namespace = $_POST['namespace'];
-		$type_class = $type . '_class';
+		$type_class = $type;
 
 		if ( 0 === $id || 0 === $file_id ) {
 			wp_send_json_error();

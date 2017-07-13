@@ -40,7 +40,7 @@ window.eoxiaJS.noteDeFrais.gallery.open = function( element, elementId, type, na
 
 	jQuery.post( ajaxurl, data, function( response ) {
 		element.removeClass( 'loading' );
-		jQuery( '.noteDeFrais-wrap' ).append( response.data.view );
+		jQuery( '#wpbody' ).append( response.data.view );
 	});
 };
 
