@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<h1>Mes notes de frais <?php echo ! empty( $status ) && 'archive' === $status ? 'archivées' : ''; ?></h1>
 
-	<?php if ( ! empty( $status ) && 'publish' === $status ) : ?>
+	<?php if ( ! empty( $status ) && is_array( $status ) && in_array( 'publish', $status, true ) ) : ?>
 		<div class="add-ndf button blue action-attribute"
 				data-action="create_ndf"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_ndf' ) ); ?>"><i class="icon ion-plus-round"></i><span>Ajout</span></div>
