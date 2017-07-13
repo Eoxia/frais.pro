@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<ul class="heading">
 					<li class="date">Date</li>
 					<li class="libelle">Libellé</li>
-					<!--<li class="type">Type de note</li>-->
+					<li class="type">Type de note</li>
 					<li class="km">Km</li>
 					<li class="ttc">TTC (€)</li>
 					<li class="tva">TVA récup.</li>
