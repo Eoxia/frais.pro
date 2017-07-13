@@ -27,6 +27,8 @@ function before_update_ndfl( $data ) {
 	} else {
 		$data->distance = 0;
 	}
+	$data->tax_inclusive_amount = round( $data->tax_inclusive_amount, 2 );
+	$data->tax_amount = round( $data->tax_amount, 2 );
 	return $data;
 }
 
