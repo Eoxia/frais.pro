@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<i class="icon ion-ios-arrow-down"></i>
 		</span>
 		<ul class="content">
-			<li class="item">Autres</li>
+			<li class="item">Autre</li>
 			<li class="item">Trajet</li>
 		</ul>
 	</li>
