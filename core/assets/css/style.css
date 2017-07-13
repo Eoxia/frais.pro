@@ -3536,7 +3536,8 @@
 .eox-note-frais .liste-note .note .content .element {
   width: 50%;
   text-align: center;
-  padding: 2em; }
+  padding: 2em;
+  position: relative; }
 
 .eox-note-frais .liste-note .note .content .element .value {
   font-weight: 100;
@@ -3548,9 +3549,10 @@
   color: rgba(0, 0, 0, 0.3); }
 
 .eox-note-frais .liste-note .note .content .element .taxe {
-  position: relative;
-  bottom: 20px;
-  font-size: 14px; }
+  font-size: 14px;
+  position: absolute;
+  top: 10px;
+  right: 10px; }
 
 .eox-note-frais .liste-note .note .content .element:first-child {
   border-right: 1px solid rgba(0, 0, 0, 0.1); }
