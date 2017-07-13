@@ -14,6 +14,7 @@
 				width: 50%;
 				text-align: center;
 				padding: 2em;
+				position: relative;
 				.value {
 					font-weight: 100;
 					font-size: 40px;
@@ -24,9 +25,10 @@
 					color: rgba(0,0,0,0.3);
 				}
 				.taxe {
-					position: relative;
-					bottom: 20px;
 					font-size: 14px;
+					position: absolute;
+					top: 10px;
+					right: 10px;
 				}
 				&:first-child {
 					border-right: 1px solid rgba(0,0,0,0.1);
