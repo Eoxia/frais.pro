@@ -245,6 +245,9 @@ class NDF_Action {
 
 		$sheet_details['totaltva'] = $total_tax_amount . '€';
 		$sheet_details['totalttc'] = $total_tax_inclusive_amount . '€';
+		$sheet_details['marque'] = $user->marque;
+		$sheet_details['chevaux'] = $user->chevaux;
+		$sheet_details['prixkm'] = $user->prixkm;
 
 		$response = document_class::g()->create_document( $ndf, $sheet_details );
 		wp_send_json_success( array(

@@ -287,6 +287,12 @@ if ( ! class_exists( '\eoxia\Post_Class' ) ) {
 					$data = $post_save;
 				}
 
+				if ( ! is_wp_error( $data ) ) {
+					Save_Meta_Class::g()->save_meta_data( $data, 'update_post_meta', $this->meta_key );
+					// Save taxonomy!
+					$this->save_taxonomies( $data );
+				}
+
 				$data = Model_Util::exec_callback( $data, $this->after_post_function );
 			} else {
 				$data = Model_Util::exec_callback( $data, $this->before_model_put_function );
@@ -309,14 +315,16 @@ if ( ! class_exists( '\eoxia\Post_Class' ) ) {
 					$data = $post_save;
 				}
 
+				if ( ! is_wp_error( $data ) ) {
+					Save_Meta_Class::g()->save_meta_data( $data, 'update_post_meta', $this->meta_key );
+					// Save taxonomy!
+					$this->save_taxonomies( $data );
+				}
+
 				$data = Model_Util::exec_callback( $data, $this->after_put_function );
 			} // End if().
 
-			if ( ! is_wp_error( $data ) ) {
-				Save_Meta_Class::g()->save_meta_data( $data, 'update_post_meta', $this->meta_key );
-				// Save taxonomy!
-				$this->save_taxonomies( $data );
-			}
+
 
 			return $data;
 		}
