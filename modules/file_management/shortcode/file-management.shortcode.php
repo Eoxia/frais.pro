@@ -26,8 +26,8 @@ class File_Management_Shortcode {
 	 * @version 6.2.5.0
 	 */
 	public function __construct() {
-		add_shortcode( 'eo_upload_button', array( $this, 'callback_eo_upload_button' ) );
-		add_shortcode( 'gallery', array( $this, 'callback_shortcode_gallery' ) );
+		add_shortcode( 'eo_upload_user_button', array( $this, 'callback_eo_upload_user_button' ) );
+		add_shortcode( 'gallery_user', array( $this, 'callback_shortcode_gallery_user' ) );
 	}
 
 	/**
@@ -38,10 +38,10 @@ class File_Management_Shortcode {
 	 * @since 0.1
 	 * @version 6.2.5.0
 	 */
-	public function callback_eo_upload_button( $param ) {
+	public function callback_eo_upload_user_button( $param ) {
 		$id = 0;
 		$type = ! empty( $param['type'] ) ? sanitize_text_field( $param['type'] ) : 'User';
-		$action = ! empty( $param['action'] ) ? sanitize_text_field( $param['action'] ) : 'eo_associate_file';
+		$action = ! empty( $param['action'] ) ? sanitize_text_field( $param['action'] ) : 'eo_associate_user_file';
 		$title = ! empty( $param['title'] ) ? sanitize_text_field( $param['title'] ) : '';
 
 		if ( ! empty( $param['id'] ) ) {
@@ -76,7 +76,7 @@ class File_Management_Shortcode {
 	 * @since 0.1
 	 * @version 6.2.5.0
 	 */
-	public function callback_shortcode_gallery( $param ) {
+	public function callback_shortcode_gallery_user( $param ) {
 		Gallery_Class::g()->display( $param );
 	}
 }

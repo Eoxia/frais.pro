@@ -23,8 +23,7 @@ class File_Management_Action {
 	 * Le constructeur appelle l'action ajax: wp_ajax_eo_associate_file
 	 */
 	public function __construct() {
-		add_action( 'wp_ajax_eo_associate_file', array( $this, 'callback_associate_file' ) );
-		add_action( 'wp_ajax_eo_set_model', array( $this, 'callback_set_model' ) );
+		add_action( 'wp_ajax_eo_associate_user_file', array( $this, 'callback_associate_user_file' ) );
 	}
 
 	/**
@@ -33,12 +32,12 @@ class File_Management_Action {
 	 * @since 0.1
 	 * @version 6.2.9.0
 	 */
-	public function callback_associate_file() {
-		check_ajax_referer( 'associate_file' );
+	public function callback_associate_user_file() {
+		check_ajax_referer( 'eo_associate_user_file' );
 
 		$id = ! empty( $_POST['element_id'] ) ? (int) $_POST['element_id'] : 0;
 		$thumbnail = ! empty( $_POST['thumbnail'] ) ? (bool) $_POST['thumbnail'] : false;
-		$action = ! empty( $_POST['action'] ) ? sanitize_text_field( $_POST['action'] ) : 'eo_associate_file';
+		$action = ! empty( $_POST['action'] ) ? sanitize_text_field( $_POST['action'] ) : 'eo_associate_user_file';
 		$title = ! empty( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
 		$file_id = ! empty( $_POST['file_id'] ) ? (int) $_POST['file_id'] : 0;
 		$type = str_replace( 'digi-', '', $_POST['object_name'] );
@@ -57,34 +56,6 @@ class File_Management_Action {
 		ob_start();
 		\eoxia\View_Util::exec( 'note-de-frais', 'file_management', 'button', array( 'id' => $id, 'thumbnail' => $thumbnail, 'title' => $title, 'action' => $action, 'file_id' => $file_id, 'type' => $type, 'namespace' => $namespace, 'type_class' => $type, 'element' => $element ) );
 		wp_send_json_success( array(
-			'template' => ob_get_clean(),
-		) );
-	}
-
-	/**
-	 * Appelle la méthode "upload_model" de "File_Management_Class"
-	 *
-	 * @since 6.2.1.0
-	 * @version 6.2.4.0
-	 */
-	public function callback_set_model() {
-		check_ajax_referer( 'associate_file' );
-
-		$id = ! empty( $_POST['element_id'] ) ? (int) $_POST['element_id'] : 0;
-		$thumbnail = ! empty( $_POST['thumbnail'] ) ? (bool) $_POST['thumbnail'] : false;
-		$action = ! empty( $_POST['action'] ) ? sanitize_text_field( $_POST['action'] ) : 'eo_associate_file';
-		$title = ! empty( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
-		$file_id = ! empty( $_POST['file_id'] ) ? (int) $_POST['file_id'] : 0;
-		$type = ! empty( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : '';
-
-		if ( ! File_Management_Class::g()->upload_model( $type ) ) {
-			wp_send_json_error();
-		}
-
-		ob_start();
-		do_shortcode( '[digi-handle-model]' );
-		wp_send_json_success( array(
-			'type' => 'set_model',
 			'template' => ob_get_clean(),
 		) );
 	}

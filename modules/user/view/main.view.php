@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<tr class="user-marque-wrap">
 			<th><label for="marque">Carte grise</label></th>
-			<td class="eox-note-frais"><?php echo do_shortcode( '[eo_upload_button id="' . $user->id . '" type="user" namespace="note_de_frais"]'); ?></td>
+			<td class="eox-note-frais"><?php echo do_shortcode( '[eo_upload_user_button id="' . $user->id . '" type="user" namespace="note_de_frais"]'); ?></td>
 		</tr>
 	</tbody>
 </table>

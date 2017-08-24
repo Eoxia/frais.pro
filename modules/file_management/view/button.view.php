@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 							data-object-name="<?php echo esc_attr( $type ); ?>"
 							data-namespace="<?php echo esc_attr( $namespace ); ?>"
 							data-action="<?php echo esc_attr( $action ); ?>"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( 'associate_file' ) ); ?>"></i>
+							data-nonce="<?php echo esc_attr( wp_create_nonce( 'eo_associate_user_file' ) ); ?>"></i>
 				<?php	echo wp_get_attachment_image( $element->thumbnail_id, 'thumbnail', false, array( 'class' => 'wp-post-image wp-digi-element-thumbnail' ) ); ?>
 			</a>
 		</span>
@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					data-object-name="<?php echo esc_attr( $type ); ?>"
 					data-namespace="<?php echo esc_attr( $namespace ); ?>"
 					data-action="<?php echo esc_attr( $action ); ?>"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'associate_file' ) ); ?>"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'eo_associate_user_file' ) ); ?>"
 					class="media <?php echo empty( $element->thumbnail_id ) ? esc_attr( 'no-file' ) : ''; ?>">
 			<i class="add animated ion-android-add-circle"></i>
 			<i class="default-image ion-image"></i>
