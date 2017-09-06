@@ -36,6 +36,13 @@ class NDF_Class extends \eoxia\Post_Class {
 	protected $post_type  = 'ndf';
 
 	/**
+	 * Slug de base pour la route dans l'api rest
+	 *
+	 * @var string
+	 */
+	protected $base  = 'note-de-frais';
+
+	/**
 	 * La clé principale du modèle
 	 *
 	 * @var string

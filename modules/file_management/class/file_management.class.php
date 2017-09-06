@@ -12,10 +12,20 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 class File_Management_Class extends \eoxia\Singleton_Util {
+
 	/**
-	* Le constructeur
-	*/
-	protected function construct() {}
+	 * Slug de base pour la route dans l'api rest
+	 *
+	 * @var string
+	 */
+	protected $base  = 'justificatifs';
+
+	/**
+	 * Instanciation de la gestion des document imprimés / Instanciate printes document
+	 */
+ 	public function construct() {
+ 		parent::construct();
+ 	}
 
 	/**
 	* Associes un fichier à un element, todo: Sécurité

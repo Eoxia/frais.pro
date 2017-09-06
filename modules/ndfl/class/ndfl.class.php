@@ -43,6 +43,13 @@ class NDFL_Class extends \eoxia\Post_Class {
 	protected $meta_key   = '_ndfl';
 
 	/**
+	 * Slug de base pour la route dans l'api rest
+	 *
+	 * @var string
+	 */
+	protected $base  = 'ligne-de-frais';
+
+	/**
 	 * Fonction de callback avant d'insérer les données en mode POST.
 	 *
 	 * @var array
@@ -84,6 +91,10 @@ class NDFL_Class extends \eoxia\Post_Class {
 	 * @var string
 	 */
 	protected $post_type_name = 'NDFL';
+
+	public function construct() {
+		parent::construct();
+	}
 
 	public function display( $ndf_id = -1 ) {
 		$ndfl = $this->get( array(

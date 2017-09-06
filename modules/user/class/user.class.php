@@ -46,6 +46,21 @@ class User_Class extends \eoxia\User_Class {
 	 * @var array
 	 */
 	protected $after_get_function = array();
+
+	/**
+	 * Slug de base pour la route dans l'api rest
+	 *
+	 * @var string
+	 */
+	protected $base  = 'personne';
+
+	/**
+	 * Instanciation de la gestion des document imprimés / Instanciate printes document
+	 */
+ 	public function construct() {
+ 		parent::construct();
+ 	}
+
 }
 
 User_Class::g();

@@ -10,15 +10,25 @@ class Document_Class extends \eoxia\Post_Class {
 	protected $before_put_function = array();
 	protected $after_get_function = array();
 
+	/**
+	 * Slug de base pour la route dans l'api rest
+	 *
+	 * @var string
+	 */
+	protected $base  = 'note-de-frais-papier';
+
+
 	public $mime_type_link = array(
 		'application/vnd.oasis.opendocument.text' => '.odt',
 		'application/zip' => '.zip',
 	);
+
 	/**
 	 * Instanciation de la gestion des document imprimés / Instanciate printes document
 	 */
-	protected function construct() {
-	}
+ 	public function construct() {
+ 		parent::construct();
+ 	}
 
 	/**
 	* Récupères le chemin vers le dossier digirisk dans wp-content/uploads
