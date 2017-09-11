@@ -33,7 +33,7 @@ class NDFL_Action {
 	public function callback_add_ndfl() {
 		check_ajax_referer( 'add_ndfl' );
 
-		$ndf_id = isset( $_POST['ndf_id'] ) ? intval( $_POST['ndf_id'] ) : -1;
+		$ndf_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
 		NDFL_Class::g()->create( $_POST );
 
 		ob_start();
@@ -52,11 +52,10 @@ class NDFL_Action {
 	public function callback_modify_ndfl() {
 		check_ajax_referer( 'modify_ndfl' );
 
-		$ndf_id = isset( $_POST['ndf_id'] ) ? intval( $_POST['ndf_id'] ) : -1;
+		$ndf_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
 
 		if ( isset( $_POST['row'] ) ) {
 			foreach ( $_POST['row'] as $row ) {
-				$row['post_parent'] = $ndf_id;
 				$current_row = NDFL_Class::g()->update( $row );
 				$all_new_row[] = $current_row->id;
 			}
@@ -86,7 +85,7 @@ class NDFL_Action {
 	public function callback_delete_ndfl() {
 		check_ajax_referer( 'delete_ndfl' );
 
-		$ndf_id = isset( $_POST['ndf_id'] ) ? intval( $_POST['ndf_id'] ) : -1;
+		$ndf_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
 		$row_to_delete = isset( $_POST['ndfl_id'] ) ? intval( $_POST['ndfl_id'] ) : -1;
 
 		$row = NDFL_Class::g()->get( array(
@@ -107,6 +106,7 @@ class NDFL_Action {
 			'view' => $response,
 		) );
 	}
+
 }
 
 new NDFL_Action();

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="note">
 	<?php if ( ! empty( $ndf ) ) { ?>
 	<input type="hidden" name="id" value="<?php echo esc_attr( $ndf->id ); ?>">
-	<input type="hidden" name="ndf_id" value="<?php echo esc_attr( $ndf->id ); ?>">
+	<input type="hidden" name="parent_id" value="<?php echo esc_attr( $ndf->id ); ?>">
 	<?php } ?>
 	<input type="hidden" name="action" value="modify_ndfl">
 	<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'modify_ndfl' ) ); ?>">
@@ -71,10 +71,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<li class="item">Trajet</li>
 						</ul>
 					</li>
-					<li class="km disabled" data-title="Km"><span contenteditable="false" data-name="row[0][distance]">0</span></li>
-					<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-name="row[0][tax_inclusive_amount]">0</span></li>
+					<li class="km disabled ndfl-placeholder-container" data-title="Km">
+						<span class="ndfl-placeholder">0</span>
+						<span contenteditable="false" data-name="row[0][distance]" placeholder="0" ></span>
+					</li>
+					<li class="ttc ndfl-placeholder-container" data-title="TTC (€)">
+						<span class="ndfl-placeholder">0</span>
+						<span contenteditable="true" data-name="row[0][tax_inclusive_amount]" placeholder="0" ></span>
+					</li>
 					<?php // <li class="ht" data-title="HT (€)"><span contenteditable="true" data-name="row[0][TaxableAmount]">0</span></li> ?>
-					<li class="tva" data-title="TVA récup."><span contenteditable="true" data-name="row[0][tax_amount]">0</span></li>
+					<li class="tva ndfl-placeholder-container" data-title="TVA récup.">
+						<span class="ndfl-placeholder">0</span>
+						<span contenteditable="true" data-name="row[0][tax_amount]" placeholder="0" ></span>
+					</li>
 					<li class="photo" data-title="Photo"><?php do_shortcode( '[eo_upload_button type="ndfl"]' ); ?></span></li>
 					<li class="action action-ligne"><span class="icon ion-ios-plus"></span><span class="icon ion-trash-a"></span></li>
 				</ul>

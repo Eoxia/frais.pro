@@ -111,6 +111,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 		), true );
 		\eoxia\View_Util::exec( 'note-de-frais', 'ndfl', 'main', $template_vars );
 	}
+
 }
 
 NDFL_Class::g();

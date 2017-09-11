@@ -3241,7 +3241,6 @@
           border-radius: 0;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   position: relative; }
 
@@ -3252,13 +3251,11 @@
 
 .eox-note-frais .button:hover .float-icon {
   -webkit-animation-name: bounceInLight;
-     -moz-animation-name: bounceInLight;
        -o-animation-name: bounceInLight;
           animation-name: bounceInLight; }
 
 .eox-note-frais .button:active {
   -webkit-transform: none;
-     -moz-transform: none;
       -ms-transform: none;
        -o-transform: none;
           transform: none; }
@@ -3267,7 +3264,6 @@
   -webkit-box-shadow: none;
           box-shadow: none;
   -webkit-transform: translateY(0);
-     -moz-transform: translateY(0);
       -ms-transform: translateY(0);
        -o-transform: translateY(0);
           transform: translateY(0);
@@ -3281,7 +3277,6 @@
 .eox-note-frais .button .icon {
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .eox-note-frais .button .float-icon {
@@ -3300,7 +3295,6 @@
 .eox-note-frais .button .icon, .eox-note-frais .button span {
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .eox-note-frais .button .icon ~ span {
@@ -3345,10 +3339,8 @@
 .eox-note-frais .button.progress .icon {
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   -webkit-transform: translate(-50%, -50%);
-     -moz-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
        -o-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%); }
@@ -3364,22 +3356,18 @@
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   -webkit-transform: translate(-50%, -90%);
-     -moz-transform: translate(-50%, -90%);
       -ms-transform: translate(-50%, -90%);
        -o-transform: translate(-50%, -90%);
           transform: translate(-50%, -90%);
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   font-family: 'FontAwesome';
   font-size: 16px;
   -webkit-animation-duration: 1s;
-     -moz-animation-duration: 1s;
        -o-animation-duration: 1s;
           animation-duration: 1s;
   -webkit-animation-fill-mode: both;
-     -moz-animation-fill-mode: both;
        -o-animation-fill-mode: both;
           animation-fill-mode: both; }
 
@@ -3390,7 +3378,6 @@
   opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   -webkit-transform: translate(-50%, -50%);
-     -moz-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
        -o-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%); }
@@ -3399,7 +3386,6 @@
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   -webkit-transform: translate(-50%, 10%);
-     -moz-transform: translate(-50%, 10%);
       -ms-transform: translate(-50%, 10%);
        -o-transform: translate(-50%, 10%);
           transform: translate(-50%, 10%); }
@@ -3410,7 +3396,6 @@
 .eox-note-frais .button.progress.success:before {
   content: "\f00c";
   -webkit-animation-name: progressSuccess;
-     -moz-animation-name: progressSuccess;
        -o-animation-name: progressSuccess;
           animation-name: progressSuccess; }
 
@@ -3420,7 +3405,6 @@
 .eox-note-frais .button.progress.error:before {
   content: "\f00d";
   -webkit-animation-name: progressError;
-     -moz-animation-name: progressError;
        -o-animation-name: progressError;
           animation-name: progressError; }
 
@@ -3441,7 +3425,6 @@
   left: 50%;
   top: 50%;
   -webkit-animation: spin 1s ease-out infinite;
-     -moz-animation: spin 1s ease-out infinite;
        -o-animation: spin 1s ease-out infinite;
           animation: spin 1s ease-out infinite; }
 
@@ -3456,6 +3439,16 @@
 
 .eox-note-frais *[contenteditable]:focus {
   outline: none; }
+
+.eox-note-frais .ndfl-placeholder-container {
+  position: relative; }
+
+.eox-note-frais .ndfl-placeholder {
+  color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 6px;
+  bottom: 6px;
+  pointer-events: none; }
 
 .eox-note-frais .note .header {
   background: #9b59b6;
@@ -3522,7 +3515,6 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .eox-note-frais .liste-note .note .header, .eox-note-frais .liste-note .note .content {
@@ -3560,7 +3552,6 @@
 .eox-note-frais .liste-note .note .container {
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .eox-note-frais .liste-note .note .container:hover {
@@ -3591,7 +3582,6 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   pointer-events: none;
   -webkit-transform: translateY(-40px);
-     -moz-transform: translateY(-40px);
       -ms-transform: translateY(-40px);
        -o-transform: translateY(-40px);
           transform: translateY(-40px);
@@ -3604,7 +3594,6 @@
           box-shadow: 0px 0px 54px 0px rgba(0, 0, 0, 0.2);
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .eox-note-frais .single-note .header .title {
@@ -3613,7 +3602,6 @@
   padding: 0;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .eox-note-frais .single-note .header .title:focus {
@@ -3633,7 +3621,6 @@
   display: inline-block;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .eox-note-frais .single-note .header .validation_status .action .icon:before {
@@ -3693,7 +3680,6 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   pointer-events: all;
   -webkit-transform: translateY(0);
-     -moz-transform: translateY(0);
       -ms-transform: translateY(0);
        -o-transform: translateY(0);
           transform: translateY(0); }
@@ -3858,7 +3844,6 @@
   overflow: hidden;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   border: 1px solid rgba(155, 89, 182, 0); }
 
@@ -3902,7 +3887,6 @@
   font-size: 18px;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .eox-note-frais .flex-table .row .action .icon:hover {
@@ -4064,7 +4048,6 @@
   color: rgba(0, 0, 0, 0.6) !important;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .eox-note-frais .toggle .action:hover {
@@ -4072,7 +4055,6 @@
 
 .eox-note-frais .toggle .action:hover .icon {
   -webkit-transform: translateY(4px);
-     -moz-transform: translateY(4px);
       -ms-transform: translateY(4px);
        -o-transform: translateY(4px);
           transform: translateY(4px); }
@@ -4082,14 +4064,12 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   pointer-events: none;
   -webkit-transform: translateY(-6px);
-     -moz-transform: translateY(-6px);
       -ms-transform: translateY(-6px);
        -o-transform: translateY(-6px);
           transform: translateY(-6px);
   background: #f3f3f3;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   position: absolute;
   z-index: 99;
@@ -4116,7 +4096,6 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   pointer-events: auto;
   -webkit-transform: translateY(0);
-     -moz-transform: translateY(0);
       -ms-transform: translateY(0);
        -o-transform: translateY(0);
           transform: translateY(0); }
@@ -4126,7 +4105,6 @@
   margin: 0;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .eox-note-frais .toggle .content .item:hover {
@@ -4144,7 +4122,6 @@
 .eox-note-frais .loading, .eox-note-frais.loading {
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   pointer-events: none;
   opacity: 0.5;
@@ -4165,7 +4142,6 @@
   left: 50%;
   top: 50%;
   -webkit-animation: spin 1s ease-out infinite;
-     -moz-animation: spin 1s ease-out infinite;
        -o-animation: spin 1s ease-out infinite;
           animation: spin 1s ease-out infinite; }
 
@@ -4176,14 +4152,6 @@
   100% {
     -webkit-transform: translate(-50%, -50%) rotate(360deg);
             transform: translate(-50%, -50%) rotate(360deg); } }
-
-@-moz-keyframes spin {
-  0% {
-    -moz-transform: translate(-50%, -50%) rotate(0deg);
-         transform: translate(-50%, -50%) rotate(0deg); }
-  100% {
-    -moz-transform: translate(-50%, -50%) rotate(360deg);
-         transform: translate(-50%, -50%) rotate(360deg); } }
 
 @-o-keyframes spin {
   0% {
@@ -4196,12 +4164,10 @@
 @keyframes spin {
   0% {
     -webkit-transform: translate(-50%, -50%) rotate(0deg);
-       -moz-transform: translate(-50%, -50%) rotate(0deg);
          -o-transform: translate(-50%, -50%) rotate(0deg);
             transform: translate(-50%, -50%) rotate(0deg); }
   100% {
     -webkit-transform: translate(-50%, -50%) rotate(360deg);
-       -moz-transform: translate(-50%, -50%) rotate(360deg);
          -o-transform: translate(-50%, -50%) rotate(360deg);
             transform: translate(-50%, -50%) rotate(360deg); } }
 
@@ -4228,7 +4194,6 @@
   /* Fix IE */
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .eox-note-frais .media:hover {
@@ -4237,7 +4202,6 @@
 .eox-note-frais .media:hover .add {
   color: red;
   -webkit-animation: bounceIn 1s;
-     -moz-animation: bounceIn 1s;
        -o-animation: bounceIn 1s;
           animation: bounceIn 1s;
   opacity: 1 !important;
@@ -4247,13 +4211,11 @@
   position: absolute;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   pointer-events: none; }
 
 .eox-note-frais .media:not(.no-file):hover .add {
   -webkit-animation: none;
-     -moz-animation: none;
        -o-animation: none;
           animation: none; }
 
@@ -4321,29 +4283,6 @@
     -webkit-transform: scale3d(1, 1, 1);
             transform: scale3d(1, 1, 1); } }
 
-@-moz-keyframes bounceIn {
-  0, 20%, 40%, 60%, 80%, to {
-    -moz-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-         animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
-  0% {
-    -moz-transform: scale3d(1, 1, 1);
-         transform: scale3d(1, 1, 1); }
-  20% {
-    -moz-transform: scale3d(1.4, 1.4, 1.4);
-         transform: scale3d(1.4, 1.4, 1.4); }
-  40% {
-    -moz-transform: scale3d(0.9, 0.9, 0.9);
-         transform: scale3d(0.9, 0.9, 0.9); }
-  60% {
-    -moz-transform: scale3d(1.2, 1.2, 1.2);
-         transform: scale3d(1.2, 1.2, 1.2); }
-  80% {
-    -moz-transform: scale3d(0.97, 0.97, 0.97);
-         transform: scale3d(0.97, 0.97, 0.97); }
-  to {
-    -moz-transform: scale3d(1, 1, 1);
-         transform: scale3d(1, 1, 1); } }
-
 @-o-keyframes bounceIn {
   0, 20%, 40%, 60%, 80%, to {
     -o-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -4364,32 +4303,25 @@
 @keyframes bounceIn {
   0, 20%, 40%, 60%, 80%, to {
     -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-       -moz-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
          -o-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
             animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
   0% {
     -webkit-transform: scale3d(1, 1, 1);
-       -moz-transform: scale3d(1, 1, 1);
             transform: scale3d(1, 1, 1); }
   20% {
     -webkit-transform: scale3d(1.4, 1.4, 1.4);
-       -moz-transform: scale3d(1.4, 1.4, 1.4);
             transform: scale3d(1.4, 1.4, 1.4); }
   40% {
     -webkit-transform: scale3d(0.9, 0.9, 0.9);
-       -moz-transform: scale3d(0.9, 0.9, 0.9);
             transform: scale3d(0.9, 0.9, 0.9); }
   60% {
     -webkit-transform: scale3d(1.2, 1.2, 1.2);
-       -moz-transform: scale3d(1.2, 1.2, 1.2);
             transform: scale3d(1.2, 1.2, 1.2); }
   80% {
     -webkit-transform: scale3d(0.97, 0.97, 0.97);
-       -moz-transform: scale3d(0.97, 0.97, 0.97);
             transform: scale3d(0.97, 0.97, 0.97); }
   to {
     -webkit-transform: scale3d(1, 1, 1);
-       -moz-transform: scale3d(1, 1, 1);
             transform: scale3d(1, 1, 1); } }
 
 .eox-note-frais .tooltip {
@@ -4400,13 +4332,11 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   pointer-events: none;
   -webkit-transform: translate(-50%, -6px);
-     -moz-transform: translate(-50%, -6px);
       -ms-transform: translate(-50%, -6px);
        -o-transform: translate(-50%, -6px);
           transform: translate(-50%, -6px);
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   line-height: 1;
   z-index: 90; }
@@ -4451,7 +4381,6 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   pointer-events: auto;
   -webkit-transform: translate(-50%, 0);
-     -moz-transform: translate(-50%, 0);
       -ms-transform: translate(-50%, 0);
        -o-transform: translate(-50%, 0);
           transform: translate(-50%, 0); }
