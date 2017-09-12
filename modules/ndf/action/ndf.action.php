@@ -188,7 +188,8 @@ class NDF_Action {
 	 */
 	public function callback_export_ndf() {
 		check_ajax_referer( 'export_ndf' );
-
+ini_set("display_errors", true);
+error_reporting(E_ALL);
 		$total_tax_inclusive_amount = 0;
 		$total_tax_amount = 0;
 		$ndf = NDF_Class::g()->get( array(
@@ -205,6 +206,10 @@ class NDF_Action {
 
 		$sheet_details = array(
 			'ndf' => array(
+				'type' => 'segment',
+				'value' => array(),
+			),
+			'ndf_medias' => array(
 				'type' => 'segment',
 				'value' => array(),
 			),
@@ -228,14 +233,34 @@ class NDF_Action {
 
 		if ( ! empty( $ndfls ) ) {
 			foreach ( $ndfls as $ndfl ) {
+				$picture = 'No files founded';
+				if ( ! empty( $ndfl->thumbnail_id ) ) {
+					$picture_definition = wp_get_attachment_image_src( $ndfl->thumbnail_id, 'full' );
+					$picture_final_path = str_replace( '\\', '/', str_replace( site_url( '/' ), ABSPATH, $picture_definition[0] ) );
+					if ( is_file( $picture_final_path ) ) {
+						$picture = array(
+							'type'		=> 'picture',
+							'value'		=> $picture_final_path,
+							'option'	=> array(
+								'size'	=> 10,
+							),
+						);
+					}
+
+					$sheet_details['ndf_medias']['value'][] = array(
+						'id_media' => $ndfl->thumbnail_id,
+						'media' => $picture,
+					);
+				}
+
 				$sheet_details['ndf']['value'][] = array(
 					'date' => $ndfl->date,
 					'libelle' => $ndfl->title,
 					'km' => $ndfl->distance,
 					'ttc' => $ndfl->tax_inclusive_amount . '€',
 					'tva' => $ndfl->tax_amount . '€',
-					'tvarecup' => 'Je n\'existe pas',
-					'photo' => 'photo',
+					'id_media_attached' => ! empty( $ndfl->thumbnail_id ) ? $ndfl->thumbnail_id : '',
+					'attached_media' => $picture,
 				);
 
 				$total_tax_inclusive_amount += $ndfl->tax_inclusive_amount;

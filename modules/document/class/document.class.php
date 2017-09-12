@@ -189,7 +189,7 @@ class Document_Class extends \eoxia\Post_Class {
 
 
 		$path = 'document/' . $element->id . '/' . $response['filename'];
-		$document_creation = $this->generate_document( str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf.odt' ), $document_meta, $path );
+		$document_creation = $this->generate_document( str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf-photo.odt' ), $document_meta, $path );
 
 
 		$response[ 'id' ] = wp_insert_attachment( $document_args, $this->get_digirisk_dir_path() . '/' . $path, $element->id );
