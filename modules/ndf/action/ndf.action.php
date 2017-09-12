@@ -188,8 +188,6 @@ class NDF_Action {
 	 */
 	public function callback_export_ndf() {
 		check_ajax_referer( 'export_ndf' );
-ini_set("display_errors", true);
-error_reporting(E_ALL);
 		$total_tax_inclusive_amount = 0;
 		$total_tax_amount = 0;
 		$ndf = NDF_Class::g()->get( array(
@@ -233,7 +231,7 @@ error_reporting(E_ALL);
 
 		if ( ! empty( $ndfls ) ) {
 			foreach ( $ndfls as $ndfl ) {
-				$picture = 'No files founded';
+				$picture = '-';
 				if ( ! empty( $ndfl->thumbnail_id ) ) {
 					$picture_definition = wp_get_attachment_image_src( $ndfl->thumbnail_id, 'full' );
 					$picture_final_path = str_replace( '\\', '/', str_replace( site_url( '/' ), ABSPATH, $picture_definition[0] ) );

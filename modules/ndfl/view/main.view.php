@@ -17,6 +17,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="header">
 			<span class="button close"><i class="icon ion-ios-arrow-left"></i></span>
 			<h2 class="title"><?php echo $ndf->title; ?></h2>
+
+			<span class="button toggle-display-mode tooltip hover"
+				data-id="<?php echo esc_attr( $ndf->id ); ?>"
+				data-action="grid"
+				aria-label="<?php esc_attr_e( 'Mode grille', 'fraispro' ); ?>"
+				data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"><i class="icon ion-grid"></i></span>
+			<span class="button toggle-display-mode tooltip hover"
+				data-id="<?php echo esc_attr( $ndf->id ); ?>"
+				data-action="list"
+				aria-label="<?php esc_attr_e( 'Mode grille', 'fraispro' ); ?>"
+				data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"><i class="icon ion-ios-list-outline"></i></span>
+
 			<div class="validation_status toggle list" data-parent="toggle" data-target="content" data-title="<?php echo esc_attr( $ndf->validation_status ); ?>">
 				<input type="hidden" name="id" value="<?php echo esc_attr( $ndf->id ); ?>">
 				<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'modify_ndf' ) ); ?>">
@@ -44,7 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php echo empty( $user->prixkm ) ? '<div class="notice error">Votre <strong>prix/km</strong> n\'est pas configuré, veuillez modifier votre <a target="_blank" href="' . get_edit_profile_url() . '">profil</a>.</div>' : ''; ?>
 
-			<div class="flex-table">
+			<div class="flex-table list" >
 
 				<ul class="heading">
 					<li class="date">Date</li>
