@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<li data-type="refuse" class="item pin-status refuse">Refusée</li>
 				</ul>
 			</div>
-			<span class="button export action-attribute tooltip hover"
+			<span class="button export action-attribute"
 				data-id="<?php echo esc_attr( $ndf->id ); ?>"
 				data-action="export_ndf"
 				aria-label="Télécharger"

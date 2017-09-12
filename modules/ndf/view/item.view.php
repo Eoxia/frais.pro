@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container">
 		<div class="header">
 			<h2 class="title"><?php echo esc_html( $ndf->title ); ?></h2>
-			<span class="button export action-attribute tooltip hover"
+			<span class="button export action-attribute"
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
 					data-action="export_ndf"
 					aria-label="Télécharger"
