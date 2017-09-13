@@ -3795,6 +3795,11 @@
 .eox-note-frais .gridwrapper > * {
   padding: 0.5em; }
 
+.eox-note-frais .gridwrapper:after {
+  display: block;
+  content: '';
+  clear: both; }
+
 .eox-note-frais .gridwrapper.w1 > * {
   width: 100%; }
 
@@ -4100,12 +4105,19 @@
   -webkit-flex: 0 1 auto;
      -moz-box-flex: 0;
       -ms-flex: 0 1 auto;
-          flex: 0 1 auto; }
+          flex: 0 1 auto;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+     -moz-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start; }
 
 .eox-note-frais .flex-table.grid .row:not(.add) li {
   width: 100%;
   padding: 2px;
-  max-height: 54px; }
+  -webkit-align-content: flex-start;
+      -ms-flex-line-pack: start;
+          align-content: flex-start; }
 
 .eox-note-frais .flex-table.grid .row:not(.add) li span[contenteditable] {
   background: #f3f3f3;
@@ -4142,6 +4154,12 @@
 .eox-note-frais .flex-table.grid .row:not(.add) li.libelle span {
   white-space: normal; }
 
+.eox-note-frais .flex-table.grid .row:not(.add) .date {
+  width: 30%; }
+
+.eox-note-frais .flex-table.grid .row:not(.add) .libelle {
+  width: 70%; }
+
 .eox-note-frais .flex-table.grid .row:not(.add) .type, .eox-note-frais .flex-table.grid .row:not(.add) .km, .eox-note-frais .flex-table.grid .row:not(.add) .ttc, .eox-note-frais .flex-table.grid .row:not(.add) .tva {
   width: 50%; }
 
@@ -4164,6 +4182,10 @@
 .eox-note-frais .flex-table.grid .row:not(.add) .action .icon:hover {
   cursor: pointer;
   color: #e05353; }
+
+.eox-note-frais .flex-table.grid .media {
+  width: 100% !important;
+  height: auto !important; }
 
 .eox-note-frais .toggle {
   position: relative; }
@@ -4381,31 +4403,6 @@
      -moz-animation: none;
        -o-animation: none;
           animation: none; }
-
-.eox-note-frais .media:not(.no-file) .add {
-  opacity: 1;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-  right: -6px;
-  top: -6px;
-  color: #fff;
-  z-index: 10;
-  pointer-events: auto;
-  background: #5d5d5d;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  text-align: center;
-  line-height: 18px;
-  font-size: 12px; }
-
-.eox-note-frais .media:not(.no-file) .add:before {
-  content: "\f2bf"; }
-
-.eox-note-frais .media:not(.no-file) .add:hover {
-  background: #989898;
-  color: #fff;
-  cursor: pointer; }
 
 .eox-note-frais .media.no-file .add {
   opacity: 1;

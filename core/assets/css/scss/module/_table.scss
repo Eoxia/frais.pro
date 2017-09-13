@@ -208,11 +208,12 @@
 
 		.gridwrapper > div {
 			@include flexbox;
+			justify-content: flex-start;
 		}
 		li {
 			width: 100%;
 			padding: 2px;
-			max-height: 54px;
+			align-content: flex-start;
 			span[contenteditable] {
 				background: $color__grey;
 				padding: 14px;
@@ -250,6 +251,8 @@
 				}
 			}
 		}
+		.date,  { width: 30%; }
+		.libelle { width: 70%; }
 		.type, .km, .ttc, .tva { width: 50%; }
 		.action { width: auto; margin: auto 0 auto auto; }
 		.action {
@@ -265,6 +268,10 @@
 				}
 			}
 		}
+	}
+	.media {
+		width: 100% !important;
+		height: auto !important;
 	}
 
 }

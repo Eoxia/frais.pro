@@ -5,6 +5,11 @@
 	> * {
 		padding: 0.5em;
 	}
+	&:after {
+		display: block;
+		content: '';
+		clear: both;
+	}
 	@for $i from 1 through 6 {
 		&.w#{$i} > * {
 			width: 100%/$i
