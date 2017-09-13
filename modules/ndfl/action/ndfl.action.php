@@ -53,6 +53,7 @@ class NDFL_Action {
 		check_ajax_referer( 'modify_ndfl' );
 
 		$ndf_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
+		$display_mode = isset( $_POST['display_mode'] ) ? sanitize_text_field( $_POST['display_mode'] ) : 'list';
 
 		if ( isset( $_POST['row'] ) ) {
 			foreach ( $_POST['row'] as $row ) {
@@ -63,7 +64,7 @@ class NDFL_Action {
 		}
 
 		ob_start();
-		NDFL_Class::g()->display( $ndf_id );
+		NDFL_Class::g()->display( $ndf_id, $display_mode );
 		$response = ob_get_clean();
 
 		$ndf = NDF_Class::g()->get( array(

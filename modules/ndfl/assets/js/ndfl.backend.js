@@ -46,11 +46,10 @@ window.eoxiaJS.noteDeFrais.NDFL.updateHiddenInput = function( event ) {
 };
 
 window.eoxiaJS.noteDeFrais.NDFL.beforeDisplayModeChange = function( element ) {
-	var display_type_to_activate = jQuery( element ).attr( 'data-display-mode' );
+	var displayTypeToActivate = jQuery( element ).attr( 'data-display-mode' );
+	var mainContainer = jQuery( element ).closest( 'div.container' ).find( '.flex-table' );
 
-	var main_container = jQuery( element ).closest( 'div.container' ).find( '.flex-table' );
-	if ( ! main_container.hasClass( display_type_to_activate ) ) {
-		main_container.toggleClass( 'list grid' );
+	if ( ! mainContainer.hasClass( displayTypeToActivate ) ) {
 		return true;
 	} else {
 		return false;

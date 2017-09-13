@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<input type="hidden" name="parent_id" value="<?php echo esc_attr( $ndf->id ); ?>">
 	<?php } ?>
 	<input type="hidden" name="action" value="modify_ndfl">
+	<input type="hidden" name="display_mode" value="<?php echo esc_attr( $display_mode ); ?>">
 	<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'modify_ndfl' ) ); ?>">
 	<div class="container">
 		<div class="header">
@@ -45,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php echo empty( $user->prixkm ) ? '<div class="notice error">Votre <strong>prix/km</strong> n\'est pas configuré, veuillez modifier votre <a target="_blank" href="' . get_edit_profile_url() . '">profil</a>.</div>' : ''; ?>
 
 			<div class="display-method">
-				<span class="action-attribute button grey"
+				<span class="action-attribute button grey <?php echo esc_attr( 'grid' === $display_mode ? 'active' : '' );  ?>"
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
 					data-display-mode="grid"
 					data-action="open_ndf"
@@ -54,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					data-module="NDFL"
 					data-before-method="beforeDisplayModeChange"
 					data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon ion-grid"></i></span>
-				<span class="action-attribute button grey active"
+				<span class="action-attribute button grey <?php echo esc_attr( 'list' === $display_mode ? 'active' : '' );  ?>"
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
 					data-display-mode="list"
 					data-action="open_ndf"
@@ -100,12 +101,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<span class="ndfl-placeholder">0</span>
 						<span contenteditable="true" data-name="row[0][tax_inclusive_amount]" placeholder="0" ></span>
 					</li>
-					<?php // <li class="ht" data-title="HT (€)"><span contenteditable="true" data-name="row[0][TaxableAmount]">0</span></li> ?>
 					<li class="tva ndfl-placeholder-container" data-title="TVA récup.">
 						<span class="ndfl-placeholder">0</span>
 						<span contenteditable="true" data-name="row[0][tax_amount]" placeholder="0" ></span>
 					</li>
-					<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload field_name="image" model_name="/note_de_frais/ndfl_class" single="true" ]' ); ?></span></li>
+					<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload field_name="thumbnail_id" model_name="/note_de_frais/ndfl_class" single="true" mime_type="image" ]' ); ?></span></li>
 					<li class="action action-ligne"><span class="icon ion-ios-plus"></span></li>
 				</ul>
 

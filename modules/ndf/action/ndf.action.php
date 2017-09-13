@@ -57,6 +57,7 @@ class NDF_Action {
 			'module' => 'NDF',
 			'callback_success' => 'open',
 			'view' => $response,
+			'display_mode' => $ndf_display_mode,
 		) );
 	}
 
