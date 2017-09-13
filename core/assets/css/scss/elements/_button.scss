@@ -89,8 +89,18 @@
 	}
 	&.main {
 		background: $color__main;
+		color: #fff;
 		&:hover {
 			background: darken($color__main, 14%);
+			color: #fff;
+		}
+	}
+	&.grey {
+		background: $color__grey;
+		color: rgba(0,0,0,0.4);
+		&:hover {
+			background: darken( $color__grey, 10% );
+			color: rgba(0,0,0,0.6);
 		}
 	}
 	&.light {

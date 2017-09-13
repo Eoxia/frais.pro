@@ -54,6 +54,13 @@
 		background: #fff;
 		padding: 20px;
 		margin: 0;
+		.display-method {
+			text-align: right;
+			margin: 1em 0;
+			.button.active {
+				@extend .button.main;
+			}
+		}
 	}
 	.update {
 		width: 100%;

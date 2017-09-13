@@ -1,12 +1,17 @@
+/*--------------------------------------------------------------
+# Affichage générale
+--------------------------------------------------------------*/
 .flex-table {
 	width: 100%;
 
-	.heading, .row {
+	.heading, .row.add {
 		@include flexbox();
 		flex-wrap: nowrap;
 		width: 100%;
 		margin: 0;
 		padding: 0;
+		margin-bottom: 20px;
+
 		li {
 			list-style-type: none;
 			margin: 0;
@@ -30,7 +35,7 @@
 		}
 	}
 
-	.row {
+	.row.add {
 		li {
 			width: 100%;
 			padding: 2px;
@@ -72,66 +77,32 @@
 				}
 			}
 		}
-		&:nth-of-type( odd ) {
-			span[contenteditable], .toggle .content {
-				background: darken( $color__grey, 5% );
-			}
-			.disabled span {
-				background: url("images/disabled-pattern.png") darken( $color__grey, 5% ) !important;
-			}
-			.toggle .content:before {
-				border-color: transparent transparent darken( $color__grey, 6% ) transparent;
-			}
-			.toggle .content {
-				&:before {
 
-				}
-			}
-			.photo {
-				.media {
-					background: darken( $color__grey, 6% );
-				}
-			}
-		}
 		.action {
 			text-align: center;
 			.icon {
 				line-height: 50px;
 				color: rgba(0,0,0,0.4);
 				font-size: 18px;
+				color: $color__blue;
 				@include transition;
 				&:hover {
 					cursor: pointer;
-					color: $color__red;
+					color: lighten($color__blue, 20%);
 				}
 			}
 		}
+
 		.action-ligne {
 			.icon {
 				font-size: 26px;
 			}
 		}
-		&:not(.add) {
-			.icon.ion-ios-plus {
-				display: none;
-			}
-		}
-		&.add {
-			margin-bottom: 20px;
-			.icon {
-				color: $color__blue;
-				&:hover {
-					color: lighten($color__blue, 20%);
-				}
-				&.ion-trash-a {
-					display: none;
-				}
-			}
-		}
+
 	}
 
 	@media ( max-width: 1200px ) {
-		.heading, .row {
+		.heading, .row.add {
 			.photo, .action { max-width: 50px; min-width: 50px; }
 			.ttc, .ht { max-width: 80px; min-width: 80px; }
 			.km, .tva { max-width: 80px; min-width: 80px; }
@@ -142,7 +113,7 @@
 		.heading {
 			display: none;
 		}
-		.row {
+		.row.add {
 			flex-wrap: wrap;
 			margin-bottom: 40px !important;
 			padding-bottom: 40px;
@@ -176,11 +147,124 @@
 		}
 	}
 	@media ( max-width: 360px ) {
-		.row {
+		.row.add {
 			li {
 				width: 100% !important;
 			}
 			.action { order: 20; }
 		}
 	}
+}
+
+/*--------------------------------------------------------------
+# Affichage en liste
+--------------------------------------------------------------*/
+.flex-table.list {
+
+	.row:not(.add) {
+		@extend .row.add;
+		margin-bottom: 0;
+
+		.action .icon {
+			color: rgba(0,0,0,0.4);
+			&:hover {
+				color: $color__red;
+			}
+		}
+		&:nth-of-type( odd ) {
+			span[contenteditable], .toggle .content {
+				background: darken( $color__grey, 5% );
+			}
+			.disabled span {
+				background: url("images/disabled-pattern.png") darken( $color__grey, 5% ) !important;
+			}
+			.toggle .content:before {
+				border-color: transparent transparent darken( $color__grey, 6% ) transparent;
+			}
+			.toggle .content {
+				&:before {
+
+				}
+			}
+			.photo {
+				.media {
+					background: darken( $color__grey, 6% );
+				}
+			}
+		}
+	}
+
+}
+
+/*--------------------------------------------------------------
+# Affichage en grille
+--------------------------------------------------------------*/
+.flex-table.grid {
+
+	.row:not(.add) {
+		margin-bottom: 20px !important;
+		padding-bottom: 20px;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+
+		.gridwrapper > div {
+			@include flexbox;
+		}
+		li {
+			width: 100%;
+			padding: 2px;
+			max-height: 54px;
+			span[contenteditable] {
+				background: $color__grey;
+				padding: 14px;
+				display: inline-block;
+				width: 100%;
+				font-size: 14px;
+				max-height: 50px;
+				min-height: 50px;
+				white-space: nowrap;
+				overflow: hidden;
+				@include transition;
+				border: 1px solid rgba( $color__main, 0 );
+				&:focus {
+					border: 1px solid rgba( $color__main, 0.8 );
+				}
+			}
+			&.disabled span {
+				background: url("images/disabled-pattern.png") $color__grey;
+				pointer-events: none;
+				&:hover {
+					cursor: default;
+				}
+			}
+			&.ttc, &.tva {
+				font-weight: 700;
+			}
+			&.photo {
+				.media {
+					background: $color__grey;
+				}
+			}
+			&.libelle {
+				span {
+					white-space: normal;
+				}
+			}
+		}
+		.type, .km, .ttc, .tva { width: 50%; }
+		.action { width: auto; margin: auto 0 auto auto; }
+		.action {
+			text-align: center;
+			.icon {
+				line-height: 50px;
+				color: rgba(0,0,0,0.4);
+				font-size: 18px;
+				@include transition;
+				&:hover {
+					cursor: pointer;
+					color: $color__red;
+				}
+			}
+		}
+	}
+
 }
