@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php echo empty( $user->prixkm ) ? '<div class="notice error">Votre <strong>prix/km</strong> n\'est pas configuré, veuillez modifier votre <a target="_blank" href="' . get_edit_profile_url() . '">profil</a>.</div>' : ''; ?>
 
 			<div class="display-method">
-				<span class="action-attribute"
+				<span class="action-attribute button grey"
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
 					data-display-mode="grid"
 					data-action="open_ndf"
@@ -54,7 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					data-module="NDFL"
 					data-before-method="beforeDisplayModeChange"
 					data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon ion-grid"></i></span>
-				<span class="action-attribute"
+				<span class="action-attribute button grey active"
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
 					data-display-mode="list"
 					data-action="open_ndf"
