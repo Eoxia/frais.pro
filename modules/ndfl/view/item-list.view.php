@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<li class="km<?php echo $ndfl->category_name == 'Trajet' ? '': ' disabled'; ?>" data-title="Km"><span contenteditable="<?php echo $ndfl->category_name == 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][distance]" placeholder="0" ><?php echo esc_html( $ndfl->distance ); ?></span></li>
 	<li class="ttc<?php echo $ndfl->category_name != 'Trajet' ? '': ' disabled'; ?>" data-title="TTC (€)"><span contenteditable="<?php echo $ndfl->category_name != 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][tax_inclusive_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_inclusive_amount ); ?></span></li>
 	<li class="tva<?php echo $ndfl->category_name != 'Trajet' ? '': ' disabled'; ?>" data-title="TVA récup."><span contenteditable="<?php echo $ndfl->category_name != 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][tax_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_amount ); ?></span></li>
-	<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload id="' . $ndfl->id . '" field_name="image" model_name="/note_de_frais/ndfl_class" single="single" ]' ); ?></li>
+	<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload id="' . $ndfl->id . '" field_name="image" model_name="/note_de_frais/ndfl_class" single="true" ]' ); ?></li>
 	<li class="action action-ligne"><span class="icon ion-trash-a action-attribute"
 		data-ndfl-id="<?php echo esc_attr( $ndfl->id ); ?>"
 		data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>"

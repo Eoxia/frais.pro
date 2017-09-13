@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <ul class="row" data-i="<?php echo $i; ?>">
 	<input type="hidden" name="id" value="<?php echo $ndfl->id; ?>">
-	<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload id="' . $ndfl->id . '" field_name="image" model_name="/note_de_frais/ndfl_class" single="single" size="full"]' ); ?></li>
+	<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload id="' . $ndfl->id . '" field_name="image" model_name="/note_de_frais/ndfl_class" single="true" size="full"]' ); ?></li>
 	<li class="date" data-title="Date"><span contenteditable="true" class="date-time" data-name="row[<?php echo $i; ?>][date]"><?php echo $ndfl->date; ?></span></li>
 	<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[<?php echo $i; ?>][title]"><?php echo esc_html( $ndfl->title ); ?></span></li>
 	<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
