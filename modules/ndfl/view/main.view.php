@@ -45,19 +45,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php echo empty( $user->prixkm ) ? '<div class="notice error">Votre <strong>prix/km</strong> n\'est pas configuré, veuillez modifier votre <a target="_blank" href="' . get_edit_profile_url() . '">profil</a>.</div>' : ''; ?>
 
 			<div class="display-method">
-				<span class="button toggle-display-mode tooltip hover"
+				<span class="action-attribute"
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
-					data-action="grid"
+					data-display-mode="grid"
+					data-action="open_ndf"
 					aria-label="<?php esc_attr_e( 'Mode grille', 'fraispro' ); ?>"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"><i class="icon ion-grid"></i></span>
-				<span class="button toggle-display-mode tooltip hover"
+					data-namespace="noteDeFrais"
+					data-module="NDFL"
+					data-before-method="beforeDisplayModeChange"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon ion-grid"></i></span>
+				<span class="action-attribute"
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
-					data-action="list"
-					aria-label="<?php esc_attr_e( 'Mode grille', 'fraispro' ); ?>"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"><i class="icon ion-ios-list-outline"></i></span>
-				</div>
+					data-display-mode="list"
+					data-action="open_ndf"
+					data-namespace="noteDeFrais"
+					data-module="NDFL"
+					data-before-method="beforeDisplayModeChange"
+					aria-label="<?php esc_attr_e( 'Mode liste', 'fraispro' ); ?>"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon ion-ios-list-outline"></i></span>
+			</div>
 
-			<div class="flex-table list" >
+			<div class="flex-table <?php echo esc_attr( $display_mode ); ?>" >
 
 				<ul class="heading">
 					<li class="date">Date</li>
@@ -97,7 +105,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<span class="ndfl-placeholder">0</span>
 						<span contenteditable="true" data-name="row[0][tax_amount]" placeholder="0" ></span>
 					</li>
-					<li class="photo" data-title="Photo"><?php do_shortcode( '[eo_upload_button type="ndfl"]' ); ?></span></li>
+					<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload field_name="image" model_name="/note_de_frais/ndfl_class" single="true" ]' ); ?></span></li>
 					<li class="action action-ligne"><span class="icon ion-ios-plus"></span><span class="icon ion-trash-a"></span></li>
 				</ul>
 
@@ -106,7 +114,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				if ( ! empty( $ndfl ) ) :
 					foreach ( $ndfl as $ndfl_single ) :
 						if ( ! empty( $ndfl_single ) ) {
-							\eoxia\View_Util::exec( 'note-de-frais', 'ndfl', 'item', array(
+							\eoxia\View_Util::exec( 'note-de-frais', 'ndfl', 'item-' . $display_mode, array(
 								'ndf' => $ndf,
 								'ndfl' => $ndfl_single,
 								'i' => $i,

@@ -20,16 +20,6 @@ window.eoxiaJS.noteDeFrais.NDFL.init = function() {
 
 	jQuery( document ).on( 'blur keyup paste keydown click', '.row.add li span[contenteditable]', window.eoxiaJS.noteDeFrais.NDFL.updateHiddenInput );
 
-	jQuery( document ).on( 'click', '.toggle-display-mode', function( event ){
-		event.preventDefault();
-
-		var display_type_to_activate = jQuery( this ).attr( 'data-action' );
-		var main_container = jQuery( this ).closest( 'div.container' ).find( '.flex-table' );
-		if ( ! main_container.hasClass( display_type_to_activate ) ) {
-			main_container.toggleClass( 'list grid' );
-		}
-	} );
-
 	jQuery( document ).on( 'click', '.row.add .action .ion-ios-plus', window.eoxiaJS.noteDeFrais.NDFL.saveNDF );
 	jQuery( document ).on( 'keydown', '.row.add span[contenteditable]', function( event ) {
 		if ( event.ctrlKey && 13 === event.keyCode ) {
@@ -55,9 +45,21 @@ window.eoxiaJS.noteDeFrais.NDFL.updateHiddenInput = function( event ) {
 	}
 };
 
+window.eoxiaJS.noteDeFrais.NDFL.beforeDisplayModeChange = function( element ) {
+	var display_type_to_activate = jQuery( element ).attr( 'data-display-mode' );
+
+	var main_container = jQuery( element ).closest( 'div.container' ).find( '.flex-table' );
+	if ( ! main_container.hasClass( display_type_to_activate ) ) {
+		main_container.toggleClass( 'list grid' );
+		return true;
+	} else {
+		return false;
+	}
+};
+
 window.eoxiaJS.noteDeFrais.NDFL.confirmDeletion = function( element ) {
 	return confirm( jQuery( element ).data().confirmText );
-}
+};
 
 window.eoxiaJS.noteDeFrais.NDFL.saveNDF = function( event ) {
 	var name, extra, value = '';

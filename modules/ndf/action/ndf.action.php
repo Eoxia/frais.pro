@@ -46,9 +46,10 @@ class NDF_Action {
 		check_ajax_referer( 'open_ndf' );
 
 		$ndf_id = isset( $_POST['id'] ) ? intval( $_POST['id'] ) : -1;
+		$ndf_display_mode = isset( $_POST['display_mode'] ) ? sanitize_text_field( $_POST['display_mode'] ) : 'list';
 
 		ob_start();
-		NDFL_Class::g()->display( $ndf_id );
+		NDFL_Class::g()->display( $ndf_id, $ndf_display_mode );
 		$response = ob_get_clean();
 
 		wp_send_json_success( array(

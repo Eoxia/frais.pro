@@ -3022,6 +3022,10 @@
  * .hover -> affiche la tooltip au hover
  * .active -> affiche la tooltip
  * .red -> la tooltip sera sur fond rouge
+ */
+  /**
+ * Popup
+ * .no-close -> désactive le bouton
  */ }
 
 .eox-note-frais *,
@@ -4384,3 +4388,206 @@
       -ms-transform: translate(-50%, 0);
        -o-transform: translate(-50%, 0);
           transform: translate(-50%, 0); }
+
+.eox-note-frais .popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: rgba(39, 42, 53, 0.9);
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  pointer-events: none;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
+
+.eox-note-frais .popup .container {
+  position: absolute;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  width: 100%;
+  max-width: 860px;
+  background: #fff;
+  padding: 20px;
+  margin: auto;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -54%);
+      -ms-transform: translate(-50%, -54%);
+       -o-transform: translate(-50%, -54%);
+          transform: translate(-50%, -54%); }
+
+.eox-note-frais .popup .container .header {
+  display: block;
+  position: relative;
+  margin-bottom: 20px; }
+
+.eox-note-frais .popup .container .header .title {
+  text-transform: uppercase;
+  font-size: 18px; }
+
+.eox-note-frais .popup .container .header .close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: rgba(0, 0, 0, 0.3);
+  padding: 4px;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
+
+.eox-note-frais .popup .container .header .close:hover {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.6); }
+
+.eox-note-frais .popup.active {
+  opacity: 1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  pointer-events: auto; }
+
+.eox-note-frais .popup.active .container {
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+       -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%); }
+
+.eox-note-frais .popup.no-close .button {
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.4);
+  pointer-events: none; }
+
+.eox-note-frais .popup.no-close .button:hover {
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.4);
+  cursor: not-allowed; }
+
+.eox-note-frais .popup.duer .content ul {
+  height: 500px;
+  overflow-y: scroll; }
+
+/**
+ * GALLERY
+ */
+.eo-gallery {
+  background: rgba(39, 42, 53, 0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999; }
+
+.eo-gallery a {
+  text-decoration: none; }
+
+.eo-gallery .close {
+  position: absolute;
+  right: 30px;
+  top: 50px;
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
+
+.eo-gallery .close:hover {
+  color: blue; }
+
+.eo-gallery .image-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+     -moz-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  /* Fix IE */
+  height: 100%;
+  margin: auto; }
+
+.eo-gallery .image-list .current {
+  margin: auto; }
+
+.eo-gallery .image-list img {
+  max-width: 1000px;
+  width: 100%;
+  height: auto; }
+
+.eo-gallery .navigation {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+       -o-transform: translateY(-50%);
+          transform: translateY(-50%);
+  left: 0;
+  width: 100%;
+  padding: 0 40px; }
+
+.eo-gallery .navigation li:first-child {
+  float: left; }
+
+.eo-gallery .navigation li:last-child {
+  float: right; }
+
+.eo-gallery .navigation li a {
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  line-height: 1;
+  padding: 6px;
+  border: 1px solid #fff;
+  display: inline-block;
+  font-size: 8px;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  color: #fff; }
+
+.eo-gallery .navigation li:hover a {
+  background: blue;
+  border: 1px solid blue;
+  color: #fff; }
+
+.eo-gallery .action {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  left: 0;
+  text-align: center;
+  background: #1b1b1b; }
+
+.eo-gallery .action li, .eo-gallery .action a {
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
+
+.eo-gallery .action li {
+  display: inline-block;
+  line-height: 1;
+  border-right: 1px solid rgba(255, 255, 255, 0.2); }
+
+.eo-gallery .action li:first-child {
+  border-left: 1px solid rgba(255, 255, 255, 0.2); }
+
+.eo-gallery .action li a {
+  display: inline-block;
+  padding: 14px 20px;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 13px; }
+
+.eo-gallery .action li:hover {
+  background: rgba(255, 255, 255, 0.05); }
+
+.eo-gallery .action .media {
+  width: auto;
+  height: auto;
+  line-height: 1; }

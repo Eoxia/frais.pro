@@ -96,7 +96,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 		parent::construct();
 	}
 
-	public function display( $ndf_id = -1 ) {
+	public function display( $ndf_id = -1, $display_mode = 'list' ) {
 		$ndfl = $this->get( array(
 			'post_parent' => $ndf_id,
 		) );
@@ -109,6 +109,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 		$template_vars['user'] = User_Class::g()->get( array(
 			'id' => get_current_user_id(),
 		), true );
+		$template_vars['display_mode'] = $display_mode;
 		\eoxia\View_Util::exec( 'note-de-frais', 'ndfl', 'main', $template_vars );
 	}
 

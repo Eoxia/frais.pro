@@ -17,7 +17,8 @@
 	],
 	"externals": [
 		"core/external/wpeo_log/wpeo_log.config.json",
-		"core/external/wpeo_model/wpeo_model.config.json"
+		"core/external/wpeo_model/wpeo_model.config.json",
+		"core/external/wpeo_upload/wpeo_upload.config.json"
 	],
 	"modules": [
 		"core/core.config.json",
@@ -25,8 +26,7 @@
 		"modules/document/document.config.json",
 		"modules/user/user.config.json",
 		"modules/ndf/ndf.config.json",
-		"modules/ndfl/ndfl.config.json",
-		"modules/file_management/file_management.config.json"
+		"modules/ndfl/ndfl.config.json"
 	],
 	"debug": true,
 	"categories": [
