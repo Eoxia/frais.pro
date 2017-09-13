@@ -106,7 +106,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<span contenteditable="true" data-name="row[0][tax_amount]" placeholder="0" ></span>
 					</li>
 					<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload field_name="image" model_name="/note_de_frais/ndfl_class" single="true" ]' ); ?></span></li>
-					<li class="action action-ligne"><span class="icon ion-ios-plus"></span><span class="icon ion-trash-a"></span></li>
+					<li class="action action-ligne"><span class="icon ion-ios-plus"></span></li>
 				</ul>
 
 				<?php
