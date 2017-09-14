@@ -16,7 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="gridwrapper w2">
 		<div>
 			<li class="photo" data-title="Photo">
-				<i class="dashicons dashicons-image-rotate-right <?php if ( empty( $ndfl->thumbnail_id ) ) : echo 'hidden'; endif; ?>" data-rotation="0" ></i>
 				<?php do_shortcode( '[wpeo_upload id="' . $ndfl->id . '" field_name="thumbnail_id" model_name="/note_de_frais/ndfl_class" single="true" size="full" mime_type="image" ]' ); ?>
 			</li>
 		</div>
