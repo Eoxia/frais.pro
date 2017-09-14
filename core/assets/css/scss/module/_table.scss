@@ -208,12 +208,13 @@
 
 		.gridwrapper > div {
 			@include flexbox;
-			justify-content: flex-start;
+			align-content: flex-start
 		}
 		li {
 			width: 100%;
 			padding: 2px;
-			align-content: flex-start;
+			height: 50px;
+			margin-bottom: 4px;
 			span[contenteditable] {
 				background: $color__grey;
 				padding: 14px;
@@ -251,6 +252,9 @@
 				}
 			}
 		}
+		.photo {
+			height: auto;
+		}
 		.date,  { width: 30%; }
 		.libelle { width: 70%; }
 		.type, .km, .ttc, .tva { width: 50%; }
@@ -269,9 +273,18 @@
 			}
 		}
 	}
-	.media {
+	.media:not(.no-file) {
 		width: 100% !important;
 		height: auto !important;
+	}
+
+	.gridwrapper {
+		div:first-child {
+			width: 40%;
+		}
+		div:last-child {
+			width: 60%;
+		}
 	}
 
 }
