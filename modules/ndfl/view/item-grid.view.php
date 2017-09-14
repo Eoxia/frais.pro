@@ -1,4 +1,9 @@
 <?php
+/**
+ * [namespace description]
+ *
+ * @package note_de_frais
+ */
 
 namespace note_de_frais;
 
