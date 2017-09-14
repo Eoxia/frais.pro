@@ -58,6 +58,8 @@ class NDFL_Action {
 		if ( isset( $_POST['row'] ) ) {
 			foreach ( $_POST['row'] as $row ) {
 				$row['parent_id'] = $ndf_id;
+				$row['tax_inclusive_amount'] = str_replace( ',', '.', $row['tax_inclusive_amount'] );
+				$row['tax_amount'] = str_replace( ',', '.', $row['tax_amount'] );
 				$current_row = NDFL_Class::g()->update( $row );
 				$all_new_row[] = $current_row->id;
 			}
