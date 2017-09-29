@@ -80,7 +80,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</ul>
 
 				<ul class="row add" data-i="0">
-					<li class="date" data-title="Date"><span contenteditable="true" class="date-time" data-name="row[0][date]"><?php echo current_time( 'd/m/Y H:i' ); ?></span></li>
+					<li class="date group-date" data-title="Date">
+						<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none; display: block; height: 0px;" name="date" value="<?php echo current_time( 'mysql' ); ?>" />
+						<span contenteditable="true" class="date-time"><?php echo current_time( 'd/m/Y H:i' ); ?></span>
+					</li>
 					<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[0][title]"></span></li>
 					<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
 						<input name="category_name" type="hidden" value="Autre"/>
@@ -129,7 +132,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<!-- <span class="button blue float right saveNDF" data-parent="note">Mettre à jour</span> -->
-			<div class="update">MAJ : <span class="date_modified_value"><?php echo esc_html( $ndf->date_modified ); ?></span></div>
+			<div class="update">MAJ : <span class="date_modified_value"><?php echo esc_html( $ndf->date_modified['date_human_readable'] ); ?></span></div>
 
 		</div>
 

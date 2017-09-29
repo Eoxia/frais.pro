@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<span class="taxe">TVA récup.</span>
 			</div>
 			<div class="status"><span class="value pin-status <?php echo ! empty( $ndf->validation_status ) ? esc_attr( NDF_Class::g()->get_status( $ndf->validation_status ) ) : ''; ?>"><?php echo $ndf->validation_status; ?></span></div>
-			<div class="update">MAJ : <span class="value"><?php echo esc_html( $ndf->date_modified ); ?></span></div>
+			<div class="update">MAJ : <span class="value"><?php echo esc_html( $ndf->date_modified['date_human_readable'] ); ?></span></div>
 		</div>
 	</div>
 </div>

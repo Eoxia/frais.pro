@@ -54,7 +54,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\eoxia\convert_date_time', '\note_de_frais\before_update_ndfl' );
+	protected $before_post_function = array( '\note_de_frais\before_update_ndfl' );
 
 
 	/**
@@ -62,7 +62,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_put_function = array( '\eoxia\convert_date_time', '\note_de_frais\before_update_ndfl' );
+	protected $before_put_function = array( '\note_de_frais\before_update_ndfl' );
 
 	/**
 	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée
@@ -83,7 +83,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array( '\eoxia\construct_current_date_time' );
+	protected $after_get_function = array();
 
 	/**
 	 * Le nom pour le resgister post type
