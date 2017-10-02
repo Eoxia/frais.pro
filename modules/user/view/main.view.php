@@ -55,5 +55,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<th><label for="marque">Carte grise</label></th>
 			<td class="eox-note-frais"><?php echo do_shortcode( '[eo_upload_user_button id="' . $user->id . '" type="user" namespace="note_de_frais"]'); ?></td>
 		</tr>
+
+		<tr class="user-marque-wrap">
+			<th><label for="ndf_admin">L'utilisateur peut tout voir</label></th>
+			<td><input type="checkbox" name="ndf_admin" id="ndf_admin" value="yes" class="regular-text ltr"></td>
+		</tr>
 	</tbody>
 </table>

@@ -33,6 +33,11 @@ class User_Action {
 		add_action( 'edit_user_profile_update', array( $this, 'callback_user_profile_edit' ) );
 	}
 
+	/**
+	 * Ajoute les champs spécifiques à note de frais dans le compte utilisateur.
+	 *
+	 * @param  WP_User $user L'objet contenant la définition complète de l'utilisateur.
+	 */
 	public function callback_edit_user_profile( $user  ) {
 		$user = User_Class::g()->get( array(
 			'include' => array( $user->ID ),
@@ -43,17 +48,24 @@ class User_Action {
 		) );
 	}
 
+	/**
+	 * Enregistre les informations spécifiques de Note de Frais
+	 *
+	 * @param  integer $user_id L'identifiant de l'utilisateur pour qui il faut sauvegarder les informations.
+	 */
 	public function callback_user_profile_edit( $user_id ) {
+		check_admin_referer( 'update-user_' . $user_id );
 		if ( ! current_user_can( 'edit_user', $user_id ) ) {
 			return false;
 		}
 
-		User_Class::g()->update( array_merge(
-			array(
-				'id' => $user_id,
-			),
-			$_POST
-		) );
+		$user = array( 'id' => $user_id );
+		$user['marque'] = ! empty( $_POST ) && ! empty( $_POST['marque'] ) ? sanitize_text_field( $_POST['marque'] ) : '';
+		$user['chevaux'] = ! empty( $_POST ) && ! empty( $_POST['chevaux'] ) && in_array( $_POST['chevaux'], \eoxia\Config_Util::$init['note-de-frais']->chevaux, true ) ? sanitize_text_field( $_POST['marque'] ) : '';
+		$user['prixkm'] = ! empty( $_POST ) && ! empty( $_POST['prixkm'] ) ? sanitize_text_field( str_replace( ',', '.', $_POST['prixkm'] ) ) : '';
+		$user['ndf_admin'] = ! empty( $_POST ) && ! empty( $_POST['ndf_admin'] ) ? sanitize_text_field( $_POST['ndf_admin'] ) : '';
+
+		User_Class::g()->update( $user );
 	}
 
 }
