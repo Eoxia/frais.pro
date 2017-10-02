@@ -30,15 +30,12 @@ class Note_De_Frais_Action {
 		$post = ( ! empty( $_REQUEST['post'] ) ) ? intval( $_REQUEST['post'] ) : '';
 
 		if ( in_array( $page, \eoxia\Config_Util::$init['note-de-frais']->insert_scripts_pages_css, true ) && empty( $post ) ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts_css' ), 10 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts_css' ), 11 );
-			add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts_css' ) );
 		}
 
 		if ( in_array( $page, \eoxia\Config_Util::$init['note-de-frais']->insert_scripts_pages_js, true ) && empty( $post ) ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts_js' ), 10 );
+			add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts_js' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts_js' ), 11 );
-			add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts_js' ) );
 		}
 
 		add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
@@ -54,9 +51,8 @@ class Note_De_Frais_Action {
 	 * @version 6.2.5.0
 	 */
 	public function callback_before_admin_enqueue_scripts_js() {
-		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'jquery-form' );
-		wp_enqueue_script( 'jquery-ui-datepicker' );
+		wp_enqueue_script( 'note-de-frais-scripts-lib', PLUGIN_NOTE_DE_FRAIS_URL . 'core/external/wpeo_assets/js/dest/wpeo-assets.js', array( 'jquery', 'jquery-form', 'jquery-ui-datepicker' ), \eoxia\Config_Util::$init['note-de-frais']->version, false );
+
 		wp_enqueue_media();
 		add_thickbox();
 	}
@@ -75,29 +71,6 @@ class Note_De_Frais_Action {
 	}
 
 	/**
-	 * Initialise en php le fichier permettant la traduction des variables string JavaScript.
-	 *
-	 * @return void nothing
-	 *
-	 * @since 1.0
-	 * @version 6.2.5.0
-	 */
-	public function callback_admin_print_scripts_js() {
-		// require( PLUGIN_DIGIRISK_PATH . '/core/assets/js/define-string.js.php' );
-	}
-
-	/**
-	 * Initialise les fichiers JS inclus dans WordPress (jQuery, wp.media et thickbox)
-	 *
-	 * @return void nothing
-	 *
-	 * @since 1.0
-	 * @version 6.2.5.0
-	 */
-	public function callback_before_admin_enqueue_scripts_css() {
-	}
-
-	/**
 	 * Initialise le fichier style.min.css et backend.min.js du plugin DigiRisk.
 	 *
 	 * @return void nothing
@@ -113,24 +86,13 @@ class Note_De_Frais_Action {
 	}
 
 	/**
-	 * Initialise en php le fichier permettant la traduction des variables string JavaScript.
-	 *
-	 * @return void nothing
-	 *
-	 * @since 1.0
-	 * @version 6.2.5.0
-	 */
-	public function callback_admin_print_scripts_css() {
-	}
-
-	/**
 	 * Initialise le fichier MO
 	 *
 	 * @since 1.0
 	 * @version 6.2.5.0
 	 */
 	public function callback_plugins_loaded() {
-			register_post_status( 'archive', array(
+		register_post_status( 'archive', array(
 			'label'                     => 'Archive',
 			'public'                    => true,
 			'exclude_from_search'       => false,

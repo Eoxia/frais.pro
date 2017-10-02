@@ -26,7 +26,7 @@ window.eoxiaJS.noteDeFrais.NDF.refresh = function( triggeredElement, response ) 
 	if ( response.data.ndf ) {
 		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .ttc .value' ).text( response.data.ndf.tax_inclusive_amount );
 		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .tva .value' ).text( response.data.ndf.tax_amount );
-		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .update .value' ).text( response.data.ndf.date_modified );
+		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .update .value' ).text( response.data.ndf.date_modified.date_human_readable );
 		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .status .value' ).html( response.data.ndf.validation_status );
 	}
 };

@@ -8,9 +8,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <ul class="row" data-i="<?php echo $i; ?>">
 	<input type="hidden" name="id" value="<?php echo $ndfl->id; ?>">
-	<li class="group-date date" data-title="Date">
+	<li class="group-date date" data-title="Date" data-namespace="noteDeFrais" data-module="NDFL" data-after-method="changeDate" >
 		<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none; display: block; height: 0px;" name="date" value="<?php echo $ndfl->date['date_input']['date']; ?>" />
-		<span contenteditable="true" class="date-time"><?php echo $ndfl->date['date_input']['fr_FR']['date_time']; ?></span>
+		<span contenteditable="true" class="date"><?php echo $ndfl->date['date_input']['fr_FR']['date']; ?></span>
 	</li>
 	<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[<?php echo $i; ?>][title]"><?php echo esc_html( $ndfl->title ); ?></span></li>
 	<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">

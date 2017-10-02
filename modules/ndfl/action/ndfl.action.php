@@ -21,6 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class NDFL_Action {
 
+	/**
+	 * Instanciate Note De Frais Line
+	 */
 	public function __construct() {
 		add_action( 'wp_ajax_add_ndfl', array( $this, 'callback_add_ndfl' ) );
 		add_action( 'wp_ajax_modify_ndfl', array( $this, 'callback_modify_ndfl' ) );

@@ -235,7 +235,7 @@ class NDF_Action {
 			foreach ( $ndfls as $ndfl ) {
 				$picture = '-';
 				if ( ! empty( $ndfl->thumbnail_id ) ) {
-					$picture_definition = wp_get_attachment_image_src( $ndfl->thumbnail_id, 'full' );
+					$picture_definition = wp_get_attachment_image_src( $ndfl->thumbnail_id, 'large' );
 					$picture_final_path = str_replace( '\\', '/', str_replace( site_url( '/' ), ABSPATH, $picture_definition[0] ) );
 					if ( is_file( $picture_final_path ) ) {
 						$picture = array(

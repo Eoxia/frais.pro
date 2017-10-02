@@ -39,6 +39,17 @@ window.eoxiaJS.noteDeFrais.NDFL.init = function() {
 	jQuery( document ).on( 'keydown', '.libelle span', window.eoxiaJS.noteDeFrais.NDFL.focusSelect );
 };
 
+// Quand on change de date dans le calendrier.
+window.eoxiaJS.noteDeFrais.NDFL.changeDate = function( element ) {
+	// On affiche date sélectionnée dans le "champs" contenteditable.
+	element.closest( '.group-date' ).find( 'span[contenteditable="true"]' ).text( window.eoxiaJS.date.convertMySQLDate( element.val(), false ) );
+
+	// Si on est dans le cadre d'une édition de ligne alors on lance l'enregistrement
+	if ( ! element.closest( 'ul.row' ).hasClass( 'add' ) ) {
+		element.each( window.eoxiaJS.noteDeFrais.NDFL.saveNDF );
+	}
+};
+
 window.eoxiaJS.noteDeFrais.NDFL.updateHiddenInput = function( event ) {
 	if ( 0 >= jQuery( this ).text().length ) {
 		jQuery( this ).closest( 'li' ).find( '.ndfl-placeholder' ).addClass( 'hidden' );

@@ -92,10 +92,12 @@ class NDFL_Class extends \eoxia\Post_Class {
 	 */
 	protected $post_type_name = 'NDFL';
 
-	public function construct() {
-		parent::construct();
-	}
-
+	/**
+	 * Affichage d'une note de frais avec ses lignes
+	 *
+	 * @param  integer $ndf_id       Identifiant de la note de frais à récupérer.
+	 * @param  string  $display_mode Quel est le mode d'affichage a utiliser.
+	 */
 	public function display( $ndf_id = -1, $display_mode = 'list' ) {
 		$ndfl = $this->get( array(
 			'post_parent' => $ndf_id,
