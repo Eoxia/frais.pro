@@ -1,8 +1,8 @@
 /**
  * Initialise l'objet "NDF" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.2.0
  */
 
 window.eoxiaJS.noteDeFrais.NDFL = {};
@@ -12,8 +12,8 @@ window.eoxiaJS.noteDeFrais.NDFL = {};
  *
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.2.0
  */
 window.eoxiaJS.noteDeFrais.NDFL.init = function() {
 	var currentFocusout = true;
@@ -35,7 +35,6 @@ window.eoxiaJS.noteDeFrais.NDFL.init = function() {
 		}
 		currentFocusout = false;
 	} );
-	jQuery( document ).on( 'click', '.content .toggle .content .item', window.eoxiaJS.noteDeFrais.NDFL.select );
 	jQuery( document ).on( 'keydown', '.libelle span', window.eoxiaJS.noteDeFrais.NDFL.focusSelect );
 };
 
@@ -100,32 +99,6 @@ window.eoxiaJS.noteDeFrais.NDFL.saveNDF = function( event ) {
 	jQuery.post( ajaxurl, serialize, function( response ) {
 		window.eoxiaJS.noteDeFrais.NDF.refresh( null, response );
 	}, 'json' );
-};
-
-window.eoxiaJS.noteDeFrais.NDFL.select = function( event ) {
-	event.stopPropagation();
-	jQuery( this ).closest( '.row' ).find( '.toggle .label' ).text( jQuery( this ).text() );
-	jQuery( this ).closest( '.row' ).find( '.toggle input' ).val( jQuery( this ).text() );
-	jQuery( this ).closest( '.row' ).find( '.toggle .content' ).removeClass( 'active' );
-	if ( ! jQuery( this ).closest( '.row' ).hasClass( 'add' ) ) {
-		jQuery( this ).each( window.eoxiaJS.noteDeFrais.NDFL.saveNDF );
-	} else {
-		if ( 'Autre' == jQuery( this ).text() ) {
-			jQuery( this ).closest( '.row' ).find( '.km span[contenteditable]' ).attr( 'contenteditable', false );
-			jQuery( this ).closest( '.row' ).find( '.km' ).addClass( 'disabled' );
-			jQuery( this ).closest( '.row' ).find( '.ttc.disabled span[contenteditable]' ).attr( 'contenteditable', true );
-			jQuery( this ).closest( '.row' ).find( '.ttc.disabled' ).removeClass( 'disabled' );
-			jQuery( this ).closest( '.row' ).find( '.tva.disabled span[contenteditable]' ).attr( 'contenteditable', true );
-			jQuery( this ).closest( '.row' ).find( '.tva.disabled' ).removeClass( 'disabled' );
-		} else {
-			jQuery( this ).closest( '.row' ).find( '.km.disabled span[contenteditable]' ).attr( 'contenteditable', true );
-			jQuery( this ).closest( '.row' ).find( '.km.disabled' ).removeClass( 'disabled' );
-			jQuery( this ).closest( '.row' ).find( '.ttc span[contenteditable]' ).attr( 'contenteditable', false );
-			jQuery( this ).closest( '.row' ).find( '.ttc' ).addClass( 'disabled' );
-			jQuery( this ).closest( '.row' ).find( '.tva span[contenteditable]' ).attr( 'contenteditable', false );
-			jQuery( this ).closest( '.row' ).find( '.tva' ).addClass( 'disabled' );
-		}
-	}
 };
 
 window.eoxiaJS.noteDeFrais.NDFL.focusSelect = function( event ) {

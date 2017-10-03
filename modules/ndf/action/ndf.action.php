@@ -3,11 +3,10 @@
  * Classe gérant les actions des notes de frais.
  *
  * @author eoxia
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.2.0
  * @copyright 2017 Eoxia
- * @package ndf
- * @subpackage action
+ * @package NDF
  */
 
 namespace note_de_frais;
@@ -185,96 +184,21 @@ class NDF_Action {
 	 * @return string $filename          Json filename.
 	 * @return string $callback_success  Json callback noteDeFrais.NDF.exportedNoteDeFraisSuccess().
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.0.0.0
+	 * @since 1.0.0
+	 * @version 1.2.0
 	 */
 	public function callback_export_ndf() {
 		check_ajax_referer( 'export_ndf' );
-		$total_tax_inclusive_amount = 0;
-		$total_tax_amount = 0;
-		$ndf = NDF_Class::g()->get( array(
-			'include' => array( $_POST['id'] ),
-		), true );
 
-		$ndfls = NDFL_Class::g()->get( array(
-			'post_parent' => $_POST['id'],
-		) );
+		$ndf_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$with_picture = ! empty( $_POST['with_picture'] ) ? $_POST['with_picture'] : false;
 
-		$user = User_Class::g()->get( array(
-			'include' => array( $ndf->author_id ),
-		), true );
-
-		$sheet_details = array(
-			'ndf' => array(
-				'type' => 'segment',
-				'value' => array(),
-			),
-			'ndf_medias' => array(
-				'type' => 'segment',
-				'value' => array(),
-			),
-		);
-
-		$periode = explode( '-', $ndf->title );
-		$periode = $periode[2] . '/' . $periode[1];
-
-		if ( ! empty( $user->firstname ) && ! empty( $user->lastname ) ) {
-			$sheet_details['utilisateur_prenom_nom'] = $user->firstname . ' ' . $user->lastname;
-		}
-		$sheet_details['utilisateur_email'] = $user->email;
-		$sheet_details['periode'] = $periode;
-
-		if ( empty( $sheet_details['utilisateur_prenom_nom'] ) ) {
-			$sheet_details['utilisateur_prenom_nom'] = $user->login;
+		if ( empty( $ndf_id ) ) {
+			wp_send_json_error();
 		}
 
-		$sheet_details['status'] = $ndf->validation_status;
-		$sheet_details['miseajour'] = $ndf->date_modified;
+		$response = NDF_Class::g()->generate_document( $ndf_id );
 
-		if ( ! empty( $ndfls ) ) {
-			foreach ( $ndfls as $ndfl ) {
-				$picture = '-';
-				if ( ! empty( $ndfl->thumbnail_id ) ) {
-					$picture_definition = wp_get_attachment_image_src( $ndfl->thumbnail_id, 'large' );
-					$picture_final_path = str_replace( '\\', '/', str_replace( site_url( '/' ), ABSPATH, $picture_definition[0] ) );
-					if ( is_file( $picture_final_path ) ) {
-						$picture = array(
-							'type'		=> 'picture',
-							'value'		=> $picture_final_path,
-							'option'	=> array(
-								'size'	=> 10,
-							),
-						);
-					}
-
-					$sheet_details['ndf_medias']['value'][] = array(
-						'id_media' => $ndfl->thumbnail_id,
-						'media' => $picture,
-					);
-				}
-
-				$sheet_details['ndf']['value'][] = array(
-					'date' => $ndfl->date,
-					'libelle' => $ndfl->title,
-					'km' => $ndfl->distance,
-					'ttc' => $ndfl->tax_inclusive_amount . '€',
-					'tva' => $ndfl->tax_amount . '€',
-					'id_media_attached' => ! empty( $ndfl->thumbnail_id ) ? $ndfl->thumbnail_id : '',
-					'attached_media' => $picture,
-				);
-
-				$total_tax_inclusive_amount += $ndfl->tax_inclusive_amount;
-				$total_tax_amount += $ndfl->tax_amount;
-			}
-		}
-
-		$sheet_details['totaltva'] = $total_tax_amount . '€';
-		$sheet_details['totalttc'] = $total_tax_inclusive_amount . '€';
-		$sheet_details['marque'] = $user->marque;
-		$sheet_details['chevaux'] = $user->chevaux;
-		$sheet_details['prixkm'] = $user->prixkm;
-
-		$response = document_class::g()->create_document( $ndf, $sheet_details );
 		wp_send_json_success( array(
 			'namespace' => 'noteDeFrais',
 			'module' => 'NDF',

@@ -120,6 +120,111 @@ class NDF_Class extends \eoxia\Post_Class {
 	public function get_status( $status ) {
 		return $this->status[ $status ];
 	}
+
+	/**
+	 * Génères le document.
+	 *
+	 * @since 1.2.0
+	 * @version 1.2.0
+	 *
+	 * @param  integer $ndf_id       L'ID de la note de frais.
+	 * @param  boolean $with_picture Oui pour avoir les photos. Defaut true.
+	 * @return array {
+	 *         Les propriétés du tableau.
+	 *
+	 *         @type string ....
+	 * }.
+	 */
+	public function generate_document( $ndf_id, $with_picture = true ) {
+		$total_tax_inclusive_amount = 0;
+		$total_tax_amount = 0;
+		$ndf = self::g()->get( array(
+			'id' => $ndf_id,
+		), true );
+
+		$ndfls = NDFL_Class::g()->get( array(
+			'post_parent' => $ndf_id,
+		) );
+
+		$user = User_Class::g()->get( array(
+			'include' => array( $ndf->author_id ),
+		), true );
+
+		$sheet_details = array(
+			'ndf' => array(
+				'type' => 'segment',
+				'value' => array(),
+			),
+			'ndf_medias' => array(
+				'type' => 'segment',
+				'value' => array(),
+			),
+		);
+
+		$periode = explode( '-', $ndf->title );
+		$periode = $periode[2] . '/' . $periode[1];
+
+		if ( ! empty( $user->firstname ) && ! empty( $user->lastname ) ) {
+			$sheet_details['utilisateur_prenom_nom'] = $user->firstname . ' ' . $user->lastname;
+		}
+		$sheet_details['utilisateur_email'] = $user->email;
+		$sheet_details['periode'] = $periode;
+
+		if ( empty( $sheet_details['utilisateur_prenom_nom'] ) ) {
+			$sheet_details['utilisateur_prenom_nom'] = $user->login;
+		}
+
+		$sheet_details['status'] = $ndf->validation_status;
+		$sheet_details['miseajour'] = $ndf->date_modified;
+
+		if ( ! empty( $ndfls ) ) {
+			foreach ( $ndfls as $ndfl ) {
+				if ( $with_picture ) {
+					$picture = '-';
+					if ( ! empty( $ndfl->thumbnail_id ) ) {
+						$picture_definition = wp_get_attachment_image_src( $ndfl->thumbnail_id, 'large' );
+						$picture_final_path = str_replace( '\\', '/', str_replace( site_url( '/' ), ABSPATH, $picture_definition[0] ) );
+						if ( is_file( $picture_final_path ) ) {
+							$picture = array(
+								'type' => 'picture',
+								'value' => $picture_final_path,
+								'option' => array(
+									'size' => 10,
+								),
+							);
+						}
+
+						$sheet_details['ndf_medias']['value'][] = array(
+							'id_media' => $ndfl->thumbnail_id,
+							'media' => $picture,
+						);
+					}
+				}
+
+				$sheet_details['ndf']['value'][] = array(
+					'date' => $ndfl->date,
+					'libelle' => $ndfl->title,
+					'km' => $ndfl->distance,
+					'ttc' => $ndfl->tax_inclusive_amount . '€',
+					'tva' => $ndfl->tax_amount . '€',
+					'id_media_attached' => ! empty( $ndfl->thumbnail_id ) ? $ndfl->thumbnail_id : '',
+					'attached_media' => $picture,
+				);
+
+				$total_tax_inclusive_amount += $ndfl->tax_inclusive_amount;
+				$total_tax_amount += $ndfl->tax_amount;
+			}
+		}
+
+		$sheet_details['totaltva'] = $total_tax_amount . '€';
+		$sheet_details['totalttc'] = $total_tax_inclusive_amount . '€';
+		$sheet_details['marque'] = $user->marque;
+		$sheet_details['chevaux'] = $user->chevaux;
+		$sheet_details['prixkm'] = $user->prixkm;
+
+		$response = Document_Class::g()->create_document( $ndf, $sheet_details );
+		return $response;
+	}
 }
 
 NDF_Class::g();

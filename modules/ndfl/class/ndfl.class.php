@@ -93,6 +93,13 @@ class NDFL_Class extends \eoxia\Post_Class {
 	protected $post_type_name = 'NDFL';
 
 	/**
+	 * La taxonomy lié à ce post type.
+	 *
+	 * @var string
+	 */
+	protected $attached_taxonomy_type = '_type_note';
+
+	/**
 	 * Affichage d'une note de frais avec ses lignes
 	 *
 	 * @param  integer $ndf_id       Identifiant de la note de frais à récupérer.
