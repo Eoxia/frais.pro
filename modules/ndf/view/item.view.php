@@ -4,8 +4,8 @@
  *
  * @package Eoxia\Plugin
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.2.0
  */
 
 namespace note_de_frais;
@@ -21,11 +21,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container">
 		<div class="header">
 			<h2 class="title"><?php echo esc_html( $ndf->title ); ?></h2>
-			<span class="button export action-attribute"
-					data-id="<?php echo esc_attr( $ndf->id ); ?>"
-					data-action="export_ndf"
-					aria-label="Télécharger"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"><i class="icon ion-ios-download-outline"></i></span>
+			<span class="button export toggle list" data-parent="toggle" data-target="content">
+				<?php \eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'toggle-export', array(
+					'ndf' => $ndf,
+				) ); ?>
+			</span>
 			<span class="button archive action-attribute tooltip hover"
 						data-id="<?php echo esc_attr( $ndf->id ); ?>"
 						data-action="archive_ndf"

@@ -26,13 +26,10 @@
 		"modules/document/document.config.json",
 		"modules/user/user.config.json",
 		"modules/ndf/ndf.config.json",
-		"modules/ndfl/ndfl.config.json"
+		"modules/ndfl/ndfl.config.json",
+		"modules/type-note/type-note.config.json"
 	],
 	"debug": true,
-	"categories": [
-		"Trajet",
-		"Autre"
-	],
 	"chevaux": [
 		"3 CV et moins",
 		"4 CV",
