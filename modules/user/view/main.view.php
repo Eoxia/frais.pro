@@ -31,13 +31,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				if ( ! empty( \eoxia\Config_Util::$init['note-de-frais']->chevaux ) ) :
 					foreach ( \eoxia\Config_Util::$init['note-de-frais']->chevaux as $chevaux ) :
-						$selected = '';
-
-						if ( $chevaux === $user->chevaux ) :
-							$selected = ' selected="selected"';
-						endif;
 						?>
-						<option value="<?php echo esc_attr( $chevaux ); ?>"<?php echo $selected; ?>><?php echo esc_html( $chevaux ); ?></option>
+						<option value="<?php echo esc_attr( $chevaux ); ?>" <?php selected( $chevaux, $user->chevaux, true ); ?>><?php echo esc_html( $chevaux ); ?></option>
 						<?php
 					endforeach;
 				endif;
@@ -58,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<tr class="user-marque-wrap">
 			<th><label for="ndf_admin">L'utilisateur peut tout voir</label></th>
-			<td><input type="checkbox" name="ndf_admin" id="ndf_admin" value="yes" class="regular-text ltr"></td>
+			<td><input type="checkbox" name="ndf_admin" id="ndf_admin" value="1" <?php checked( $user->ndf_admin, true, true ); ?>></td>
 		</tr>
 	</tbody>
 </table>

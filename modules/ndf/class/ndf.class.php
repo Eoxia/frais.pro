@@ -92,16 +92,22 @@ class NDF_Class extends \eoxia\Post_Class {
 	/**
 	 * Récupères les notes de frais et les envoies à la vue principale.
 	 *
-	 * @param  array  $status Post_status, permet d'afficher notes archivés ou publique.
+	 * @param  array $status Post_status, permet d'afficher notes archivés ou publique.
+	 *
 	 * @return void
 	 *
 	 * @since 1.0.0.0
 	 * @version 1.0.0.0
 	 */
 	public function display( $status = array( 'publish', 'future' ) ) {
-		$ndfs = $this->get( array(
+		$ndf_args = array(
 			'post_status' => $status,
-		) );
+		);
+		if ( ! current_user_can( 'ndf_view_all' ) ) {
+			$ndf_args['author'] = get_current_user_id();
+		}
+		$ndfs = $this->get( $ndf_args );
+
 		\eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'main', array(
 			'ndfs' => $ndfs,
 			'status' => $status,
