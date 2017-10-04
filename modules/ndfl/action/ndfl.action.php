@@ -67,6 +67,10 @@ class NDFL_Action {
 				$row['tax_inclusive_amount'] = str_replace( ',', '.', $row['tax_inclusive_amount'] );
 				$row['tax_amount'] = str_replace( ',', '.', $row['tax_amount'] );
 				$current_row = NDFL_Class::g()->update( $row );
+
+				if ( ! empty( $row['thumbnail_id'] ) ) {
+					\eoxia\WPEO_Upload_Class::g()->set_thumbnail( $current_row->id, $row['thumbnail_id'], '\note_de_frais\NDFL_Class' );
+				}
 			}
 		}
 
@@ -88,24 +92,29 @@ class NDFL_Action {
 	}
 
 	/**
-	 * [callback_delete_ndfl description]
-	 * @return [type] [description]
+	 * Passes la ligne de frais en status 'trash'.
+	 *
+	 * @since 1.0.0
+	 * @version 1.2.0
+	 *
+	 * @return void
 	 */
 	public function callback_delete_ndfl() {
 		check_ajax_referer( 'delete_ndfl' );
 
 		$ndf_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
 		$row_to_delete = isset( $_POST['ndfl_id'] ) ? intval( $_POST['ndfl_id'] ) : -1;
+		$display_mode = isset( $_POST['display_mode'] ) ? sanitize_text_field( $_POST['display_mode'] ) : 'list';
 
 		$row = NDFL_Class::g()->get( array(
-			'post__in' => array( $row_to_delete ),
+			'id' => $row_to_delete,
 		), true );
 
 		$row->status = 'trash';
 		NDFL_Class::g()->update( $row );
 
 		ob_start();
-		NDFL_Class::g()->display( $ndf_id );
+		NDFL_Class::g()->display( $row->parent_id, $display_mode );
 		$response = ob_get_clean();
 
 		wp_send_json_success( array(
