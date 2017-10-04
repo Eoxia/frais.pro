@@ -63,13 +63,20 @@ class User_Action {
 		$user['marque'] = ! empty( $_POST ) && ! empty( $_POST['marque'] ) ? sanitize_text_field( $_POST['marque'] ) : '';
 		$user['chevaux'] = ! empty( $_POST ) && ! empty( $_POST['chevaux'] ) && in_array( $_POST['chevaux'], \eoxia\Config_Util::$init['note-de-frais']->chevaux, true ) ? sanitize_text_field( $_POST['chevaux'] ) : '';
 		$user['prixkm'] = ! empty( $_POST ) && ! empty( $_POST['prixkm'] ) ? sanitize_text_field( str_replace( ',', '.', $_POST['prixkm'] ) ) : '';
-		$user['ndf_admin'] = ! empty( $_POST ) && ! empty( $_POST['ndf_admin'] ) ? sanitize_text_field( $_POST['ndf_admin'] ) : '';
+
+		if ( get_current_user_id() !== $user_id || ( 1 === get_current_user_id() ) ) {
+			$user['ndf_admin'] = ! empty( $_POST ) && ! empty( $_POST['ndf_admin'] ) ? sanitize_text_field( $_POST['ndf_admin'] ) : '';
+		}
 
 		$user_update = User_Class::g()->update( $user );
 		// On affecte le droit de voir toutes les notes à l'utilisateur si la case est cochée.
-		if ( ! empty( $user_update ) && ! is_wp_error( $user_update ) && ( true === $user_update->ndf_admin ) ) {
-			$the_user = \get_user_by( 'id', $user_id );
-			$the_user->set_cap( 'ndf_view_all' );
+		if ( ! empty( $user_update ) && ! is_wp_error( $user_update ) ) {
+			$the_user = new \WP_User( $user_id );
+			if ( true === $user_update->ndf_admin ) {
+				$the_user->add_cap( 'ndf_view_all' );
+			} else {
+				$the_user->remove_cap( 'ndf_view_all' );
+			}
 		}
 	}
 
