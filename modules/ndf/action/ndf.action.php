@@ -120,6 +120,9 @@ class NDF_Action {
 	/**
 	 * Action : modifier une note de frais.
 	 *
+	 * @since 1.0.0
+	 * @version 1.2.0
+	 *
 	 * @param  string $_wpnonce          Nonce 'modify_ndf' for check.
 	 * @param  string Mixed              @see NDF_Model.
 	 * @return string $ndf               Json updated ndf.
@@ -191,13 +194,13 @@ class NDF_Action {
 		check_ajax_referer( 'export_ndf' );
 
 		$ndf_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
-		$with_picture = ! empty( $_POST['with_picture'] ) ? $_POST['with_picture'] : false;
+		$picture = ! empty( $_POST['picture'] ) ? (bool) $_POST['picture'] : false;
 
 		if ( empty( $ndf_id ) ) {
 			wp_send_json_error();
 		}
 
-		$response = NDF_Class::g()->generate_document( $ndf_id );
+		$response = NDF_Class::g()->generate_document( $ndf_id, $picture );
 
 		wp_send_json_success( array(
 			'namespace' => 'noteDeFrais',

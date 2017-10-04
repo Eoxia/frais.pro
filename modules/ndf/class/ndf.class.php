@@ -3,11 +3,10 @@
  * Classe gérant les notes de frais.
  *
  * @author eoxia
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.2.0
  * @copyright 2017 Eoxia
- * @package ndf
- * @subpackage class
+ * @package NDF
  */
 
 namespace note_de_frais;
@@ -214,7 +213,7 @@ class NDF_Class extends \eoxia\Post_Class {
 					'ttc' => $ndfl->tax_inclusive_amount . '€',
 					'tva' => $ndfl->tax_amount . '€',
 					'id_media_attached' => ! empty( $ndfl->thumbnail_id ) ? $ndfl->thumbnail_id : '',
-					'attached_media' => $picture,
+					'attached_media' => $with_picture ? $picture : '',
 				);
 
 				$total_tax_inclusive_amount += $ndfl->tax_inclusive_amount;
@@ -228,7 +227,7 @@ class NDF_Class extends \eoxia\Post_Class {
 		$sheet_details['chevaux'] = $user->chevaux;
 		$sheet_details['prixkm'] = $user->prixkm;
 
-		$response = Document_Class::g()->create_document( $ndf, $sheet_details );
+		$response = Document_Class::g()->create_document( $ndf, $sheet_details, $with_picture );
 		return $response;
 	}
 }

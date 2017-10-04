@@ -168,47 +168,52 @@ class Document_Class extends \eoxia\Post_Class {
 	 *
 	 * @return object The result of document creation / le résultat de la création du document
 	 */
-	public function create_document( $element, $document_meta ) {
-  	/**	Définition de la partie principale du nom de fichier / Define the main part of file name	*/
-  	$main_title_part = $element->title;
+	public function create_document( $element, $document_meta, $with_picture ) {
+		/**	Définition de la partie principale du nom de fichier / Define the main part of file name	*/
+		$main_title_part = $element->title;
 
+		/**	Enregistrement de la fiche dans la base de donnée. */
+		$response['filename'] = sanitize_title( str_replace( ' ', '_', $main_title_part ) ) . '.odt';
+		$document_args = array(
+			'post_content' => '',
+			'post_status' => 'inherit',
+			'post_author' => get_current_user_id(),
+			'post_date' => current_time( 'mysql' ),
+			'post_title' => basename( 'test', '.odt' ),
+		);
 
-  	/**	Enregistrement de la fiche dans la base de donnée / Save sheet into database	*/
-  	$response[ 'filename' ] = sanitize_title( str_replace( ' ', '_', $main_title_part ) ) . '.odt';
-  	$document_args = array(
-			'post_content'	=> '',
-			'post_status'	=> 'inherit',
-			'post_author'	=> get_current_user_id(),
-			'post_date'		=> current_time( 'mysql', 0 ),
-			'post_title'	=> basename( 'test', '.odt' ),
-  	);
+		$template_path = str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf-photo.odt' );
 
+		if ( ! $with_picture ) {
+			$template_path = str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf.odt' );
+		}
 
-  	/**	On créé le document / Create the document	*/
-  	$filetype = 'unknown';
+		/**	On créé le document / Create the document	*/
+		$filetype = 'unknown';
 
 
 		$path = 'document/' . $element->id . '/' . $response['filename'];
-		$document_creation = $this->generate_document( str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf-photo.odt' ), $document_meta, $path );
+		$document_creation = $this->generate_document( $template_path, $document_meta, $path );
 
 
-		$response[ 'id' ] = wp_insert_attachment( $document_args, $this->get_digirisk_dir_path() . '/' . $path, $element->id );
+		$response['id'] = wp_insert_attachment( $document_args, $this->get_digirisk_dir_path() . '/' . $path, $element->id );
 
 		$attach_data = wp_generate_attachment_metadata( $response['id'], $this->get_digirisk_dir_path() . '/' . $path );
 		wp_update_attachment_metadata( $response['id'], $attach_data );
 
-  	/**	On met à jour les informations concernant le document dans la base de données / Update data for document into database	*/
-  	$document_args = array(
-			'id'										=> $response[ 'id' ],
-			'title'									=> basename( $response[ 'filename' ], '.odt' ),
-			'parent_id'							=> $element->id,
-			'author_id'							=> get_current_user_id(),
-			'date'									=> current_time( 'mysql', 0 ),
-			'mime_type'							=> !empty( $filetype[ 'type' ] ) ? $filetype['type'] : $filetype,
-			'document_meta' 				=> $document_meta,
-			'status'								=> 'inherit'
-  	);
-		Document_Class::g()->update( $document_args );
+		/**	On met à jour les informations concernant le document dans la base de données / Update data for document into database	*/
+		$document_args = array(
+			'id' => $response['id'],
+			'title' => basename( $response['filename'], '.odt' ),
+			'parent_id' => $element->id,
+			'author_id' => get_current_user_id(),
+			'date' => current_time( 'mysql' ),
+			'mime_type' => ! empty( $filetype['type'] ) ? $filetype['type'] : $filetype,
+			'document_meta' => $document_meta,
+			'status' => 'inherit',
+		);
+
+		self::g()->update( $document_args );
 
 		$response['link'] = $this->get_digirisk_dir_path( 'baseurl' ) . '/' . $path;
 
