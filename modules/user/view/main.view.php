@@ -4,8 +4,8 @@
  *
  * @package Eoxia\Plugin
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.2.0
  */
 
 namespace note_de_frais;
@@ -48,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<tr class="user-marque-wrap">
 			<th><label for="marque">Carte grise</label></th>
-			<td class="eox-note-frais"><?php echo do_shortcode( '[eo_upload_user_button id="' . $user->id . '" type="user" namespace="note_de_frais"]'); ?></td>
+			<td class="eox-note-frais"><?php echo do_shortcode( '[wpeo_upload id="' . $user->id . '" model_name="/note_de_frais/User_Class"]' ); ?></td>
 		</tr>
 
 		<?php if ( ( get_current_user_id() !== $user->id ) || ( 1 === get_current_user_id() ) ) : ?>

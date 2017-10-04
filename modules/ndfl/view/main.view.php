@@ -1,15 +1,21 @@
 <?php
 /**
- * Affichage de la liste des lignes d'une note de frai.
+ * Affichage du tableau ainsi que la ligne pour ajouter une ligne de note de frais.
  *
- * @package Frais.pro
+ * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @since 1.0.0
+ * @version 1.2.0
+ * @copyright 2015-2017 Eoxia
+ * @package NDF
  */
 
 namespace note_de_frais;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?><div class="note">
+} ?>
+
+<div class="note">
 	<?php if ( ! empty( $ndf ) ) { ?>
 	<input type="hidden" name="id" value="<?php echo esc_attr( $ndf->id ); ?>">
 	<input type="hidden" name="parent_id" value="<?php echo esc_attr( $ndf->id ); ?>">
@@ -103,7 +109,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<span class="ndfl-placeholder">0</span>
 						<span contenteditable="true" data-name="row[0][tax_amount]" placeholder="0" ></span>
 					</li>
-					<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload field_name="thumbnail_id" model_name="/note_de_frais/ndfl_class" single="true" mime_type="image" ]' ); ?></span></li>
+					<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload model_name="/note_de_frais/NDFL_Class" single="true" field_name="thumbnail_id"]' ); ?></span></li>
 					<li class="action action-ligne"><span class="icon ion-ios-plus"></span></li>
 				</ul>
 
@@ -117,6 +123,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								'ndfl' => $ndfl_single,
 								'i' => $i,
 								'user' => $user,
+								'display_mode' => $display_mode,
 							) );
 							$i++;
 						}
