@@ -40,6 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				data-ndfl-id="<?php echo esc_attr( $ndfl->id ); ?>"
 				data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>"
 				data-action="delete_ndfl"
+				data-display-mode="<?php echo esc_attr( $display_mode ); ?>"
 				data-namespace="noteDeFrais"
 				data-module="NDFL"
 				data-before-method="confirmDeletion"
