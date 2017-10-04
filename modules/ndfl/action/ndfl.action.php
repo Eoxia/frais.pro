@@ -3,11 +3,10 @@
  * Classe gérant les actions des lignes de notes de frais.
  *
  * @author eoxia
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.2.0
  * @copyright 2017 Eoxia
- * @package ndfl
- * @subpackage action
+ * @package NDF
  */
 
 namespace note_de_frais;
@@ -50,7 +49,11 @@ class NDFL_Action {
 
 	/**
 	 * [callback_modify_ndfl description]
-	 * @return [type] [description]
+	 *
+	 * @since 1.0.0
+	 * @version 1.2.0
+	 *
+	 * @return void
 	 */
 	public function callback_modify_ndfl() {
 		check_ajax_referer( 'modify_ndfl' );
@@ -64,7 +67,6 @@ class NDFL_Action {
 				$row['tax_inclusive_amount'] = str_replace( ',', '.', $row['tax_inclusive_amount'] );
 				$row['tax_amount'] = str_replace( ',', '.', $row['tax_amount'] );
 				$current_row = NDFL_Class::g()->update( $row );
-				$all_new_row[] = $current_row->id;
 			}
 		}
 
@@ -73,7 +75,7 @@ class NDFL_Action {
 		$response = ob_get_clean();
 
 		$ndf = NDF_Class::g()->get( array(
-			'post__in' => array( $ndf_id ),
+			'id' => $ndf_id,
 		), true );
 
 		wp_send_json_success( array(
