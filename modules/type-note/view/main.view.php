@@ -19,15 +19,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( empty( $types_note ) ) :
 	?>
 	<span class="action" contenteditable="false">
-		<span class="label"><a href="<?php echo esc_attr( admin_url( 'edit-tags.php?taxonomy=_type_note' ) ); ?>" target="_blank"><?php esc_html_e( 'Aucun type de note', 'note-de-frais' ); ?></a></span>
+		<span class="label"><a href="<?php echo esc_attr( admin_url( 'edit-tags.php?taxonomy=_type_note' ) ); ?>" target="_blank"><?php esc_html_e( 'Create type notes', 'note-de-frais' ); ?></a></span>
 	</span>
 	<?php
 else :
+	if ( empty( $ndfl->id ) ) :
+		?>
+		<input name="taxonomy[<?php echo esc_attr( Type_Note_Class::g()->get_taxonomy() ); ?>][0]" type="hidden" value="" />
+		<?php
+	else :
+		?>
+		<input name="taxonomy[<?php echo esc_attr( Type_Note_Class::g()->get_taxonomy() ); ?>][0]" type="hidden" value="<?php echo esc_attr( $ndfl_type_note_id ); ?>" />
+		<?php
+	endif;
 	?>
-	<input name="category_name" type="hidden" value="" />
 
 	<span class="action" contenteditable="false">
-		<span class="label"><?php echo esc_html_e( 'Types de note', 'note-de-frais' ); ?></span>
+		<span class="label"><?php echo esc_html( $selected_type_note_name ); ?></span>
 		<i class="icon ion-ios-arrow-down"></i>
 	</span>
 	<ul class="content">
@@ -35,7 +43,7 @@ else :
 		if ( ! empty( $types_note ) ) :
 			foreach ( $types_note as $type_note ) :
 				?>
-				<li class="item" data-slug="<?php echo esc_attr( $type_note->slug ); ?>"><?php echo esc_html( $type_note->name ); ?></li>
+				<li class="item" data-id="<?php echo esc_attr( $type_note->id ); ?>"><?php echo esc_html( $type_note->name ); ?></li>
 				<?php
 			endforeach;
 		endif;

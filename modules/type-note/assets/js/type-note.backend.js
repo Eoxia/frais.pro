@@ -32,7 +32,7 @@ window.eoxiaJS.noteDeFrais.typeNote.event = function() {
 };
 
 /**
- * [description]
+ * Change le 'lable' du toggle.
  *
  * @since 1.2.0
  * @version 1.2.0
@@ -40,27 +40,28 @@ window.eoxiaJS.noteDeFrais.typeNote.event = function() {
  * @param  {ClickEvent} event L'état lors du clic.
  * @return {void}
  *
- * @todo: Voir avec Alex.
  */
 window.eoxiaJS.noteDeFrais.typeNote.select = function( event ) {
 	var row = jQuery( this ).closest( '.row' );
 	event.stopPropagation();
 	row.find( '.toggle .label' ).text( jQuery( this ).text() );
-	row.find( '.toggle input' ).val( jQuery( this ).data( 'slug' ) );
+	row.find( '.toggle input' ).val( jQuery( this ).data( 'id' ) );
 	row.find( '.toggle .content' ).removeClass( 'active' );
 	if ( ! row.hasClass( 'add' ) ) {
 		jQuery( this ).each( window.eoxiaJS.noteDeFrais.NDFL.saveNDF );
-	} else {
-		if ( '625100-autoroute' !== jQuery( this ).data( 'slug' ) ) { // Problème en DUR.
-			window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'km', false );
-			window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'ttc', true );
-			window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'tva', true );
-		} else {
-			window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'km', true );
-			window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'ttc', false );
-			window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'tva', false );
-		}
 	}
+
+	// else {
+	// 	if ( '625100-autoroute' !== jQuery( this ).data( 'slug' ) ) { // Problème en DUR.
+	// 		window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'km', false );
+	// 		window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'ttc', true );
+	// 		window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'tva', true );
+	// 	} else {
+	// 		window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'km', true );
+	// 		window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'ttc', false );
+	// 		window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'tva', false );
+	// 	}
+	// }
 };
 
 /**

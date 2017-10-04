@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
 					data-display-mode="grid"
 					data-action="open_ndf"
-					aria-label="<?php esc_attr_e( 'Mode grille', 'fraispro' ); ?>"
+					aria-label="<?php esc_attr_e( 'Mode grille', 'note-de-frais' ); ?>"
 					data-namespace="noteDeFrais"
 					data-module="NDFL"
 					data-before-method="beforeDisplayModeChange"
@@ -65,7 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					data-namespace="noteDeFrais"
 					data-module="NDFL"
 					data-before-method="beforeDisplayModeChange"
-					aria-label="<?php esc_attr_e( 'Mode liste', 'fraispro' ); ?>"
+					aria-label="<?php esc_attr_e( 'Mode liste', 'note-de-frais' ); ?>"
 					data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon ion-ios-list-outline"></i></span>
 			</div>
 
@@ -91,9 +91,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
 						<?php Type_Note_Class::g()->display(); ?>
 					</li>
-					<li class="km disabled ndfl-placeholder-container" data-title="Km">
+					<li class="km ndfl-placeholder-container" data-title="Km">
 						<span class="ndfl-placeholder">0</span>
-						<span contenteditable="false" data-name="row[0][distance]" placeholder="0" ></span>
+						<span contenteditable="true" data-name="row[0][distance]" placeholder="0" ></span>
 					</li>
 					<li class="ttc ndfl-placeholder-container" data-title="TTC (€)">
 						<span class="ndfl-placeholder">0</span>

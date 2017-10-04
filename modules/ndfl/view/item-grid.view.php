@@ -1,8 +1,12 @@
 <?php
 /**
- * [namespace description]
+ * Formulaire pour éditer une ligne de note de frais en mode 'grille'.
  *
- * @package note_de_frais
+ * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @since 1.0.0
+ * @version 1.2.0
+ * @copyright 2015-2017 Eoxia
+ * @package NDF
  */
 
 namespace note_de_frais;
@@ -27,19 +31,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[<?php echo $i; ?>][title]"><?php echo esc_html( $ndfl->title ); ?></span></li>
 			<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
-				<input name="category_name" type="hidden" value="<?php echo esc_attr( $ndfl->category_name ); ?>"/>
-				<span class="action" contenteditable="false">
-					<span class="label"><?php echo esc_attr( $ndfl->category_name ); ?></span>
-					<i class="icon ion-ios-arrow-down"></i>
-				</span>
-				<ul class="content">
-					<li class="item">Autre</li>
-					<li class="item">Trajet</li>
-				</ul>
+				<?php Type_Note_Class::g()->display( $ndfl->id ); ?>
 			</li>
-			<li class="km<?php echo $ndfl->category_name == 'Trajet' ? '': ' disabled'; ?>" data-title="Km"><span contenteditable="<?php echo $ndfl->category_name == 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][distance]" placeholder="0" ><?php echo esc_html( $ndfl->distance ); ?></span></li>
-			<li class="ttc<?php echo $ndfl->category_name != 'Trajet' ? '': ' disabled'; ?>" data-title="TTC (€)"><span contenteditable="<?php echo $ndfl->category_name != 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][tax_inclusive_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_inclusive_amount ); ?></span></li>
-			<li class="tva<?php echo $ndfl->category_name != 'Trajet' ? '': ' disabled'; ?>" data-title="TVA récup."><span contenteditable="<?php echo $ndfl->category_name != 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][tax_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_amount ); ?></span></li>
+			<li class="km" data-title="Km"><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][distance]" placeholder="0" ><?php echo esc_html( $ndfl->distance ); ?></span></li>
+			<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][tax_inclusive_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_inclusive_amount ); ?></span></li>
+			<li class="tva" data-title="TVA récup."><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][tax_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_amount ); ?></span></li>
 			<li class="action action-ligne"><span class="icon ion-trash-a action-attribute"
 				data-ndfl-id="<?php echo esc_attr( $ndfl->id ); ?>"
 				data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>"

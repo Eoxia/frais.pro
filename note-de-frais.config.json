@@ -25,9 +25,9 @@
 
 		"modules/document/document.config.json",
 		"modules/user/user.config.json",
+		"modules/type-note/type-note.config.json",
 		"modules/ndf/ndf.config.json",
-		"modules/ndfl/ndfl.config.json",
-		"modules/type-note/type-note.config.json"
+		"modules/ndfl/ndfl.config.json"
 	],
 	"debug": true,
 	"chevaux": [

@@ -34,6 +34,20 @@ function before_update_ndfl( $data ) {
 }
 
 /**
+ * Récupères les term_id associés à la ligne de note de frais.
+ *
+ * @since 1.2.0
+ * @version 1.2.0
+ *
+ * @param  Object $data L'objet NDFL.
+ * @return Object       L'objet NDFL avec les terms id.
+ */
+function get_full_ndfl( $data ) {
+	$data->taxonomy['_type_note'] = wp_get_object_terms( $data->id, Type_Note_Class::g()->get_taxonomy() );
+	return $data;
+}
+
+/**
  * Met à jour la note de frais parente.
  * @param  Object $data L'objet.
  * @return Object       L'objet non modifié.

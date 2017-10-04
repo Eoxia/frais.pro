@@ -1,4 +1,13 @@
 <?php
+/**
+ * Formulaire pour éditer une ligne de note de frais en mode 'liste'.
+ *
+ * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @since 1.0.0
+ * @version 1.2.0
+ * @copyright 2015-2017 Eoxia
+ * @package NDF
+ */
 
 namespace note_de_frais;
 
@@ -24,9 +33,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<li class="item">Trajet</li>
 		</ul>
 	</li>
-	<li class="km<?php echo $ndfl->category_name == 'Trajet' ? '': ' disabled'; ?>" data-title="Km"><span contenteditable="<?php echo $ndfl->category_name == 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][distance]" placeholder="0" ><?php echo esc_html( $ndfl->distance ); ?></span></li>
-	<li class="ttc<?php echo $ndfl->category_name != 'Trajet' ? '': ' disabled'; ?>" data-title="TTC (€)"><span contenteditable="<?php echo $ndfl->category_name != 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][tax_inclusive_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_inclusive_amount ); ?></span></li>
-	<li class="tva<?php echo $ndfl->category_name != 'Trajet' ? '': ' disabled'; ?>" data-title="TVA récup."><span contenteditable="<?php echo $ndfl->category_name != 'Trajet' ? 'true': 'false'; ?>" data-name="row[<?php echo $i; ?>][tax_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_amount ); ?></span></li>
+	<li class="km" data-title="Km"><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][distance]" placeholder="0" ><?php echo esc_html( $ndfl->distance ); ?></span></li>
+	<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][tax_inclusive_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_inclusive_amount ); ?></span></li>
+	<li class="tva" data-title="TVA récup."><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][tax_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_amount ); ?></span></li>
 	<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload id="' . $ndfl->id . '" field_name="thumbnail_id" model_name="/note_de_frais/ndfl_class" single="true" mime_type="image" ]' ); ?></li>
 	<li class="action action-ligne"><span class="icon ion-trash-a action-attribute"
 		data-ndfl-id="<?php echo esc_attr( $ndfl->id ); ?>"
