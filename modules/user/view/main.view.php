@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<h2><?php esc_html_e( 'Informations de la voiture', 'note-de-frais' ); ?></h2>
+<h2><?php esc_html_e( 'User informations for Frais.pro', 'note-de-frais' ); ?></h2>
 
 <table class="form-table">
 	<tbody>
@@ -51,9 +51,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<td class="eox-note-frais"><?php echo do_shortcode( '[eo_upload_user_button id="' . $user->id . '" type="user" namespace="note_de_frais"]'); ?></td>
 		</tr>
 
+		<?php if ( get_current_user_id() !== $user->id ) : ?>
 		<tr class="user-marque-wrap">
 			<th><label for="ndf_admin">L'utilisateur peut tout voir</label></th>
 			<td><input type="checkbox" name="ndf_admin" id="ndf_admin" value="1" <?php checked( $user->ndf_admin, true, true ); ?>></td>
 		</tr>
+	<?php endif; ?>
 	</tbody>
 </table>
