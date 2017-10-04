@@ -4,13 +4,15 @@
  *
  * @package Eoxia\Plugin
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.2.0
  */
 
 namespace note_de_frais;
 
-if ( ! defined( 'ABSPATH' ) ) {	exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Initialise les scripts JS et CSS du Plugin
@@ -39,6 +41,7 @@ class Note_De_Frais_Action {
 		}
 
 		add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
+		add_action( 'admin_init', array( $this, 'callback_admin_init' ) );
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
 	}
 
@@ -66,7 +69,7 @@ class Note_De_Frais_Action {
 	 * @version 6.2.7.0
 	 */
 	public function callback_admin_enqueue_scripts_js() {
-		wp_enqueue_script( 'note-de-frais-script', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/js/backend.min.js', array(), \eoxia\Config_Util::$init['note-de-frais']->version, false );
+		wp_enqueue_script( 'note-de-frais-script', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/js/backend.min.js', array( 'jquery' ), \eoxia\Config_Util::$init['note-de-frais']->version, false );
 		wp_enqueue_script( 'note-de-frais-script-datetimepicker-script', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/js/jquery.datetimepicker.full.js', array(), \eoxia\Config_Util::$init['note-de-frais']->version );
 	}
 
@@ -99,6 +102,36 @@ class Note_De_Frais_Action {
 			'show_in_admin_all_list'    => true,
 			'show_in_admin_status_list' => true,
 		) );
+	}
+
+	/**
+	 * Installes les données par défaut.
+	 *
+	 * @since 1.2.0
+	 * @version 1.2.0
+	 *
+	 * @return void
+	 */
+	public function callback_admin_init() {
+		$core_option = get_option( \eoxia\Config_Util::$init['note-de-frais']->core_option, array(
+			'db_version' => '',
+		) );
+
+		if ( empty( $core_option['db_version'] ) ) {
+			$file_content = file_get_contents( \eoxia\Config_Util::$init['note-de-frais']->core->path . 'assets/json/default.json' );
+			$data = json_decode( $file_content );
+			if ( ! empty( $data ) ) {
+				foreach ( $data as $category_name ) {
+					Type_Note_Class::g()->update( array(
+						'name' => $category_name,
+					) );
+				}
+			}
+
+			$core_option['db_version'] = str_replace( '.', '', \eoxia\Config_Util::$init['note-de-frais']->version );
+			update_option( \eoxia\Config_Util::$init['note-de-frais']->core_option, $core_option );
+		}
+
 	}
 
 	/**

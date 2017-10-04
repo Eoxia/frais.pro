@@ -10,7 +10,7 @@ namespace note_de_frais;
  * Plugin Name: Note de frais
  * Plugin URI:  http://www.evarisk.com/document-unique-logiciel
  * Description: Un super module de notes de frais.
- * Version:     1.0.0-alpha
+ * Version:     1.2.0
  * Author:      Eoxia
  * Author URI:  http://www.evarisk.com
  * License:     GPL2
