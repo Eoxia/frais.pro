@@ -5849,7 +5849,7 @@
 .eox-note-frais .note .header .export, .eox-note-frais .note .header .archive {
   color: #fff;
   position: absolute;
-  right: 30px;
+  right: 0;
   top: 20px; }
 
 .eox-note-frais .note .header .archive {
@@ -5869,10 +5869,10 @@
 
 .eox-note-frais .note .header .export .action {
   display: block;
-  width: 30px;
+  width: 50px;
   height: 50px;
   line-height: 50px;
-  text-align: right !important;
+  text-align: center !important;
   font-size: 22px; }
 
 .eox-note-frais .note .header .export .action:hover .fa {
@@ -6036,7 +6036,7 @@
   right: 15px; }
 
 .eox-note-frais .single-note .header .validation_status {
-  margin: auto 40px auto 0;
+  margin: auto 80px auto 0;
   min-width: 160px; }
 
 .eox-note-frais .single-note .header .validation_status .action {
