@@ -89,6 +89,17 @@
 			pointer-events: none;
 			li {
 				@extend .disabled;
+				i {
+					display: none;
+				}
+			}
+		}
+		.validation_status {
+			pointer-events: none;
+			.action {
+				i {
+					display: none;
+				}
 			}
 		}
 	}

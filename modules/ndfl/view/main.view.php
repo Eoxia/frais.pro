@@ -77,18 +77,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="flex-table <?php echo esc_attr( $display_mode ); ?>" >
 
-				<?php if ( ! $ndf_is_closed ) : ?>
-					<ul class="heading">
-						<li class="date">Date</li>
-						<li class="libelle">Libellé</li>
-						<li class="type">Type de note</li>
-						<li class="km">Km</li>
-						<li class="ttc">TTC (€)</li>
-						<li class="tva">TVA récup.</li>
-						<li class="photo">Photo</li>
-						<li class="action"></li>
-					</ul>
+			<?php if ( ! $ndf_is_closed || ( 'list' === $display_mode ) ) : ?>
+				<ul class="heading">
+					<li class="date">Date</li>
+					<li class="libelle">Libellé</li>
+					<li class="type">Type de note</li>
+					<li class="km">Km</li>
+					<li class="ttc">TTC (€)</li>
+					<li class="tva">TVA récup.</li>
+					<li class="photo">Photo</li>
+					<li class="action"></li>
+				</ul>
+			<?php endif; ?>
 
+			<?php if ( ! $ndf_is_closed ) : ?>
 				<ul class="row add" data-i="0">
 					<li class="group-date date" data-title="Date" data-namespace="noteDeFrais" data-module="NDFL" data-after-method="changeDate" >
 						<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none; display: block; height: 0px;" name="date" value="<?php echo esc_attr( current_time( 'mysql' ) ); ?>" />

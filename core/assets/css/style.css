@@ -5926,6 +5926,15 @@
 .eox-note-frais .note.is_closed .flex-table {
   pointer-events: none; }
 
+.eox-note-frais .note.is_closed .flex-table li i {
+  display: none; }
+
+.eox-note-frais .note.is_closed .validation_status {
+  pointer-events: none; }
+
+.eox-note-frais .note.is_closed .validation_status .action i {
+  display: none; }
+
 .eox-note-frais .liste-note {
   opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";

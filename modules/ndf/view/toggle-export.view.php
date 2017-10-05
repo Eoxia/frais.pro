@@ -29,8 +29,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-action="export_ndf"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"
 			data-picture="0"><?php esc_html_e( 'Without picture', 'note-de-frais' ); ?></li>
-	<li class="action-attribute"
+	<!-- <li class="action-attribute"
 			data-id="<?php echo esc_attr( $ndf->id ); ?>"
 			data-action="export_csv"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_csv' ) ); ?>"><?php esc_html_e( 'CSV', 'note-de-frais' ); ?></li>
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_csv' ) ); ?>"><?php esc_html_e( 'CSV', 'note-de-frais' ); ?></li> -->
 </ul>
