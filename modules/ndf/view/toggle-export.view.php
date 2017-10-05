@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <span class="action" contenteditable="false">
-	<i class="icon ion-ios-download-outline"></i>
+	<i class="fa fa-ellipsis-v"></i>
 </span>
 <ul class="content" style="color: black; font-size: 0.5em;">
 	<li class="action-attribute"

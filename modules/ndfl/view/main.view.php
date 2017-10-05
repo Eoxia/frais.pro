@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<li data-type="refuse" class="item pin-status refuse">Refusée</li>
 				</ul>
 			</div>
-			<span class="button export toggle list" data-parent="toggle" data-target="content">
+			<span class="export toggle list" data-parent="toggle" data-target="content">
 				<?php \eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'toggle-export', array(
 					'ndf' => $ndf,
 				) ); ?>

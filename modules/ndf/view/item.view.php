@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						aria-label="Supprimer"
 						data-nonce="<?php echo esc_attr( wp_create_nonce( 'archive_ndf' ) ); ?>"><i class="icon ion-ios-trash-outline"></i></span>
 
-			<span class="button export toggle list" data-parent="toggle" data-target="content">
+			<span class="export toggle list" data-parent="toggle" data-target="content">
 				<?php \eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'toggle-export', array(
 					'ndf' => $ndf,
 				) ); ?>

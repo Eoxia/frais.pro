@@ -5847,25 +5847,59 @@
   margin: auto 0; }
 
 .eox-note-frais .note .header .export, .eox-note-frais .note .header .archive {
+  color: #fff;
+  position: absolute;
+  right: 30px;
+  top: 20px; }
+
+.eox-note-frais .note .header .archive {
   background: rgba(255, 255, 255, 0.2);
   padding: 0 0 0 2px !important;
-  color: #fff;
   -webkit-border-radius: 50%;
           border-radius: 50%;
-  position: absolute;
-  right: 15px;
-  top: 20px;
+  text-align: center;
+  right: 60px;
+  font-size: 28px;
   width: 50px;
   height: 50px;
-  text-align: center;
-  line-height: 50px;
-  font-size: 28px; }
+  line-height: 50px; }
 
-.eox-note-frais .note .header .export:hover, .eox-note-frais .note .header .archive:hover {
+.eox-note-frais .note .header .archive:hover {
   background: rgba(255, 255, 255, 0.3); }
 
-.eox-note-frais .note .header .export {
-  right: 80px; }
+.eox-note-frais .note .header .export .action {
+  display: block;
+  width: 30px;
+  height: 50px;
+  line-height: 50px;
+  text-align: right !important;
+  font-size: 22px; }
+
+.eox-note-frais .note .header .export .action:hover .fa {
+  color: rgba(255, 255, 255, 0.6); }
+
+.eox-note-frais .note .header .export .fa {
+  display: inline-block;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
+
+.eox-note-frais .note .header .export .content {
+  position: absolute;
+  background: #f3f3f3;
+  width: 160px;
+  right: 0; }
+
+.eox-note-frais .note .header .export .content:before {
+  right: 10px;
+  left: auto; }
+
+.eox-note-frais .note .header .export .content li {
+  font-size: 14px;
+  padding: 8px 12px !important; }
+
+.eox-note-frais .note .header .export .content li:hover {
+  background: rgba(0, 0, 0, 0.05); }
 
 .eox-note-frais .note .status .pin-status:before, .eox-note-frais .note .validation_status .pin-status:before {
   display: inline-block;
@@ -5993,7 +6027,7 @@
   right: 15px; }
 
 .eox-note-frais .single-note .header .validation_status {
-  margin: auto 80px auto 0;
+  margin: auto 40px auto 0;
   min-width: 160px; }
 
 .eox-note-frais .single-note .header .validation_status .action {
