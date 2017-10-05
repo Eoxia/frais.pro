@@ -213,8 +213,17 @@
 		li {
 			width: 100%;
 			padding: 2px;
-			height: 50px;
 			margin-bottom: 4px;
+
+			&:before {
+				display: block;
+				color: $color__main;
+				font-weight: 800;
+				font-size: 14px;
+				padding: 0 4px;
+				margin-bottom: 4px;
+				content: attr(data-title);
+			}
 			span[contenteditable] {
 				background: $color__grey;
 				padding: 14px;

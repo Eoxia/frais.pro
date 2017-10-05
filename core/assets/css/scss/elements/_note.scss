@@ -50,5 +50,13 @@
 			&.refuse:before { background: $color__red; }
 		}
 	}
+	&.is_closed {
+		.flex-table {
+			pointer-events: none;
+			li {
+				@extend .disabled;
+			}
+		}
+	}
 
 }
