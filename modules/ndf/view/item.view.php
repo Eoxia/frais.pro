@@ -21,16 +21,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container">
 		<div class="header">
 			<h2 class="title"><?php echo esc_html( $ndf->title ); ?></h2>
-			<span class="button export toggle list" data-parent="toggle" data-target="content">
-				<?php \eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'toggle-export', array(
-					'ndf' => $ndf,
-				) ); ?>
-			</span>
 			<span class="button archive action-attribute tooltip hover"
 						data-id="<?php echo esc_attr( $ndf->id ); ?>"
 						data-action="archive_ndf"
 						aria-label="Supprimer"
 						data-nonce="<?php echo esc_attr( wp_create_nonce( 'archive_ndf' ) ); ?>"><i class="icon ion-ios-trash-outline"></i></span>
+
+			<span class="button export toggle list" data-parent="toggle" data-target="content">
+				<?php \eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'toggle-export', array(
+					'ndf' => $ndf,
+				) ); ?>
+			</span>
 		</div>
 		<div class="content gridwrapper">
 			<div class="ttc element">
