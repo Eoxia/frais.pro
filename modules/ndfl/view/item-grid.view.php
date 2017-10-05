@@ -26,27 +26,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div>
 			<li class="group-date date" data-title="Date" data-namespace="noteDeFrais" data-module="NDFL" data-after-method="changeDate" >
 				<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none; display: block; height: 0px;" name="date" value="<?php echo $ndfl->date['date_input']['date']; ?>" />
-				<span contenteditable="true" class="date"><?php echo $ndfl->date['date_input']['fr_FR']['date']; ?></span>
+				<span contenteditable="<?php echo esc_attr( $ndf_is_closed ? 'true' : 'true' ); ?>" class="date"><?php echo $ndfl->date['date_input']['fr_FR']['date']; ?></span>
 			</li>
 
-			<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[<?php echo $i; ?>][title]"><?php echo esc_html( $ndfl->title ); ?></span></li>
+			<li class="libelle" data-title="Libellé"><span contenteditable="<?php echo esc_attr( $ndf_is_closed ? 'true' : 'true' ); ?>" data-name="row[<?php echo $i; ?>][title]"><?php echo esc_html( $ndfl->title ); ?></span></li>
 			<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
 				<?php Type_Note_Class::g()->display( $ndfl->id ); ?>
 			</li>
-			<li class="km" data-title="Km"><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][distance]" placeholder="0" ><?php echo esc_html( $ndfl->distance ); ?></span></li>
-			<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][tax_inclusive_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_inclusive_amount ); ?></span></li>
-			<li class="tva" data-title="TVA récup."><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][tax_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_amount ); ?></span></li>
-			<li class="action action-ligne"><span class="icon ion-trash-a action-attribute"
-				data-ndfl-id="<?php echo esc_attr( $ndfl->id ); ?>"
-				data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>"
-				data-action="delete_ndfl"
-				data-display-mode="<?php echo esc_attr( $display_mode ); ?>"
-				data-namespace="noteDeFrais"
-				data-module="NDFL"
-				data-before-method="confirmDeletion"
-				data-confirm-text="La ligne de saisie ne pourra pas être récupérée"
-				data-loader="row"
-				data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_ndfl' ) ); ?>"></span></li>
+			<li class="km" data-title="Km"><span contenteditable="<?php echo esc_attr( $ndf_is_closed ? 'true' : 'true' ); ?>" data-name="row[<?php echo esc_attr( $i ); ?>][distance]" placeholder="0" ><?php echo esc_html( $ndfl->distance ); ?></span></li>
+			<li class="ttc" data-title="TTC (€)"><span contenteditable="<?php echo esc_attr( $ndf_is_closed ? 'true' : 'true' ); ?>" data-name="row[<?php echo esc_attr( $i ); ?>][tax_inclusive_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_inclusive_amount ); ?></span></li>
+			<li class="tva" data-title="TVA récup."><span contenteditable="<?php echo esc_attr( $ndf_is_closed ? 'true' : 'true' ); ?>" data-name="row[<?php echo esc_attr( $i ); ?>][tax_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_amount ); ?></span></li>
+			<li class="action action-ligne">
+				<?php if ( ! $ndf_is_closed ) : ?>
+					<span class="icon ion-trash-a action-attribute"
+					data-ndfl-id="<?php echo esc_attr( $ndfl->id ); ?>"
+					data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>"
+					data-action="delete_ndfl"
+					data-display-mode="<?php echo esc_attr( $display_mode ); ?>"
+					data-namespace="noteDeFrais"
+					data-module="NDFL"
+					data-before-method="confirmDeletion"
+					data-confirm-text="La ligne de saisie ne pourra pas être récupérée"
+					data-loader="row"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_ndfl' ) ); ?>"></span>
+				<?php endif; ?>
+			</li>
 		</div>
 	</div>
 </ul>

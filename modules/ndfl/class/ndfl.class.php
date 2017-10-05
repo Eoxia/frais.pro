@@ -119,6 +119,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 			'id' => get_current_user_id(),
 		), true );
 		$template_vars['display_mode'] = $display_mode;
+		$template_vars['ndf_is_closed'] = in_array( $template_vars['ndf']->validation_status, NDF_Class::g()->closed_status, true ) ? true : false;
 		\eoxia\View_Util::exec( 'note-de-frais', 'ndfl', 'main', $template_vars );
 	}
 

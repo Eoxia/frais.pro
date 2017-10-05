@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="note">
+<div class="note <?php echo esc_attr( $ndf_is_closed ? ' is_closed' : '' ); ?>">
 	<?php if ( ! empty( $ndf ) ) { ?>
 	<input type="hidden" name="id" value="<?php echo esc_attr( $ndf->id ); ?>">
 	<input type="hidden" name="parent_id" value="<?php echo esc_attr( $ndf->id ); ?>">
@@ -43,11 +43,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<li data-type="refuse" class="item pin-status refuse">Refusée</li>
 				</ul>
 			</div>
-			<span class="button export action-attribute"
-				data-id="<?php echo esc_attr( $ndf->id ); ?>"
-				data-action="export_ndf"
-				aria-label="Télécharger"
-				data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"><i class="icon ion-ios-download-outline"></i></span>
+			<span class="button export toggle list" data-parent="toggle" data-target="content">
+				<?php \eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'toggle-export', array(
+					'ndf' => $ndf,
+				) ); ?>
+			</span>
 		</div>
 
 		<div class="content">
@@ -88,6 +88,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<li class="action"></li>
 				</ul>
 
+			<?php if ( ! $ndf_is_closed ) : ?>
 				<ul class="row add" data-i="0">
 					<li class="group-date date" data-title="Date" data-namespace="noteDeFrais" data-module="NDFL" data-after-method="changeDate" >
 						<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none; display: block; height: 0px;" name="date" value="<?php echo esc_attr( current_time( 'mysql' ) ); ?>" />
@@ -112,6 +113,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload model_name="/note_de_frais/NDFL_Class" single="true" field_name="thumbnail_id"]' ); ?></span></li>
 					<li class="action action-ligne"><span class="icon ion-ios-plus"></span></li>
 				</ul>
+			<?php endif; ?>
 
 				<?php
 				$i = 1;
@@ -124,6 +126,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								'i' => $i,
 								'user' => $user,
 								'display_mode' => $display_mode,
+								'ndf_is_closed' => $ndf_is_closed,
 							) );
 							$i++;
 						}

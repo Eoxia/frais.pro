@@ -89,6 +89,17 @@ class NDF_Class extends \eoxia\Post_Class {
 	);
 
 	/**
+	 * Le ou les statuts pour lesquels on ne peut plus modifier les notes
+	 *
+	 * @var array
+	 *
+	 * @todo nécessite un transfert
+	 */
+	public $closed_status = array(
+		'Payée'
+	);
+
+	/**
 	 * Récupères les notes de frais et les envoies à la vue principale.
 	 *
 	 * @param  array $status Post_status, permet d'afficher notes archivés ou publique.
@@ -180,7 +191,7 @@ class NDF_Class extends \eoxia\Post_Class {
 		}
 
 		$sheet_details['status'] = $ndf->validation_status;
-		$sheet_details['miseajour'] = $ndf->date_modified;
+		$sheet_details['miseajour'] = $ndf->date_modified['date_human_readable'];
 
 		if ( ! empty( $ndfls ) ) {
 			foreach ( $ndfls as $ndfl ) {
@@ -207,11 +218,12 @@ class NDF_Class extends \eoxia\Post_Class {
 				}
 
 				$sheet_details['ndf']['value'][] = array(
-					'date' => $ndfl->date,
+					'date' => $ndfl->date['date_human_readable'],
 					'libelle' => $ndfl->title,
 					'km' => $ndfl->distance,
 					'ttc' => $ndfl->tax_inclusive_amount . '€',
 					'tva' => $ndfl->tax_amount . '€',
+					'category' => '',
 					'id_media_attached' => ! empty( $ndfl->thumbnail_id ) ? $ndfl->thumbnail_id : '',
 					'attached_media' => $with_picture ? $picture : '',
 				);
@@ -228,6 +240,7 @@ class NDF_Class extends \eoxia\Post_Class {
 		$sheet_details['prixkm'] = $user->prixkm;
 
 		$response = Document_Class::g()->create_document( $ndf, $sheet_details, $with_picture );
+
 		return $response;
 	}
 }

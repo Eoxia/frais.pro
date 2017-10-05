@@ -32,6 +32,7 @@ class NDF_Action {
 		add_action( 'wp_ajax_modify_ndf', array( $this, 'callback_modify_ndf' ) );
 		add_action( 'wp_ajax_archive_ndf', array( $this, 'callback_archive_ndf' ) );
 		add_action( 'wp_ajax_export_ndf', array( $this, 'callback_export_ndf' ) );
+		add_action( 'wp_ajax_export_csv', array( $this, 'callback_export_ndf_to_csv' ) );
 	}
 
 	/**
@@ -210,6 +211,48 @@ class NDF_Action {
 			'callback_success' => 'exportedNoteDeFraisSuccess',
 		) );
 	}
+
+	/**
+	 * Generate a csv file with the NDF content
+	 *
+	 * @return string The json response
+	 */
+	public function callback_export_ndf_to_csv() {
+		check_ajax_referer( 'export_ndf' );
+
+		$ndf_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		if ( empty( $ndf_id ) ) {
+			wp_send_json_error();
+		}
+
+		$csv_header = array(
+			'date' => __( 'Date', 'note-de-frais' ),
+			'libelle' => __( 'Date', 'note-de-frais' ),
+			'km' => __( 'Date', 'note-de-frais' ),
+			'ttc' => __( 'Date', 'note-de-frais' ),
+			'tva' => __( 'Date', 'note-de-frais' ),
+		);
+
+		$csv_header = array(
+			'date' => __( 'Date', 'note-de-frais' ),
+			'libelle' => __( 'Date', 'note-de-frais' ),
+			'km' => __( 'Date', 'note-de-frais' ),
+			'ttc' => __( 'Date', 'note-de-frais' ),
+			'tva' => __( 'Date', 'note-de-frais' ),
+		);
+
+		$response = NDF_Class::g()->generate_document( $ndf_id, $picture );
+
+		wp_send_json_success( array(
+			'namespace' => 'noteDeFrais',
+			'module' => 'NDF',
+			'link' => $response['link'],
+			'filename' => $response['filename'],
+			'callback_success' => 'exportedNoteDeFraisSuccess',
+		) );
+	}
+
 }
 
 new NDF_Action();
