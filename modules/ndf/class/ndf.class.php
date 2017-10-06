@@ -166,6 +166,12 @@ class NDF_Class extends \eoxia\Post_Class {
 			'include' => array( $ndf->author_id ),
 		), true );
 
+		$types_de_note = Type_Note_Class::g()->get();
+		$list_type_de_note = array();
+		foreach ( $types_de_note as $type_de_note ) {
+			$list_type_de_note[ $type_de_note->id ] = $type_de_note->name;
+		}
+
 		$sheet_details = array(
 			'ndf' => array(
 				'type' => 'segment',
@@ -223,7 +229,7 @@ class NDF_Class extends \eoxia\Post_Class {
 					'km' => $ndfl->distance,
 					'ttc' => $ndfl->tax_inclusive_amount . '€',
 					'tva' => $ndfl->tax_amount . '€',
-					'category' => '',
+					'categorie' => ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ] ) && ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0] ) ? $list_type_de_note[ $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0] ] : $ndfl->category_name,
 					'id_media_attached' => ! empty( $ndfl->thumbnail_id ) ? $ndfl->thumbnail_id : '',
 					'attached_media' => $with_picture ? $picture : '',
 				);
@@ -243,6 +249,40 @@ class NDF_Class extends \eoxia\Post_Class {
 
 		return $response;
 	}
+
+	/**
+	 * Génération d'un fichier csv a prtir d'une note de frais
+	 *
+	 * @param  integer $ndf_id L'identifiant de la note à générer en CSV.
+	 *
+	 * @return [type]         [description]
+	 */
+	public function generate_csv( $ndf_id ) {
+		$response = '';
+
+		$total_tax_inclusive_amount = 0;
+		$total_tax_amount = 0;
+		$ndf = self::g()->get( array(
+			'id' => $ndf_id,
+		), true );
+
+		$ndfls = NDFL_Class::g()->get( array(
+			'post_parent' => $ndf_id,
+		) );
+
+		$user = User_Class::g()->get( array(
+			'include' => array( $ndf->author_id ),
+		), true );
+
+		$types_de_note = Type_Note_Class::g()->get();
+		$list_type_de_note = array();
+		foreach ( $types_de_note as $type_de_note ) {
+			$list_type_de_note[ $type_de_note->id ] = $type_de_note->name;
+		}
+
+		return $response;
+	}
+
 }
 
 NDF_Class::g();

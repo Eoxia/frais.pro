@@ -51,17 +51,19 @@ window.eoxiaJS.noteDeFrais.typeNote.select = function( event ) {
 		jQuery( this ).each( window.eoxiaJS.noteDeFrais.NDFL.saveNDF );
 	}
 
-	// else {
-	// 	if ( '625100-autoroute' !== jQuery( this ).data( 'slug' ) ) { // Problème en DUR.
-	// 		window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'km', false );
-	// 		window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'ttc', true );
-	// 		window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'tva', true );
-	// 	} else {
-	// 		window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'km', true );
-	// 		window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'ttc', false );
-	// 		window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'tva', false );
-	// 	}
-	// }
+	window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'km', false );
+	window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'ttc', true );
+	window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'tva', true );
+
+	if ( jQuery( this ).data( 'special-treatment' ) ) {
+		window.eoxiaJS.noteDeFrais.typeNote[ jQuery( this ).data( 'special-treatment' ) ]( row );
+	}
+};
+
+window.eoxiaJS.noteDeFrais.typeNote.km_calculation = function( row ) {
+	window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'km', true );
+	window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'ttc', false );
+	window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'tva', false );
 };
 
 /**

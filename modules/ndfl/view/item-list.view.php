@@ -30,8 +30,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<li class="tva" data-title="TVA récup."><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][tax_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_amount ); ?></span></li>
 	<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload id="' . $ndfl->id . '" field_name="thumbnail_id" model_name="/note_de_frais/ndfl_class" single="true" mime_type="image" ]' ); ?></li>
 	<li class="action action-ligne">
-		<?php if ( ! $ndf_is_closed ) : ?>
-			<span class="icon ion-trash-a action-attribute"
+<?php if ( ! $ndf_is_closed ) : ?>
+		<span class="icon ion-trash-a action-attribute"
 			data-ndfl-id="<?php echo esc_attr( $ndfl->id ); ?>"
 			data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>"
 			data-action="delete_ndfl"
@@ -42,6 +42,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-confirm-text="La ligne de saisie ne pourra pas être récupérée"
 			data-loader="row"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_ndfl' ) ); ?>"></span>
-		<?php endif; ?>
+<?php endif; ?>
 	</li>
 </ul>

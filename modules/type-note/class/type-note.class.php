@@ -73,7 +73,7 @@ class Type_Note_Class extends \eoxia\Term_Class {
 		if ( ! empty( $types_note ) ) {
 			foreach ( $types_note as $element ) {
 				if ( $element->id === (int) $ndfl_type_note_id ) {
-					$selected_type_note_name = $element->name;
+					$selected_type_note_name = $element->category_id . ' : ' . $element->name;
 					break;
 				}
 			}
@@ -86,6 +86,7 @@ class Type_Note_Class extends \eoxia\Term_Class {
 			'selected_type_note_name' => $selected_type_note_name,
 		) );
 	}
+
 }
 
 Type_Note_Class::g();

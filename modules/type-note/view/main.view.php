@@ -43,7 +43,7 @@ else :
 		if ( ! empty( $types_note ) ) :
 			foreach ( $types_note as $type_note ) :
 				?>
-				<li class="item" data-id="<?php echo esc_attr( $type_note->id ); ?>"><?php echo esc_html( $type_note->name ); ?></li>
+				<li class="item" data-id="<?php echo esc_attr( $type_note->id ); ?>" data-special-treatment="<?php echo esc_attr( $type_note->special_treatment ); ?>" ><?php echo esc_html( $type_note->category_id . ' : ' . $type_note->name ); ?></li>
 				<?php
 			endforeach;
 		endif;

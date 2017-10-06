@@ -119,12 +119,19 @@ class Note_De_Frais_Action {
 
 		if ( empty( $core_option['db_version'] ) ) {
 			$file_content = file_get_contents( \eoxia\Config_Util::$init['note-de-frais']->core->path . 'assets/json/default.json' );
-			$data = json_decode( $file_content );
+			$data = json_decode( $file_content, true );
+
 			if ( ! empty( $data ) ) {
-				foreach ( $data as $category_name ) {
-					Type_Note_Class::g()->update( array(
-						'name' => $category_name,
-					) );
+				foreach ( $data as $category ) {
+					$category_slug = sanitize_title( $category['category_id'] . ' : ' . $category['name'] );
+					$tax = get_term_by( 'slug', $category_slug, Type_Note_Class::g()->get_taxonomy(), ARRAY_A );
+
+					if ( ! empty( $tax['term_id'] ) && is_int( $tax['term_id'] ) ) {
+						$category['id'] = $tax['term_id'];
+					}
+					$category['slug'] = $category_slug;
+
+					Type_Note_Class::g()->update( $category );
 				}
 			}
 
