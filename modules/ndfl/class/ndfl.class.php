@@ -11,8 +11,7 @@
  */
 
 namespace note_de_frais;
-ini_set("display_errors", true);
-error_reporting(E_ALL);
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -55,7 +54,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_model_post_function = array( '\note_de_frais\before_update_ndfl' );
+	protected $before_post_function = array( '\note_de_frais\before_update_ndfl' );
 
 
 	/**
@@ -63,7 +62,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_model_put_function = array( '\note_de_frais\before_update_ndfl' );
+	protected $before_put_function = array( '\note_de_frais\before_update_ndfl' );
 
 	/**
 	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée
@@ -84,8 +83,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	// protected $after_get_function = array( '\note_de_frais\get_current_category' );
-	protected $after_get_function = array( );
+	protected $after_get_function = array( '\note_de_frais\get_current_category' );
 
 	/**
 	 * Le nom pour le resgister post type

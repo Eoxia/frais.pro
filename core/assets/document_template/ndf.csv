@@ -1,7 +1,7 @@
 Date;Libellé;Type;Km;TTC;TVA
 {LignesDeFrais}
-;;;;{TotalTTC};{TotalTVA}
+;;;;{totalttc};{totaltva}
 
 Véhicule associé;{marque};;;Période;{periode}
-Puissance;{chevaux};;;Emetteur;{utilisateur_prenom_nom}, {utilsateur_email}
-Prix du Km;{PrixDuKm};;;Statut;{status}
+Puissance;{chevaux};;;Emetteur;{utilisateur_prenom_nom}, {utilisateur_email}
+Prix du Km;{prixkm};;;Statut;{status}

@@ -85,4 +85,5 @@ class NDFL_Model extends \eoxia\Post_Model {
 
 		parent::__construct( $object );
 	}
+
 }

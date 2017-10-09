@@ -54,25 +54,20 @@ class Type_Note_Class extends \eoxia\Term_Class {
 	 * @since 1.2.0
 	 * @version 1.2.0
 	 *
-	 * @param integer $ndfl_id (optional) L'ID de la ligne de notre de frais. Défaut 0.
+	 * @param integer $ndfl (optional) La définition complète de la ligne de frais . Null par défaut.
 	 * @return void
 	 */
-	public function display( $ndfl_id = 0 ) {
+	public function display( $ndfl = null ) {
 		$types_note = self::g()->get( array(
 			'taxonomy' => $this->taxonomy,
 		) );
 
-		$ndfl = NDFL_Class::g()->get( array(
-			'id' => $ndfl_id,
-		), true );
-
-		$ndfl_type_note_id = ! empty( $ndfl->taxonomy[ self::g()->get_taxonomy() ][0] ) ? esc_attr( $ndfl->taxonomy[ self::g()->get_taxonomy() ][0] ) : 0;
+		$ndfl_type_note = null !== $ndfl && ! empty( $ndfl->taxonomy[ $this->get_taxonomy() ][0] ) && ! empty( $ndfl->taxonomy[ $this->get_taxonomy() ][0]->term_id ) ? $ndfl->taxonomy[ $this->get_taxonomy() ][0]->term_id : 0;
 
 		$selected_type_note_name = __( 'Note types', 'note-de-frais' );
-
-		if ( ! empty( $types_note ) ) {
+		if ( ! empty( $types_note ) && ! empty( $ndfl_type_note ) ) {
 			foreach ( $types_note as $element ) {
-				if ( $element->id === (int) $ndfl_type_note_id ) {
+				if ( $element->id === (int) $ndfl_type_note ) {
 					$selected_type_note_name = $element->category_id . ' : ' . $element->name;
 					break;
 				}
@@ -82,7 +77,7 @@ class Type_Note_Class extends \eoxia\Term_Class {
 		\eoxia\View_Util::exec( 'note-de-frais', 'type-note', 'main', array(
 			'types_note' => $types_note,
 			'ndfl' => $ndfl,
-			'ndfl_type_note_id' => $ndfl_type_note_id,
+			'ndfl_type_note_id' => $ndfl_type_note,
 			'selected_type_note_name' => $selected_type_note_name,
 		) );
 	}

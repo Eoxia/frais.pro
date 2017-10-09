@@ -22,32 +22,19 @@ if ( empty( $types_note ) ) :
 		<span class="label"><a href="<?php echo esc_attr( admin_url( 'edit-tags.php?taxonomy=_type_note' ) ); ?>" target="_blank"><?php esc_html_e( 'Create type notes', 'note-de-frais' ); ?></a></span>
 	</span>
 	<?php
-else :
-	if ( empty( $ndfl->id ) ) :
-		?>
-		<input name="taxonomy[<?php echo esc_attr( Type_Note_Class::g()->get_taxonomy() ); ?>][0]" type="hidden" value="" />
-		<?php
-	else :
-		?>
-		<input name="taxonomy[<?php echo esc_attr( Type_Note_Class::g()->get_taxonomy() ); ?>][0]" type="hidden" value="<?php echo esc_attr( $ndfl_type_note_id ); ?>" />
-		<?php
-	endif;
-	?>
+else : ?>
+	<input name="taxonomy[<?php echo esc_attr( Type_Note_Class::g()->get_taxonomy() ); ?>][0]" type="hidden" value="<?php echo ( ! empty( $ndfl->id ) && ! empty( $ndfl_type_note_id ) ? esc_attr( $ndfl_type_note_id ) : '' ); ?>" />
 
 	<span class="action" contenteditable="false">
 		<span class="label"><?php echo esc_html( $selected_type_note_name ); ?></span>
 		<i class="icon ion-ios-arrow-down"></i>
 	</span>
 	<ul class="content">
-		<?php
-		if ( ! empty( $types_note ) ) :
-			foreach ( $types_note as $type_note ) :
-				?>
-				<li class="item" data-id="<?php echo esc_attr( $type_note->id ); ?>" data-special-treatment="<?php echo esc_attr( $type_note->special_treatment ); ?>" ><?php echo esc_html( $type_note->category_id . ' : ' . $type_note->name ); ?></li>
-				<?php
-			endforeach;
-		endif;
-		?>
-
+<?php if ( ! empty( $types_note ) ) : ?>
+	<?php foreach ( $types_note as $type_note ) : ?>
+		<li class="item" data-id="<?php echo esc_attr( $type_note->id ); ?>" data-special-treatment="<?php echo esc_attr( $type_note->special_treatment ); ?>" ><?php echo esc_html( $type_note->category_id . ' : ' . $type_note->name ); ?></li>
+	<?php endforeach; ?>
+<?php endif; ?>
 	</ul>
+
 <?php endif; ?>

@@ -6285,11 +6285,11 @@
 .eox-note-frais .flex-table .row.add li span[contenteditable]:focus, .eox-note-frais .flex-table.list .row:not(.add) li span[contenteditable]:focus {
   border: 1px solid rgba(155, 89, 182, 0.8); }
 
-.eox-note-frais .flex-table .row.add li.disabled span, .eox-note-frais .flex-table.list .row:not(.add) li.disabled span, .eox-note-frais .note.is_closed .flex-table .row.add li span, .eox-note-frais .note.is_closed .flex-table.list .row:not(.add) li span {
+.eox-note-frais .flex-table .row.add li.disabled span, .eox-note-frais .flex-table.list .row:not(.add) li.disabled span, .eox-note-frais .note.is_closed .flex-table .row.add li span, .eox-note-frais .note.is_closed .flex-table.list .row:not(.add) li span, .eox-note-frais .flex-table.list .row:not(.add)[special_treatment="km_calculation"] li.ttc span, .eox-note-frais .flex-table.list .row:not(.add)[special_treatment="km_calculation"] li.tva span, .eox-note-frais .flex-table.list .row:not(.add):not([special_treatment="km_calculation"]) li.km span, .eox-note-frais .flex-table.grid .row.add .row:not(.add)[special_treatment="km_calculation"] li.ttc span, .eox-note-frais .flex-table.grid .row:not(.add)[special_treatment="km_calculation"] .row.add li.ttc span, .eox-note-frais .flex-table.grid .row.add .row:not(.add)[special_treatment="km_calculation"] li.tva span, .eox-note-frais .flex-table.grid .row:not(.add)[special_treatment="km_calculation"] .row.add li.tva span, .eox-note-frais .flex-table.grid .row.add .row:not(.add):not([special_treatment="km_calculation"]) li.km span, .eox-note-frais .flex-table.grid .row:not(.add):not([special_treatment="km_calculation"]) .row.add li.km span {
   background: url("images/disabled-pattern.png") #f3f3f3;
   pointer-events: none; }
 
-.eox-note-frais .flex-table .row.add li.disabled span:hover, .eox-note-frais .flex-table.list .row:not(.add) li.disabled span:hover, .eox-note-frais .note.is_closed .flex-table .row.add li span:hover, .eox-note-frais .note.is_closed .flex-table.list .row:not(.add) li span:hover {
+.eox-note-frais .flex-table .row.add li.disabled span:hover, .eox-note-frais .flex-table.list .row:not(.add) li.disabled span:hover, .eox-note-frais .note.is_closed .flex-table .row.add li span:hover, .eox-note-frais .note.is_closed .flex-table.list .row:not(.add) li span:hover, .eox-note-frais .flex-table.list .row:not(.add)[special_treatment="km_calculation"] li.ttc span:hover, .eox-note-frais .flex-table.list .row:not(.add)[special_treatment="km_calculation"] li.tva span:hover, .eox-note-frais .flex-table.list .row:not(.add):not([special_treatment="km_calculation"]) li.km span:hover, .eox-note-frais .flex-table.grid .row.add .row:not(.add)[special_treatment="km_calculation"] li.ttc span:hover, .eox-note-frais .flex-table.grid .row:not(.add)[special_treatment="km_calculation"] .row.add li.ttc span:hover, .eox-note-frais .flex-table.grid .row.add .row:not(.add)[special_treatment="km_calculation"] li.tva span:hover, .eox-note-frais .flex-table.grid .row:not(.add)[special_treatment="km_calculation"] .row.add li.tva span:hover, .eox-note-frais .flex-table.grid .row.add .row:not(.add):not([special_treatment="km_calculation"]) li.km span:hover, .eox-note-frais .flex-table.grid .row:not(.add):not([special_treatment="km_calculation"]) .row.add li.km span:hover {
   cursor: default; }
 
 .eox-note-frais .flex-table .row.add li.ttc, .eox-note-frais .flex-table.list .row:not(.add) li.ttc, .eox-note-frais .flex-table .row.add li.tva, .eox-note-frais .flex-table.list .row:not(.add) li.tva {
@@ -6445,7 +6445,7 @@
 .eox-note-frais .flex-table.list .row:not(.add):nth-of-type(odd) span[contenteditable], .eox-note-frais .flex-table.list .row:not(.add):nth-of-type(odd) .toggle .content {
   background: #e6e6e6; }
 
-.eox-note-frais .flex-table.list .row:not(.add):nth-of-type(odd) .disabled span, .eox-note-frais .note.is_closed .flex-table.list .row:not(.add):nth-of-type(odd) li span {
+.eox-note-frais .flex-table.list .row:not(.add):nth-of-type(odd) .disabled span, .eox-note-frais .note.is_closed .flex-table.list .row:not(.add):nth-of-type(odd) li span, .eox-note-frais .flex-table.list .row:not(.add):nth-of-type(odd) .row:not(.add)[special_treatment="km_calculation"] li.ttc span, .eox-note-frais .flex-table.list .row:not(.add)[special_treatment="km_calculation"] .row:not(.add):nth-of-type(odd) li.ttc span, .eox-note-frais .flex-table.list .row:not(.add):nth-of-type(odd) .row:not(.add)[special_treatment="km_calculation"] li.tva span, .eox-note-frais .flex-table.list .row:not(.add)[special_treatment="km_calculation"] .row:not(.add):nth-of-type(odd) li.tva span, .eox-note-frais .flex-table.list .row:not(.add):nth-of-type(odd) .row:not(.add):not([special_treatment="km_calculation"]) li.km span, .eox-note-frais .flex-table.list .row:not(.add):not([special_treatment="km_calculation"]) .row:not(.add):nth-of-type(odd) li.km span, .eox-note-frais .flex-table.grid .row:not(.add)[special_treatment="km_calculation"] .flex-table.list .row:not(.add):nth-of-type(odd) li.ttc span, .eox-note-frais .flex-table.grid .row:not(.add)[special_treatment="km_calculation"] .flex-table.list .row:not(.add):nth-of-type(odd) li.tva span, .eox-note-frais .flex-table.grid .row:not(.add):not([special_treatment="km_calculation"]) .flex-table.list .row:not(.add):nth-of-type(odd) li.km span {
   background: url("images/disabled-pattern.png") #e6e6e6 !important; }
 
 .eox-note-frais .flex-table.list .row:not(.add):nth-of-type(odd) .toggle .content:before {
@@ -6513,11 +6513,11 @@
 .eox-note-frais .flex-table.grid .row:not(.add) li span[contenteditable]:focus {
   border: 1px solid rgba(155, 89, 182, 0.8); }
 
-.eox-note-frais .flex-table.grid .row:not(.add) li.disabled span, .eox-note-frais .note.is_closed .flex-table.grid .row:not(.add) li span {
+.eox-note-frais .flex-table.grid .row:not(.add) li.disabled span, .eox-note-frais .note.is_closed .flex-table.grid .row:not(.add) li span, .eox-note-frais .flex-table.grid .row:not(.add)[special_treatment="km_calculation"] li.ttc span, .eox-note-frais .flex-table.grid .row:not(.add)[special_treatment="km_calculation"] li.tva span, .eox-note-frais .flex-table.grid .row:not(.add):not([special_treatment="km_calculation"]) li.km span {
   background: url("images/disabled-pattern.png") #f3f3f3;
   pointer-events: none; }
 
-.eox-note-frais .flex-table.grid .row:not(.add) li.disabled span:hover, .eox-note-frais .note.is_closed .flex-table.grid .row:not(.add) li span:hover {
+.eox-note-frais .flex-table.grid .row:not(.add) li.disabled span:hover, .eox-note-frais .note.is_closed .flex-table.grid .row:not(.add) li span:hover, .eox-note-frais .flex-table.grid .row:not(.add)[special_treatment="km_calculation"] li.ttc span:hover, .eox-note-frais .flex-table.grid .row:not(.add)[special_treatment="km_calculation"] li.tva span:hover, .eox-note-frais .flex-table.grid .row:not(.add):not([special_treatment="km_calculation"]) li.km span:hover {
   cursor: default; }
 
 .eox-note-frais .flex-table.grid .row:not(.add) li.ttc, .eox-note-frais .flex-table.grid .row:not(.add) li.tva {

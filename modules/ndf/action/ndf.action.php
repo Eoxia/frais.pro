@@ -201,7 +201,7 @@ class NDF_Action {
 			wp_send_json_error();
 		}
 
-		$response = NDF_Class::g()->generate_document( $ndf_id, $picture );
+		$response = NDF_Class::g()->generate_document( $ndf_id, $picture, 'odt' );
 
 		wp_send_json_success( array(
 			'namespace' => 'noteDeFrais',
@@ -218,7 +218,7 @@ class NDF_Action {
 	 * @return string The json response
 	 */
 	public function callback_export_ndf_to_csv() {
-		check_ajax_referer( 'export_ndf' );
+		check_ajax_referer( 'export_csv' );
 
 		$ndf_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
@@ -226,23 +226,7 @@ class NDF_Action {
 			wp_send_json_error();
 		}
 
-		$csv_header = array(
-			'date' => __( 'Date', 'note-de-frais' ),
-			'libelle' => __( 'Date', 'note-de-frais' ),
-			'km' => __( 'Date', 'note-de-frais' ),
-			'ttc' => __( 'Date', 'note-de-frais' ),
-			'tva' => __( 'Date', 'note-de-frais' ),
-		);
-
-		$csv_header = array(
-			'date' => __( 'Date', 'note-de-frais' ),
-			'libelle' => __( 'Date', 'note-de-frais' ),
-			'km' => __( 'Date', 'note-de-frais' ),
-			'ttc' => __( 'Date', 'note-de-frais' ),
-			'tva' => __( 'Date', 'note-de-frais' ),
-		);
-
-		$response = NDF_Class::g()->generate_document( $ndf_id, $picture );
+		$response = NDF_Class::g()->generate_document( $ndf_id, false, 'csv' );
 
 		wp_send_json_success( array(
 			'namespace' => 'noteDeFrais',

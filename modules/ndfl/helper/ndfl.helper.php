@@ -26,7 +26,7 @@ function before_update_ndfl( $data ) {
 		$data->tax_amount = 0;
 	}
 
-	wp_remove_object_terms( $data->id, array(), Type_Note_Class::g()->get_taxonomy() );
+	wp_set_object_terms( $data->id, array(), Type_Note_Class::g()->get_taxonomy(), false );
 
 	$data->tax_inclusive_amount = round( $data->tax_inclusive_amount, 2 );
 	$data->tax_amount = round( $data->tax_amount, 2 );
@@ -47,14 +47,14 @@ function get_current_category( $data ) {
 	$data->current_category = null;
 	$data->taxonomy['_type_note'] = wp_get_object_terms( $data->id, Type_Note_Class::g()->get_taxonomy() );
 	if ( ! empty( $data->taxonomy['_type_note'] ) && ! empty( $data->taxonomy['_type_note'][0] ) ) {
-		$data->current_category = Type_Note_Class::g()->g( array( 'id' => $data->taxonomy['_type_note'][0]->term_id ) );
+		$data->current_category = Type_Note_Class::g()->get( array( 'id' => $data->taxonomy['_type_note'][0]->term_id ), true );
 	}
-
 	return $data;
 }
 
 /**
  * Met à jour la note de frais parente.
+ *
  * @param  Object $data L'objet.
  * @return Object       L'objet non modifié.
  */
