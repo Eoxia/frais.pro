@@ -56,6 +56,10 @@ class Note_De_Frais_Action {
 	public function callback_before_admin_enqueue_scripts_js() {
 		wp_enqueue_script( 'note-de-frais-scripts-lib', PLUGIN_NOTE_DE_FRAIS_URL . 'core/external/wpeo_assets/js/dest/wpeo-assets.js', array( 'jquery', 'jquery-form', 'jquery-ui-datepicker' ), \eoxia\Config_Util::$init['note-de-frais']->version, false );
 
+		wp_localize_script( 'note-de-frais-scripts-lib', 'noteDeFrais', array(
+			'confirmMarkAsPayed' => __( 'Are you sur you want to mark as payed? You won\'t be able to change anything after this action.', 'note-de-frais' ),
+		) );
+
 		wp_enqueue_media();
 		add_thickbox();
 	}

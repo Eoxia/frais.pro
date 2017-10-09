@@ -44,6 +44,9 @@ window.eoxiaJS.noteDeFrais.NDF.close = function( event ) {
 };
 
 window.eoxiaJS.noteDeFrais.NDF.saveStatus = function( event ) {
+	if ( ( 'paye' === jQuery( this ).closest( 'li' ).data( 'type' ) ) && ! confirm( noteDeFrais.confirmMarkAsPayed ) ) {
+		return false;
+	}
 	var toggle = jQuery( this ).closest( '.validation_status.toggle' );
 	var type = jQuery( this ).closest( 'li' ).data( 'type' );
 	var serialize = '';
