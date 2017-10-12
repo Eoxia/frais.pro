@@ -25,6 +25,5 @@ DEFINE( 'PLUGIN_NOTE_DE_FRAIS_DIR', basename( __DIR__ ) );
 
 require_once 'core/external/wpeo_util/singleton.util.php';
 require_once 'core/external/wpeo_util/init.util.php';
-require_once 'core/external/wpeo_log/class/log.class.php';
 
 \eoxia\Init_Util::g()->exec( PLUGIN_NOTE_DE_FRAIS_PATH, basename( __FILE__, '.php' ) );

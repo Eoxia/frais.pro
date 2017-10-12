@@ -33,6 +33,8 @@ class NDF_Action {
 		add_action( 'wp_ajax_archive_ndf', array( $this, 'callback_archive_ndf' ) );
 		add_action( 'wp_ajax_export_ndf', array( $this, 'callback_export_ndf' ) );
 		add_action( 'wp_ajax_export_csv', array( $this, 'callback_export_ndf_to_csv' ) );
+
+		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 	}
 
 	/**
@@ -214,8 +216,6 @@ class NDF_Action {
 
 	/**
 	 * Generate a csv file with the NDF content
-	 *
-	 * @return string The json response
 	 */
 	public function callback_export_ndf_to_csv() {
 		check_ajax_referer( 'export_csv' );
@@ -235,6 +235,30 @@ class NDF_Action {
 			'filename' => $response['filename'],
 			'callback_success' => 'exportedNoteDeFraisSuccess',
 		) );
+	}
+
+	/**
+	 * Register specific routes for NDF
+	 */
+	public function register_routes() {
+		register_rest_route( __NAMESPACE__ . '/v' . \eoxia\Config_Util::$init['external']->wpeo_model->api_version , '/' . NDF_Class::g()->get_rest_base() . '/(?P<id>[\d]+)/details', array(
+			array(
+				'method' => \WP_REST_Server::READABLE,
+				'callback'	=> function( $request ) {
+					$full_note = NDF_Class::g()->get( array( 'id' => $request['id'] ), true );
+
+					$full_note->children = NDFL_Class::g()->get( array( 'post_parent' => $request['id'] ) );
+
+					return $full_note;
+				},
+				'permission_callback' => function() {
+					if ( ! NDF_Class::g()->check_cap( 'get' ) && ( ( '127.0.0.1' !== $_SERVER['REMOTE_ADDR'] ) && ( '::1' !== $_SERVER['REMOTE_ADDR'] ) ) ) {
+						return false;
+					}
+					return true;
+				},
+			),
+		), true );
 	}
 
 }

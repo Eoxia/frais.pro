@@ -47,7 +47,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $base  = 'ligne-de-frais';
+	protected $base  = 'ligne';
 
 	/**
 	 * Fonction de callback avant d'insérer les données en mode POST.

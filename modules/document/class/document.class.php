@@ -15,7 +15,7 @@ class Document_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $base  = 'note-de-frais-papier';
+	protected $base  = 'note-papier';
 
 
 	public $mime_type_link = array(

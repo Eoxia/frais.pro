@@ -16,7 +16,6 @@
 		""
 	],
 	"externals": [
-		"core/external/wpeo_log/wpeo_log.config.json",
 		"core/external/wpeo_model/wpeo_model.config.json",
 		"core/external/wpeo_upload/wpeo_upload.config.json"
 	],

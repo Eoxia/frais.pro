@@ -39,7 +39,7 @@ class NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $base  = 'note-de-frais';
+	protected $base  = 'note';
 
 	/**
 	 * La clé principale du modèle
