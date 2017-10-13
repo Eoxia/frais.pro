@@ -43,11 +43,18 @@ class NDFL_Class extends \eoxia\Post_Class {
 	protected $meta_key   = '_ndfl';
 
 	/**
+	 * Slug de base pour la route dans l'api rest
+	 *
+	 * @var string
+	 */
+	protected $base  = 'ligne';
+
+	/**
 	 * Fonction de callback avant d'insérer les données en mode POST.
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\eoxia\convert_date_time', '\note_de_frais\before_update_ndfl' );
+	protected $before_post_function = array( '\note_de_frais\before_update_ndfl' );
 
 
 	/**
@@ -55,7 +62,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_put_function = array( '\eoxia\convert_date_time', '\note_de_frais\before_update_ndfl' );
+	protected $before_put_function = array( '\note_de_frais\before_update_ndfl' );
 
 	/**
 	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée
@@ -76,7 +83,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array( '\eoxia\construct_current_date_time' );
+	protected $after_get_function = array( '\note_de_frais\get_current_category' );
 
 	/**
 	 * Le nom pour le resgister post type
@@ -85,7 +92,20 @@ class NDFL_Class extends \eoxia\Post_Class {
 	 */
 	protected $post_type_name = 'NDFL';
 
-	public function display( $ndf_id = -1 ) {
+	/**
+	 * La taxonomy lié à ce post type.
+	 *
+	 * @var string
+	 */
+	protected $attached_taxonomy_type = '_type_note';
+
+	/**
+	 * Affichage d'une note de frais avec ses lignes
+	 *
+	 * @param  integer $ndf_id       Identifiant de la note de frais à récupérer.
+	 * @param  string  $display_mode Quel est le mode d'affichage a utiliser.
+	 */
+	public function display( $ndf_id = -1, $display_mode = 'list' ) {
 		$ndfl = $this->get( array(
 			'post_parent' => $ndf_id,
 		) );
@@ -98,8 +118,12 @@ class NDFL_Class extends \eoxia\Post_Class {
 		$template_vars['user'] = User_Class::g()->get( array(
 			'id' => get_current_user_id(),
 		), true );
+		$template_vars['display_mode'] = $display_mode;
+		$template_vars['ndf_is_closed'] = in_array( $template_vars['ndf']->validation_status, NDF_Class::g()->closed_status, true ) ? true : false;
+
 		\eoxia\View_Util::exec( 'note-de-frais', 'ndfl', 'main', $template_vars );
 	}
+
 }
 
 NDFL_Class::g();

@@ -40,18 +40,24 @@ class User_Model extends \eoxia\User_Model {
 			'field' 		=> '_ndf_chevaux',
 		);
 
-		$this->model['thumbnail_id'] = array(
-			'type'			=> 'integer',
-			'meta_type' => 'single',
-			'field' 		=> '_ndf_thumbnail_id',
-		);
-
 		$this->model['prixkm'] = array(
 			'type'			=> 'float',
 			'meta_type' => 'single',
 			'field' 		=> '_ndf_prixkm',
 		);
 
+		$this->model['ndf_admin'] = array(
+			'type'			=> 'boolean',
+			'meta_type' => 'single',
+			'field' 		=> '_ndf_user_is_admin',
+		);
+
+		// Ajout des champs image dans le compte utilisateur.
+		$this->model['thumbnail_id'] = array(
+			'type'			=> 'integer',
+			'meta_type' => 'single',
+			'field' 		=> '_ndf_thumbnail_id',
+		);
 		$this->model['associated_document_id'] = array(
 			'type'				=> 'array',
 			'meta_type'	=> 'multiple',

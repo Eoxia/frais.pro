@@ -4,13 +4,15 @@
  *
  * @package Eoxia\Plugin
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.2.0
  */
 
 namespace note_de_frais;
 
-if ( ! defined( 'ABSPATH' ) ) {	exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Initialise les scripts JS et CSS du Plugin
@@ -30,18 +32,16 @@ class Note_De_Frais_Action {
 		$post = ( ! empty( $_REQUEST['post'] ) ) ? intval( $_REQUEST['post'] ) : '';
 
 		if ( in_array( $page, \eoxia\Config_Util::$init['note-de-frais']->insert_scripts_pages_css, true ) && empty( $post ) ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts_css' ), 10 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts_css' ), 11 );
-			add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts_css' ) );
 		}
 
 		if ( in_array( $page, \eoxia\Config_Util::$init['note-de-frais']->insert_scripts_pages_js, true ) && empty( $post ) ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts_js' ), 10 );
+			add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts_js' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts_js' ), 11 );
-			add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts_js' ) );
 		}
 
 		add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
+		add_action( 'admin_init', array( $this, 'callback_admin_init' ) );
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
 	}
 
@@ -54,9 +54,12 @@ class Note_De_Frais_Action {
 	 * @version 6.2.5.0
 	 */
 	public function callback_before_admin_enqueue_scripts_js() {
-		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'jquery-form' );
-		wp_enqueue_script( 'jquery-ui-datepicker' );
+		wp_enqueue_script( 'note-de-frais-scripts-lib', PLUGIN_NOTE_DE_FRAIS_URL . 'core/external/wpeo_assets/js/dest/wpeo-assets.js', array( 'jquery', 'jquery-form', 'jquery-ui-datepicker' ), \eoxia\Config_Util::$init['note-de-frais']->version, false );
+
+		wp_localize_script( 'note-de-frais-scripts-lib', 'noteDeFrais', array(
+			'confirmMarkAsPayed' => __( 'Are you sur you want to mark as payed? You won\'t be able to change anything after this action.', 'note-de-frais' ),
+		) );
+
 		wp_enqueue_media();
 		add_thickbox();
 	}
@@ -70,31 +73,8 @@ class Note_De_Frais_Action {
 	 * @version 6.2.7.0
 	 */
 	public function callback_admin_enqueue_scripts_js() {
-		wp_enqueue_script( 'note-de-frais-script', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/js/backend.min.js', array(), \eoxia\Config_Util::$init['note-de-frais']->version, false );
+		wp_enqueue_script( 'note-de-frais-script', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/js/backend.min.js', array( 'jquery' ), \eoxia\Config_Util::$init['note-de-frais']->version, false );
 		wp_enqueue_script( 'note-de-frais-script-datetimepicker-script', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/js/jquery.datetimepicker.full.js', array(), \eoxia\Config_Util::$init['note-de-frais']->version );
-	}
-
-	/**
-	 * Initialise en php le fichier permettant la traduction des variables string JavaScript.
-	 *
-	 * @return void nothing
-	 *
-	 * @since 1.0
-	 * @version 6.2.5.0
-	 */
-	public function callback_admin_print_scripts_js() {
-		// require( PLUGIN_DIGIRISK_PATH . '/core/assets/js/define-string.js.php' );
-	}
-
-	/**
-	 * Initialise les fichiers JS inclus dans WordPress (jQuery, wp.media et thickbox)
-	 *
-	 * @return void nothing
-	 *
-	 * @since 1.0
-	 * @version 6.2.5.0
-	 */
-	public function callback_before_admin_enqueue_scripts_css() {
 	}
 
 	/**
@@ -113,30 +93,56 @@ class Note_De_Frais_Action {
 	}
 
 	/**
-	 * Initialise en php le fichier permettant la traduction des variables string JavaScript.
-	 *
-	 * @return void nothing
-	 *
-	 * @since 1.0
-	 * @version 6.2.5.0
-	 */
-	public function callback_admin_print_scripts_css() {
-	}
-
-	/**
 	 * Initialise le fichier MO
 	 *
 	 * @since 1.0
 	 * @version 6.2.5.0
 	 */
 	public function callback_plugins_loaded() {
-			register_post_status( 'archive', array(
+		register_post_status( 'archive', array(
 			'label'                     => 'Archive',
 			'public'                    => true,
 			'exclude_from_search'       => false,
 			'show_in_admin_all_list'    => true,
 			'show_in_admin_status_list' => true,
 		) );
+	}
+
+	/**
+	 * Installes les données par défaut.
+	 *
+	 * @since 1.2.0
+	 * @version 1.2.0
+	 *
+	 * @return void
+	 */
+	public function callback_admin_init() {
+		$core_option = get_option( \eoxia\Config_Util::$init['note-de-frais']->core_option, array(
+			'db_version' => '',
+		) );
+
+		if ( empty( $core_option['db_version'] ) ) {
+			$file_content = file_get_contents( \eoxia\Config_Util::$init['note-de-frais']->core->path . 'assets/json/default.json' );
+			$data = json_decode( $file_content, true );
+
+			if ( ! empty( $data ) ) {
+				foreach ( $data as $category ) {
+					$category_slug = sanitize_title( $category['category_id'] . ' : ' . $category['name'] );
+					$tax = get_term_by( 'slug', $category_slug, Type_Note_Class::g()->get_taxonomy(), ARRAY_A );
+
+					if ( ! empty( $tax['term_id'] ) && is_int( $tax['term_id'] ) ) {
+						$category['id'] = $tax['term_id'];
+					}
+					$category['slug'] = $category_slug;
+
+					Type_Note_Class::g()->update( $category );
+				}
+			}
+
+			$core_option['db_version'] = str_replace( '.', '', \eoxia\Config_Util::$init['note-de-frais']->version );
+			update_option( \eoxia\Config_Util::$init['note-de-frais']->core_option, $core_option );
+		}
+
 	}
 
 	/**

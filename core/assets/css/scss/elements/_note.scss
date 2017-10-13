@@ -1,0 +1,107 @@
+.note {
+
+	.header {
+		background: $color__main;
+		position: relative;
+		display: flex;
+		height: 90px;
+		.title {
+			font-size: 24px;
+			font-weight: 100;
+			color: #fff;
+			padding: 0 120px 0 15px;
+			margin: auto 0;
+		}
+		.export, .archive {
+			color: #fff;
+			position: absolute;
+			right: 0;
+			top: 20px;
+		}
+		.archive {
+			background: rgba(255,255,255,0.2);
+			padding: 0 0 0 2px !important;
+			border-radius: 50%;
+			text-align: center;
+			right: 60px;
+			font-size: 28px;
+			width: 50px;
+			height: 50px;
+			line-height: 50px;
+			&:hover {
+				background: rgba(255,255,255,0.3);
+			}
+		}
+		.export {
+			.action {
+				display: block;
+		    width: 50px;
+		    height: 50px;
+		    line-height: 50px;
+		    text-align: center !important;
+		    font-size: 22px;
+				&:hover {
+					.fa { color: rgba(255,255,255,0.6); }
+				}
+			}
+			.fa {
+				display: inline-block;
+				transition: all 0.2s ease-out;
+			}
+			.content {
+				position: absolute;
+				background: #f3f3f3;
+				width: 160px;
+				right: 0;
+				&:before {
+					right: 10px;
+					left: auto;
+				}
+				li {
+					font-size: 14px;
+					padding: 8px 12px !important;
+					&:hover {
+						background: rgba(0, 0, 0, 0.05);
+					}
+				}
+			}
+		}
+	}
+	.status, .validation_status {
+		.pin-status {
+			&:before {
+				display: inline-block;
+				content: '';
+				width: 8px;
+				height: 8px;
+				margin-right: 8px;
+				border-radius: 50%;
+				background: #fff;
+			}
+			&.en-cours:before { background: $color__main; }
+			&.valide:before { background: $color__blue; }
+			&.paye:before { background: $color__green; }
+			&.refuse:before { background: $color__red; }
+		}
+	}
+	&.is_closed {
+		.flex-table {
+			pointer-events: none;
+			li {
+				@extend .disabled;
+				i {
+					display: none;
+				}
+			}
+		}
+		.validation_status {
+			pointer-events: none;
+			.action {
+				i {
+					display: none;
+				}
+			}
+		}
+	}
+
+}

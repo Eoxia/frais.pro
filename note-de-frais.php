@@ -10,7 +10,7 @@ namespace note_de_frais;
  * Plugin Name: Note de frais
  * Plugin URI:  http://www.evarisk.com/document-unique-logiciel
  * Description: Un super module de notes de frais.
- * Version:     1.0.0.1
+ * Version:     1.2.0
  * Author:      Eoxia
  * Author URI:  http://www.evarisk.com
  * License:     GPL2
@@ -25,6 +25,5 @@ DEFINE( 'PLUGIN_NOTE_DE_FRAIS_DIR', basename( __DIR__ ) );
 
 require_once 'core/external/wpeo_util/singleton.util.php';
 require_once 'core/external/wpeo_util/init.util.php';
-require_once 'core/external/wpeo_log/class/log.class.php';
 
 \eoxia\Init_Util::g()->exec( PLUGIN_NOTE_DE_FRAIS_PATH, basename( __FILE__, '.php' ) );

@@ -3,11 +3,10 @@
  * Définition du modèle de ligne de note de frais.
  *
  * @author eoxia
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.2.0
  * @copyright 2017 Eoxia
- * @package ndfl
- * @subpackage model
+ * @package NDF
  */
 
 namespace note_de_frais;
@@ -26,8 +25,8 @@ class NDFL_Model extends \eoxia\Post_Model {
 	 *
 	 * @param object $object L'objet courant.
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.0.0.0
+	 * @since 1.0.0
+	 * @version 1.2.0
 	 */
 	public function __construct( $object ) {
 		$this->model['category_name'] = array(
@@ -72,6 +71,19 @@ class NDFL_Model extends \eoxia\Post_Model {
 			),
 		);
 
+		$this->model['taxonomy'] = array(
+			'type' => 'array',
+			'meta_type' => 'multiple',
+			'child' => array(
+				'_type_note' => array(
+					'meta_type' => 'multiple',
+					'array_type' => 'integer',
+					'type' => 'array',
+				),
+			),
+		);
+
 		parent::__construct( $object );
 	}
+
 }

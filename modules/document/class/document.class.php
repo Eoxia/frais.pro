@@ -10,15 +10,25 @@ class Document_Class extends \eoxia\Post_Class {
 	protected $before_put_function = array();
 	protected $after_get_function = array();
 
+	/**
+	 * Slug de base pour la route dans l'api rest
+	 *
+	 * @var string
+	 */
+	protected $base  = 'note-papier';
+
+
 	public $mime_type_link = array(
 		'application/vnd.oasis.opendocument.text' => '.odt',
 		'application/zip' => '.zip',
 	);
+
 	/**
 	 * Instanciation de la gestion des document imprimés / Instanciate printes document
 	 */
-	protected function construct() {
-	}
+ 	public function construct() {
+ 		parent::construct();
+ 	}
 
 	/**
 	* Récupères le chemin vers le dossier digirisk dans wp-content/uploads
@@ -152,53 +162,84 @@ class Document_Class extends \eoxia\Post_Class {
 	/**
 	 * Create the document into database and call the generation function / Création du document dans la base de données puis appel de la fonction de génération du fichier
 	 *
-	 * @param object $element The element to create the document for / L'élément pour lequel il faut créer le document
-	 * @param array $document_type The document's categories / Les catégories auxquelles associer le document généré
-	 * @param array $document_meta Datas to write into the document template / Les données a écrire dans le modèle de document
+	 * @param object $element The element to create the document for / L'élément pour lequel il faut créer le document.
+	 * @param array  $document_type The document's categories / Les catégories auxquelles associer le document généré.
+	 * @param array  $document_meta Datas to write into the document template / Les données a écrire dans le modèle de document.
+	 * @param string $document_type The document type to output.
 	 *
 	 * @return object The result of document creation / le résultat de la création du document
 	 */
-	public function create_document( $element, $document_meta ) {
-  	/**	Définition de la partie principale du nom de fichier / Define the main part of file name	*/
-  	$main_title_part = $element->title;
+	public function create_document( $element, $document_meta, $with_picture, $document_type ) {
+		/**	Définition de la partie principale du nom de fichier / Define the main part of file name	*/
+		$main_title_part = $element->title;
 
+		/**	Enregistrement de la fiche dans la base de donnée. */
+		$document_args = array(
+			'post_content' => '',
+			'post_status' => 'inherit',
+			'post_author' => get_current_user_id(),
+			'post_date' => current_time( 'mysql' ),
+			'post_title' => basename( 'test', '.odt' ),
+		);
 
-  	/**	Enregistrement de la fiche dans la base de donnée / Save sheet into database	*/
-  	$response[ 'filename' ] = sanitize_title( str_replace( ' ', '_', $main_title_part ) ) . '.odt';
-  	$document_args = array(
-			'post_content'	=> '',
-			'post_status'	=> 'inherit',
-			'post_author'	=> get_current_user_id(),
-			'post_date'		=> current_time( 'mysql', 0 ),
-			'post_title'	=> basename( 'test', '.odt' ),
-  	);
+		/**	On créé le document / Create the document	*/
+		$filetype = 'unknown';
 
+		switch ( $document_type ) {
+			case 'odt':
+				$response['filename'] = sanitize_title( str_replace( ' ', '_', $main_title_part ) ) . '.odt';
+				$path = 'document/' . $element->id . '/' . $response['filename'];
+				$template_path = str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf-photo.odt' );
+				if ( ! $with_picture ) {
+					$template_path = str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf.odt' );
+				}
+				$document_creation = $this->generate_document( $template_path, $document_meta, $path );
+			break;
 
-  	/**	On créé le document / Create the document	*/
-  	$filetype = 'unknown';
+			case 'csv':
+				$response['filename'] = sanitize_title( str_replace( ' ', '_', $main_title_part ) ) . '.csv';
+				$path = 'document/' . $element->id . '/' . $response['filename'];
+				ob_start();
+				require( PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf.csv' );
+				$csv_file_content = ob_get_clean();
+				foreach ( $document_meta as $key => $value ) {
+					if ( 'ndf' !== $key && 'ndf_medias' !== $key ) {
+						$csv_file_content = str_replace( '{' . $key . '}', $value, $csv_file_content );
+					} elseif ( 'ndf' === $key ) {
+						$file_lines = '';
+						foreach ( $value['value'] as $line ) {
+							unset( $line['id_media_attached'] );
+							unset( $line['attached_media'] );
+							$file_lines .= implode( ';', $line ) . '
+';
+						}
+						$csv_file_content = str_replace( '{LignesDeFrais}', $file_lines, $csv_file_content );
+					}
+				}
+				$csv_file_handler = fopen( $this->get_digirisk_dir_path() . '/' . $path, 'w' );
+				fwrite( $csv_file_handler, $csv_file_content );
+				fclose( $csv_file_handler );
+			break;
+		}
 
-
-		$path = 'document/' . $element->id . '/' . $response['filename'];
-		$document_creation = $this->generate_document( str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf.odt' ), $document_meta, $path );
-
-
-		$response[ 'id' ] = wp_insert_attachment( $document_args, $this->get_digirisk_dir_path() . '/' . $path, $element->id );
+		$response['id'] = wp_insert_attachment( $document_args, $this->get_digirisk_dir_path() . '/' . $path, $element->id );
 
 		$attach_data = wp_generate_attachment_metadata( $response['id'], $this->get_digirisk_dir_path() . '/' . $path );
 		wp_update_attachment_metadata( $response['id'], $attach_data );
 
-  	/**	On met à jour les informations concernant le document dans la base de données / Update data for document into database	*/
-  	$document_args = array(
-			'id'										=> $response[ 'id' ],
-			'title'									=> basename( $response[ 'filename' ], '.odt' ),
-			'parent_id'							=> $element->id,
-			'author_id'							=> get_current_user_id(),
-			'date'									=> current_time( 'mysql', 0 ),
-			'mime_type'							=> !empty( $filetype[ 'type' ] ) ? $filetype['type'] : $filetype,
-			'document_meta' 				=> $document_meta,
-			'status'								=> 'inherit'
-  	);
-		Document_Class::g()->update( $document_args );
+		/**	On met à jour les informations concernant le document dans la base de données / Update data for document into database	*/
+		$document_args = array(
+			'id' => $response['id'],
+			'title' => basename( $response['filename'], '.odt' ),
+			'parent_id' => $element->id,
+			'author_id' => get_current_user_id(),
+			'date' => current_time( 'mysql' ),
+			'mime_type' => ! empty( $filetype['type'] ) ? $filetype['type'] : $filetype,
+			'document_meta' => $document_meta,
+			'status' => 'inherit',
+		);
+
+		self::g()->update( $document_args );
 
 		$response['link'] = $this->get_digirisk_dir_path( 'baseurl' ) . '/' . $path;
 

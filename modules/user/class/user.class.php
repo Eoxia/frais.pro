@@ -24,7 +24,7 @@ class User_Class extends \eoxia\User_Class {
 	 *
 	 * @var string
 	 */
-	protected $model_name   				= '\note_de_frais\User_Model';
+	protected $model_name = '\note_de_frais\User_Model';
 
 	/**
 	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée
@@ -46,6 +46,14 @@ class User_Class extends \eoxia\User_Class {
 	 * @var array
 	 */
 	protected $after_get_function = array();
+
+	/**
+	 * Slug de base pour la route dans l'api rest
+	 *
+	 * @var string
+	 */
+	protected $base  = 'personne';
+
 }
 
 User_Class::g();

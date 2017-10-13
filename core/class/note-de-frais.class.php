@@ -52,6 +52,7 @@ class Note_De_Frais_Class extends \eoxia\Singleton_Util {
 	public function display_archive() {
 		require( PLUGIN_NOTE_DE_FRAIS_PATH . '/core/view/main-archive.view.php' );
 	}
+
 }
 
 new Note_De_Frais_Class();

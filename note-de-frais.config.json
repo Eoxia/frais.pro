@@ -1,7 +1,7 @@
 {
 	"name": "Note de frais",
 	"slug": "note-de-frais",
-	"version": "1.0.0.0",
+	"version": "1.2.0",
 	"description": "L'application Note de frais",
 	"insert_scripts_pages_js": [
 		"note-de-frais",
@@ -16,28 +16,25 @@
 		""
 	],
 	"externals": [
-		"core/external/wpeo_log/wpeo_log.config.json",
-		"core/external/wpeo_model/wpeo_model.config.json"
+		"core/external/wpeo_model/wpeo_model.config.json",
+		"core/external/wpeo_upload/wpeo_upload.config.json"
 	],
 	"modules": [
 		"core/core.config.json",
 
 		"modules/document/document.config.json",
 		"modules/user/user.config.json",
+		"modules/type-note/type-note.config.json",
 		"modules/ndf/ndf.config.json",
-		"modules/ndfl/ndfl.config.json",
-		"modules/file_management/file_management.config.json"
+		"modules/ndfl/ndfl.config.json"
 	],
 	"debug": true,
-	"categories": [
-		"Trajet",
-		"Autre"
-	],
 	"chevaux": [
 		"3 CV et moins",
 		"4 CV",
 		"5 CV",
 		"6 CV",
 		"7 CV et plus"
-	]
+	],
+	"core_option": "_ndf_core"
 }

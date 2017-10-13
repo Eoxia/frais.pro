@@ -3,11 +3,10 @@
  * Classe gérant les actions des notes de frais.
  *
  * @author eoxia
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.2.0
  * @copyright 2017 Eoxia
- * @package ndf
- * @subpackage action
+ * @package NDF
  */
 
 namespace note_de_frais;
@@ -33,6 +32,9 @@ class NDF_Action {
 		add_action( 'wp_ajax_modify_ndf', array( $this, 'callback_modify_ndf' ) );
 		add_action( 'wp_ajax_archive_ndf', array( $this, 'callback_archive_ndf' ) );
 		add_action( 'wp_ajax_export_ndf', array( $this, 'callback_export_ndf' ) );
+		add_action( 'wp_ajax_export_csv', array( $this, 'callback_export_ndf_to_csv' ) );
+
+		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 	}
 
 	/**
@@ -46,9 +48,10 @@ class NDF_Action {
 		check_ajax_referer( 'open_ndf' );
 
 		$ndf_id = isset( $_POST['id'] ) ? intval( $_POST['id'] ) : -1;
+		$ndf_display_mode = isset( $_POST['display_mode'] ) ? sanitize_text_field( $_POST['display_mode'] ) : 'grid';
 
 		ob_start();
-		NDFL_Class::g()->display( $ndf_id );
+		NDFL_Class::g()->display( $ndf_id, $ndf_display_mode );
 		$response = ob_get_clean();
 
 		wp_send_json_success( array(
@@ -56,6 +59,7 @@ class NDF_Action {
 			'module' => 'NDF',
 			'callback_success' => 'open',
 			'view' => $response,
+			'display_mode' => $ndf_display_mode,
 		) );
 	}
 
@@ -118,6 +122,9 @@ class NDF_Action {
 
 	/**
 	 * Action : modifier une note de frais.
+	 *
+	 * @since 1.0.0
+	 * @version 1.2.0
 	 *
 	 * @param  string $_wpnonce          Nonce 'modify_ndf' for check.
 	 * @param  string Mixed              @see NDF_Model.
@@ -183,73 +190,21 @@ class NDF_Action {
 	 * @return string $filename          Json filename.
 	 * @return string $callback_success  Json callback noteDeFrais.NDF.exportedNoteDeFraisSuccess().
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.0.0.0
+	 * @since 1.0.0
+	 * @version 1.2.0
 	 */
 	public function callback_export_ndf() {
 		check_ajax_referer( 'export_ndf' );
 
-		$total_tax_inclusive_amount = 0;
-		$total_tax_amount = 0;
-		$ndf = NDF_Class::g()->get( array(
-			'include' => array( $_POST['id'] ),
-		), true );
+		$ndf_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$picture = ! empty( $_POST['picture'] ) ? (bool) $_POST['picture'] : false;
 
-		$ndfls = NDFL_Class::g()->get( array(
-			'post_parent' => $_POST['id'],
-		) );
-
-		$user = User_Class::g()->get( array(
-			'include' => array( $ndf->author_id ),
-		), true );
-
-		$sheet_details = array(
-			'ndf' => array(
-				'type' => 'segment',
-				'value' => array(),
-			),
-		);
-
-		$periode = explode( '-', $ndf->title );
-		$periode = $periode[2] . '/' . $periode[1];
-
-		if ( ! empty( $user->firstname ) && ! empty( $user->lastname ) ) {
-			$sheet_details['utilisateur_prenom_nom'] = $user->firstname . ' ' . $user->lastname;
-		}
-		$sheet_details['utilisateur_email'] = $user->email;
-		$sheet_details['periode'] = $periode;
-
-		if ( empty( $sheet_details['utilisateur_prenom_nom'] ) ) {
-			$sheet_details['utilisateur_prenom_nom'] = $user->login;
+		if ( empty( $ndf_id ) ) {
+			wp_send_json_error();
 		}
 
-		$sheet_details['status'] = $ndf->validation_status;
-		$sheet_details['miseajour'] = $ndf->date_modified;
+		$response = NDF_Class::g()->generate_document( $ndf_id, $picture, 'odt' );
 
-		if ( ! empty( $ndfls ) ) {
-			foreach ( $ndfls as $ndfl ) {
-				$sheet_details['ndf']['value'][] = array(
-					'date' => $ndfl->date,
-					'libelle' => $ndfl->title,
-					'km' => $ndfl->distance,
-					'ttc' => $ndfl->tax_inclusive_amount . '€',
-					'tva' => $ndfl->tax_amount . '€',
-					'tvarecup' => 'Je n\'existe pas',
-					'photo' => 'photo',
-				);
-
-				$total_tax_inclusive_amount += $ndfl->tax_inclusive_amount;
-				$total_tax_amount += $ndfl->tax_amount;
-			}
-		}
-
-		$sheet_details['totaltva'] = $total_tax_amount . '€';
-		$sheet_details['totalttc'] = $total_tax_inclusive_amount . '€';
-		$sheet_details['marque'] = $user->marque;
-		$sheet_details['chevaux'] = $user->chevaux;
-		$sheet_details['prixkm'] = $user->prixkm;
-
-		$response = document_class::g()->create_document( $ndf, $sheet_details );
 		wp_send_json_success( array(
 			'namespace' => 'noteDeFrais',
 			'module' => 'NDF',
@@ -258,6 +213,54 @@ class NDF_Action {
 			'callback_success' => 'exportedNoteDeFraisSuccess',
 		) );
 	}
+
+	/**
+	 * Generate a csv file with the NDF content
+	 */
+	public function callback_export_ndf_to_csv() {
+		check_ajax_referer( 'export_csv' );
+
+		$ndf_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		if ( empty( $ndf_id ) ) {
+			wp_send_json_error();
+		}
+
+		$response = NDF_Class::g()->generate_document( $ndf_id, false, 'csv' );
+
+		wp_send_json_success( array(
+			'namespace' => 'noteDeFrais',
+			'module' => 'NDF',
+			'link' => $response['link'],
+			'filename' => $response['filename'],
+			'callback_success' => 'exportedNoteDeFraisSuccess',
+		) );
+	}
+
+	/**
+	 * Register specific routes for NDF
+	 */
+	public function register_routes() {
+		register_rest_route( __NAMESPACE__ . '/v' . \eoxia\Config_Util::$init['external']->wpeo_model->api_version , '/' . NDF_Class::g()->get_rest_base() . '/(?P<id>[\d]+)/details', array(
+			array(
+				'method' => \WP_REST_Server::READABLE,
+				'callback'	=> function( $request ) {
+					$full_note = NDF_Class::g()->get( array( 'id' => $request['id'] ), true );
+
+					$full_note->children = NDFL_Class::g()->get( array( 'post_parent' => $request['id'] ) );
+
+					return $full_note;
+				},
+				'permission_callback' => function() {
+					if ( ! NDF_Class::g()->check_cap( 'get' ) && ( ( '127.0.0.1' !== $_SERVER['REMOTE_ADDR'] ) && ( '::1' !== $_SERVER['REMOTE_ADDR'] ) ) ) {
+						return false;
+					}
+					return true;
+				},
+			),
+		), true );
+	}
+
 }
 
 new NDF_Action();

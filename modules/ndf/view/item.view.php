@@ -4,8 +4,8 @@
  *
  * @package Eoxia\Plugin
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.2.0
  */
 
 namespace note_de_frais;
@@ -21,16 +21,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container">
 		<div class="header">
 			<h2 class="title"><?php echo esc_html( $ndf->title ); ?></h2>
-			<span class="button export action-attribute tooltip hover"
-					data-id="<?php echo esc_attr( $ndf->id ); ?>"
-					data-action="export_ndf"
-					aria-label="Télécharger"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"><i class="icon ion-ios-download-outline"></i></span>
 			<span class="button archive action-attribute tooltip hover"
 						data-id="<?php echo esc_attr( $ndf->id ); ?>"
 						data-action="archive_ndf"
 						aria-label="Supprimer"
 						data-nonce="<?php echo esc_attr( wp_create_nonce( 'archive_ndf' ) ); ?>"><i class="icon ion-ios-trash-outline"></i></span>
+
+			<span class="export toggle list" data-parent="toggle" data-target="content">
+				<?php \eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'toggle-export', array(
+					'ndf' => $ndf,
+				) ); ?>
+			</span>
 		</div>
 		<div class="content gridwrapper">
 			<div class="ttc element">
@@ -44,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<span class="taxe">TVA récup.</span>
 			</div>
 			<div class="status"><span class="value pin-status <?php echo ! empty( $ndf->validation_status ) ? esc_attr( NDF_Class::g()->get_status( $ndf->validation_status ) ) : ''; ?>"><?php echo $ndf->validation_status; ?></span></div>
-			<div class="update">MAJ : <span class="value"><?php echo esc_html( $ndf->date_modified ); ?></span></div>
+			<div class="update">MAJ : <span class="value"><?php echo esc_html( $ndf->date_modified['date_human_readable'] ); ?></span></div>
 		</div>
 	</div>
 </div>

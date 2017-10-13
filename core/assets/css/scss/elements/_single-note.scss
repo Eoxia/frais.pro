@@ -1,0 +1,93 @@
+.single-note {
+	opacity: 0;
+	pointer-events: none;
+	transform: translateY(-40px);
+	z-index: 50;
+	position: absolute;
+	top: 10px;
+	left: 0;
+	width: 100%;
+	box-shadow: 0px 0px 54px 0px rgba(0,0,0,0.2);
+	@include transition;
+
+	.header {
+		.title {
+			width: 100%;
+			margin-left: 15px;
+			padding: 0;
+			@include transition;
+			&:focus {
+				border-bottom: 1px solid rgba(255,255,255,1);
+			}
+		}
+		.export {
+			right: 15px;
+		}
+		.validation_status {
+			margin: auto 80px auto 0;
+			min-width: 160px;
+			.action {
+				padding: 1em;
+				background: rgba(255, 255, 255, 0.2);
+				color: #fff;
+				display: inline-block;
+				@include transition();
+				.icon:before {
+					color: #fff;
+				}
+				&:hover {
+					background: rgba(255, 255, 255, 0.3);
+				}
+			}
+		}
+		.close {
+			color: rgba(255,255,255,0.6);
+			font-size: 40px;
+			margin: auto 0;
+			&:hover {
+				cursor: pointer;
+				color: rgba(255,255,255,1);
+			}
+		}
+	}
+	.content {
+		background: #fff;
+		padding: 20px;
+		margin: 0;
+		.display-method {
+			text-align: right;
+			margin: 1em 0;
+			.button.active {
+				@extend .button.main;
+			}
+		}
+	}
+	.update {
+		width: 100%;
+		text-align: right;
+		font-size: 12px;
+    color: rgba(0, 0, 0, 0.3);
+    font-style: italic;
+    padding: 0;
+		margin-top: 1em;
+	}
+
+	@media ( max-width: 620px ) {
+		.header {
+			flex-wrap: wrap;
+			height: auto;
+			.close {
+				width: 20%;
+			}
+			.title {
+				width: 80%;
+				margin: auto 0;
+			}
+			.export {
+				position: static;
+				margin-left: auto;
+			}
+		}
+	}
+
+}
