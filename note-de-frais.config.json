@@ -15,20 +15,16 @@
 		"profile.php",
 		""
 	],
-	"externals": [
-		"core/external/wpeo_model/wpeo_model.config.json",
-		"core/external/wpeo_upload/wpeo_upload.config.json"
-	],
+	"externals": [],
 	"modules": [
 		"core/core.config.json",
-
 		"modules/document/document.config.json",
 		"modules/user/user.config.json",
 		"modules/type-note/type-note.config.json",
 		"modules/ndf/ndf.config.json",
 		"modules/ndfl/ndfl.config.json"
 	],
-	"debug": true,
+	"debug": false,
 	"chevaux": [
 		"3 CV et moins",
 		"4 CV",
