@@ -65,10 +65,6 @@ class NDFL_Action {
 			foreach ( $_POST['row'] as $row ) {
 				$row['parent_id'] = $ndf_id;
 				$current_row = NDFL_Class::g()->update( $row );
-
-				if ( ! empty( $row['thumbnail_id'] ) ) {
-					\eoxia\WPEO_Upload_Class::g()->set_thumbnail( $current_row->id, $row['thumbnail_id'], '\note_de_frais\NDFL_Class' );
-				}
 			}
 		}
 

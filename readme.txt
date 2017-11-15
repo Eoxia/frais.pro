@@ -3,8 +3,9 @@ Contributors: Eoxia
 Tags:
 Donate link: http://www.eoxia.com
 Requires at least: 4.4
-Tested up to: 4.7.3
-Stable tag: 1.0.0.1
+Tested up to: 4.8.3
+Stable tag: 1.2.0
+Requires PHP: 5.6.3
 
 Le plugin WP Note de frais, vous permet de remplir vos notes de frais tres facilement
 

@@ -55,6 +55,7 @@ class Note_De_Frais_Action {
 	 */
 	public function callback_before_admin_enqueue_scripts_js() {
 		wp_enqueue_media();
+		add_thickbox();
 	}
 
 	/**
