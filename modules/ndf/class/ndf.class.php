@@ -145,6 +145,8 @@ class NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @param  integer $ndf_id       L'ID de la note de frais.
 	 * @param  boolean $with_picture Oui pour avoir les photos. Defaut true.
+	 * @param  string  $type         Type de fichier a exporter.
+	 *
 	 * @return array {
 	 *         Les propriétés du tableau.
 	 *
@@ -169,7 +171,8 @@ class NDF_Class extends \eoxia\Post_Class {
 		$types_de_note = Type_Note_Class::g()->get();
 		$list_type_de_note = array();
 		foreach ( $types_de_note as $type_de_note ) {
-			$list_type_de_note[ $type_de_note->id ] = $type_de_note->category_id . ' : ' . $type_de_note->name;
+			$list_type_de_note[ $type_de_note->id ]['id'] = $type_de_note->category_id;
+			$list_type_de_note[ $type_de_note->id ]['name'] = $type_de_note->name;
 		}
 
 		$sheet_details = array(
@@ -211,7 +214,7 @@ class NDF_Class extends \eoxia\Post_Class {
 								'type' => 'picture',
 								'value' => $picture_final_path,
 								'option' => array(
-									'size' => 10,
+									'size' => 8,
 								),
 							);
 						}
@@ -223,10 +226,19 @@ class NDF_Class extends \eoxia\Post_Class {
 					}
 				}
 
+				$categorie_id = '-';
+				$categorie_label = $ndfl->category_name;
+				if ( ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ] ) && ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0] ) && array_key_exists( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0]->term_id, $list_type_de_note ) ) {
+					$categorie_id = $list_type_de_note[ $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0]->term_id ]['id'];
+					$categorie_label = $list_type_de_note[ $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0]->term_id ]['name'];
+				}
+
 				$sheet_details['ndf']['value'][] = array(
-					'date' => $ndfl->date['date_human_readable'],
+					'id_ligne' => $ndfl->id,
+					'date' => $ndfl->date['date_input']['fr_FR']['date_time'],
 					'libelle' => $ndfl->title,
-					'categorie' => ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ] ) && ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0] ) ? $list_type_de_note[ $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0]->term_id ] : $ndfl->category_name,
+					'num_categorie' => $categorie_id,
+					'nom_categorie' => $categorie_label,
 					'km' => $ndfl->distance,
 					'ttc' => $ndfl->tax_inclusive_amount . '€',
 					'tva' => $ndfl->tax_amount . '€',

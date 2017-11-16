@@ -210,7 +210,7 @@ class Document_Class extends \eoxia\Post_Class {
 						foreach ( $value['value'] as $line ) {
 							unset( $line['id_media_attached'] );
 							unset( $line['attached_media'] );
-							$file_lines .= implode( ';', $line ) . '
+							$file_lines .= '"' . implode( '";"', $line ) . '"
 ';
 						}
 						$csv_file_content = str_replace( '{LignesDeFrais}', $file_lines, $csv_file_content );
