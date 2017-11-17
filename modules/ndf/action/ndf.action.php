@@ -74,34 +74,9 @@ class NDF_Action {
 	public function callback_create_ndf() {
 		check_ajax_referer( 'create_ndf' );
 
-		$user = User_Class::g()->get( array(
-			'include' => get_current_user_id(),
-		), true );
-
-		$date = current_time( 'Y-m' );
-
-		$identifier = get_user_meta( get_current_user_id(), 'ndf_' . $date . '_identifier', true );
-
-		if ( empty( $identifier ) ) {
-			$identifier = 001;
-		} else {
-			$identifier++;
-		}
-
-		if ( intval( strlen( $identifier ) ) === 1 ) {
-			$identifier = '00' . $identifier;
-		}
-
-		if ( intval( strlen( $identifier ) ) === 2 ) {
-			$identifier = '0' . $identifier;
-		}
-
 		$ndf = NDF_Class::g()->update( array(
-			'post_title' => strtoupper( $user->login ) . '-' . $date . '-' . $identifier,
 			'post_status' => 'publish',
 		) );
-
-		update_user_meta( get_current_user_id(), 'ndf_' . $date . '_identifier', $identifier );
 
 		ob_start();
 		NDFL_Class::g()->display( $ndf->id );

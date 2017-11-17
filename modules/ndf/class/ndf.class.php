@@ -53,7 +53,7 @@ class NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array();
+	protected $before_post_function = array( '\note_de_frais\set_ndf_name' );
 
 	/**
 	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée
@@ -67,7 +67,7 @@ class NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array( '\note_de_frais\get_full_ndf' );
+	protected $after_get_function = array();
 
 	/**
 	 * Le nom pour le resgister post type
