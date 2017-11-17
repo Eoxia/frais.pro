@@ -2,11 +2,12 @@
 /**
  * Définition du modèle de ligne de note de frais.
  *
- * @author eoxia
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.2.0
+ * @version 1.3.0
  * @copyright 2017 Eoxia
- * @package NDF
+ * @package Eoxia/NodeDeFrais
+ * @subpackage LigneDeFrais
  */
 
 namespace note_de_frais;
@@ -33,7 +34,7 @@ class NDFL_Model extends \eoxia\Post_Model {
 			'type'          => 'string',
 			'meta_type'     => 'single',
 			'field'         => '_ndfl_category_name',
-			'bydefault'     => 'Autre',
+			'bydefault'     => __( 'Other', 'frais-pro' ),
 		);
 
 		$this->model['vehicule'] = array(

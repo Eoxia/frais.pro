@@ -4,7 +4,7 @@
  *
  * @author eoxia
  * @since 1.0.0.0
- * @version 1.0.0.0
+ * @version 1.3.0
  * @copyright 2017 Eoxia
  * @package ndf
  * @subpackage class

@@ -2,11 +2,11 @@
 /**
  * Classe gérant les notes de frais.
  *
- * @author eoxia
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.2.0
+ * @version 1.3.0
  * @copyright 2017 Eoxia
- * @package NDF
+ * @package Eoxia/NodeDeFrais
  */
 
 namespace note_de_frais;
@@ -81,12 +81,7 @@ class NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	public $status = array(
-		'En cours' => 'en-cours',
-		'Validée'  => 'valide',
-		'Payée'    => 'paye',
-		'Refusée'  => 'refuse',
-	);
+	public $status = array();
 
 	/**
 	 * Le ou les statuts pour lesquels on ne peut plus modifier les notes
@@ -95,9 +90,23 @@ class NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @todo nécessite un transfert
 	 */
-	public $closed_status = array(
-		'Payée'
-	);
+	public $closed_status = array();
+
+	/**
+	 * Définition des statuts
+	 */
+	protected function construct() {
+		$this->status = array(
+			'en-cours' => __( 'In progress', 'frais-pro' ),
+			'valide'   => __( 'Validated', 'frais-pro' ),
+			'paye'     => __( 'Payed', 'frais-pro' ),
+			'refuse'   => __( 'Refused', 'frais-pro' ),
+		);
+
+		$this->closed_status = array(
+			__( 'Payed', 'frais-pro' ),
+		);
+	}
 
 	/**
 	 * Récupères les notes de frais et les envoies à la vue principale.
@@ -134,7 +143,13 @@ class NDF_Class extends \eoxia\Post_Class {
 	 * @version 1.0.0.0
 	 */
 	public function get_status( $status ) {
-		return $this->status[ $status ];
+		$flipped_status = array_flip( $this->status );
+
+		return $flipped_status[ __( $status, 'frais-pro' ) ];
+	}
+
+	public function get_statuses() {
+		return $this->status;
 	}
 
 	/**

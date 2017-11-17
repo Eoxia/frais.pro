@@ -2,12 +2,11 @@
 /**
  * Définition du modèle de note de frais.
  *
- * @author eoxia
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @author Eoxia <dev@eoxia.com>
+ * @since 1.0.0
+ * @version 1.3.0
  * @copyright 2017 Eoxia
- * @package ndf
- * @subpackage model
+ * @package Eoxia/NodeDeFrais
  */
 
 namespace note_de_frais;
@@ -20,12 +19,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Définition du modèle de note de frais.
  */
 class NDF_Model extends \eoxia\Post_Model {
+
+	/**
+	 * Add custom field for fees sheet into default model.
+	 *
+	 * @param array|object $data Les données à construire à partir du modèle.
+	 */
 	public function __construct( $data ) {
 		$this->model['validation_status'] = array(
 			'type'          => 'string',
 			'meta_type'     => 'single',
 			'field'         => '_ndf_validation_status',
-			'bydefault'     => 'En cours',
+			'bydefault'     => __( 'In progress', 'frais-pro' ),
 		);
 		$this->model['tax_inclusive_amount'] = array(
 			'type'          => 'float',
@@ -41,4 +46,5 @@ class NDF_Model extends \eoxia\Post_Model {
 
 		parent::__construct( $data );
 	}
+
 }

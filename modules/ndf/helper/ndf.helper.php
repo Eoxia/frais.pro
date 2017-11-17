@@ -2,7 +2,11 @@
 /**
  * Functions helper pour les notes de frais.
  *
- * @package Eoxia\Plugin
+ * @author Eoxia <dev@eoxia.com>
+ * @since 1.0.0
+ * @version 1.3.0
+ * @copyright 2017 Eoxia
+ * @package Eoxia/NodeDeFrais
  */
 
 namespace note_de_frais;

@@ -2,11 +2,11 @@
 /**
  * Classe gérant les actions des notes de frais.
  *
- * @author eoxia
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.2.0
+ * @version 1.3.0
  * @copyright 2017 Eoxia
- * @package NDF
+ * @package Eoxia/NodeDeFrais
  */
 
 namespace note_de_frais;
@@ -39,10 +39,6 @@ class NDF_Action {
 
 	/**
 	 * Action : Ouvrir une note de frais.
-	 *
-	 * @param  string $_wpnonce          Nonce 'open_ndf' for check.
-	 * @return string $view              Json NDF_Class::display(ID).
-	 * @return string $callback_success  Json callback noteDeFrais.NDF.openNdf().
 	 */
 	public function callback_open_ndf() {
 		check_ajax_referer( 'open_ndf' );
@@ -65,11 +61,6 @@ class NDF_Action {
 
 	/**
 	 * Action : créer une note de frais.
-	 *
-	 * @param  string $_wpnonce          Nonce 'create_ndf' for check.
-	 * @return string $view              Json NDF_Class::display(ID).
-	 * @return string $main_view         Json NDF_Class::display().
-	 * @return string $callback_success  Json callback noteDeFrais.NDF.openNdf().
 	 */
 	public function callback_create_ndf() {
 		check_ajax_referer( 'create_ndf' );
@@ -99,13 +90,7 @@ class NDF_Action {
 	 * Action : modifier une note de frais.
 	 *
 	 * @since 1.0.0
-	 * @version 1.2.0
-	 *
-	 * @param  string $_wpnonce          Nonce 'modify_ndf' for check.
-	 * @param  string Mixed              @see NDF_Model.
-	 * @return string $ndf               Json updated ndf.
-	 * @return string $view              Json NDF_Class::display(ID).
-	 * @return string $callback_success  Json callback noteDeFrais.NDF.refreshNDF().
+	 * @version 1.3.0
 	 */
 	public function callback_modify_ndf() {
 		check_ajax_referer( 'modify_ndf' );
@@ -127,11 +112,6 @@ class NDF_Action {
 
 	/**
 	 * Action : archiver une note de frais.
-	 *
-	 * @param  string $_wpnonce          Nonce 'archive_ndf' for check.
-	 * @param  string $id                ID de le note de frais.
-	 * @return string $ndf             Json updated note de frais.
-	 * @return string $callback_success  Json callback noteDeFrais.NDF.archived().
 	 */
 	public function callback_archive_ndf() {
 		check_ajax_referer( 'archive_ndf' );
@@ -159,14 +139,8 @@ class NDF_Action {
 	/**
 	 * Génère un document .odt avec les données qui vont bien.
 	 *
-	 * @param  string $_wpnonce          Nonce 'export_ndf' for check.
-	 * @param  string $id                ID de le note de frais.
-	 * @return string $link              Json link file.
-	 * @return string $filename          Json filename.
-	 * @return string $callback_success  Json callback noteDeFrais.NDF.exportedNoteDeFraisSuccess().
-	 *
 	 * @since 1.0.0
-	 * @version 1.2.0
+	 * @version 1.3.0
 	 */
 	public function callback_export_ndf() {
 		check_ajax_referer( 'export_ndf' );

@@ -2,11 +2,12 @@
 /**
  * Classe gérant les actions des lignes de notes de frais.
  *
- * @author eoxia
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.2.0
+ * @version 1.3.0
  * @copyright 2017 Eoxia
- * @package NDF
+ * @package Eoxia/NodeDeFrais
+ * @subpackage LigneDeFrais
  */
 
 namespace note_de_frais;

@@ -4,7 +4,7 @@
  *
  * @author eoxia
  * @since 1.2.0
- * @version 1.2.0
+ * @version 1.3.0
  * @copyright 2017 Eoxia
  * @package NDF
  */
@@ -64,7 +64,7 @@ class Type_Note_Class extends \eoxia\Term_Class {
 
 		$ndfl_type_note = null !== $ndfl && ! empty( $ndfl->taxonomy[ $this->get_taxonomy() ][0] ) && ! empty( $ndfl->taxonomy[ $this->get_taxonomy() ][0]->term_id ) ? $ndfl->taxonomy[ $this->get_taxonomy() ][0]->term_id : 0;
 
-		$selected_type_note_name = __( 'Note types', 'note-de-frais' );
+		$selected_type_note_name = __( 'Note types', 'frais-pro' );
 		if ( ! empty( $types_note ) && ! empty( $ndfl_type_note ) ) {
 			foreach ( $types_note as $element ) {
 				if ( $element->id === (int) $ndfl_type_note ) {

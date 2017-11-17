@@ -2,11 +2,12 @@
 /**
  * Affichage du tableau ainsi que la ligne pour ajouter une ligne de note de frais.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.2.0
- * @copyright 2015-2017 Eoxia
- * @package NDF
+ * @version 1.3.0
+ * @copyright 2017 Eoxia
+ * @package Eoxia/NodeDeFrais
+ * @subpackage LigneDeFrais
  */
 
 namespace note_de_frais;
@@ -37,10 +38,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<i class="icon ion-ios-arrow-down"></i>
 				</span>
 				<ul class="content">
-					<li data-type="en-cours" class="item pin-status en-cours">En cours</li>
-					<li data-type="valide"class="item pin-status valide">Validée</li>
-					<li data-type="paye" class="item pin-status paye">Payée</li>
-					<li data-type="refuse" class="item pin-status refuse">Refusée</li>
+					<?php foreach ( NDF_Class::g()->get_statuses() as $slug => $label ) : ?>
+						<li data-type="<?php echo esc_attr( $slug ); ?>" class="item pin-status <?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $label ); ?></li>
+					<?php endforeach; ?>
 				</ul>
 			</div>
 			<span class="export toggle list" data-parent="toggle" data-target="content">
@@ -52,14 +52,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="content">
 
-			<?php echo empty( $user->prixkm ) ? '<div class="notice error">Votre <strong>prix/km</strong> n\'est pas configuré, veuillez modifier votre <a target="_blank" href="' . esc_url( get_edit_profile_url() ) . '">profil</a>.</div>' : ''; ?>
+			<?php if ( empty( $user->prixkm ) ) : ?>
+				<div class="notice error"><?php echo esc_html( sprintf( __( 'Your %1$sprice per kilometer%2$s is not setted. Please go to %3$syour profile%4$s in order to set it.', 'frais-pro' ), '<strong>', '</strong>', '<a target="_blank" href="' . esc_url( get_edit_profile_url() ) . '">', '</a>' ) ); ?></div>
+			<?php endif; ?>
 
 			<div class="display-method">
 				<span class="action-attribute button grey <?php echo esc_attr( 'grid' === $display_mode ? 'active' : '' );  ?>"
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
 					data-display-mode="grid"
 					data-action="open_ndf"
-					aria-label="<?php esc_attr_e( 'Mode grille', 'note-de-frais' ); ?>"
+					aria-label="<?php esc_attr_e( 'Grid mode', 'frais-pro' ); ?>"
 					data-namespace="noteDeFrais"
 					data-module="NDFL"
 					data-before-method="beforeDisplayModeChange"
@@ -71,7 +73,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					data-namespace="noteDeFrais"
 					data-module="NDFL"
 					data-before-method="beforeDisplayModeChange"
-					aria-label="<?php esc_attr_e( 'Mode liste', 'note-de-frais' ); ?>"
+					aria-label="<?php esc_attr_e( 'List mode', 'frais-pro' ); ?>"
 					data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon ion-ios-list-outline"></i></span>
 			</div>
 
@@ -79,37 +81,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php if ( ! $ndf_is_closed || ( 'list' === $display_mode ) ) : ?>
 				<ul class="heading">
-					<li class="date">Date</li>
-					<li class="libelle">Libellé</li>
-					<li class="type">Type de note</li>
-					<li class="km">Km</li>
-					<li class="ttc">TTC (€)</li>
-					<li class="tva">TVA récup.</li>
-					<li class="photo">Photo</li>
+					<li class="date"><?php esc_attr_e( 'Date', 'frais-pro' ); ?></li>
+					<li class="libelle"><?php esc_attr_e( 'Name', 'frais-pro' ); ?></li>
+					<li class="type"><?php esc_attr_e( 'Type', 'frais-pro' ); ?></li>
+					<li class="km"><?php esc_attr_e( 'Km', 'frais-pro' ); ?></li>
+					<li class="ttc"><?php esc_attr_e( 'ATI (€)', 'frais-pro' ); ?></li>
+					<li class="tva"><?php esc_attr_e( 'Recoverable VAT', 'frais-pro' ); ?></li>
+					<li class="photo"><?php esc_attr_e( 'Picture', 'frais-pro' ); ?></li>
 					<li class="action"></li>
 				</ul>
 			<?php endif; ?>
 
 			<?php if ( ! $ndf_is_closed ) : ?>
 				<ul class="row add" data-i="0">
-					<li class="group-date date" data-title="Date" data-namespace="noteDeFrais" data-module="NDFL" data-after-method="changeDate" >
+					<li class="group-date date" data-title="<?php esc_attr_e( 'Date', 'frais-pro' ); ?>" data-namespace="noteDeFrais" data-module="NDFL" data-after-method="changeDate" >
 						<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none; display: block; height: 0px;" name="date" value="<?php echo esc_attr( current_time( 'mysql' ) ); ?>" />
 						<span contenteditable="true" class="date"><?php echo esc_attr( current_time( 'd/m/Y' ) ); ?></span>
 					</li>
-					<li class="libelle" data-title="Libellé"><span contenteditable="true" data-name="row[0][title]"></span></li>
-					<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
+					<li class="libelle" data-title="<?php esc_attr_e( 'Name', 'frais-pro' ); ?>"><span contenteditable="true" data-name="row[0][title]"></span></li>
+					<li class="type toggle list" data-parent="toggle" data-target="content" data-title="<?php esc_attr_e( 'Line type', 'frais-pro' ); ?>">
 						<?php Type_Note_Class::g()->display(); ?>
 					</li>
-					<li class="km ndfl-placeholder-container" data-title="Km">
+					<li class="km ndfl-placeholder-container" data-title="<?php esc_attr_e( 'Km', 'frais-pro' ); ?>">
 						<span contenteditable="true" data-name="row[0][distance]" ></span>
 					</li>
-					<li class="ttc ndfl-placeholder-container" data-title="TTC (€)">
+					<li class="ttc ndfl-placeholder-container" data-title="<?php esc_attr_e( 'ATI (€)', 'frais-pro' ); ?>">
 						<span contenteditable="true" data-name="row[0][tax_inclusive_amount]" ></span>
 					</li>
-					<li class="tva ndfl-placeholder-container" data-title="TVA récup.">
+					<li class="tva ndfl-placeholder-container" data-title="<?php esc_attr_e( 'Recoverable VAT', 'frais-pro' ); ?>">
 						<span contenteditable="true" data-name="row[0][tax_amount]" ></span>
 					</li>
-					<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload model_name="/note_de_frais/NDFL_Class" single="true" field_name="thumbnail_id"]' ); ?></span></li>
+					<li class="photo" data-title="<?php esc_attr_e( 'Picture', 'frais-pro' ); ?>"><?php do_shortcode( '[wpeo_upload model_name="/note_de_frais/NDFL_Class" single="true" field_name="thumbnail_id"]' ); ?></span></li>
 					<li class="action action-ligne"><span class="icon ion-ios-plus"></span></li>
 				</ul>
 			<?php endif; ?>
@@ -136,7 +138,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<!-- <span class="button blue float right saveNDF" data-parent="note">Mettre à jour</span> -->
-			<div class="update">MAJ : <span class="date_modified_value"><?php echo esc_html( $ndf->date_modified['date_human_readable'] ); ?></span></div>
+			<div class="update"><?php esc_attr_e( 'Last update', 'frais-pro' ); ?> : <span class="date_modified_value"><?php echo esc_html( $ndf->date_modified['date_human_readable'] ); ?></span></div>
 
 		</div>
 

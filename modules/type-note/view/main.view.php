@@ -2,9 +2,9 @@
 /**
  * Affichage du toggle pour gérer les types de note.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.2.0
- * @version 1.2.0
+ * @version 1.3.0
  * @copyright 2015-2017 Eoxia
  * @package NDF
  */
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( empty( $types_note ) ) :
 	?>
 	<span class="action" contenteditable="false">
-		<span class="label"><a href="<?php echo esc_attr( admin_url( 'edit-tags.php?taxonomy=_type_note' ) ); ?>" target="_blank"><?php esc_html_e( 'Create type notes', 'note-de-frais' ); ?></a></span>
+		<span class="label"><a href="<?php echo esc_attr( admin_url( 'edit-tags.php?taxonomy=_type_note' ) ); ?>" target="_blank"><?php esc_html_e( 'Create type notes', 'frais-pro' ); ?></a></span>
 	</span>
 	<?php
 else : ?>
