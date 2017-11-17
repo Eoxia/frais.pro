@@ -33,9 +33,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
 				<?php Type_Note_Class::g()->display( $ndfl ); ?>
 			</li>
-			<li class="km" data-title="Km"><span contenteditable="<?php echo esc_attr( $ndf_is_closed ? 'true' : 'true' ); ?>" data-name="row[<?php echo esc_attr( $i ); ?>][distance]" placeholder="0" ><?php echo esc_html( $ndfl->distance ); ?></span></li>
-			<li class="ttc" data-title="TTC (€)"><span contenteditable="<?php echo esc_attr( $ndf_is_closed ? 'true' : 'true' ); ?>" data-name="row[<?php echo esc_attr( $i ); ?>][tax_inclusive_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_inclusive_amount ); ?></span></li>
-			<li class="tva" data-title="TVA récup."><span contenteditable="<?php echo esc_attr( $ndf_is_closed ? 'true' : 'true' ); ?>" data-name="row[<?php echo esc_attr( $i ); ?>][tax_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_amount ); ?></span></li>
+			<li class="km" data-title="Km"><span contenteditable="<?php echo esc_attr( $ndf_is_closed ? 'true' : 'true' ); ?>" data-name="row[<?php echo esc_attr( $i ); ?>][distance]" ><?php echo esc_html( $ndfl->distance ); ?></span></li>
+			<li class="ttc" data-title="TTC (€)"><span contenteditable="<?php echo esc_attr( $ndf_is_closed ? 'true' : 'true' ); ?>" data-name="row[<?php echo esc_attr( $i ); ?>][tax_inclusive_amount]" ><?php echo esc_html( $ndfl->tax_inclusive_amount ); ?></span></li>
+			<li class="tva" data-title="TVA récup."><span contenteditable="<?php echo esc_attr( $ndf_is_closed ? 'true' : 'true' ); ?>" data-name="row[<?php echo esc_attr( $i ); ?>][tax_amount]" ><?php echo esc_html( $ndfl->tax_amount ); ?></span></li>
 			<li class="action action-ligne">
 				<?php if ( ! $ndf_is_closed ) : ?>
 					<span class="icon ion-trash-a action-attribute"

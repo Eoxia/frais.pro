@@ -25,9 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<li class="type toggle list" data-parent="toggle" data-target="content" data-title="Type de note">
 		<?php Type_Note_Class::g()->display( $ndfl ); ?>
 	</li>
-	<li class="km" data-title="Km"><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][distance]" placeholder="0" ><?php echo esc_html( $ndfl->distance ); ?></span></li>
-	<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][tax_inclusive_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_inclusive_amount ); ?></span></li>
-	<li class="tva" data-title="TVA récup."><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][tax_amount]" placeholder="0" ><?php echo esc_html( $ndfl->tax_amount ); ?></span></li>
+	<li class="km" data-title="Km"><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][distance]" ><?php echo esc_html( $ndfl->distance ); ?></span></li>
+	<li class="ttc" data-title="TTC (€)"><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][tax_inclusive_amount]" ><?php echo esc_html( $ndfl->tax_inclusive_amount ); ?></span></li>
+	<li class="tva" data-title="TVA récup."><span contenteditable="true" data-name="row[<?php echo esc_attr( $i ); ?>][tax_amount]" ><?php echo esc_html( $ndfl->tax_amount ); ?></span></li>
 	<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload id="' . $ndfl->id . '" field_name="thumbnail_id" model_name="/note_de_frais/ndfl_class" single="true" mime_type="image" ]' ); ?></li>
 	<li class="action action-ligne">
 <?php if ( ! $ndf_is_closed ) : ?>

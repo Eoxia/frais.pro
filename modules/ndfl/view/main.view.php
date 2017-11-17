@@ -101,16 +101,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php Type_Note_Class::g()->display(); ?>
 					</li>
 					<li class="km ndfl-placeholder-container" data-title="Km">
-						<span class="ndfl-placeholder">0</span>
-						<span contenteditable="true" data-name="row[0][distance]" placeholder="0" ></span>
+						<span contenteditable="true" data-name="row[0][distance]" ></span>
 					</li>
 					<li class="ttc ndfl-placeholder-container" data-title="TTC (€)">
-						<span class="ndfl-placeholder">0</span>
-						<span contenteditable="true" data-name="row[0][tax_inclusive_amount]" placeholder="0" ></span>
+						<span contenteditable="true" data-name="row[0][tax_inclusive_amount]" ></span>
 					</li>
 					<li class="tva ndfl-placeholder-container" data-title="TVA récup.">
-						<span class="ndfl-placeholder">0</span>
-						<span contenteditable="true" data-name="row[0][tax_amount]" placeholder="0" ></span>
+						<span contenteditable="true" data-name="row[0][tax_amount]" ></span>
 					</li>
 					<li class="photo" data-title="Photo"><?php do_shortcode( '[wpeo_upload model_name="/note_de_frais/NDFL_Class" single="true" field_name="thumbnail_id"]' ); ?></span></li>
 					<li class="action action-ligne"><span class="icon ion-ios-plus"></span></li>
