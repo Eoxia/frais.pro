@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name: Note de frais
- * Plugin URI:  http://www.evarisk.com/document-unique-logiciel
- * Description: Un super module de notes de frais.
- * Version:     1.2.0
+ * Plugin URI:  http://www.eoxia.com/
+ * Description: Manage your professional fees from your WordPress website and never search for what you spent.
+ * Version:     1.3.0
  * Author:      Eoxia
- * Author URI:  http://www.evarisk.com
+ * Author URI:  https://www.eoxia.com
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Domain Path: /core/assets/languages
- * Text Domain: note-de-frais
+ * Text Domain: frais-pro
  *
  * @package Note De Frais
  */
