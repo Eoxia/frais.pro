@@ -28,6 +28,8 @@ class NDFL_Action {
 		add_action( 'wp_ajax_add_ndfl', array( $this, 'callback_add_ndfl' ) );
 		add_action( 'wp_ajax_modify_ndfl', array( $this, 'callback_modify_ndfl' ) );
 		add_action( 'wp_ajax_delete_ndfl', array( $this, 'callback_delete_ndfl' ) );
+
+		add_action( 'wp_ajax_fraispro_create_line_from_picture', array( $this, 'ajaxcallback_fraispro_create_line_from_picture' ) );
 	}
 
 	/**
@@ -116,6 +118,41 @@ class NDFL_Action {
 			'namespace' => 'noteDeFrais',
 			'module' => 'NDF',
 			'callback_success' => 'refresh',
+			'view' => $response,
+		) );
+	}
+
+	/**
+	 * Pour chaque ID de fichier reçu, créer un EPI.
+	 *
+	 * @since 1.2.0
+	 * @version 1.2.0
+	 *
+	 * @return void
+	 */
+	public function ajaxcallback_fraispro_create_line_from_picture() {
+		check_ajax_referer( 'fraispro_create_line_from_picture' );
+
+		$files_id = ! empty( $_POST['files_id'] ) ? (array) $_POST['files_id'] : array();
+		$ndf_id = ! empty( $_POST['ndf_id'] ) ? (integer) $_POST['ndf_id'] : array();
+
+		if ( empty( $files_id ) || ! is_int( $ndf_id ) ) {
+			wp_send_json_error();
+		}
+
+		if ( ! empty( $files_id ) ) {
+			foreach ( $files_id as $file_id ) {
+				$ndfl = NDFL_Class::g()->update( array( 'parent_id' => $ndf_id ) );
+
+				\eoxia\WPEO_Upload_Class::g()->set_thumbnail( $ndfl->id, $file_id, '\note_de_frais\NDFL_Class' );
+			}
+		}
+
+		ob_start();
+		NDFL_Class::g()->display( $ndf_id, 'grid' );
+		$response = ob_get_clean();
+
+		wp_send_json_success( array(
 			'view' => $response,
 		) );
 	}
