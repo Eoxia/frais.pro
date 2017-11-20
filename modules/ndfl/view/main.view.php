@@ -14,13 +14,42 @@ namespace note_de_frais;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?>
+}
 
-<div class="note <?php echo esc_attr( $ndf_is_closed ? ' is_closed' : '' ); ?>">
-	<?php if ( ! empty( $ndf ) ) { ?>
+$has_ko_line = false;
+$line_output = '';
+$i = 1;
+if ( ! empty( $ndfl ) ) :
+	foreach ( $ndfl as $ndfl_single ) :
+		if ( ! empty( $ndfl_single ) ) {
+			$line_status = NDFL_Class::g()->check_line_status( $ndfl_single );
+			if ( ! empty( $line_status ) && false === $line_status['status'] ) {
+				$has_ko_line = true;
+			}
+
+			ob_start();
+			\eoxia\View_Util::exec( 'note-de-frais', 'ndfl', 'item-' . $display_mode, array(
+				'ndf'           => $ndf,
+				'ndfl'          => $ndfl_single,
+				'i'             => $i,
+				'user'          => $user,
+				'display_mode'  => $display_mode,
+				'ndf_is_closed' => $ndf_is_closed,
+				'line_status'   => $line_status,
+			) );
+			$line_output .= ob_get_clean();
+			$i++;
+		}
+	endforeach;
+endif;
+
+?>
+
+<div class="note <?php echo esc_attr( $ndf_is_closed ? ' is_closed' : '' ); ?><?php echo esc_attr( $has_ko_line ? ' ndf-error' : '' ); ?>">
+	<?php if ( ! empty( $ndf ) ) : ?>
 	<input type="hidden" name="id" value="<?php echo esc_attr( $ndf->id ); ?>">
 	<input type="hidden" name="parent_id" value="<?php echo esc_attr( $ndf->id ); ?>">
-	<?php } ?>
+	<?php endif; ?>
 	<input type="hidden" name="action" value="modify_ndfl">
 	<input type="hidden" name="display_mode" value="<?php echo esc_attr( $display_mode ); ?>">
 	<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'modify_ndfl' ) ); ?>">
@@ -43,7 +72,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php endforeach; ?>
 				</ul>
 			</div>
-			<span class="export toggle list" data-parent="toggle" data-target="content">
+			<span class="export toggle list" data-parent="toggle" data-target="content" >
 				<?php \eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'toggle-export', array(
 					'ndf' => $ndf,
 				) ); ?>
@@ -51,6 +80,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="content">
+			<!-- <span class="button blue float right saveNDF" data-parent="note">Mettre à jour</span> -->
+			<div class="update"><?php esc_attr_e( 'Last update', 'frais-pro' ); ?> : <span class="date_modified_value"><?php echo esc_html( $ndf->date_modified['date_human_readable'] ); ?></span></div>
 
 			<?php if ( empty( $user->prixkm ) ) : ?>
 				<div class="notice error"><?php echo esc_html( sprintf( __( 'Your %1$sprice per kilometer%2$s is not setted. Please go to %3$syour profile%4$s in order to set it.', 'frais-pro' ), '<strong>', '</strong>', '<a target="_blank" href="' . esc_url( get_edit_profile_url() ) . '">', '</a>' ) ); ?></div>
@@ -93,7 +124,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php endif; ?>
 
 			<?php if ( ! $ndf_is_closed ) : ?>
-				<ul class="row add" data-i="0">
+				<ul class="row add" data-i="0" >
 					<li class="group-date date" data-title="<?php esc_attr_e( 'Date', 'frais-pro' ); ?>" data-namespace="noteDeFrais" data-module="NDFL" data-after-method="changeDate" >
 						<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none; display: block; height: 0px;" name="date" value="<?php echo esc_attr( current_time( 'mysql' ) ); ?>" />
 						<span contenteditable="true" class="date"><?php echo esc_attr( current_time( 'd/m/Y' ) ); ?></span>
@@ -114,32 +145,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<li class="photo" data-title="<?php esc_attr_e( 'Picture', 'frais-pro' ); ?>"><?php do_shortcode( '[wpeo_upload model_name="/note_de_frais/NDFL_Class" single="true" field_name="thumbnail_id"]' ); ?></span></li>
 					<li class="action action-ligne"><span class="icon ion-ios-plus"></span></li>
 				</ul>
+				<div class="wpeo-button button-primary fraispro-mass-line-creation alignright" data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fraispro_create_line_from_picture' ) ); ?>" >
+					<i class="button-icon fa fa-picture-o"></i>
+					<span><?php esc_html_e( 'Create lines from picture', 'frais-pro' ); ?></span>
+				</div>
+				<div class="clear" ></div>
 			<?php endif; ?>
 
-				<?php
-				$i = 1;
-				if ( ! empty( $ndfl ) ) :
-					foreach ( $ndfl as $ndfl_single ) :
-						if ( ! empty( $ndfl_single ) ) {
-							\eoxia\View_Util::exec( 'note-de-frais', 'ndfl', 'item-' . $display_mode, array(
-								'ndf' => $ndf,
-								'ndfl' => $ndfl_single,
-								'i' => $i,
-								'user' => $user,
-								'display_mode' => $display_mode,
-								'ndf_is_closed' => $ndf_is_closed,
-							) );
-							$i++;
-						}
-					endforeach;
-				endif;
-				?>
+			<?php echo $line_output; // WPCS: XSS ok. ?>
 
 			</div>
-
-			<!-- <span class="button blue float right saveNDF" data-parent="note">Mettre à jour</span> -->
-			<div class="update"><?php esc_attr_e( 'Last update', 'frais-pro' ); ?> : <span class="date_modified_value"><?php echo esc_html( $ndf->date_modified['date_human_readable'] ); ?></span></div>
-
 		</div>
 
 	</div>

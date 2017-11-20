@@ -9,5 +9,11 @@
 		"class": {},
 		"action": {},
 		"helper": {}
-	}
+	},
+	"line_mandatory_values": [
+		"title",
+		"tax_inclusive_amount",
+		"#REM-tax_amount",
+		"category_name"
+	]
 }

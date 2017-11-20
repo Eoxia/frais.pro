@@ -27,7 +27,7 @@ class Type_Note_Action {
 	 * @version 1.2.0
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 99 );
+		// add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 99 );
 	}
 
 	/**

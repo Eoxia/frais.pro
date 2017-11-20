@@ -234,7 +234,11 @@
 			width: 100%;
 			padding: 2px;
 			margin-bottom: 4px;
-
+			&.ndfl-input-error {
+				span[contenteditable] {
+					background-image: linear-gradient(red, orange, yellow, green, blue, indigo, violet);
+				}
+			}
 			&:before {
 				display: block;
 				color: $color__main;

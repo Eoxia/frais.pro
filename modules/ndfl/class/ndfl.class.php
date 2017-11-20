@@ -124,6 +124,37 @@ class NDFL_Class extends \eoxia\Post_Class {
 		\eoxia\View_Util::exec( 'note-de-frais', 'ndfl', 'main', $template_vars );
 	}
 
+	/**
+	 * Vérifie si une ligne de note est valide ou non
+	 *
+	 * @param  array|object $line La définition de la ligne à vérifier.
+	 *
+	 * @return array       Le statut de la ligne avec le détail si elle n'est pas valide.
+	 */
+	public function check_line_status( $line ) {
+		$line_state = array(
+			'status' => true,
+			'errors' => array(),
+		);
+		foreach ( \eoxia\Config_Util::$init['note-de-frais']->ndfl->line_mandatory_values as $field_key ) {
+			if ( ! is_array( $field_key ) ) {
+				if ( empty( $line->$field_key ) ) {
+					$line_state['status'] = false;
+					$line_state['errors'][] = $field_key;
+				}
+			} else {
+				foreach ( $field_key as $key ) {
+					if ( empty( $line->$key ) ) {
+						$line_state['status'] = false;
+						$line_state['errors'][] = $key;
+					}
+				}
+			}
+		}
+
+		return $line_state;
+	}
+
 }
 
 NDFL_Class::g();
