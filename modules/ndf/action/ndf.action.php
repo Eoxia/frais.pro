@@ -190,7 +190,7 @@ class NDF_Action {
 	 * Register specific routes for NDF
 	 */
 	public function register_routes() {
-		register_rest_route( __NAMESPACE__ . '/v' . \eoxia\Config_Util::$init['external']->wpeo_model->api_version , '/' . NDF_Class::g()->get_rest_base() . '/(?P<id>[\d]+)/details', array(
+		register_rest_route( __NAMESPACE__ . '/v' . \eoxia\Config_Util::$init['eo-framework']->wpeo_model->api_version , '/' . NDF_Class::g()->get_rest_base() . '/(?P<id>[\d]+)/details', array(
 			array(
 				'method' => \WP_REST_Server::READABLE,
 				'callback'	=> function( $request ) {
