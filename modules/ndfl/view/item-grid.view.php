@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="gridwrapper w2">
 		<div>
 			<li class="photo" data-title="<?php esc_attr_e( 'Picture', 'frais-pro' ); ?>">
-				<?php do_shortcode( '[wpeo_upload id="' . $ndfl->id . '" field_name="thumbnail_id" model_name="/note_de_frais/ndfl_class" single="true" size="full" mime_type="image" ]' ); ?>
+				<?php do_shortcode( '[wpeo_upload id="' . $ndfl->id . '" field_name="thumbnail_id" model_name="/note_de_frais/ndfl_class" single="true" size="full" ]' ); ?>
 			</li>
 		</div>
 		<div>

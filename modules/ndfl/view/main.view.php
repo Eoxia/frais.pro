@@ -84,7 +84,7 @@ endif;
 			<div class="update"><?php esc_attr_e( 'Last update', 'frais-pro' ); ?> : <span class="date_modified_value"><?php echo esc_html( $ndf->date_modified['date_human_readable'] ); ?></span></div>
 
 			<?php if ( empty( $user->prixkm ) ) : ?>
-				<div class="notice error"><?php echo esc_html( sprintf( __( 'Your %1$sprice per kilometer%2$s is not setted. Please go to %3$syour profile%4$s in order to set it.', 'frais-pro' ), '<strong>', '</strong>', '<a target="_blank" href="' . esc_url( get_edit_profile_url() ) . '">', '</a>' ) ); ?></div>
+				<div class="notice error"><?php echo sprintf( __( 'Your %1$sprice per kilometer%2$s is not setted. Please go to %3$syour profile%4$s in order to set it.', 'frais-pro' ), '<strong>', '</strong>', '<a target="_blank" href="' . esc_url( get_edit_profile_url() ) . '">', '</a>' ); ?></div>
 			<?php endif; ?>
 
 			<div class="display-method">
