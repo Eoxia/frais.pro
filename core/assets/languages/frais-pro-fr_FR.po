@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Frais.pro V1.X.X\n"
-"POT-Creation-Date: 2017-11-17 16:50+0100\n"
-"PO-Revision-Date: 2017-11-17 16:51+0100\n"
+"POT-Creation-Date: 2017-11-21 09:50+0100\n"
+"PO-Revision-Date: 2017-11-21 09:50+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia dev@eoxia.com\n"
 "Language: fr_FR\n"
@@ -62,13 +62,13 @@ msgstr "€"
 msgid "ATI"
 msgstr "TTC"
 
-#: modules/ndf/view/item.view.php:46 modules/ndfl/view/item-grid.view.php:39
-#: modules/ndfl/view/item-list.view.php:31 modules/ndfl/view/main.view.php:88
-#: modules/ndfl/view/main.view.php:110
+#: modules/ndf/view/item.view.php:46 modules/ndfl/view/item-grid.view.php:44
+#: modules/ndfl/view/item-list.view.php:31 modules/ndfl/view/main.view.php:120
+#: modules/ndfl/view/main.view.php:142
 msgid "Recoverable VAT"
 msgstr "TVA Récup."
 
-#: modules/ndf/view/item.view.php:49 modules/ndfl/view/main.view.php:140
+#: modules/ndf/view/item.view.php:49 modules/ndfl/view/main.view.php:84
 msgid "Last update"
 msgstr "MAJ"
 
@@ -97,54 +97,50 @@ msgstr "Sans photo"
 msgid "CSV"
 msgstr "CSV"
 
-#: modules/ndfl/model/ndfl.model.php:37
-msgid "Other"
-msgstr "Autre"
-
 #: modules/ndfl/view/item-grid.view.php:23
-#: modules/ndfl/view/item-list.view.php:32 modules/ndfl/view/main.view.php:89
-#: modules/ndfl/view/main.view.php:113
+#: modules/ndfl/view/item-list.view.php:32 modules/ndfl/view/main.view.php:121
+#: modules/ndfl/view/main.view.php:145
 msgid "Picture"
 msgstr "Photo"
 
 #: modules/ndfl/view/item-grid.view.php:28
-#: modules/ndfl/view/item-list.view.php:21 modules/ndfl/view/main.view.php:83
-#: modules/ndfl/view/main.view.php:96
+#: modules/ndfl/view/item-list.view.php:21 modules/ndfl/view/main.view.php:115
+#: modules/ndfl/view/main.view.php:128
 msgid "Date"
 msgstr "Date"
 
-#: modules/ndfl/view/item-grid.view.php:33
-#: modules/ndfl/view/item-list.view.php:25 modules/ndfl/view/main.view.php:84
-#: modules/ndfl/view/main.view.php:100
+#: modules/ndfl/view/item-grid.view.php:32
+#: modules/ndfl/view/item-list.view.php:25 modules/ndfl/view/main.view.php:116
+#: modules/ndfl/view/main.view.php:132
 msgid "Name"
 msgstr "Libellé"
 
-#: modules/ndfl/view/item-grid.view.php:34
-#: modules/ndfl/view/item-list.view.php:26 modules/ndfl/view/main.view.php:101
+#: modules/ndfl/view/item-grid.view.php:35
+#: modules/ndfl/view/item-list.view.php:26 modules/ndfl/view/main.view.php:133
 msgid "Line type"
 msgstr "Type de ligne"
 
-#: modules/ndfl/view/item-grid.view.php:37
-#: modules/ndfl/view/item-list.view.php:29 modules/ndfl/view/main.view.php:86
-#: modules/ndfl/view/main.view.php:104
+#: modules/ndfl/view/item-grid.view.php:38
+#: modules/ndfl/view/item-list.view.php:29 modules/ndfl/view/main.view.php:118
+#: modules/ndfl/view/main.view.php:136
 msgid "Km"
 msgstr "Km"
 
-#: modules/ndfl/view/item-grid.view.php:38
-#: modules/ndfl/view/item-list.view.php:30 modules/ndfl/view/main.view.php:87
-#: modules/ndfl/view/main.view.php:107
+#: modules/ndfl/view/item-grid.view.php:41
+#: modules/ndfl/view/item-list.view.php:30 modules/ndfl/view/main.view.php:119
+#: modules/ndfl/view/main.view.php:139
 msgid "ATI (€)"
 msgstr "TTC (€)"
 
-#: modules/ndfl/view/item-grid.view.php:50
-#: modules/ndfl/view/item-list.view.php:43
+#: modules/ndfl/view/item-grid.view.php:59
+#: modules/ndfl/view/item-list.view.php:44
 msgid ""
 "Are you sur you want to delete this line? This action can not be revert."
 msgstr ""
 "Etes vous sûr de vouloir supprimer cette ligne? Attention cette action est "
 "irréversible."
 
-#: modules/ndfl/view/main.view.php:55
+#: modules/ndfl/view/main.view.php:87
 #, php-format
 msgid ""
 "Your %1$sprice per kilometer%2$s is not setted. Please go to %3$syour profile"
@@ -153,17 +149,21 @@ msgstr ""
 "Votre %1$sprix/km%2$s n'est pas configuré. Merci de vous rendre dans "
 "%3$svotre profil%4$s pour le configurer."
 
-#: modules/ndfl/view/main.view.php:63
+#: modules/ndfl/view/main.view.php:95
 msgid "Grid mode"
 msgstr "Mode grille"
 
-#: modules/ndfl/view/main.view.php:75
+#: modules/ndfl/view/main.view.php:107
 msgid "List mode"
 msgstr "Mode liste"
 
-#: modules/ndfl/view/main.view.php:85
+#: modules/ndfl/view/main.view.php:117
 msgid "Type"
 msgstr "Type"
+
+#: modules/ndfl/view/main.view.php:150
+msgid "Create lines from picture"
+msgstr "Créer des lignes en masse à partir d'images"
 
 #: modules/type-note/action/type-note.action.php:42
 #: modules/type-note/class/type-note.class.php:67
@@ -197,6 +197,9 @@ msgstr "Scan de la carte grise"
 #: modules/user/view/main.view.php:57
 msgid "User is allowed to view all fees sheet"
 msgstr "L'utilisateur peut voir les notes des autres"
+
+#~ msgid "Other"
+#~ msgstr "Autre"
 
 #~ msgid "true"
 #~ msgstr "true"
