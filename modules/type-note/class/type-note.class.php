@@ -74,7 +74,7 @@ class Type_Note_Class extends \eoxia\Term_Class {
 			}
 		}
 
-		\eoxia\View_Util::exec( 'note-de-frais', 'type-note', 'main', array(
+		\eoxia\View_Util::exec( 'frais-pro', 'type-note', 'main', array(
 			'types_note' => $types_note,
 			'ndfl' => $ndfl,
 			'ndfl_type_note_id' => $ndfl_type_note,

@@ -28,7 +28,7 @@ if ( ! empty( $ndfl ) ) :
 			}
 
 			ob_start();
-			\eoxia\View_Util::exec( 'note-de-frais', 'ndfl', 'item-' . $display_mode, array(
+			\eoxia\View_Util::exec( 'frais-pro', 'ndfl', 'item-' . $display_mode, array(
 				'ndf'           => $ndf,
 				'ndfl'          => $ndfl_single,
 				'i'             => $i,
@@ -73,7 +73,7 @@ endif;
 				</ul>
 			</div>
 			<span class="export toggle list" data-parent="toggle" data-target="content" >
-				<?php \eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'toggle-export', array(
+				<?php \eoxia\View_Util::exec( 'frais-pro', 'ndf', 'toggle-export', array(
 					'ndf' => $ndf,
 				) ); ?>
 			</span>

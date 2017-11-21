@@ -127,7 +127,7 @@ class NDF_Class extends \eoxia\Post_Class {
 		}
 		$ndfs = $this->get( $ndf_args );
 
-		\eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'main', array(
+		\eoxia\View_Util::exec( 'frais-pro', 'ndf', 'main', array(
 			'ndfs' => $ndfs,
 			'status' => $status,
 		) );

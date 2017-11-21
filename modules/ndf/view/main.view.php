@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php
 			if ( ! empty( $ndfs ) ) :
 				foreach ( $ndfs as $ndf ) :
-					\eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'item', array(
+					\eoxia\View_Util::exec( 'frais-pro', 'ndf', 'item', array(
 						'ndf' => $ndf,
 					) );
 				endforeach;

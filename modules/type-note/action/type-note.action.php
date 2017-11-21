@@ -39,7 +39,7 @@ class Type_Note_Action {
 	 * @return void
 	 */
 	public function callback_admin_menu() {
-		add_submenu_page( 'note-de-frais', __( 'Note types', 'frais-pro' ), __( 'Note types', 'frais-pro' ), 'manage_options', 'edit-tags.php?taxonomy=' . Type_Note_Class::g()->get_taxonomy() );
+		add_submenu_page( 'frais-pro', __( 'Note types', 'frais-pro' ), __( 'Note types', 'frais-pro' ), 'manage_options', 'edit-tags.php?taxonomy=' . Type_Note_Class::g()->get_taxonomy() );
 	}
 
 }

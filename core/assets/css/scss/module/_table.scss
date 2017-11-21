@@ -236,7 +236,7 @@
 			margin-bottom: 4px;
 			&.ndfl-input-error {
 				span[contenteditable] {
-					background-image: linear-gradient(red, orange, yellow, green, blue, indigo, violet);
+					border: 1px solid pink;
 				}
 			}
 			&:before {

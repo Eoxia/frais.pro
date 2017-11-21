@@ -121,7 +121,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 		$template_vars['display_mode'] = $display_mode;
 		$template_vars['ndf_is_closed'] = in_array( $template_vars['ndf']->validation_status, NDF_Class::g()->closed_status, true ) ? true : false;
 
-		\eoxia\View_Util::exec( 'note-de-frais', 'ndfl', 'main', $template_vars );
+		\eoxia\View_Util::exec( 'frais-pro', 'ndfl', 'main', $template_vars );
 	}
 
 	/**
@@ -136,7 +136,7 @@ class NDFL_Class extends \eoxia\Post_Class {
 			'status' => true,
 			'errors' => array(),
 		);
-		foreach ( \eoxia\Config_Util::$init['note-de-frais']->ndfl->line_mandatory_values as $field_key ) {
+		foreach ( \eoxia\Config_Util::$init['frais-pro']->ndfl->line_mandatory_values as $field_key ) {
 			if ( ! is_array( $field_key ) ) {
 				if ( empty( $line->$field_key ) ) {
 					$line_state['status'] = false;

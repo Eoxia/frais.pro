@@ -30,8 +30,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<select name="chevaux" id="chevaux">
 				<?php
 
-				if ( ! empty( \eoxia\Config_Util::$init['note-de-frais']->chevaux ) ) :
-					foreach ( \eoxia\Config_Util::$init['note-de-frais']->chevaux as $chevaux ) :
+				if ( ! empty( \eoxia\Config_Util::$init['frais-pro']->chevaux ) ) :
+					foreach ( \eoxia\Config_Util::$init['frais-pro']->chevaux as $chevaux ) :
 						?>
 						<option value="<?php echo esc_attr( $chevaux ); ?>" <?php selected( $chevaux, $user->chevaux, true ); ?>><?php echo esc_html( $chevaux ); ?></option>
 						<?php
