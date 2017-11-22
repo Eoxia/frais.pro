@@ -5361,6 +5361,9 @@
 # Affichage générale
 --------------------------------------------------------------*/
   /*--------------------------------------------------------------
+# Affichage général
+--------------------------------------------------------------*/
+  /*--------------------------------------------------------------
 # Affichage en liste
 --------------------------------------------------------------*/
   /*--------------------------------------------------------------
@@ -6234,17 +6237,21 @@
   list-style-type: none;
   margin: 0; }
 
-.eox-note-frais .flex-table .heading .photo, .eox-note-frais .flex-table .heading .action, .eox-note-frais .flex-table .row.add .photo, .eox-note-frais .flex-table.list .row:not(.add) .photo, .eox-note-frais .flex-table .row.add .action, .eox-note-frais .flex-table.list .row:not(.add) .action {
+.eox-note-frais .flex-table .heading .photo, .eox-note-frais .flex-table .row.add .photo, .eox-note-frais .flex-table.list .row:not(.add) .photo {
   max-width: 50px;
   min-width: 50px; }
+
+.eox-note-frais .flex-table .heading .action, .eox-note-frais .flex-table .row.add .action, .eox-note-frais .flex-table.list .row:not(.add) .action {
+  max-width: 80px;
+  min-width: 80px; }
 
 .eox-note-frais .flex-table .heading .ttc, .eox-note-frais .flex-table .heading .ht, .eox-note-frais .flex-table .row.add .ttc, .eox-note-frais .flex-table.list .row:not(.add) .ttc, .eox-note-frais .flex-table .row.add .ht, .eox-note-frais .flex-table.list .row:not(.add) .ht {
   max-width: 80px;
   min-width: 80px; }
 
 .eox-note-frais .flex-table .heading .km, .eox-note-frais .flex-table .heading .tva, .eox-note-frais .flex-table .row.add .km, .eox-note-frais .flex-table.list .row:not(.add) .km, .eox-note-frais .flex-table .row.add .tva, .eox-note-frais .flex-table.list .row:not(.add) .tva {
-  max-width: 100px;
-  min-width: 100px; }
+  max-width: 80px;
+  min-width: 80px; }
 
 .eox-note-frais .flex-table .heading .type, .eox-note-frais .flex-table .heading .date, .eox-note-frais .flex-table .row.add .type, .eox-note-frais .flex-table.list .row:not(.add) .type, .eox-note-frais .flex-table .row.add .date, .eox-note-frais .flex-table.list .row:not(.add) .date {
   max-width: 200px;
@@ -6433,6 +6440,23 @@
         -ms-flex-order: 20;
             order: 20; } }
 
+.eox-note-frais .flex-table .row li.ndfl-input-error span[contenteditable] {
+  border: 1px solid #e05353 !important; }
+
+.eox-note-frais .flex-table .row-status {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  -webkit-border-radius: 50%;
+          border-radius: 50%; }
+
+.eox-note-frais .flex-table .row-status.ndfl-error {
+  background: #e05353; }
+
+.eox-note-frais .flex-table .row-status.ndfl-ok {
+  background: #47e58e; }
+
 .eox-note-frais .flex-table.list .row:not(.add) {
   margin-bottom: 0; }
 
@@ -6453,6 +6477,9 @@
 
 .eox-note-frais .flex-table.list .row:not(.add):nth-of-type(odd) .photo .media {
   background: #e4e4e4; }
+
+.eox-note-frais .flex-table.list .row:not(.add) .row-status {
+  margin-bottom: 4px; }
 
 .eox-note-frais .flex-table.grid .row:not(.add) {
   margin-bottom: 20px !important;
@@ -6485,9 +6512,6 @@
   width: 100%;
   padding: 2px;
   margin-bottom: 4px; }
-
-.eox-note-frais .flex-table.grid .row:not(.add) li.ndfl-input-error span[contenteditable] {
-  border: 1px solid pink; }
 
 .eox-note-frais .flex-table.grid .row:not(.add) li:before {
   display: block;

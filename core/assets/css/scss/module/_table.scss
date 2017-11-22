@@ -16,9 +16,10 @@
 			list-style-type: none;
 			margin: 0;
 		}
-		.photo, .action { max-width: 50px; min-width: 50px; }
+		.photo { max-width: 50px; min-width: 50px; }
+		.action { max-width: 80px; min-width: 80px; }
 		.ttc, .ht { max-width: 80px; min-width: 80px; }
-		.km, .tva { max-width: 100px; min-width: 100px; }
+		.km, .tva { max-width: 80px; min-width: 80px; }
 		.type, .date { max-width: 200px; min-width: 200px; }
 	}
 
@@ -157,6 +158,34 @@
 }
 
 /*--------------------------------------------------------------
+# Affichage général
+--------------------------------------------------------------*/
+
+.flex-table {
+	.row li {
+		&.ndfl-input-error {
+			span[contenteditable] {
+				border: 1px solid $color__red !important;
+			}
+		}
+	}
+	.row-status {
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		margin-right: 6px;
+		border-radius: 50%;
+		&.ndfl-error {
+			background: $color__red;
+		}
+		&.ndfl-ok {
+			background: $color__green;
+		}
+	}
+}
+
+
+/*--------------------------------------------------------------
 # Affichage en liste
 --------------------------------------------------------------*/
 .flex-table.list {
@@ -202,6 +231,9 @@
 				}
 			}
 		}
+		.row-status {
+			margin-bottom: 4px;
+		}
 	}
 
 }
@@ -234,11 +266,6 @@
 			width: 100%;
 			padding: 2px;
 			margin-bottom: 4px;
-			&.ndfl-input-error {
-				span[contenteditable] {
-					border: 1px solid pink;
-				}
-			}
 			&:before {
 				display: block;
 				color: $color__main;
