@@ -10,10 +10,15 @@
 		"action": {},
 		"helper": {}
 	},
-	"line_mandatory_values": [
-		"title",
-		"tax_inclusive_amount",
-		"#REM-tax_amount",
-		"category_name"
-	]
+	"line_mandatory_values": {
+		"title": [],
+		"amount": [
+			"tax_inclusive_amount",
+			"tax_amount"
+		],
+		"category": [
+			"category_name",
+			"current_category"
+		]
+	}
 }

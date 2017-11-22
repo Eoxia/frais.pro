@@ -136,18 +136,24 @@ class NDFL_Class extends \eoxia\Post_Class {
 			'status' => true,
 			'errors' => array(),
 		);
-		foreach ( \eoxia\Config_Util::$init['frais-pro']->ndfl->line_mandatory_values as $field_key ) {
-			if ( ! is_array( $field_key ) ) {
+
+		foreach ( \eoxia\Config_Util::$init['frais-pro']->ndfl->line_mandatory_values as $field_key => $field_details ) {
+			if ( empty( $field_details ) ) {
 				if ( empty( $line->$field_key ) ) {
 					$line_state['status'] = false;
 					$line_state['errors'][] = $field_key;
 				}
 			} else {
-				foreach ( $field_key as $key ) {
-					if ( empty( $line->$key ) ) {
-						$line_state['status'] = false;
-						$line_state['errors'][] = $key;
+				$has_error = true;
+				foreach ( $field_details as $key ) {
+					if ( ! empty( $line->$key ) ) {
+						$has_error = false;
 					}
+				}
+
+				if ( $has_error ) {
+					$line_state['status'] = false;
+					$line_state['errors'][] = $field_key;
 				}
 			}
 		}
