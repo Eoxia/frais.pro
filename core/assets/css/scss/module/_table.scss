@@ -148,7 +148,7 @@
 		}
 	}
 	@media ( max-width: 360px ) {
-		.row.add {
+		.row {
 			li {
 				width: 100% !important;
 			}
@@ -344,6 +344,15 @@
 		}
 		div:last-child {
 			width: 60%;
+		}
+	}
+
+	@media ( max-width: 360px ) {
+		.gridwrapper {
+			display: block;
+		}
+		.gridwrapper > div {
+			width: 100% !important;
 		}
 	}
 
