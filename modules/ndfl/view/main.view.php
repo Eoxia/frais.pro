@@ -145,7 +145,7 @@ endif;
 					<li class="photo" data-title="<?php esc_attr_e( 'Picture', 'frais-pro' ); ?>"><?php do_shortcode( '[wpeo_upload model_name="/note_de_frais/NDFL_Class" single="true" field_name="thumbnail_id"]' ); ?></span></li>
 					<li class="action action-ligne"><span class="icon ion-ios-plus"></span></li>
 				</ul>
-				<div class="wpeo-button button-primary fraispro-mass-line-creation alignright" data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fraispro_create_line_from_picture' ) ); ?>" >
+				<div class="wpeo-button button-blue fraispro-mass-line-creation alignright" data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fraispro_create_line_from_picture' ) ); ?>" >
 					<i class="button-icon fa fa-picture-o"></i>
 					<span><?php esc_html_e( 'Create lines from picture', 'frais-pro' ); ?></span>
 				</div>
