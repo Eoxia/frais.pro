@@ -144,7 +144,11 @@ class NDFL_Action {
 			foreach ( $files_id as $file_id ) {
 				$ndfl = NDFL_Class::g()->update( array( 'parent_id' => $ndf_id ) );
 
-				\eoxia\WPEO_Upload_Class::g()->set_thumbnail( $ndfl->id, $file_id, '\note_de_frais\NDFL_Class' );
+				\eoxia\WPEO_Upload_Class::g()->set_thumbnail( array(
+					'id' => $ndfl->id,
+					'file_id' => $file_id,
+					'model_name' => '\note_de_frais\NDFL_Class',
+				) );
 			}
 		}
 
