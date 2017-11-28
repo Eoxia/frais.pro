@@ -60,17 +60,6 @@ class NDFL_Model extends \eoxia\Post_Model {
 			'field'         => '_ndfl_tax_amount',
 		);
 
-		$this->model['associated_document_id'] = array(
-			'type'              => 'array',
-			'meta_type'         => 'multiple',
-			'child' => array(
-				'image' => array(
-					'type'      => 'array',
-					'meta_type' => 'multiple',
-				),
-			),
-		);
-
 		$this->model['taxonomy'] = array(
 			'type' => 'array',
 			'meta_type' => 'multiple',
