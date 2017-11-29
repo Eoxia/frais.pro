@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return Object       L'objet avec tous les éléments ajoutés par cette méthode.
  */
 function before_update_ndfl( $data ) {
-	if ( ! empty( $data->distance ) && empty( $data->tax_amount ) ) {
+	if ( ! empty( $data->distance ) ) {
 		$user = User_Class::g()->get( array(
 			'include' => array( get_current_user_id() ),
 		), true );
