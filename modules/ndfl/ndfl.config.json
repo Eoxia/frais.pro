@@ -11,7 +11,6 @@
 		"helper": {}
 	},
 	"line_mandatory_values": {
-		"title": [],
 		"amount": [
 			"tax_inclusive_amount",
 			"tax_amount"

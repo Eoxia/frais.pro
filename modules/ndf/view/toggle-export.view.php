@@ -23,14 +23,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-id="<?php echo esc_attr( $ndf->id ); ?>"
 			data-action="export_ndf"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"
-			data-picture="1"><?php esc_html_e( 'With picture', 'frais-pro' ); ?></li>
+			data-picture="1"><i class="icon fa fa-download"></i>&nbsp;<?php esc_html_e( 'With picture', 'frais-pro' ); ?></li>
 	<li class="action-attribute"
 			data-id="<?php echo esc_attr( $ndf->id ); ?>"
 			data-action="export_ndf"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"
-			data-picture="0"><?php esc_html_e( 'Without picture', 'frais-pro' ); ?></li>
+			data-picture="0"><i class="icon fa fa-download"></i>&nbsp;<?php esc_html_e( 'Without picture', 'frais-pro' ); ?></li>
 	<li class="action-attribute"
 			data-id="<?php echo esc_attr( $ndf->id ); ?>"
 			data-action="export_csv"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_csv' ) ); ?>"><?php esc_html_e( 'CSV', 'frais-pro' ); ?></li>
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_csv' ) ); ?>"><i class="icon fa fa-table"></i>&nbsp;<?php esc_html_e( 'CSV export', 'frais-pro' ); ?></li>
+
+	<li class="action-attribute"
+			data-id="<?php echo esc_attr( $ndf->id ); ?>"
+			data-action="archive_ndf"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'archive_ndf' ) ); ?>"><i class="icon fa fa-archive"></i>&nbsp;<?php esc_html_e( 'Archive', 'frais-pro' ); ?></li>
 </ul>
