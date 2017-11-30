@@ -55,7 +55,7 @@ endif;
 	<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'modify_ndfl' ) ); ?>">
 	<div class="container">
 		<div class="header">
-			<span class="button close"><i class="icon ion-ios-arrow-left"></i></span>
+			<span class="close"><i class="icon fa fa-angle-left"></i></span>
 			<h2 class="title"><?php echo esc_html( $ndf->title ); ?></h2>
 			<div class="validation_status toggle list" data-parent="toggle" data-target="content" data-title="<?php echo esc_attr( $ndf->validation_status ); ?>">
 				<input type="hidden" name="id" value="<?php echo esc_attr( $ndf->id ); ?>">
@@ -64,7 +64,7 @@ endif;
 				<input name="validation_status" type="hidden" value="<?php echo esc_html( $ndf->validation_status ); ?>"/>
 				<span class="action">
 					<span class="label pin-status <?php echo esc_attr( NDF_Class::g()->get_status( $ndf->validation_status ) ); ?>"><?php echo esc_html( $ndf->validation_status ); ?></span>
-					<i class="icon ion-ios-arrow-down"></i>
+					<i class="icon fa fa-angle-down"></i>
 				</span>
 				<ul class="content">
 					<?php foreach ( NDF_Class::g()->get_statuses() as $slug => $label ) : ?>
@@ -88,7 +88,7 @@ endif;
 			<?php endif; ?>
 
 			<div class="display-method">
-				<span class="action-attribute button grey <?php echo esc_attr( 'grid' === $display_mode ? 'active' : '' );  ?>"
+				<span class="action-attribute wpeo-button button-square-50 button-grey <?php echo esc_attr( 'grid' === $display_mode ? 'active' : '' );  ?>"
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
 					data-display-mode="grid"
 					data-action="open_ndf"
@@ -96,8 +96,8 @@ endif;
 					data-namespace="noteDeFrais"
 					data-module="NDFL"
 					data-before-method="beforeDisplayModeChange"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon ion-grid"></i></span>
-				<span class="action-attribute button grey <?php echo esc_attr( 'list' === $display_mode ? 'active' : '' );  ?>"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon dashicons dashicons-screenoptions"></i></span>
+				<span class="action-attribute wpeo-button button-square-50 button-grey <?php echo esc_attr( 'list' === $display_mode ? 'active' : '' );  ?>"
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
 					data-display-mode="list"
 					data-action="open_ndf"
@@ -105,7 +105,7 @@ endif;
 					data-module="NDFL"
 					data-before-method="beforeDisplayModeChange"
 					aria-label="<?php esc_attr_e( 'List mode', 'frais-pro' ); ?>"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon ion-ios-list-outline"></i></span>
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon fa fa-list-ul"></i></span>
 			</div>
 
 			<div class="flex-table <?php echo esc_attr( $display_mode ); ?>" >
@@ -143,7 +143,7 @@ endif;
 						<span contenteditable="true" data-name="row[0][tax_amount]" ></span>
 					</li>
 					<li class="photo" data-title="<?php esc_attr_e( 'Picture', 'frais-pro' ); ?>"><?php do_shortcode( '[wpeo_upload model_name="/note_de_frais/NDFL_Class" single="true" field_name="thumbnail_id"]' ); ?></span></li>
-					<li class="action action-ligne"><span class="icon ion-ios-plus"></span></li>
+					<li class="action action-ligne"><span class="icon fa fa-plus-circle"></span></li>
 				</ul>
 				<div class="wpeo-button button-blue fraispro-mass-line-creation alignright" data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fraispro_create_line_from_picture' ) ); ?>" >
 					<i class="button-icon fa fa-picture-o"></i>

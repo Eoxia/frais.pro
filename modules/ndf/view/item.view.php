@@ -22,11 +22,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container">
 		<div class="header">
 			<h2 class="title"><?php echo esc_html( $ndf->title ); ?></h2>
-			<span class="button archive action-attribute tooltip hover"
+			<!-- <span class="archive action-attribute wpeo-tooltip-event"
 						data-id="<?php echo esc_attr( $ndf->id ); ?>"
 						data-action="archive_ndf"
-						aria-label="<?php esc_html_e( 'Delete' ); ?>"
-						data-nonce="<?php echo esc_attr( wp_create_nonce( 'archive_ndf' ) ); ?>"><i class="icon ion-ios-trash-outline"></i></span>
+						data-direction="top"
+						aria-label="<?php esc_html_e( 'Archive' ); ?>"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'archive_ndf' ) ); ?>"><i class="icon fa fa-archive"></i></span> -->
 
 			<span class="export toggle list" data-parent="toggle" data-target="content">
 				<?php \eoxia\View_Util::exec( 'frais-pro', 'ndf', 'toggle-export', array(
@@ -34,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				) ); ?>
 			</span>
 		</div>
-		<div class="content gridwrapper">
+		<div class="content wpeo-grid">
 			<div class="ttc element">
 				<span class="value"><?php echo esc_html( $ndf->tax_inclusive_amount ); ?></span>
 				<span class="currency"><?php esc_html_e( '€', 'frais-pro' ); ?></span>

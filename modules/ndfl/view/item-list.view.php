@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<li class="action action-ligne">
 		<span class="row-status <?php echo esc_attr( ! empty( $line_status ) && ( false === $line_status['status'] ) ? 'ndfl-error' : 'ndfl-ok' ); ?>" ></span>
 <?php if ( ! $ndf_is_closed ) : ?>
-		<span class="icon ion-trash-a action-attribute"
+		<span class="icon fa fa-trash action-attribute"
 			data-ndfl-id="<?php echo esc_attr( $ndfl->id ); ?>"
 			data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>"
 			data-action="delete_ndfl"

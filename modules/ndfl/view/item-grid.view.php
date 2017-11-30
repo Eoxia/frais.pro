@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <ul class="row<?php echo esc_attr( ! empty( $line_status ) && ( false === $line_status['status'] ) ? ' ndfl-error' : '' ); ?>" data-i="<?php echo esc_attr( $i ); ?>"<?php echo esc_attr( ! empty( $ndfl ) && ! empty( $ndfl->current_category ) && ! empty( $ndfl->current_category->special_treatment ) ? ' special_treatment=' . $ndfl->current_category->special_treatment : '' ); ?>>
 	<input type="hidden" name="id" value="<?php echo esc_attr( $ndfl->id ); ?>">
-	<div class="gridwrapper w2">
+	<div class="wpeo-grid grid-2">
 		<div>
 			<li class="photo" data-title="<?php esc_attr_e( 'Picture', 'frais-pro' ); ?>">
 				<?php do_shortcode( '[wpeo_upload id="' . $ndfl->id . '" model_name="/note_de_frais/ndfl_class" single="true" size="full" ]' ); ?>
@@ -48,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<span class="row-status <?php echo esc_attr( ! empty( $line_status ) && ( false === $line_status['status'] ) ? 'ndfl-error' : 'ndfl-ok' ); ?>" ></span>
 
 				<?php if ( ! $ndf_is_closed ) : ?>
-					<span class="icon ion-trash-a action-attribute"
+					<span class="icon fa fa-trash action-attribute"
 					data-ndfl-id="<?php echo esc_attr( $ndfl->id ); ?>"
 					data-ndf-id="<?php echo esc_attr( $ndf->id ); ?>"
 					data-action="delete_ndfl"

@@ -258,7 +258,7 @@
 				@extend .disabled;
 			}
 		}
-		.gridwrapper > div {
+		.wpeo-grid > div {
 			@include flexbox;
 			align-content: flex-start
 		}
@@ -338,7 +338,7 @@
 		height: auto !important;
 	}
 
-	.gridwrapper {
+	.wpeo-grid {
 		div:first-child {
 			width: 40%;
 		}
@@ -348,10 +348,10 @@
 	}
 
 	@media ( max-width: 360px ) {
-		.gridwrapper {
+		.wpeo-grid {
 			display: block;
 		}
-		.gridwrapper > div {
+		.wpeo-grid > div {
 			width: 100% !important;
 		}
 	}
