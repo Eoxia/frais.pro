@@ -27,7 +27,7 @@ else : ?>
 
 	<span class="action" contenteditable="false">
 		<span class="label"><?php echo esc_html( $selected_type_note_name ); ?></span>
-		<i class="icon ion-ios-arrow-down"></i>
+		<i class="icon fa fa-angle-down"></i>
 	</span>
 	<ul class="content">
 <?php if ( ! empty( $types_note ) ) : ?>
