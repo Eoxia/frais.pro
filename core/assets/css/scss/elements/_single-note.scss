@@ -44,6 +44,7 @@
 			color: rgba(255,255,255,0.6);
 			font-size: 40px;
 			margin: auto 0;
+			padding: 0 0.4em;
 			&:hover {
 				cursor: pointer;
 				color: rgba(255,255,255,1);
@@ -57,8 +58,13 @@
 		.display-method {
 			text-align: right;
 			margin: 1em 0;
-			.button.active {
-				@extend .button.main;
+			.wpeo-button {
+				color: rgba(0,0,0,0.4);
+			}
+			.wpeo-button.active {
+				background: $color__main;
+				border-color: $color__main;
+				color: #fff;
 			}
 		}
 	}

@@ -5,7 +5,7 @@
  * @package Eoxia\Plugin
  *
  * @since 1.0.0
- * @version 1.2.0
+ * @version 1.3.0
  */
 
 namespace note_de_frais;
@@ -31,11 +31,11 @@ class Note_De_Frais_Action {
 		$page = ( ! empty( $_REQUEST['page'] ) ) ? sanitize_text_field( $_REQUEST['page'] ) : '';
 		$post = ( ! empty( $_REQUEST['post'] ) ) ? intval( $_REQUEST['post'] ) : '';
 
-		if ( in_array( $page, \eoxia\Config_Util::$init['note-de-frais']->insert_scripts_pages_css, true ) && empty( $post ) ) {
+		if ( in_array( $page, \eoxia\Config_Util::$init['frais-pro']->insert_scripts_pages_css, true ) && empty( $post ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts_css' ), 11 );
 		}
 
-		if ( in_array( $page, \eoxia\Config_Util::$init['note-de-frais']->insert_scripts_pages_js, true ) && empty( $post ) ) {
+		if ( in_array( $page, \eoxia\Config_Util::$init['frais-pro']->insert_scripts_pages_js, true ) && empty( $post ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts_js' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts_js' ), 11 );
 		}
@@ -64,14 +64,14 @@ class Note_De_Frais_Action {
 	 * @return void nothing
 	 *
 	 * @since 1.0
-	 * @version 6.2.7.0
+	 * @version 1.3.0
 	 */
 	public function callback_admin_enqueue_scripts_js() {
-		wp_enqueue_script( 'note-de-frais-script', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/js/backend.min.js', array( 'jquery' ), \eoxia\Config_Util::$init['note-de-frais']->version, false );
-		wp_localize_script( 'note-de-frais-script', 'noteDeFrais', array(
-			'confirmMarkAsPayed' => __( 'Are you sur you want to mark as payed? You won\'t be able to change anything after this action.', 'note-de-frais' ),
+		wp_enqueue_script( 'frais-pro-script', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/js/backend.min.js', array( 'jquery' ), \eoxia\Config_Util::$init['frais-pro']->version, false );
+		wp_localize_script( 'frais-pro-script', 'noteDeFrais', array(
+			'confirmMarkAsPayed' => __( 'Are you sur you want to mark as payed? You won\'t be able to change anything after this action.', 'frais-pro' ),
 		) );
-		wp_enqueue_script( 'note-de-frais-script-datetimepicker-script', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/js/jquery.datetimepicker.full.js', array(), \eoxia\Config_Util::$init['note-de-frais']->version );
+		wp_enqueue_script( 'frais-pro-script-datetimepicker-script', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/js/jquery.datetimepicker.full.js', array(), \eoxia\Config_Util::$init['frais-pro']->version );
 	}
 
 	/**
@@ -80,20 +80,20 @@ class Note_De_Frais_Action {
 	 * @return void nothing
 	 *
 	 * @since 1.0
-	 * @version 6.2.7.0
+	 * @version 1.3.0
 	 */
 	public function callback_admin_enqueue_scripts_css() {
-		wp_register_style( 'note-de-frais-style', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/css/style.css', array(), \eoxia\Config_Util::$init['note-de-frais']->version );
-		wp_enqueue_style( 'note-de-frais-style' );
+		wp_register_style( 'frais-pro-style', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/css/style.css', array(), \eoxia\Config_Util::$init['frais-pro']->version );
+		wp_enqueue_style( 'frais-pro-style' );
 
-		wp_enqueue_style( 'note-de-frais-datepicker', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/css/jquery.datetimepicker.css', array(), \eoxia\Config_Util::$init['note-de-frais']->version );
+		wp_enqueue_style( 'frais-pro-datepicker', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/css/jquery.datetimepicker.css', array(), \eoxia\Config_Util::$init['frais-pro']->version );
 	}
 
 	/**
 	 * Initialise le fichier MO
 	 *
 	 * @since 1.0
-	 * @version 6.2.5.0
+	 * @version 1.2.0
 	 */
 	public function callback_plugins_loaded() {
 		register_post_status( 'archive', array(
@@ -103,6 +103,7 @@ class Note_De_Frais_Action {
 			'show_in_admin_all_list'    => true,
 			'show_in_admin_status_list' => true,
 		) );
+		load_plugin_textdomain( 'frais-pro', false, PLUGIN_NOTE_DE_FRAIS_DIR . '/core/assets/languages/' );
 	}
 
 	/**
@@ -114,12 +115,12 @@ class Note_De_Frais_Action {
 	 * @return void
 	 */
 	public function callback_admin_init() {
-		$core_option = get_option( \eoxia\Config_Util::$init['note-de-frais']->core_option, array(
+		$core_option = get_option( \eoxia\Config_Util::$init['frais-pro']->core_option, array(
 			'db_version' => '',
 		) );
 
 		if ( empty( $core_option['db_version'] ) ) {
-			$file_content = file_get_contents( \eoxia\Config_Util::$init['note-de-frais']->core->path . 'assets/json/default.json' );
+			$file_content = file_get_contents( \eoxia\Config_Util::$init['frais-pro']->core->path . 'assets/json/default.json' );
 			$data = json_decode( $file_content, true );
 
 			if ( ! empty( $data ) ) {
@@ -136,8 +137,8 @@ class Note_De_Frais_Action {
 				}
 			}
 
-			$core_option['db_version'] = str_replace( '.', '', \eoxia\Config_Util::$init['note-de-frais']->version );
-			update_option( \eoxia\Config_Util::$init['note-de-frais']->core_option, $core_option );
+			$core_option['db_version'] = str_replace( '.', '', \eoxia\Config_Util::$init['frais-pro']->version );
+			update_option( \eoxia\Config_Util::$init['frais-pro']->core_option, $core_option );
 		}
 
 	}
@@ -145,12 +146,12 @@ class Note_De_Frais_Action {
 	/**
 	 * Définition du menu dans l'administration de wordpress pour Digirisk / Define the menu for wordpress administration
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.0.0.0
+	 * @since 1.0.0
+	 * @version 1.3.0
 	 */
 	public function callback_admin_menu() {
-		add_menu_page( __( 'Note de frais', 'note-de-frais' ), __( 'Note de frais', 'note-de-frais' ), 'manage_options', 'note-de-frais', array( Note_De_Frais_Class::g(), 'display' ), 'dashicons-format-aside' );
-		add_submenu_page( 'note-de-frais', __( 'Archives', 'note-de-frais' ), __( 'Archives', 'note-de-frais' ), 'manage_options', 'note-de-frais-archive', array( Note_De_Frais_Class::g(), 'display_archive' ) );
+		add_menu_page( __( 'Frais.pro', 'frais-pro' ), __( 'Frais.pro', 'frais-pro' ), 'manage_options', 'frais-pro', array( Note_De_Frais_Class::g(), 'display' ), 'dashicons-format-aside' );
+		add_submenu_page( 'frais-pro', __( 'Archives', 'frais-pro' ), __( 'Archives', 'frais-pro' ), 'manage_options', 'frais-pro-archive', array( Note_De_Frais_Class::g(), 'display_archive' ) );
 	}
 
 }

@@ -2,7 +2,12 @@
 /**
  * Fonctions helper pour les lignes de note de frais.
  *
- * @package Eoxia\Plugin
+ * @author Eoxia <dev@eoxia.com>
+ * @since 1.0.0
+ * @version 1.3.0
+ * @copyright 2017 Eoxia
+ * @package Eoxia/NodeDeFrais
+ * @subpackage LigneDeFrais
  */
 
 namespace note_de_frais;
@@ -18,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return Object       L'objet avec tous les éléments ajoutés par cette méthode.
  */
 function before_update_ndfl( $data ) {
-	if ( ! empty( $data->distance ) && empty( $data->tax_amount ) ) {
+	if ( ! empty( $data->distance ) ) {
 		$user = User_Class::g()->get( array(
 			'include' => array( get_current_user_id() ),
 		), true );

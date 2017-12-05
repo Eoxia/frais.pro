@@ -119,8 +119,7 @@ class Document_Class extends \eoxia\Post_Class {
 		/**	Dans le cas où la donnée a écrire est une valeur "simple" (texte) / In case the data to write is a "simple" (text) data	*/
 		if ( !is_array( $data_value ) ) {
 			$current_odf->setVars( $data_key, stripslashes( $data_value ), true, 'UTF-8' );
-		}
-		else if ( is_array( $data_value ) && isset( $data_value[ 'type' ] ) && !empty( $data_value[ 'type' ] ) ) {
+		} elseif ( is_array( $data_value ) && isset( $data_value[ 'type' ] ) && !empty( $data_value[ 'type' ] ) ) {
 			switch ( $data_value[ 'type' ] ) {
 
 				case 'picture':
@@ -210,12 +209,17 @@ class Document_Class extends \eoxia\Post_Class {
 						foreach ( $value['value'] as $line ) {
 							unset( $line['id_media_attached'] );
 							unset( $line['attached_media'] );
-							$file_lines .= implode( ';', $line ) . '
+							$file_lines .= '"' . implode( '";"', $line ) . '"
 ';
 						}
 						$csv_file_content = str_replace( '{LignesDeFrais}', $file_lines, $csv_file_content );
 					}
 				}
+				/**	Vérification de l'existence du dossier de destination / Check if final directory exists	*/
+				if( !is_dir( dirname( $this->get_digirisk_dir_path() . '/' . $path ) ) ) {
+					wp_mkdir_p( dirname( $this->get_digirisk_dir_path() . '/' . $path ) );
+				}
+
 				$csv_file_handler = fopen( $this->get_digirisk_dir_path() . '/' . $path, 'w' );
 				fwrite( $csv_file_handler, $csv_file_content );
 				fclose( $csv_file_handler );

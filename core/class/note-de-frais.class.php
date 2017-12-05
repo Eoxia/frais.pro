@@ -3,10 +3,10 @@
  * Classe gérant le boot de l'application DigiRisk.
  * Appelle la vue permettant d'afficher la navigation.
  *
- * @author Jimmy Latour <jimmy@evarisk.com>
- * @since 1.0.0.0
- * @version 1.0.0.0
- * @copyright 2015-2017 Evarisk
+ * @author Eoxia <dev@eoxia.com>
+ * @since 1.0.0
+ * @version 1.3.0
+ * @copyright 2015-2017 Eoxia
  * @package core
  * @subpackage class
  */

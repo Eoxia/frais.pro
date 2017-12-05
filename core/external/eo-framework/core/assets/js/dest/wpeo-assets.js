@@ -130,7 +130,7 @@ if ( ! window.eoxiaJS.action ) {
 		}
 
 		if ( doAction ) {
-			loaderElement.addClass( 'loading' );
+			window.eoxiaJS.loader.display( loaderElement );
 			listInput = window.eoxiaJS.arrayForm.getInput( parentElement );
 			for ( i = 0; i < listInput.length; i++ ) {
 				if ( listInput[i].name && -1 === inputAlreadyIn.indexOf( listInput[i].name ) ) {
@@ -182,13 +182,13 @@ if ( ! window.eoxiaJS.action ) {
 			if ( jQuery( this ).attr( 'data-confirm' ) ) {
 				if ( window.confirm( jQuery( this ).attr( 'data-confirm' ) ) ) {
 					element.get_data( function( data ) {
-						loaderElement.addClass( 'loading' );
+						window.eoxiaJS.loader.display( loaderElement );
 						window.eoxiaJS.request.send( element, data );
 					} );
 				}
 			} else {
 				element.get_data( function( data ) {
-					loaderElement.addClass( 'loading' );
+					window.eoxiaJS.loader.display( loaderElement );
 					window.eoxiaJS.request.send( element, data );
 				} );
 			}
@@ -229,7 +229,7 @@ if ( ! window.eoxiaJS.action ) {
 		if ( doAction ) {
 			if ( window.confirm( element.attr( 'data-message-delete' ) ) ) {
 				element.get_data( function( data ) {
-					loaderElement.addClass( 'loading' );
+					window.eoxiaJS.loader.display( loaderElement );
 					window.eoxiaJS.request.send( element, data );
 				} );
 			}
@@ -468,6 +468,130 @@ if ( ! window.eoxiaJS.global ) {
 
 	}
 
+if ( ! window.eoxiaJS.loader ) {
+	window.eoxiaJS.loader = {};
+
+	window.eoxiaJS.loader.init = function() {
+		window.eoxiaJS.loader.event();
+	};
+
+	window.eoxiaJS.loader.event = function() {
+	};
+
+	window.eoxiaJS.loader.display = function( element ) {
+		element.addClass( 'wpeo-loader' );
+
+		var el = jQuery( '<span class="loader-spin"></span>' );
+		element[0].loaderElement = el;
+		element.append( element[0].loaderElement );
+	};
+
+	window.eoxiaJS.loader.remove = function( element ) {
+		if ( 0 < element.length ) {
+			element.removeClass( 'wpeo-loader' );
+
+			jQuery( element[0].loaderElement ).remove();
+		}
+	};
+}
+
+/**
+ * Gestion de la modal.
+ *
+ * La modal est créer dynamiquement en JS lors du clic sur le bouton ".wpeo-modal-event".
+ * Le template créer dynamiquement est défini en DUR dans le code JS.
+ * @todo: Voir pour faire plus propre. Peut être avoir une vrai vue pour le template de la popup ?
+ *
+ * @since 1.0.0
+ * @version 1.0.0
+ */
+if ( ! window.eoxiaJS.modal  ) {
+	window.eoxiaJS.modal = {};
+
+	/**
+	 * Le template de la modal.
+	 * Voir le fichier /core/view/modal.view.php
+	 *
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 *
+	 * @type string
+	 */
+	window.eoxiaJS.modal.popupTemplate = wpeo_framework.modalView;
+
+	window.eoxiaJS.modal.init = function() {
+		window.eoxiaJS.modal.event();
+	};
+
+	window.eoxiaJS.modal.event = function() {
+		jQuery( document ).on( 'keyup', window.eoxiaJS.modal.keyup );
+	  jQuery( document ).on( 'click', '.wpeo-modal-event', window.eoxiaJS.modal.open );
+		jQuery( document ).on( 'click', '.wpeo-modal .modal-container', window.eoxiaJS.modal.stopPropagation );
+		jQuery( document ).on( 'click', '.wpeo-modal .modal-close', window.eoxiaJS.modal.close );
+		jQuery( document ).on( 'click', 'body', window.eoxiaJS.modal.close );
+	};
+
+	window.eoxiaJS.modal.open = function( event ) {
+		var triggeredElement = jQuery( this );
+		var callbackData = {};
+		var key = undefined;
+
+		/** Méthode appelée avant l'action */
+		if ( triggeredElement.attr( 'dataCallback' ) ) {
+			// callbackData = window.eoxiaJS[element.attr( 'data-namespace' )][element.attr( 'data-module' )][element.attr( 'data-before-method' )]( element );
+		}
+
+		var el = jQuery( document.createElement( 'div' ) );
+		el[0].className = 'wpeo-modal modal-active';
+		el[0].innerHTML = window.eoxiaJS.modal.popupTemplate;
+		triggeredElement[0].modalElement = el;
+
+		if ( triggeredElement.attr( 'data-title' ) ) {
+			el[0].innerHTML = el[0].innerHTML.replace( '{{title}}', triggeredElement.attr( 'data-title' ) );
+		}
+
+		if ( triggeredElement.attr( 'data-class' ) ) {
+			el[0].className += ' ' + triggeredElement.attr( 'data-class' );
+		}
+
+		jQuery( 'body' ).append( triggeredElement[0].modalElement );
+
+		// Si data-action existe, cette méthode lances une requête AJAX.
+		if ( triggeredElement.attr( 'data-action' ) ) {
+			triggeredElement.get_data( function( data ) {
+				for ( key in callbackData ) {
+					if ( ! data[key] ) {
+						data[key] = callbackData[key];
+					}
+				}
+
+				window.eoxiaJS.request.send( triggeredElement, data, function( element, response ) {
+					if ( response.data.view ) {
+						el[0].innerHTML = el[0].innerHTML.replace( '{{content}}', response.data.view );
+						el[0].innerHTML = el[0].innerHTML.replace( '{{buttons}}', response.data.buttons_view );
+					}
+				} );
+			});
+		}
+
+		event.stopPropagation();
+	};
+
+	window.eoxiaJS.modal.stopPropagation = function( event ) {
+		event.stopPropagation();
+	};
+
+	window.eoxiaJS.modal.close = function( event ) {
+		jQuery( '.wpeo-modal.modal-active:not(.no-close)' ).each( function() {
+			var popup = jQuery( this );
+			popup.removeClass( 'modal-active' );
+			setTimeout( function() {
+				popup.remove();
+			}, 200 );
+		} );
+	};
+}
+
 /**
  * Handle POPUP
  *
@@ -664,19 +788,23 @@ if ( ! window.eoxiaJS.request ) {
 
 	window.eoxiaJS.request.init = function() {};
 
-	window.eoxiaJS.request.send = function( element, data ) {
+	window.eoxiaJS.request.send = function( element, data, cb ) {
 		jQuery.post( window.ajaxurl, data, function( response ) {
-			element.closest( '.loading' ).removeClass( 'loading' );
+			window.eoxiaJS.loader.remove( element.closest( '.wpeo-loader' ) );
 
-			if ( response && response.success ) {
-				if ( response.data.namespace && response.data.module && response.data.callback_success ) {
-					window.eoxiaJS[response.data.namespace][response.data.module][response.data.callback_success]( element, response );
-				} else if ( response.data.module && response.data.callback_success ) {
-					window.eoxiaJS[response.data.module][response.data.callback_success]( element, response );
-				}
+			if ( cb ) {
+				cb( element, response );
 			} else {
-				if ( response.data.namespace && response.data.module && response.data.callback_error ) {
-					window.eoxiaJS[response.data.namespace][response.data.module][response.data.callback_error]( element, response );
+				if ( response && response.success ) {
+					if ( response.data.namespace && response.data.module && response.data.callback_success ) {
+						window.eoxiaJS[response.data.namespace][response.data.module][response.data.callback_success]( element, response );
+					} else if ( response.data.module && response.data.callback_success ) {
+						window.eoxiaJS[response.data.module][response.data.callback_success]( element, response );
+					}
+				} else {
+					if ( response.data.namespace && response.data.module && response.data.callback_error ) {
+						window.eoxiaJS[response.data.namespace][response.data.module][response.data.callback_error]( element, response );
+					}
 				}
 			}
 		}, 'json' );
@@ -851,23 +979,23 @@ if ( ! window.eoxiaJS.tooltip ) {
 
 		switch( jQuery( this ).data( 'direction' ) ) {
 			case 'left':
-				top = pos.top + 'px';
-				left = pos.left - el.outerWidth() - 15 + 'px';
+				top = ( pos.top - ( el.outerHeight() / 2 ) + ( jQuery( this ).outerHeight() / 2 ) ) + 'px';
+				left = ( pos.left - el.outerWidth() - 10 ) + 3 + 'px';
 				break;
 			case 'right':
-				top = pos.top + 'px';
-				left = pos.left + el.outerWidth() + 15 + 'px';
+				top = ( pos.top - ( el.outerHeight() / 2 ) + ( jQuery( this ).outerHeight() / 2 ) ) + 'px';
+				left = pos.left + jQuery( this ).outerWidth() + 8 + 'px';
 				break;
 			case 'bottom':
-				top = ( pos.top + jQuery( this ).height() + el.height() ) + 'px';
+				top = ( pos.top + jQuery( this ).height() + 10 ) + 10 + 'px';
 				left = ( pos.left - ( el.outerWidth() / 2 ) + ( jQuery( this ).outerWidth() / 2 ) ) + 'px';
 				break;
 			case 'top':
-				top = ( pos.top - jQuery( this ).height() - el.height() ) + 'px';
+				top = ( pos.top - jQuery( this ).height() ) - 10 + 'px';
 				left = ( pos.left - ( el.outerWidth() / 2 ) + ( jQuery( this ).outerWidth() / 2 ) ) + 'px';
 				break;
 			default:
-				top = ( pos.top - jQuery( this ).height() - el.height() ) + 'px';
+				top = ( pos.top - jQuery( this ).height() ) - 10 + 'px';
 				left = ( pos.left - ( el.outerWidth() / 2 ) + ( jQuery( this ).outerWidth() / 2 ) ) + 'px';
 				break;
 		}

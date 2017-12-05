@@ -2,12 +2,12 @@
 /**
  * Classe gérant les NDF
  *
- * @author eoxia
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @author Eoxia <dev@eoxia.com>
+ * @since 1.0.0
+ * @version 1.3.0
  * @copyright 2017 Eoxia
- * @package ndf
- * @subpackage class
+ * @package Eoxia/NodeDeFrais
+ * @subpackage LigneDeFrais
  */
 
 namespace note_de_frais;
@@ -121,7 +121,44 @@ class NDFL_Class extends \eoxia\Post_Class {
 		$template_vars['display_mode'] = $display_mode;
 		$template_vars['ndf_is_closed'] = in_array( $template_vars['ndf']->validation_status, NDF_Class::g()->closed_status, true ) ? true : false;
 
-		\eoxia\View_Util::exec( 'note-de-frais', 'ndfl', 'main', $template_vars );
+		\eoxia\View_Util::exec( 'frais-pro', 'ndfl', 'main', $template_vars );
+	}
+
+	/**
+	 * Vérifie si une ligne de note est valide ou non
+	 *
+	 * @param  array|object $line La définition de la ligne à vérifier.
+	 *
+	 * @return array       Le statut de la ligne avec le détail si elle n'est pas valide.
+	 */
+	public function check_line_status( $line ) {
+		$line_state = array(
+			'status' => true,
+			'errors' => array(),
+		);
+
+		foreach ( \eoxia\Config_Util::$init['frais-pro']->ndfl->line_mandatory_values as $field_key => $field_details ) {
+			if ( empty( $field_details ) ) {
+				if ( empty( $line->$field_key ) ) {
+					$line_state['status'] = false;
+					$line_state['errors'][] = $field_key;
+				}
+			} else {
+				$has_error = true;
+				foreach ( $field_details as $key ) {
+					if ( ! empty( $line->$key ) ) {
+						$has_error = false;
+					}
+				}
+
+				if ( $has_error ) {
+					$line_state['status'] = false;
+					$line_state['errors'][] = $field_key;
+				}
+			}
+		}
+
+		return $line_state;
 	}
 
 }

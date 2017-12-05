@@ -6,8 +6,6 @@
  /*--------------------------------------------------------------
  # Fonts
  --------------------------------------------------------------*/
- @import "font/ionicons.scss";
- @import "font/font-awesome/font-awesome.scss";
 
 .eox-note-frais {
 
@@ -45,6 +43,6 @@
 }
 
 /*--------------------------------------------------------------
-# Gallery
+# Modules externes
 --------------------------------------------------------------*/
-@import "module/gallery.scss";
+@import "external/external.scss";

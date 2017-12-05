@@ -8,6 +8,31 @@
 window.eoxiaJS.noteDeFrais.NDFL = {};
 
 /**
+ * Keep the button in memory.
+ *
+ * @type {Object}
+ */
+ window.eoxiaJS.noteDeFrais.NDFL.currentButton;
+
+/**
+ * Keep the media frame in memory.
+ * @type {Object}
+ */
+ window.eoxiaJS.noteDeFrais.NDFL.mediaFrame;
+
+/**
+* Keep the media frame in memory.
+* @type {Object}
+*/
+ window.eoxiaJS.noteDeFrais.NDFL.focusedElement;
+
+/**
+ * Keep the selected media in memory.
+ * @type {Object}
+ */
+ window.eoxiaJS.noteDeFrais.NDFL.selectedInfos = [];
+
+/**
  * La méthode appelée automatiquement par la bibliothèque EoxiaJS.
  *
  * @return {void}
@@ -18,9 +43,15 @@ window.eoxiaJS.noteDeFrais.NDFL = {};
 window.eoxiaJS.noteDeFrais.NDFL.init = function() {
 	var currentFocusout = true;
 
-	jQuery( document ).on( 'blur keyup paste keydown click', '.row.add li span[contenteditable]', window.eoxiaJS.noteDeFrais.NDFL.updateHiddenInput );
+	jQuery( document ).on( 'click', '.row li span[contenteditable=true]:not(.date)', window.eoxiaJS.noteDeFrais.NDFL.updateHiddenInput );
+	jQuery( document ).on( 'blur', '.row li span[contenteditable=true]:not(.date)', function( event ) {
+		if ( window.eoxiaJS.noteDeFrais.NDFL.focusedElement ) {
+			window.eoxiaJS.noteDeFrais.NDFL.focusedElement = undefined;
+		}
+	} );
 
-	jQuery( document ).on( 'click', '.row.add .action .ion-ios-plus', window.eoxiaJS.noteDeFrais.NDFL.saveNDF );
+	jQuery( document ).on( 'click', '.row.add .action .icon', window.eoxiaJS.noteDeFrais.NDFL.saveNDF );
+
 	jQuery( document ).on( 'keydown', '.row.add span[contenteditable]', function( event ) {
 		if ( event.ctrlKey && 13 === event.keyCode ) {
 			jQuery( this ).closest( '.row' ).find( '.action .ion-ios-plus' ).click();
@@ -35,7 +66,9 @@ window.eoxiaJS.noteDeFrais.NDFL.init = function() {
 		}
 		currentFocusout = false;
 	} );
+
 	jQuery( document ).on( 'keydown', '.libelle span', window.eoxiaJS.noteDeFrais.NDFL.focusSelect );
+	jQuery( document ).on( 'click', '.eox-note-frais .fraispro-mass-line-creation', window.eoxiaJS.noteDeFrais.NDFL.openMedia );
 };
 
 // Quand on change de date dans le calendrier.
@@ -50,9 +83,11 @@ window.eoxiaJS.noteDeFrais.NDFL.changeDate = function( element ) {
 };
 
 window.eoxiaJS.noteDeFrais.NDFL.updateHiddenInput = function( event ) {
-	if ( 0 >= jQuery( this ).text().length ) {
-		jQuery( this ).closest( 'li' ).find( '.ndfl-placeholder' ).addClass( 'hidden' );
+	if ( ! window.eoxiaJS.noteDeFrais.NDFL.focusedElement ) {
+		document.execCommand( 'selectAll', false, null );
 	}
+
+	window.eoxiaJS.noteDeFrais.NDFL.focusedElement = jQuery( this );
 };
 
 window.eoxiaJS.noteDeFrais.NDFL.beforeDisplayModeChange = function( element ) {
@@ -76,6 +111,7 @@ window.eoxiaJS.noteDeFrais.NDFL.saveNDF = function( event ) {
 	if ( 0 !== serialize.length ) {
 		serialize += '&';
 	}
+	window.eoxiaJS.loader.display( jQuery( this ).closest( '.row' ) );
 	jQuery( this ).closest( '.row' ).find( 'input' ).each( function() {
 		if ( 0 !== serialize.length ) {
 			serialize += '&';
@@ -108,4 +144,40 @@ window.eoxiaJS.noteDeFrais.NDFL.focusSelect = function( event ) {
 		jQuery( this ).blur();
 		jQuery( this ).closest( '.row' ).find( '.toggle .content' ).addClass( 'active' );
 	}
+};
+
+window.eoxiaJS.noteDeFrais.NDFL.openMedia = function( event ) {
+	window.eoxiaJS.noteDeFrais.NDFL.currentButton = jQuery( this );
+	event.preventDefault();
+
+	window.eoxiaJS.noteDeFrais.NDFL.mediaFrame = new window.wp.media.view.MediaFrame.Post({}).open();
+	window.eoxiaJS.noteDeFrais.NDFL.mediaFrame.on( 'insert', function() {
+		window.eoxiaJS.noteDeFrais.NDFL.selectedFile();
+	} );
+};
+
+window.eoxiaJS.noteDeFrais.NDFL.selectedFile = function( element ) {
+	var data = {
+		action: 'fraispro_create_line_from_picture',
+		_wpnonce: window.eoxiaJS.noteDeFrais.NDFL.currentButton.attr( 'data-nonce' ),
+		files_id: window.eoxiaJS.noteDeFrais.NDFL.selectedInfos,
+		ndf_id: window.eoxiaJS.noteDeFrais.NDFL.currentButton.attr( 'data-ndf-id' ),
+		display_mode: window.eoxiaJS.noteDeFrais.NDFL.currentButton.closest( '.note' ).find( 'input[name=display_mode]' ).val()
+	};
+
+	window.eoxiaJS.noteDeFrais.NDFL.mediaFrame.state().get( 'selection' ).map( function( attachment ) {
+		window.eoxiaJS.noteDeFrais.NDFL.selectedInfos.push( attachment.id );
+	} );
+
+	jQuery( '.single-note' ).find( '.date_modified_value' ).addClass( 'loading' );
+	window.eoxiaJS.noteDeFrais.NDFL.currentButton.addClass( 'loading' );
+	jQuery.post( window.ajaxurl, data, function( response ) {
+		window.eoxiaJS.noteDeFrais.NDFL.currentButton.removeClass( 'loading' );
+
+		window.eoxiaJS.noteDeFrais.NDFL.currentButton = undefined;
+		window.eoxiaJS.noteDeFrais.NDFL.selectedInfos = [];
+		window.eoxiaJS.noteDeFrais.NDFL.mediaFrame = undefined;
+
+		window.eoxiaJS.noteDeFrais.NDF.refresh( null, response );
+	}, 'json' );
 };

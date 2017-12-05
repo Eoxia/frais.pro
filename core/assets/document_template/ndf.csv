@@ -1,4 +1,4 @@
-Date;Libellé;Type;Km;TTC;TVA
+ID ligne;Date;Libellé;ID catégorie;Nom catégorie;Km;TTC;TVA
 {LignesDeFrais}
 ;;;;{totalttc};{totaltva}
 

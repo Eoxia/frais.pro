@@ -3,8 +3,8 @@
  * Classe gérant les actions des utilisateurs
  *
  * @author eoxia
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.3.0
  * @copyright 2017 Eoxia
  * @package user
  * @subpackage action
@@ -43,7 +43,7 @@ class User_Action {
 			'include' => array( $user->ID ),
 		), true );
 
-		\eoxia\View_Util::exec( 'note-de-frais', 'user', 'main', array(
+		\eoxia\View_Util::exec( 'frais-pro', 'user', 'main', array(
 			'user' => $user,
 		) );
 	}
@@ -61,7 +61,7 @@ class User_Action {
 
 		$user = array( 'id' => $user_id );
 		$user['marque'] = ! empty( $_POST ) && ! empty( $_POST['marque'] ) ? sanitize_text_field( $_POST['marque'] ) : '';
-		$user['chevaux'] = ! empty( $_POST ) && ! empty( $_POST['chevaux'] ) && in_array( $_POST['chevaux'], \eoxia\Config_Util::$init['note-de-frais']->chevaux, true ) ? sanitize_text_field( $_POST['chevaux'] ) : '';
+		$user['chevaux'] = ! empty( $_POST ) && ! empty( $_POST['chevaux'] ) && in_array( $_POST['chevaux'], \eoxia\Config_Util::$init['frais-pro']->chevaux, true ) ? sanitize_text_field( $_POST['chevaux'] ) : '';
 		$user['prixkm'] = ! empty( $_POST ) && ! empty( $_POST['prixkm'] ) ? sanitize_text_field( str_replace( ',', '.', $_POST['prixkm'] ) ) : '';
 
 		if ( get_current_user_id() !== $user_id || ( 1 === get_current_user_id() ) ) {

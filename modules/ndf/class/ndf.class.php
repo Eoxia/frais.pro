@@ -2,11 +2,11 @@
 /**
  * Classe gérant les notes de frais.
  *
- * @author eoxia
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.2.0
+ * @version 1.3.0
  * @copyright 2017 Eoxia
- * @package NDF
+ * @package Eoxia/NodeDeFrais
  */
 
 namespace note_de_frais;
@@ -53,7 +53,7 @@ class NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array();
+	protected $before_post_function = array( '\note_de_frais\set_ndf_name' );
 
 	/**
 	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée
@@ -67,7 +67,7 @@ class NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array( '\note_de_frais\get_full_ndf' );
+	protected $after_get_function = array();
 
 	/**
 	 * Le nom pour le resgister post type
@@ -81,12 +81,7 @@ class NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	public $status = array(
-		'En cours' => 'en-cours',
-		'Validée'  => 'valide',
-		'Payée'    => 'paye',
-		'Refusée'  => 'refuse',
-	);
+	public $status = array();
 
 	/**
 	 * Le ou les statuts pour lesquels on ne peut plus modifier les notes
@@ -95,9 +90,25 @@ class NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @todo nécessite un transfert
 	 */
-	public $closed_status = array(
-		'Payée'
-	);
+	public $closed_status = array();
+
+	/**
+	 * Définition des statuts
+	 */
+	protected function construct() {
+		parent::construct();
+
+		$this->status = array(
+			'en-cours' => __( 'In progress', 'frais-pro' ),
+			'valide'   => __( 'Validated', 'frais-pro' ),
+			'paye'     => __( 'Payed', 'frais-pro' ),
+			'refuse'   => __( 'Refused', 'frais-pro' ),
+		);
+
+		$this->closed_status = array(
+			__( 'Payed', 'frais-pro' ),
+		);
+	}
 
 	/**
 	 * Récupères les notes de frais et les envoies à la vue principale.
@@ -118,7 +129,7 @@ class NDF_Class extends \eoxia\Post_Class {
 		}
 		$ndfs = $this->get( $ndf_args );
 
-		\eoxia\View_Util::exec( 'note-de-frais', 'ndf', 'main', array(
+		\eoxia\View_Util::exec( 'frais-pro', 'ndf', 'main', array(
 			'ndfs' => $ndfs,
 			'status' => $status,
 		) );
@@ -134,7 +145,13 @@ class NDF_Class extends \eoxia\Post_Class {
 	 * @version 1.0.0.0
 	 */
 	public function get_status( $status ) {
-		return $this->status[ $status ];
+		$flipped_status = array_flip( $this->status );
+
+		return $flipped_status[ __( $status, 'frais-pro' ) ];
+	}
+
+	public function get_statuses() {
+		return $this->status;
 	}
 
 	/**
@@ -145,6 +162,8 @@ class NDF_Class extends \eoxia\Post_Class {
 	 *
 	 * @param  integer $ndf_id       L'ID de la note de frais.
 	 * @param  boolean $with_picture Oui pour avoir les photos. Defaut true.
+	 * @param  string  $type         Type de fichier a exporter.
+	 *
 	 * @return array {
 	 *         Les propriétés du tableau.
 	 *
@@ -169,7 +188,8 @@ class NDF_Class extends \eoxia\Post_Class {
 		$types_de_note = Type_Note_Class::g()->get();
 		$list_type_de_note = array();
 		foreach ( $types_de_note as $type_de_note ) {
-			$list_type_de_note[ $type_de_note->id ] = $type_de_note->category_id . ' : ' . $type_de_note->name;
+			$list_type_de_note[ $type_de_note->id ]['id'] = $type_de_note->category_id;
+			$list_type_de_note[ $type_de_note->id ]['name'] = $type_de_note->name;
 		}
 
 		$sheet_details = array(
@@ -183,8 +203,7 @@ class NDF_Class extends \eoxia\Post_Class {
 			),
 		);
 
-		$periode = explode( '-', $ndf->title );
-		$periode = $periode[2] . '/' . $periode[1];
+		$periode = substr( $ndf->title, 0, 4 ) . '/' . substr( $ndf->title, 4, 2 );
 
 		if ( ! empty( $user->firstname ) && ! empty( $user->lastname ) ) {
 			$sheet_details['utilisateur_prenom_nom'] = $user->firstname . ' ' . $user->lastname;
@@ -211,7 +230,7 @@ class NDF_Class extends \eoxia\Post_Class {
 								'type' => 'picture',
 								'value' => $picture_final_path,
 								'option' => array(
-									'size' => 10,
+									'size' => 8,
 								),
 							);
 						}
@@ -223,10 +242,19 @@ class NDF_Class extends \eoxia\Post_Class {
 					}
 				}
 
+				$categorie_id = '-';
+				$categorie_label = $ndfl->category_name;
+				if ( ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ] ) && ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0] ) && array_key_exists( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0]->term_id, $list_type_de_note ) ) {
+					$categorie_id = $list_type_de_note[ $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0]->term_id ]['id'];
+					$categorie_label = $list_type_de_note[ $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0]->term_id ]['name'];
+				}
+
 				$sheet_details['ndf']['value'][] = array(
-					'date' => $ndfl->date['date_human_readable'],
+					'id_ligne' => $ndfl->id,
+					'date' => $ndfl->date['date_input']['fr_FR']['date_time'],
 					'libelle' => $ndfl->title,
-					'categorie' => ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ] ) && ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0] ) ? $list_type_de_note[ $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0]->term_id ] : $ndfl->category_name,
+					'num_categorie' => $categorie_id,
+					'nom_categorie' => $categorie_label,
 					'km' => $ndfl->distance,
 					'ttc' => $ndfl->tax_inclusive_amount . '€',
 					'tva' => $ndfl->tax_amount . '€',
