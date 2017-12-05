@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 if ( empty( $types_note ) ) :
 	?>
-	<span class="action" contenteditable="false">
+	<span class="action">
 		<span class="label"><a href="<?php echo esc_attr( admin_url( 'edit-tags.php?taxonomy=_type_note' ) ); ?>" target="_blank"><?php esc_html_e( 'Create type notes', 'frais-pro' ); ?></a></span>
 	</span>
 	<?php

@@ -95,10 +95,12 @@ class NDF_Action {
 	public function callback_modify_ndf() {
 		check_ajax_referer( 'modify_ndf' );
 
+		$display_mode = isset( $_POST['display_mode'] ) ? sanitize_text_field( $_POST['display_mode'] ) : 'list';
+
 		$ndf = NDF_Class::g()->update( $_POST );
 
 		ob_start();
-		NDFL_Class::g()->display( $ndf->id );
+		NDFL_Class::g()->display( $ndf->id, $display_mode );
 		$response = ob_get_clean();
 
 		wp_send_json_success( array(

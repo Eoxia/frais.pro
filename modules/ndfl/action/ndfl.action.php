@@ -83,6 +83,7 @@ class NDFL_Action {
 			'namespace' => 'noteDeFrais',
 			'module' => 'NDF',
 			'callback_success' => 'refresh',
+			'no_refresh' => true,
 			'ndf' => $ndf,
 			'view' => $response,
 		) );

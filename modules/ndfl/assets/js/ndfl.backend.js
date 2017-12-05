@@ -21,6 +21,12 @@ window.eoxiaJS.noteDeFrais.NDFL = {};
  window.eoxiaJS.noteDeFrais.NDFL.mediaFrame;
 
 /**
+* Keep the media frame in memory.
+* @type {Object}
+*/
+ window.eoxiaJS.noteDeFrais.NDFL.focusedElement;
+
+/**
  * Keep the selected media in memory.
  * @type {Object}
  */
@@ -37,7 +43,12 @@ window.eoxiaJS.noteDeFrais.NDFL = {};
 window.eoxiaJS.noteDeFrais.NDFL.init = function() {
 	var currentFocusout = true;
 
-	jQuery( document ).on( 'blur keyup paste keydown click', '.row.add li span[contenteditable]', window.eoxiaJS.noteDeFrais.NDFL.updateHiddenInput );
+	jQuery( document ).on( 'click', '.row li span[contenteditable]:not(.date,.action)', window.eoxiaJS.noteDeFrais.NDFL.updateHiddenInput );
+	jQuery( document ).on( 'blur', '.row li span[contenteditable]:not(.date,.action)', function( event ) {
+		if ( window.eoxiaJS.noteDeFrais.NDFL.focusedElement ) {
+			window.eoxiaJS.noteDeFrais.NDFL.focusedElement = undefined;
+		}
+	} );
 
 	jQuery( document ).on( 'click', '.row.add .action .ion-ios-plus', window.eoxiaJS.noteDeFrais.NDFL.saveNDF );
 	jQuery( document ).on( 'keydown', '.row.add span[contenteditable]', function( event ) {
@@ -54,8 +65,8 @@ window.eoxiaJS.noteDeFrais.NDFL.init = function() {
 		}
 		currentFocusout = false;
 	} );
-	jQuery( document ).on( 'keydown', '.libelle span', window.eoxiaJS.noteDeFrais.NDFL.focusSelect );
 
+	jQuery( document ).on( 'keydown', '.libelle span', window.eoxiaJS.noteDeFrais.NDFL.focusSelect );
 	jQuery( document ).on( 'click', '.eox-note-frais .fraispro-mass-line-creation', window.eoxiaJS.noteDeFrais.NDFL.openMedia );
 };
 
@@ -71,9 +82,11 @@ window.eoxiaJS.noteDeFrais.NDFL.changeDate = function( element ) {
 };
 
 window.eoxiaJS.noteDeFrais.NDFL.updateHiddenInput = function( event ) {
-	if ( 0 >= jQuery( this ).text().length ) {
-		jQuery( this ).closest( 'li' ).find( '.ndfl-placeholder' ).addClass( 'hidden' );
+	if ( ! window.eoxiaJS.noteDeFrais.NDFL.focusedElement ) {
+		document.execCommand( 'selectAll', false, null );
 	}
+
+	window.eoxiaJS.noteDeFrais.NDFL.focusedElement = jQuery( this );
 };
 
 window.eoxiaJS.noteDeFrais.NDFL.beforeDisplayModeChange = function( element ) {

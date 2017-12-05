@@ -61,6 +61,7 @@ endif;
 				<input type="hidden" name="id" value="<?php echo esc_attr( $ndf->id ); ?>">
 				<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'modify_ndf' ) ); ?>">
 				<input name="action" type="hidden" value="modify_ndf"/>
+				<input type="hidden" name="display_mode" value="<?php echo esc_attr( $display_mode ); ?>">
 				<input name="validation_status" type="hidden" value="<?php echo esc_html( $ndf->validation_status ); ?>"/>
 				<span class="action">
 					<span class="label pin-status <?php echo esc_attr( NDF_Class::g()->get_status( $ndf->validation_status ) ); ?>"><?php echo esc_html( $ndf->validation_status ); ?></span>
