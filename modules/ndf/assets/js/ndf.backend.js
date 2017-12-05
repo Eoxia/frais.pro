@@ -22,9 +22,9 @@ window.eoxiaJS.noteDeFrais.NDF.init = function() {
 };
 
 window.eoxiaJS.noteDeFrais.NDF.refresh = function( triggeredElement, response ) {
-	if ( ! response.data.no_refresh || ( false === response.data.no_refresh ) ) {
+	// if ( ! response.data.no_refresh || ( false === response.data.no_refresh ) ) {
 		jQuery( '.single-note' ).html( response.data.view );
-	}
+	// }
 	if ( response.data.ndf ) {
 		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .ttc .value' ).text( response.data.ndf.tax_inclusive_amount );
 		jQuery( '.note[data-id="' + response.data.ndf.id + '"] .tva .value' ).text( response.data.ndf.tax_amount );

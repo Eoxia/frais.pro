@@ -43,14 +43,15 @@ window.eoxiaJS.noteDeFrais.NDFL = {};
 window.eoxiaJS.noteDeFrais.NDFL.init = function() {
 	var currentFocusout = true;
 
-	jQuery( document ).on( 'click', '.row li span[contenteditable]:not(.date,.action)', window.eoxiaJS.noteDeFrais.NDFL.updateHiddenInput );
-	jQuery( document ).on( 'blur', '.row li span[contenteditable]:not(.date,.action)', function( event ) {
+	jQuery( document ).on( 'click', '.row li span[contenteditable=true]:not(.date)', window.eoxiaJS.noteDeFrais.NDFL.updateHiddenInput );
+	jQuery( document ).on( 'blur', '.row li span[contenteditable=true]:not(.date)', function( event ) {
 		if ( window.eoxiaJS.noteDeFrais.NDFL.focusedElement ) {
 			window.eoxiaJS.noteDeFrais.NDFL.focusedElement = undefined;
 		}
 	} );
 
-	jQuery( document ).on( 'click', '.row.add .action .ion-ios-plus', window.eoxiaJS.noteDeFrais.NDFL.saveNDF );
+	jQuery( document ).on( 'click', '.row.add .action .icon', window.eoxiaJS.noteDeFrais.NDFL.saveNDF );
+
 	jQuery( document ).on( 'keydown', '.row.add span[contenteditable]', function( event ) {
 		if ( event.ctrlKey && 13 === event.keyCode ) {
 			jQuery( this ).closest( '.row' ).find( '.action .ion-ios-plus' ).click();
@@ -110,6 +111,7 @@ window.eoxiaJS.noteDeFrais.NDFL.saveNDF = function( event ) {
 	if ( 0 !== serialize.length ) {
 		serialize += '&';
 	}
+	window.eoxiaJS.loader.display( jQuery( this ).closest( '.row' ) );
 	jQuery( this ).closest( '.row' ).find( 'input' ).each( function() {
 		if ( 0 !== serialize.length ) {
 			serialize += '&';

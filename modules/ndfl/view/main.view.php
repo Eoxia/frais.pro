@@ -69,7 +69,7 @@ endif;
 				</span>
 				<ul class="content">
 					<?php foreach ( NDF_Class::g()->get_statuses() as $slug => $label ) : ?>
-						<li data-type="<?php echo esc_attr( $slug ); ?>" class="item pin-status <?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $label ); ?></li>
+					<li data-type="<?php echo esc_attr( $slug ); ?>" class="item pin-status <?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $label ); ?></li>
 					<?php endforeach; ?>
 				</ul>
 			</div>
@@ -97,7 +97,7 @@ endif;
 					data-namespace="noteDeFrais"
 					data-module="NDFL"
 					data-before-method="beforeDisplayModeChange"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon dashicons dashicons-screenoptions"></i></span>
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon fa fa-th-large"></i></span>
 				<span class="action-attribute wpeo-button button-square-50 button-grey <?php echo esc_attr( 'list' === $display_mode ? 'active' : '' );  ?>"
 					data-id="<?php echo esc_attr( $ndf->id ); ?>"
 					data-display-mode="list"

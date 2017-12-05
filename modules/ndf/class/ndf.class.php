@@ -203,8 +203,7 @@ class NDF_Class extends \eoxia\Post_Class {
 			),
 		);
 
-		$periode = explode( '-', $ndf->title );
-		$periode = $periode[2] . '/' . $periode[1];
+		$periode = substr( $ndf->title, 0, 4 ) . '/' . substr( $ndf->title, 4, 2 );
 
 		if ( ! empty( $user->firstname ) && ! empty( $user->lastname ) ) {
 			$sheet_details['utilisateur_prenom_nom'] = $user->firstname . ' ' . $user->lastname;

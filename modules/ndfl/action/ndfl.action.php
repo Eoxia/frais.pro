@@ -61,11 +61,15 @@ class NDFL_Action {
 	public function callback_modify_ndfl() {
 		check_ajax_referer( 'modify_ndfl' );
 
+		$edit_mode = false;
 		$ndf_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
 		$display_mode = isset( $_POST['display_mode'] ) ? sanitize_text_field( $_POST['display_mode'] ) : 'list';
 
 		if ( isset( $_POST['row'] ) ) {
 			foreach ( $_POST['row'] as $row ) {
+				if ( isset( $row['id'] ) && ! empty( $row['id'] ) ) {
+					$edit_mode = true;
+				}
 				$row['parent_id'] = $ndf_id;
 				$current_row = NDFL_Class::g()->update( $row );
 			}
@@ -83,7 +87,7 @@ class NDFL_Action {
 			'namespace' => 'noteDeFrais',
 			'module' => 'NDF',
 			'callback_success' => 'refresh',
-			'no_refresh' => true,
+			'no_refresh' => $edit_mode,
 			'ndf' => $ndf,
 			'view' => $response,
 		) );
