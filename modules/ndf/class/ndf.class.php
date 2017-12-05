@@ -96,6 +96,8 @@ class NDF_Class extends \eoxia\Post_Class {
 	 * Définition des statuts
 	 */
 	protected function construct() {
+		parent::construct();
+
 		$this->status = array(
 			'en-cours' => __( 'In progress', 'frais-pro' ),
 			'valide'   => __( 'Validated', 'frais-pro' ),
