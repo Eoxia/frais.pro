@@ -6,7 +6,7 @@ Requires at least: 4.5
 Tested up to: 4.9.0
 Requires PHP: 5.6.3
 Stable tag: 1.3.0
-License: GPLv2 or later
+License: GPLv3 or later
 
 frais.pro allows you to fill your expense very easily, send to the accountant directly in * .csv. Export with photos for archives.
 
