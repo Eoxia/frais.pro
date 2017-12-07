@@ -203,7 +203,7 @@ class NDF_Action {
 					return $full_note;
 				},
 				'permission_callback' => function() {
-					if ( ( ! in_array( $_SERVER['REMOTE_ADDR'], Config_Util::$init['wpeo_model']->allowed_ip_for_unauthentified_access_rest, true ) ) && ! NDF_Class::g()->check_cap( 'get' ) ) {
+					if ( ( ! in_array( $_SERVER['REMOTE_ADDR'], \eoxia\Config_Util::$init['wpeo_model']->allowed_ip_for_unauthentified_access_rest, true ) ) && ! NDF_Class::g()->check_cap( 'get' ) ) {
 						return false;
 					}
 					return true;
