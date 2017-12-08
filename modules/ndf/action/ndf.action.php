@@ -4,7 +4,7 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.3.0
+ * @version 1.3.1
  * @copyright 2017 Eoxia
  * @package Eoxia/NodeDeFrais
  */
@@ -190,6 +190,9 @@ class NDF_Action {
 
 	/**
 	 * Register specific routes for NDF
+	 *
+	 * @since 1.3.0
+	 * @version 1.3.1
 	 */
 	public function register_routes() {
 		register_rest_route( __NAMESPACE__ . '/v' . \eoxia\Config_Util::$init['eo-framework']->wpeo_model->api_version , '/' . NDF_Class::g()->get_rest_base() . '/(?P<id>[\d]+)/details', array(
@@ -203,7 +206,7 @@ class NDF_Action {
 					return $full_note;
 				},
 				'permission_callback' => function() {
-					if ( ( ! in_array( $_SERVER['REMOTE_ADDR'], \eoxia\Config_Util::$init['wpeo_model']->allowed_ip_for_unauthentified_access_rest, true ) ) && ! NDF_Class::g()->check_cap( 'get' ) ) {
+					if ( ( ! in_array( $_SERVER['REMOTE_ADDR'], \eoxia\Config_Util::$init['eo-framework']->wpeo_model->allowed_ip_for_unauthentified_access_rest, true ) ) && ! NDF_Class::g()->check_cap( 'get' ) ) {
 						return false;
 					}
 					return true;
