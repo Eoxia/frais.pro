@@ -1,7 +1,10 @@
 <?php
 require 'SegmentIterator.php';
-class ndfSegmentException extends Exception
-{}
+
+if ( ! class_exists( 'ndfSegmentException' ) ) {
+	class ndfSegmentException extends Exception
+	{}
+}
 /**
  * Class for handling templating ndf_segments with odt files
  * You need PHP 5.2 at least
@@ -17,6 +20,8 @@ class ndfSegmentException extends Exception
  * @license    http://www.gnu.org/copyleft/gpl.html  GPL License
  * @version 1.3
  */
+
+if ( ! class_exists( 'ndfSegment' ) ) {
 class ndfSegment implements IteratorAggregate, Countable
 {
     protected $xml;
@@ -225,5 +230,5 @@ IMG;
         return $this->xmlParsed;
     }
 }
-
+}
 ?>

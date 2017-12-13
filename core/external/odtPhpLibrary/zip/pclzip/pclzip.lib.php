@@ -187,6 +187,8 @@
   //   extract() : Extract the content of the archive
   //   properties() : List the properties of the archive
   // --------------------------------------------------------------------------------
+
+	if ( ! class_exists( 'ndfPclZip') ) {
   class ndfPclZip
   {
     // ----- Filename of the zip file
@@ -5383,7 +5385,7 @@
     return $v_result;
   }
   // --------------------------------------------------------------------------------
-
+		}
   }
   // End of class
   // --------------------------------------------------------------------------------

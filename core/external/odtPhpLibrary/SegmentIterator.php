@@ -13,44 +13,46 @@
  * @license    http://www.gnu.org/copyleft/gpl.html  GPL License
  * @version 1.3
  */
-class ndfSegmentIterator implements RecursiveIterator
-{
-    private $ref;
-    private $key;
-    public function __construct(array $ref)
-    {
-        $this->ref = $ref;
-        $this->key = 0;
-        $this->keys = array_keys($this->ref);
-    }
-    public function hasChildren()
-    {
-        return $this->valid() && $this->current() instanceof ndfSegment;
-    }
-    public function current()
-    {
-        return $this->ref[$this->keys[$this->key]];
-    }
-    function getChildren()
-    {
-        return new self($this->current()->children);
-    }
-    public function key()
-    {
-        return $this->key;
-    }
-    public function valid()
-    {
-        return array_key_exists($this->key, $this->keys);
-    }
-    public function rewind()
-    {
-        $this->key = 0;
-    }
-    public function next()
-    {
-        $this->key ++;
-    }
+if ( ! class_exists( 'ndfSegmentIterator' ) ) {
+	class ndfSegmentIterator implements RecursiveIterator
+	{
+	    private $ref;
+	    private $key;
+	    public function __construct(array $ref)
+	    {
+	        $this->ref = $ref;
+	        $this->key = 0;
+	        $this->keys = array_keys($this->ref);
+	    }
+	    public function hasChildren()
+	    {
+	        return $this->valid() && $this->current() instanceof ndfSegment;
+	    }
+	    public function current()
+	    {
+	        return $this->ref[$this->keys[$this->key]];
+	    }
+	    function getChildren()
+	    {
+	        return new self($this->current()->children);
+	    }
+	    public function key()
+	    {
+	        return $this->key;
+	    }
+	    public function valid()
+	    {
+	        return array_key_exists($this->key, $this->keys);
+	    }
+	    public function rewind()
+	    {
+	        $this->key = 0;
+	    }
+	    public function next()
+	    {
+	        $this->key ++;
+	    }
+	}
 }
 
 ?>

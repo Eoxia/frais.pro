@@ -2,8 +2,11 @@
 require 'zip/PclZipProxy.php';
 require 'zip/PhpZipProxy.php';
 require 'Segment.php';
-class NdfOdfException extends Exception
-{}
+
+if ( ! class_exists( 'NdfOdfException' ) ) {
+	class NdfOdfException extends Exception
+	{}
+}
 /**
  * Templating class for odt file
  * You need PHP 5.2 at least
@@ -19,6 +22,8 @@ class NdfOdfException extends Exception
  * @license    http://www.gnu.org/copyleft/gpl.html  GPL License
  * @version 1.3
  */
+
+if ( ! class_exists( 'NdfOdf' ) ) {
 class NdfOdf
 {
     protected $config = array(
@@ -354,5 +359,5 @@ IMG;
         }
     }
 }
-
+}
 ?>
