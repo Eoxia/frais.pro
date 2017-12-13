@@ -75,13 +75,13 @@ class Document_Class extends \eoxia\Post_Class {
 
 		/**	On créé l'instance pour la génération du document odt / Create instance for document generation */
 		@ini_set( 'memory_limit', '256M' );
-		$DigiOdf = new \DigiOdf( $model_path, $config );
+		$NdfOdf = new \NdfOdf( $model_path, $config );
 
 		/**	Vérification de l'existence d'un contenu a écrire dans le document / Check if there is content to put into file	*/
 		if ( !empty( $document_content ) ) {
 			/**	Lecture du contenu à écrire dans le document / Read the content to write into document	*/
 			foreach ( $document_content as $data_key => $data_value ) {
-				$DigiOdf = $this->set_document_meta( $data_key, $data_value, $DigiOdf );
+				$NdfOdf = $this->set_document_meta( $data_key, $data_value, $NdfOdf );
 			}
 		}
 
@@ -91,7 +91,7 @@ class Document_Class extends \eoxia\Post_Class {
 		}
 
 		/**	Enregistrement du document sur le disque / Save the file on disk	*/
-		$DigiOdf->saveToDisk( $document_path );
+		$NdfOdf->saveToDisk( $document_path );
 
 		/**	Dans le cas ou le fichier a bien été généré, on met a jour les informations dans la base de données / In case the file have been saved successfully, save information into database	*/
 		if ( is_file( $document_path ) ) {
