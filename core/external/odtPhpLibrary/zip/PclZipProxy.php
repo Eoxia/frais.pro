@@ -1,24 +1,24 @@
 <?php
 require_once 'pclzip/pclzip.lib.php';
 require_once 'ZipInterface.php';
-class digidigiPclZipProxyException extends Exception
+class ndfPclZipProxyException extends Exception
 { }
 /**
- * Proxy class for the digiPclZip library
+ * Proxy class for the ndfPclZip library
  * You need PHP 5.2 at least
- * You need Zip Extension or digiPclZip library
+ * You need Zip Extension or ndfPclZip library
  * Encoding : ISO-8859-1
  * Last commit by $Author: eldy $
  * Date - $Date: 2010/03/13 16:05:36 $
  * SVN Revision - $Rev: 28 $
- * Id : $Id: digiPclZipProxy.php,v 1.3 2010/03/13 16:05:36 eldy Exp $
+ * Id : $Id: ndfPclZipProxy.php,v 1.3 2010/03/13 16:05:36 eldy Exp $
  *
  * @copyright  GPL License 2008 - Julien Pauli - Cyril PIERRE de GEYER - Anaska (http://www.anaska.com)
  * @copyright  GPL License 2010 - Laurent Destailleur - eldy@users.sourceforge.net
  * @license    http://www.gnu.org/copyleft/gpl.html  GPL License
  * @version 1.4
  */
-class digidigiPclZipProxy implements digiZipInterface
+class ndfPclZipProxy implements ndfZipInterface
 {
 	protected $tmpdir = '/tmp';
 	protected $openned = false;
@@ -27,13 +27,13 @@ class digidigiPclZipProxy implements digiZipInterface
     /**
      * Class constructor
      *
-     * @throws digiPclZipProxyException
+     * @throws ndfPclZipProxyException
      */
 	public function __construct($forcedir='')
 	{
-		if (! class_exists('digiPclZip')) {
-			throw new digidigiPclZipProxyException('digiPclZip class not loaded - digiPclZip library
-			 is required for using digiPclZipProxy'); ;
+		if (! class_exists('ndfPclZip')) {
+			throw new ndfPclZipProxyException('ndfPclZip class not loaded - ndfPclZip library
+			 is required for using ndfPclZipProxy'); ;
 		}
 		if ($forcedir) $this->tmpdir=preg_replace('|[//\/]$|','',$forcedir);	// $this->tmpdir must not contains / at the end
 	}
@@ -50,7 +50,7 @@ class digidigiPclZipProxy implements digiZipInterface
 			$this->close();
 		}
 		$this->filename = $filename;
-		$this->pclzip = new digiPclZip($this->filename);
+		$this->pclzip = new ndfPclZip($this->filename);
 		$this->openned = true;
 		return true;
 	}

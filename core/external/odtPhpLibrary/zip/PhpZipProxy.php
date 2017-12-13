@@ -1,23 +1,23 @@
 <?php
 require_once 'ZipInterface.php';
-class digiPhpZipProxyException extends Exception
+class ndfPhpZipProxyException extends Exception
 { }
 /**
  * Proxy class for the PHP Zip Extension
  * You need PHP 5.2 at least
- * You need Zip Extension or digiPclZip library
+ * You need Zip Extension or ndfPclZip library
  * Encoding : ISO-8859-1
  * Last commit by $Author: neveldo $
  * Date - $Date: 2009-05-29 10:05:11 +0200 (ven., 29 mai 2009) $
  * SVN Revision - $Rev: 28 $
- * Id : $Id: DigiOdf.php 28 2009-05-29 08:05:11Z neveldo $
+ * Id : $Id: NdfOdf.php 28 2009-05-29 08:05:11Z neveldo $
  *
  * @copyright  GPL License 2008 - Julien Pauli - Cyril PIERRE de GEYER - Anaska (http://www.anaska.com)
  * @license    http://www.gnu.org/copyleft/gpl.html  GPL License
  * @version 1.3
  */
 
-class digiPhpZipProxy implements digiZipInterface
+class ndfPhpZipProxy implements ndfZipInterface
 {
 	protected $zipArchive;
 	protected $filename;
@@ -29,8 +29,8 @@ class digiPhpZipProxy implements digiZipInterface
 	public function __construct()
 	{
 		if (! class_exists('ZipArchive')) {
-			throw new digiPhpZipProxyException('Zip extension not loaded - check your php settings, PHP5.2 minimum with zip extension
-			 is required for using digiPhpZipProxy'); ;
+			throw new ndfPhpZipProxyException('Zip extension not loaded - check your php settings, PHP5.2 minimum with zip extension
+			 is required for using ndfPhpZipProxy'); ;
 		}
 		$this->zipArchive = new ZipArchive();
 	}

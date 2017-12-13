@@ -1,23 +1,23 @@
 <?php
 require 'SegmentIterator.php';
-class digiSegmentException extends Exception
+class ndfSegmentException extends Exception
 {}
 /**
- * Class for handling templating digi_segments with odt files
+ * Class for handling templating ndf_segments with odt files
  * You need PHP 5.2 at least
- * You need Zip Extension or digiPclZip library
+ * You need Zip Extension or ndfPclZip library
  * Encoding : ISO-8859-1
  * Author: neveldo $
  * Modified by: Vikas Mahajan http://vikasmahajan.wordpress.com
  * Date - $Date: 2010-12-09 11:11:57
  * SVN Revision - $Rev: 44 $
- * Id : $Id: digiSegment.php 44 2009-06-17 10:12:59Z neveldo $
+ * Id : $Id: ndfSegment.php 44 2009-06-17 10:12:59Z neveldo $
  *
  * @copyright  GPL License 2008 - Julien Pauli - Cyril PIERRE de GEYER - Anaska (http://www.anaska.com)
  * @license    http://www.gnu.org/copyleft/gpl.html  GPL License
  * @version 1.3
  */
-class digiSegment implements IteratorAggregate, Countable
+class ndfSegment implements IteratorAggregate, Countable
 {
     protected $xml;
     protected $xmlParsed = '';
@@ -26,25 +26,25 @@ class digiSegment implements IteratorAggregate, Countable
     protected $vars = array();
     public $manif_vars = array();
 	protected $images = array();
-	protected $DigiOdf;
+	protected $NdfOdf;
 	protected $file;
     /**
      * Constructor
      *
-     * @param string $name name of the digi_segment to construct
-     * @param string $xml XML tree of the digi_segment
+     * @param string $name name of the ndf_segment to construct
+     * @param string $xml XML tree of the ndf_segment
      */
-    public function __construct($name, $xml, $DigiOdf)
+    public function __construct($name, $xml, $NdfOdf)
     {
         $this->name = (string) $name;
         $this->xml = (string) $xml;
-		$this->DigiOdf = $DigiOdf;
-        $zipHandler = $this->DigiOdf->getConfig('ZIP_PROXY');
-        $this->file = new $zipHandler($this->DigiOdf->getConfig('PATH_TO_TMP'));
+		$this->NdfOdf = $NdfOdf;
+        $zipHandler = $this->NdfOdf->getConfig('ZIP_PROXY');
+        $this->file = new $zipHandler($this->NdfOdf->getConfig('PATH_TO_TMP'));
         $this->_analyseChildren($this->xml);
     }
     /**
-     * Returns the name of the digi_segment
+     * Returns the name of the ndf_segment
      *
      * @return string
      */
@@ -53,7 +53,7 @@ class digiSegment implements IteratorAggregate, Countable
         return $this->name;
     }
     /**
-     * Does the digi_segment have children ?
+     * Does the ndf_segment have children ?
      *
      * @return bool
      */
@@ -77,7 +77,7 @@ class digiSegment implements IteratorAggregate, Countable
      */
     public function getIterator()
     {
-        return new RecursiveIteratorIterator(new digiSegmentIterator($this->children), 1);
+        return new RecursiveIteratorIterator(new ndfSegmentIterator($this->children), 1);
     }
     /**
      * Replace variables of the template in the XML code
@@ -92,7 +92,7 @@ class digiSegment implements IteratorAggregate, Countable
             foreach ($this->children as $child) {
                 $this->xmlParsed = str_replace($child->xml, ($child->xmlParsed=="")?$child->merge():$child->xmlParsed, $this->xmlParsed);
                 $child->xmlParsed = '';
-                //Store all image names used in child digi_segments in current digi_segment array
+                //Store all image names used in child ndf_segments in current ndf_segment array
 				foreach ($child->manif_vars as $file)
                 $this->manif_vars[] = $file;
                 $child->manif_vars=array();
@@ -100,7 +100,7 @@ class digiSegment implements IteratorAggregate, Countable
         }
         $reg = "/\[!--\sBEGIN\s$this->name\s--\](.*)\[!--\sEND\s$this->name\s--\]/sm";
         $this->xmlParsed = preg_replace($reg, '$1', $this->xmlParsed);
-        $this->file->open($this->DigiOdf->getTmpfile());
+        $this->file->open($this->NdfOdf->getTmpfile());
         foreach ($this->images as $imageKey => $imageValue) {
 			if ($this->file->getFromName('Pictures/' . $imageValue) === false) {
 				$this->file->addFile($imageKey, 'Pictures/' . $imageValue);
@@ -114,7 +114,7 @@ class digiSegment implements IteratorAggregate, Countable
      * Analyse the XML code in order to find children
      *
      * @param string $xml
-     * @return digiSegment
+     * @return ndfSegment
      */
     protected function _analyseChildren($xml)
     {
@@ -123,7 +123,7 @@ class digiSegment implements IteratorAggregate, Countable
         preg_match_all($reg2, $xml, $matches);
         for ($i = 0, $size = count($matches[0]); $i < $size; $i++) {
             if ($matches[1][$i] != $this->name) {
-                $this->children[$matches[1][$i]] = new self($matches[1][$i], $matches[0][$i], $this->DigiOdf);
+                $this->children[$matches[1][$i]] = new self($matches[1][$i], $matches[0][$i], $this->NdfOdf);
             } else {
                 $this->_analyseChildren($matches[2][$i]);
             }
@@ -135,18 +135,18 @@ class digiSegment implements IteratorAggregate, Countable
      *
      * @param string $key
      * @param string $value
-     * @throws digiSegmentException
-     * @return digiSegment
+     * @throws ndfSegmentException
+     * @return ndfSegment
      */
     public function setVars($key, $value, $encode = true, $charset = 'ISO-8859')
     {
-        if (strpos($this->xml, $this->DigiOdf->getConfig('DELIMITER_LEFT') . $key . $this->DigiOdf->getConfig('DELIMITER_RIGHT')) === false) {
-            // throw new digiSegmentException("var $key not found in {$this->getName()}");
+        if (strpos($this->xml, $this->NdfOdf->getConfig('DELIMITER_LEFT') . $key . $this->NdfOdf->getConfig('DELIMITER_RIGHT')) === false) {
+            // throw new ndfSegmentException("var $key not found in {$this->getName()}");
 						return;
         }
 		$value = $encode ? htmlspecialchars($value) : $value;
 		$value = ($charset == 'ISO-8859') ? utf8_encode($value) : $value;
-        $this->vars[$this->DigiOdf->getConfig('DELIMITER_LEFT') . $key . $this->DigiOdf->getConfig('DELIMITER_RIGHT')] = str_replace("\n", "<text:line-break/>", $value);
+        $this->vars[$this->NdfOdf->getConfig('DELIMITER_LEFT') . $key . $this->NdfOdf->getConfig('DELIMITER_RIGHT')] = str_replace("\n", "<text:line-break/>", $value);
         return $this;
     }
     /**
@@ -154,8 +154,8 @@ class digiSegment implements IteratorAggregate, Countable
      *
      * @param string $key name of the variable within the template
      * @param string $value path to the picture
-     * @throws DigiOdfException
-     * @return digiSegment
+     * @throws NdfOdfException
+     * @return ndfSegment
      */
     public function setImage($key, $value, $finalWidth = 0)
     {
@@ -163,13 +163,13 @@ class digiSegment implements IteratorAggregate, Countable
         $file = substr(strrchr($value, '/'), 1);
         $size = @getimagesize($value);
         if ($size === false) {
-            throw new DigiOdfException("Invalid image");
+            throw new NdfOdfException("Invalid image");
         }
         list ($width, $height) = $size;
 				if($finalWidth <= 0)
 				{
-					$width *= DigiOdf::PIXEL_TO_CM;
-					$height *= DigiOdf::PIXEL_TO_CM;
+					$width *= NdfOdf::PIXEL_TO_CM;
+					$height *= NdfOdf::PIXEL_TO_CM;
 				}
 				else
 				{
@@ -189,15 +189,15 @@ IMG;
      * Shortcut to retrieve a child
      *
      * @param string $prop
-     * @return digiSegment
-     * @throws digiSegmentException
+     * @return ndfSegment
+     * @throws ndfSegmentException
      */
     public function __get($prop)
     {
         if (array_key_exists($prop, $this->children)) {
             return $this->children[$prop];
         } else {
-            throw new digiSegmentException('child ' . $prop . ' does not exist');
+            throw new ndfSegmentException('child ' . $prop . ' does not exist');
         }
     }
     /**
@@ -205,14 +205,14 @@ IMG;
      *
      * @param string $meth
      * @param array $args
-     * @return digiSegment
+     * @return ndfSegment
      */
     public function __call($meth, $args)
     {
         try {
             return $this->setVars($meth, $args[0]);
-        } catch (digiSegmentException $e) {
-            throw new digiSegmentException("method $meth nor var $meth exist");
+        } catch (ndfSegmentException $e) {
+            throw new ndfSegmentException("method $meth nor var $meth exist");
         }
     }
     /**
