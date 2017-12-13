@@ -127,7 +127,7 @@ class Document_Class extends \eoxia\Post_Class {
 					break;
 
 				case 'segment':
-					$segment = $current_odf->setdigiSegment( $data_key );
+					$segment = $current_odf->setndfSegment( $data_key );
 
 					if ( $segment && is_array( $data_value[ 'value' ] ) ) {
 						foreach ( $data_value[ 'value' ] as $segment_detail ) {
@@ -147,7 +147,7 @@ class Document_Class extends \eoxia\Post_Class {
 							$segment->merge();
 						}
 
-						$current_odf->mergedigiSegment( $segment );
+						$current_odf->mergendfSegment( $segment );
 					}
 					unset( $segment );
 					break;
