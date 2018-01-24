@@ -10,7 +10,7 @@
  * @subpackage model
  */
 
-namespace note_de_frais;
+namespace frais_pro;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 

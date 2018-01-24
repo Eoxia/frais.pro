@@ -1,0 +1,23 @@
+{
+	"name": "Professionnal fees lines",
+	"slug": "line",
+	"version": "1.4.0",
+	"description": "Le module gérant les lignes de note de frais",
+	"path": "modules/line/",
+	"dependencies": {
+		"model": {},
+		"class": {},
+		"action": {},
+		"helper": {}
+	},
+	"line_mandatory_values": {
+		"amount": [
+			"tax_inclusive_amount",
+			"tax_amount"
+		],
+		"category": [
+			"category_name",
+			"current_category"
+		]
+	}
+}

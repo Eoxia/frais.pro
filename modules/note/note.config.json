@@ -1,0 +1,13 @@
+{
+	"name": "Notes",
+	"slug": "note",
+	"version": "1.4.0",
+	"description": "Le module gérant les notes de frais",
+	"path": "modules/note/",
+	"dependencies": {
+		"model": {},
+		"class": {},
+		"action": {},
+		"helper": {}
+	}
+}

@@ -1,19 +1,16 @@
 {
 	"name": "Note de frais",
 	"slug": "frais-pro",
-	"version": "1.3.0",
+	"version": "1.4.0",
 	"description": "L'application Note de frais",
 	"insert_scripts_pages_js": [
 		"frais-pro",
-		"frais-pro-archive",
 		"profile.php",
-		""
+		"frais-pro-update"
 	],
 	"insert_scripts_pages_css": [
 		"frais-pro",
-		"frais-pro-archive",
-		"profile.php",
-		""
+		"profile.php"
 	],
 	"externals": [],
 	"modules": [
@@ -21,8 +18,9 @@
 		"modules/document/document.config.json",
 		"modules/user/user.config.json",
 		"modules/type-note/type-note.config.json",
-		"modules/ndf/ndf.config.json",
-		"modules/ndfl/ndfl.config.json"
+		"modules/note/note.config.json",
+		"modules/line/line.config.json",
+		"modules/update_manager/update_manager.config.json"
 	],
 	"debug": false,
 	"chevaux": [
@@ -32,5 +30,6 @@
 		"6 CV",
 		"7 CV et plus"
 	],
-	"core_option": "_ndf_core"
+	"core_option": "_ndf_core",
+	"key_last_update_version" : "_fp_last_update_version"
 }

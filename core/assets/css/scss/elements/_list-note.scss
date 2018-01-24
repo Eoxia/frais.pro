@@ -1,0 +1,12 @@
+.list-note {
+	.note {
+
+	}
+
+	@media ( max-width: 360px ) {
+		.note .content .element {
+			padding: 2em 0;
+		}
+	}
+
+}

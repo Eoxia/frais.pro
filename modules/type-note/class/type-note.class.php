@@ -9,7 +9,7 @@
  * @package NDF
  */
 
-namespace note_de_frais;
+namespace frais_pro;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,7 +25,7 @@ class Type_Note_Class extends \eoxia\Term_Class {
 	 *
 	 * @var string
 	 */
-	protected $model_name = '\note_de_frais\Type_Note_Model';
+	protected $model_name = '\frais_pro\Type_Note_Model';
 
 	/**
 	 * Nom de la meta stockant les donnée

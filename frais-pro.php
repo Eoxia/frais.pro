@@ -14,7 +14,7 @@
  * @package Note De Frais
  */
 
-namespace note_de_frais;
+namespace frais_pro;
 
 DEFINE( 'PLUGIN_NOTE_DE_FRAIS_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
 DEFINE( 'PLUGIN_NOTE_DE_FRAIS_URL', plugins_url( basename( __DIR__ ) ) . '/' );

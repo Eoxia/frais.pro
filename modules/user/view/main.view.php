@@ -9,7 +9,7 @@
  * @version 1.3.0
  */
 
-namespace note_de_frais;
+namespace frais_pro;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -49,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<tr class="user-marque-wrap">
 			<th><label for="marque"><?php esc_html_e( 'Registration document scan', 'frais-pro' ); ?></label></th>
-			<td class="eox-note-frais"><?php echo do_shortcode( '[wpeo_upload id="' . $user->id . '" model_name="/note_de_frais/User_Class"]' ); ?></td>
+			<td class="eox-note-frais"><?php echo do_shortcode( '[wpeo_upload id="' . $user->id . '" model_name="/frais_pro/User_Class"]' ); ?></td>
 		</tr>
 
 		<?php if ( ( get_current_user_id() !== $user->id ) || ( 1 === get_current_user_id() ) ) : ?>

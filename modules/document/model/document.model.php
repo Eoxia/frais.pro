@@ -1,4 +1,4 @@
-<?php namespace note_de_frais;
+<?php namespace frais_pro;
 
 if ( !defined( 'ABSPATH' ) ) exit;
 

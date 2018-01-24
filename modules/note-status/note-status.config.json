@@ -1,0 +1,12 @@
+{
+	"name": "Statut des notes",
+	"slug": "note-status",
+	"since": "1.4.0",
+	"version": "1.4.0",
+	"description": "Le module gérant les statuts des notes",
+	"path": "modules/note-status/",
+	"dependencies": {
+		"model": {},
+		"class": {}
+	}
+}

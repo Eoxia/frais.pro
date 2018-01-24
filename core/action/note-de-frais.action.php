@@ -8,7 +8,7 @@
  * @version 1.3.0
  */
 
-namespace note_de_frais;
+namespace frais_pro;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -151,7 +151,7 @@ class Note_De_Frais_Action {
 	 */
 	public function callback_admin_menu() {
 		add_menu_page( __( 'Frais.pro', 'frais-pro' ), __( 'Frais.pro', 'frais-pro' ), 'manage_options', 'frais-pro', array( Note_De_Frais_Class::g(), 'display' ), 'dashicons-format-aside' );
-		add_submenu_page( 'frais-pro', __( 'Archives', 'frais-pro' ), __( 'Archives', 'frais-pro' ), 'manage_options', 'frais-pro-archive', array( Note_De_Frais_Class::g(), 'display_archive' ) );
+		add_submenu_page( 'frais-pro', __( 'Frais.pro - Notes', 'frais-pro' ), __( 'Notes', 'frais-pro' ), 'manage_options', 'frais-pro', array( Note_De_Frais_Class::g(), 'display' ) );
 	}
 
 }

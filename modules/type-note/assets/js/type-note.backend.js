@@ -48,7 +48,7 @@ window.eoxiaJS.noteDeFrais.typeNote.select = function( event ) {
 	row.find( '.toggle input' ).val( jQuery( this ).data( 'id' ) );
 	row.find( '.toggle .content' ).removeClass( 'active' );
 	if ( ! row.hasClass( 'add' ) ) {
-		jQuery( this ).each( window.eoxiaJS.noteDeFrais.NDFL.saveNDF );
+		jQuery( this ).each( window.eoxiaJS.noteDeFrais.line.saveNDF );
 	}
 
 	window.eoxiaJS.noteDeFrais.typeNote.setStateField( row, 'km', false );

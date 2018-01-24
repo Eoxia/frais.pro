@@ -1,9 +1,9 @@
-<?php namespace note_de_frais;
+<?php namespace frais_pro;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 class Document_Class extends \eoxia\Post_Class {
-	protected $model_name   				= '\note_de_frais\document_model';
+	protected $model_name   				= '\frais_pro\document_model';
 	protected $post_type    				= 'attachment';
 	public $attached_taxonomy_type  = 'attachment_category';
 	protected $meta_key    					= '_wpdigi_document';
