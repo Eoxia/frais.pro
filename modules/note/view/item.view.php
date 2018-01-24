@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<td class="note-status" ><?php echo esc_html( $ndf->validation_status ); ?></td>
 	<td>
 		<a href="<?php menu_page_url( 'frais-pro', true ); ?>&note=<?php echo esc_attr( $ndf->id ); ?>" ><?php echo esc_html( $ndf->title ); ?></a>
-		<div class="note-last-update" ><?php esc_html_e( 'Last update', 'frais-pro' ); ?> : <?php echo esc_html( $ndf->date_modified['date_human_readable'] ); ?></div>
+		<div class="note-last-update" ><?php esc_html_e( 'Last update', 'frais-pro' ); ?> : <?php echo esc_html( $ndf->date_modified['rendered']['date_human_readable'] ); ?></div>
 	</td>
 	<td>
 		<span class="value"><?php echo esc_html( $ndf->tax_inclusive_amount ); ?></span>

@@ -23,18 +23,19 @@ if ( empty( $types_note ) ) :
 	</span>
 	<?php
 else : ?>
-	<input name="taxonomy[<?php echo esc_attr( Type_Note_Class::g()->get_taxonomy() ); ?>][0]" type="hidden" value="<?php echo ( ! empty( $ndfl->id ) && ! empty( $ndfl_type_note_id ) ? esc_attr( $ndfl_type_note_id ) : '' ); ?>" />
+	<input name="taxonomy[<?php echo esc_attr( Type_Note_Class::g()->get_type() ); ?>][0]" type="hidden" value="<?php echo ( ! empty( $ndfl->id ) && ! empty( $ndfl_type_note_id ) ? esc_attr( $ndfl_type_note_id ) : '' ); ?>" />
 
-	<span class="action" contenteditable="false">
-		<span class="label"><?php echo esc_html( $selected_type_note_name ); ?></span>
-		<i class="icon fa fa-angle-down"></i>
-	</span>
-	<ul class="content">
-<?php if ( ! empty( $types_note ) ) : ?>
-	<?php foreach ( $types_note as $type_note ) : ?>
-		<li class="item" data-id="<?php echo esc_attr( $type_note->id ); ?>" data-special-treatment="<?php echo esc_attr( $type_note->special_treatment ); ?>" ><?php echo esc_html( $type_note->category_id . ' : ' . $type_note->name ); ?></li>
-	<?php endforeach; ?>
-<?php endif; ?>
-	</ul>
-
+	<div class="wpeo-dropdown">
+		<button class="dropdown-toggle wpeo-button button-main">
+			<span><?php echo esc_html( $selected_type_note_name ); ?></span>
+			<i class="button-icon fa fa-caret-down"></i>
+		</button>
+		<ul class="dropdown-content">
+	<?php if ( ! empty( $types_note ) ) : ?>
+		<?php foreach ( $types_note as $type_note ) : ?>
+			<li class="dropdown-item" data-id="<?php echo esc_attr( $type_note->id ); ?>" data-special-treatment="<?php echo esc_attr( $type_note->special_treatment ); ?>" ><?php echo esc_html( $type_note->category_id . ' : ' . $type_note->name ); ?></li>
+		<?php endforeach; ?>
+	<?php endif; ?>
+			</ul>
+	</div>
 <?php endif; ?>

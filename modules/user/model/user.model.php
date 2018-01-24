@@ -27,38 +27,38 @@ class User_Model extends \eoxia\User_Model {
 	 * @since 1.0.0.0
 	 * @version 1.0.0.0
 	 */
-	public function __construct( $object ) {
-		$this->model['marque'] = array(
+	public function __construct( $data = null, $req_method = null ) {
+		$this->schema['marque'] = array(
 			'type'			=> 'string',
 			'meta_type' => 'single',
 			'field' 		=> '_ndf_marque',
 		);
 
-		$this->model['chevaux'] = array(
+		$this->schema['chevaux'] = array(
 			'type'			=> 'string',
 			'meta_type' => 'single',
 			'field' 		=> '_ndf_chevaux',
 		);
 
-		$this->model['prixkm'] = array(
+		$this->schema['prixkm'] = array(
 			'type'			=> 'float',
 			'meta_type' => 'single',
 			'field' 		=> '_ndf_prixkm',
 		);
 
-		$this->model['ndf_admin'] = array(
+		$this->schema['ndf_admin'] = array(
 			'type'			=> 'boolean',
 			'meta_type' => 'single',
 			'field' 		=> '_ndf_user_is_admin',
 		);
 
 		// Ajout des champs image dans le compte utilisateur.
-		$this->model['thumbnail_id'] = array(
+		$this->schema['thumbnail_id'] = array(
 			'type'			=> 'integer',
 			'meta_type' => 'single',
 			'field' 		=> '_ndf_thumbnail_id',
 		);
-		$this->model['associated_document_id'] = array(
+		$this->schema['associated_document_id'] = array(
 			'type'				=> 'array',
 			'meta_type'	=> 'multiple',
 			'child' => array(
@@ -69,6 +69,6 @@ class User_Model extends \eoxia\User_Model {
 			),
 		);
 
-		parent::__construct( $object );
+		parent::__construct( $data, $req_method );
 	}
 }

@@ -225,7 +225,7 @@ class Note_Class extends \eoxia\Post_Class {
 		}
 
 		$sheet_details['status'] = $ndf->validation_status;
-		$sheet_details['miseajour'] = $ndf->date_modified['date_human_readable'];
+		$sheet_details['miseajour'] = $ndf->date_modified['rendered']['date_human_readable'];
 
 		if ( ! empty( $ndfls ) ) {
 			foreach ( $ndfls as $ndfl ) {
@@ -253,9 +253,9 @@ class Note_Class extends \eoxia\Post_Class {
 
 				$categorie_id = '-';
 				$categorie_label = $ndfl->category_name;
-				if ( ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ] ) && ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0] ) && array_key_exists( $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0]->term_id, $list_type_de_note ) ) {
-					$categorie_id = $list_type_de_note[ $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0]->term_id ]['id'];
-					$categorie_label = $list_type_de_note[ $ndfl->taxonomy[ Type_Note_Class::g()->get_taxonomy() ][0]->term_id ]['name'];
+				if ( ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_type() ] ) && ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_type() ][0] ) && array_key_exists( $ndfl->taxonomy[ Type_Note_Class::g()->get_type() ][0]->term_id, $list_type_de_note ) ) {
+					$categorie_id = $list_type_de_note[ $ndfl->taxonomy[ Type_Note_Class::g()->get_type() ][0]->term_id ]['id'];
+					$categorie_label = $list_type_de_note[ $ndfl->taxonomy[ Type_Note_Class::g()->get_type() ][0]->term_id ]['name'];
 				}
 
 				$sheet_details['ndf']['value'][] = array(

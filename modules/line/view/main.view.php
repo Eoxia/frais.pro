@@ -62,15 +62,18 @@ endif;
 				<input name="action" type="hidden" value="modify_ndf"/>
 				<input type="hidden" name="display_mode" value="<?php echo esc_attr( $display_mode ); ?>">
 				<input name="validation_status" type="hidden" value="<?php echo esc_html( $ndf->validation_status ); ?>"/>
-				<span class="action">
-					<span class="label pin-status <?php echo esc_attr( Note_Class::g()->get_status( $ndf->validation_status ) ); ?>"><?php echo esc_html( $ndf->validation_status ); ?></span>
-					<i class="icon fa fa-angle-down"></i>
-				</span>
-				<ul class="content">
+
+				<div class="wpeo-dropdown">
+					<button class="dropdown-toggle wpeo-button button-main">
+						<span><?php echo esc_html( $ndf->validation_status ); ?></span>
+						<i class="button-icon fa fa-caret-down"></i>
+					</button>
+					<ul class="dropdown-content">
 					<?php foreach ( Note_Class::g()->get_statuses() as $slug => $label ) : ?>
-					<li data-type="<?php echo esc_attr( $slug ); ?>" class="item pin-status <?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $label ); ?></li>
+						<li data-type="<?php echo esc_attr( $slug ); ?>" class="dropdown-item pin-status <?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $label ); ?></li>
 					<?php endforeach; ?>
-				</ul>
+					</ul>
+				</div>
 			</div>
 			<span class="export toggle list" data-parent="toggle" data-target="content" >
 				<?php \eoxia\View_Util::exec( 'frais-pro', 'note', 'actions', array(
@@ -81,7 +84,7 @@ endif;
 
 		<div class="content">
 			<!-- <span class="button blue float right saveNDF" data-parent="note">Mettre à jour</span> -->
-			<div class="update"><?php esc_attr_e( 'Last update', 'frais-pro' ); ?> : <span class="date_modified_value"><?php echo esc_html( $ndf->date_modified['date_human_readable'] ); ?></span></div>
+			<div class="update"><?php esc_attr_e( 'Last update', 'frais-pro' ); ?> : <span class="date_modified_value"><?php echo esc_html( $ndf->date_modified['rendered']['date_human_readable'] ); ?></span></div>
 
 			<?php if ( empty( $user->prixkm ) ) : ?>
 				<div class="notice error"><?php echo sprintf( __( 'Your %1$sprice per kilometer%2$s is not setted. Please go to %3$syour profile%4$s in order to set it.', 'frais-pro' ), '<strong>', '</strong>', '<a target="_blank" href="' . esc_url( get_edit_profile_url() ) . '">', '</a>' ); ?></div>

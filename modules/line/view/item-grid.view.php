@@ -26,8 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<div>
 			<li class="group-date date" data-title="<?php esc_attr_e( 'Date', 'frais-pro' ); ?>" data-namespace="noteDeFrais" data-module="NDFL" data-after-method="changeDate" >
-				<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none; display: block; height: 0px;" name="date" value="<?php echo esc_attr( $ndfl->date['date_input']['date'] ); ?>" />
-				<span contenteditable="<?php echo esc_attr( $ndf_is_closed ? 'false' : 'true' ); ?>" class="date"><?php echo esc_html( $ndfl->date['date_input']['fr_FR']['date'] ); ?></span>
+				<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none; display: block; height: 0px;" name="date" value="<?php echo esc_attr( $ndfl->date['rendered']['date_input']['date'] ); ?>" />
+				<span contenteditable="<?php echo esc_attr( $ndf_is_closed ? 'false' : 'true' ); ?>" class="date"><?php echo esc_html( $ndfl->date['rendered']['date_input']['fr_FR']['date'] ); ?></span>
 			</li>
 			<li class="libelle<?php echo esc_attr( ! empty( $line_status ) && ( false === $line_status['status'] ) && in_array( 'title', $line_status['errors'], true ) ? ' ndfl-input-error' : '' ); ?>" data-title="<?php esc_attr_e( 'Name', 'frais-pro' ); ?>">
 				<span contenteditable="<?php echo esc_attr( $ndf_is_closed ? 'false' : 'true' ); ?>" data-name="row[<?php echo esc_attr( $i ); ?>][title]"><?php echo esc_html( $ndfl->title ); ?></span>

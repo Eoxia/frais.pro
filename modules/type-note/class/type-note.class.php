@@ -62,7 +62,7 @@ class Type_Note_Class extends \eoxia\Term_Class {
 			'taxonomy' => $this->taxonomy,
 		) );
 
-		$ndfl_type_note = null !== $ndfl && ! empty( $ndfl->taxonomy[ $this->get_taxonomy() ][0] ) && ! empty( $ndfl->taxonomy[ $this->get_taxonomy() ][0]->term_id ) ? $ndfl->taxonomy[ $this->get_taxonomy() ][0]->term_id : 0;
+		$ndfl_type_note = null !== $ndfl && ! empty( $ndfl->taxonomy[ $this->get_type() ][0] ) && ! empty( $ndfl->taxonomy[ $this->get_type() ][0]->term_id ) ? $ndfl->taxonomy[ $this->get_type() ][0]->term_id : 0;
 
 		$selected_type_note_name = __( 'Note types', 'frais-pro' );
 		if ( ! empty( $types_note ) && ! empty( $ndfl_type_note ) ) {

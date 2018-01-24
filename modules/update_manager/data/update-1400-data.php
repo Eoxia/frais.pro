@@ -25,7 +25,7 @@
 $datas = array(
 	array(
 		'action'      => 'frais_pro_update_1400_change_statuses_storage',
-		'description' => __( 'You mother fucker. Just Fuck you with this fucking statuses', 'frais-pro' ),
+		'description' => __( 'Change the status for update action', 'frais-pro' ),
 		'since'       => '1.4.0',
 		'version'     => '1.4.0',
 	),

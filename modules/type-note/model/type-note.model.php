@@ -28,20 +28,20 @@ class Type_Note_Model extends \eoxia\Term_Model {
 	 * @since 1.0.0
 	 * @version 1.2.0
 	 */
-	public function __construct( $object ) {
-		$this->model['category_id'] = array(
+	public function __construct( $data = null, $req_method = null ) {
+		$this->schema['category_id'] = array(
 			'type'          => 'string',
 			'meta_type'     => 'single',
 			'field'         => '_type_note_category_id',
 		);
 
-		$this->model['special_treatment'] = array(
+		$this->schema['special_treatment'] = array(
 			'type'          => 'string',
 			'meta_type'     => 'single',
 			'field'         => '_type_note_special_treatment',
 		);
 
-		parent::__construct( $object );
+		parent::__construct( $data );
 	}
 
 }

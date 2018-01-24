@@ -126,7 +126,7 @@ class Note_De_Frais_Action {
 			if ( ! empty( $data ) ) {
 				foreach ( $data as $category ) {
 					$category_slug = sanitize_title( $category['category_id'] . ' : ' . $category['name'] );
-					$tax = get_term_by( 'slug', $category_slug, Type_Note_Class::g()->get_taxonomy(), ARRAY_A );
+					$tax = get_term_by( 'slug', $category_slug, Type_Note_Class::g()->get_type(), ARRAY_A );
 
 					if ( ! empty( $tax['term_id'] ) && is_int( $tax['term_id'] ) ) {
 						$category['id'] = $tax['term_id'];

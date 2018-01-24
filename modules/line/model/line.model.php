@@ -29,38 +29,38 @@ class Line_Model extends \eoxia\Post_Model {
 	 * @since 1.0.0
 	 * @version 1.2.0
 	 */
-	public function __construct( $object ) {
-		$this->model['category_name'] = array(
+	public function __construct( $data = null, $req_method = null ) {
+		$this->schema['category_name'] = array(
 			'type'          => 'string',
 			'meta_type'     => 'single',
 			'field'         => '_ndfl_category_name',
 		);
 
-		$this->model['vehicule'] = array(
+		$this->schema['vehicule'] = array(
 			'type'          => 'string',
 			'meta_type'     => 'single',
 			'field'         => '_ndfl_vehicule',
 		);
 
-		$this->model['distance'] = array(
+		$this->schema['distance'] = array(
 			'type'          => 'integer',
 			'meta_type'     => 'single',
 			'field'         => '_ndfl_distance',
 		);
 
-		$this->model['tax_inclusive_amount'] = array(
+		$this->schema['tax_inclusive_amount'] = array(
 			'type'          => 'float',
 			'meta_type'     => 'single',
 			'field'         => '_ndfl_tax_inclusive_amount',
 		);
 
-		$this->model['tax_amount'] = array(
+		$this->schema['tax_amount'] = array(
 			'type'          => 'float',
 			'meta_type'     => 'single',
 			'field'         => '_ndfl_tax_amount',
 		);
 
-		$this->model['taxonomy'] = array(
+		$this->schema['taxonomy'] = array(
 			'type' => 'array',
 			'meta_type' => 'multiple',
 			'child' => array(
@@ -72,7 +72,7 @@ class Line_Model extends \eoxia\Post_Model {
 			),
 		);
 
-		parent::__construct( $object );
+		parent::__construct( $data, $req_method );
 	}
 
 }
