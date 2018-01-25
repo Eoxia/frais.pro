@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<h1>
 		<?php esc_html_e( 'Professionnal fees sheets', 'frais-pro' ); ?>
 
-		<div class="wpeo-button button-main action-attribute"
+		<div class="wpeo-button button-blue action-attribute button-size-small button-radius-2"
 				data-action="create_ndf"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_ndf' ) ); ?>" >
 			<i class="button-icon fa fa-plus-circle"></i>
@@ -26,11 +26,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</h1>
 
 <?php if ( ! empty( $ndfs ) ) : ?>
-	<table class="wpeo-table list-note" >
+	<table class="wpeo-table list-note main" >
 		<tbody>
-		<?php foreach ( $ndfs as $ndf ) : ?>
-		<?php		\eoxia\View_Util::exec( 'frais-pro', 'note', 'item', array( 'ndf' => $ndf ) ); ?>
-		<?php endforeach; ?>
+			<?php
+			foreach ( $ndfs as $ndf ) :
+				\eoxia\View_Util::exec( 'frais-pro', 'note', 'item', array( 'ndf' => $ndf ) );
+			endforeach;
+			?>
 		</tbody>
 	</table>
 <?php else : ?>

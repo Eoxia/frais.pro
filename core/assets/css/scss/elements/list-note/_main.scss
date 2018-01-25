@@ -1,0 +1,48 @@
+/**
+ * Tailles - a supprimer si le nospace fonctionne
+ */
+// .list-note.main {
+// 	.note-status {
+// 		min-width: 80px;
+// 	}
+// 	.note-title {
+// 		width: 100%;
+// 	}
+// 	.note-ttc, .note-tva {
+// 		min-width: 90px;
+// 		padding-left: 0;
+// 		padding-right: 0;
+// 	}
+// 	.note-action {
+// 		min-width: 180px;
+// 		text-align: right;
+// 	}
+// }
+
+.list-note.main {
+	.note {
+		@include transition();
+
+		&:hover {
+			background: rgba(0,0,0,0.05);
+			cursor: pointer;
+		}
+	}
+	td {
+		white-space: nowrap;
+	}
+	.note-title {
+		white-space: normal;
+		width: 100%;
+		font-size: 14px;
+
+		.note-last-update {
+			font-size: 12px;
+			font-style: italic;
+			color: rgba(0,0,0,0.4);
+		}
+	}
+	.note-action {
+		padding-left: 1.6em;
+	}
+}

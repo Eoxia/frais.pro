@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
    PROJECT : Mes Notes de Frais
    Created by Eoxia
@@ -19,6 +20,21 @@
   /*--------------------------------------------------------------
 	# Elements
 	--------------------------------------------------------------*/
+  /**
+ * Propriété générales des listes de note
+ */
+  /**
+ * Status
+ */
+  /**
+ * TTC & TVA
+ */
+  /**
+ * Import des différents tableaux
+ */
+  /**
+ * Tailles - a supprimer si le nospace fonctionne
+ */
   /*--------------------------------------------------------------
 	# Modules
 	--------------------------------------------------------------*/ }
@@ -203,10 +219,6 @@
   border-collapse: collapse;
   border-spacing: 0; }
 
-.wrap-frais-pro td,
-.wrap-frais-pro th {
-  padding: 0; }
-
 .wrap-frais-pro body,
 .wrap-frais-pro button,
 .wrap-frais-pro input,
@@ -226,9 +238,81 @@
 .wrap-frais-pro h1 {
   float: left; }
 
-@media (max-width: 360px) {
-  .wrap-frais-pro .list-note .note .content .element {
-    padding: 2em 0; } }
+.wrap-frais-pro h1 {
+  float: none; }
+
+.wrap-frais-pro .list-note {
+  border: 0; }
+
+.wrap-frais-pro .list-note .note {
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative; }
+
+.wrap-frais-pro .list-note .note:last-child {
+  border-bottom: 0; }
+
+.wrap-frais-pro .list-note .note-status .note-icon {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1); }
+
+.wrap-frais-pro .list-note .note-status .note-icon.SLUG_STATUS {
+  background: red; }
+
+.wrap-frais-pro .list-note .note-status .status-label {
+  font-size: 10px;
+  display: inline-block;
+  color: rgba(0, 0, 0, 0.6);
+  padding-left: 0.2em; }
+
+.wrap-frais-pro .list-note .note-ttc, .wrap-frais-pro .list-note .note-tva {
+  text-align: right; }
+
+.wrap-frais-pro .list-note .note-ttc .value, .wrap-frais-pro .list-note .note-tva .value {
+  font-weight: 700;
+  font-size: 16px; }
+
+.wrap-frais-pro .list-note .note-ttc .currency, .wrap-frais-pro .list-note .note-tva .currency {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  left: -1px;
+  color: rgba(0, 0, 0, 0.4); }
+
+.wrap-frais-pro .list-note .note-ttc .taxe, .wrap-frais-pro .list-note .note-tva .taxe {
+  font-size: 10px;
+  position: relative;
+  top: -10px;
+  left: -4px; }
+
+.wrap-frais-pro .list-note.main .note {
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
+
+.wrap-frais-pro .list-note.main .note:hover {
+  background: rgba(0, 0, 0, 0.05);
+  cursor: pointer; }
+
+.wrap-frais-pro .list-note.main td {
+  white-space: nowrap; }
+
+.wrap-frais-pro .list-note.main .note-title {
+  white-space: normal;
+  width: 100%;
+  font-size: 14px; }
+
+.wrap-frais-pro .list-note.main .note-title .note-last-update {
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.4); }
+
+.wrap-frais-pro .list-note.main .note-action {
+  padding-left: 1.6em; }
 
 .wrap-frais-pro .clear:before,
 .wrap-frais-pro .clear:after,
