@@ -14,9 +14,8 @@ namespace frais_pro;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<tr class="note" data-link="<?php menu_page_url( 'frais-pro', true ); ?>&note=<?php echo esc_attr( $ndf->id ); ?>" data-id="<?php echo esc_attr( $ndf->id ); ?>" >
+<tr class="note en-cours" data-link="<?php menu_page_url( 'frais-pro', true ); ?>&note=<?php echo esc_attr( $ndf->id ); ?>" data-id="<?php echo esc_attr( $ndf->id ); ?>" >
 	<td class="note-status" >
-		<span class="note-icon fa SLUG_STATUS"></span>
 		<span class="status-label"><?php echo esc_html( $ndf->validation_status ); ?></span>
 	</td>
 	<td class="note-title">

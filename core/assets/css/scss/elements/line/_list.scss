@@ -1,5 +1,11 @@
+.single-note.list .list-line {
+	.form-element label {
+		display: none;
+	}
+}
+
 // tailles header pour list
-.list-line.list .list-line-header {
+.single-note.list .list-line-header {
 	.image {
 		max-width: 55px;
 		min-width: 55px;
@@ -26,7 +32,7 @@
 }
 
 // Tailles fields
-.list-line.list .line .line-content {
+.single-note.list .list-line .line .line-content {
 	.date {
 		max-width: 140px;
 		min-width: 140px;

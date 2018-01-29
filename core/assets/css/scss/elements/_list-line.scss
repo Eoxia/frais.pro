@@ -1,6 +1,7 @@
 // Général
 .list-line {
 	border: 0;
+	margin-top: 1em;
 
 	.line {
 		background: #fff !important;
@@ -46,27 +47,27 @@
 	}
 	// Date
 	.date {
-		.date-label {
-			background: #ececec;
-			position: relative;
-			font-weight: 400;
-			margin-bottom: 0;
-			@include transition;
-			&:hover {
-				background: #dfdfdf;
-			}
-		}
-		.icon {
-			position: absolute;
-			top: 50%;
-			left: 1em;
-			transform: translateY(-50%);
-			color: rgba(0,0,0,0.4);
-		}
-		input {
-			background: transparent;
-			padding-left: 2em;
-		}
+		// .date-label {
+		// 	background: #ececec;
+		// 	position: relative;
+		// 	font-weight: 400;
+		// 	margin-bottom: 0;
+		// 	@include transition;
+		// 	&:hover {
+		// 		background: #dfdfdf;
+		// 	}
+		// }
+		// .icon {
+		// 	position: absolute;
+		// 	top: 50%;
+		// 	left: 1em;
+		// 	transform: translateY(-50%);
+		// 	color: rgba(0,0,0,0.4);
+		// }
+		// input {
+		// 	background: transparent;
+		// 	padding-left: 2em;
+		// }
 	}
 	// Type de note
 	.type {

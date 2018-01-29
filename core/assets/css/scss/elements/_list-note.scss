@@ -18,18 +18,15 @@
 /**
  * Status
  */
-.list-note .note-status {
-	.note-icon {
-		display: inline-block;
-		width: 6px;
-		height: 6px;
-		border-radius: 50%;
-		background: rgba(0,0,0,0.1);
+.list-note .note {
+	border-left-width: 3px;
+	border-left-style: solid;
 
-		&.SLUG_STATUS {
-			background: red;
-		}
+	&.en-cours {
+		border-left-color: red;
 	}
+}
+.list-note .note-status {
 	.status-label {
 		font-size: 10px;
 		display: inline-block;

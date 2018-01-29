@@ -252,16 +252,12 @@
 .wrap-frais-pro .list-note .note:last-child {
   border-bottom: 0; }
 
-.wrap-frais-pro .list-note .note-status .note-icon {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
-  background: rgba(0, 0, 0, 0.1); }
+.wrap-frais-pro .list-note .note {
+  border-left-width: 3px;
+  border-left-style: solid; }
 
-.wrap-frais-pro .list-note .note-status .note-icon.SLUG_STATUS {
-  background: red; }
+.wrap-frais-pro .list-note .note.en-cours {
+  border-left-color: red; }
 
 .wrap-frais-pro .list-note .note-status .status-label {
   font-size: 10px;
@@ -484,7 +480,8 @@
   border-color: #898de5; }
 
 .wrap-frais-pro .list-line {
-  border: 0; }
+  border: 0;
+  margin-top: 1em; }
 
 .wrap-frais-pro .list-line .line {
   background: #fff !important; }
@@ -537,32 +534,6 @@
 .wrap-frais-pro .list-line .line .line-content input[disabled] {
   background: url("images/disabled-pattern.png") #ececec; }
 
-.wrap-frais-pro .list-line .line .line-content .date .date-label {
-  background: #ececec;
-  position: relative;
-  font-weight: 400;
-  margin-bottom: 0;
-  -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out; }
-
-.wrap-frais-pro .list-line .line .line-content .date .date-label:hover {
-  background: #dfdfdf; }
-
-.wrap-frais-pro .list-line .line .line-content .date .icon {
-  position: absolute;
-  top: 50%;
-  left: 1em;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-       -o-transform: translateY(-50%);
-          transform: translateY(-50%);
-  color: rgba(0, 0, 0, 0.4); }
-
-.wrap-frais-pro .list-line .line .line-content .date input {
-  background: transparent;
-  padding-left: 2em; }
-
 .wrap-frais-pro .list-line .line .line-content .type .wpeo-dropdown, .wrap-frais-pro .list-line .line .line-content .type .wpeo-button {
   width: 100%; }
 
@@ -608,122 +579,139 @@
 .wrap-frais-pro .list-line .line .line-content .action .dropdown-toggle {
   padding-right: 0; }
 
-.wrap-frais-pro .list-line.list .list-line-header .image {
+.wrap-frais-pro .single-note.list .list-line .form-element label {
+  display: none; }
+
+.wrap-frais-pro .single-note.list .list-line-header .image {
   max-width: 55px;
   min-width: 55px; }
 
-.wrap-frais-pro .list-line.list .list-line-header .date {
+.wrap-frais-pro .single-note.list .list-line-header .date {
   max-width: 140px;
   min-width: 140px; }
 
-.wrap-frais-pro .list-line.list .list-line-header .libelle {
+.wrap-frais-pro .single-note.list .list-line-header .libelle {
   width: 100%; }
 
-.wrap-frais-pro .list-line.list .list-line-header .type {
+.wrap-frais-pro .single-note.list .list-line-header .type {
   max-width: 220px;
   min-width: 220px; }
 
-.wrap-frais-pro .list-line.list .list-line-header .km, .wrap-frais-pro .list-line.list .list-line-header .ttc, .wrap-frais-pro .list-line.list .list-line-header .tva {
+.wrap-frais-pro .single-note.list .list-line-header .km, .wrap-frais-pro .single-note.list .list-line-header .ttc, .wrap-frais-pro .single-note.list .list-line-header .tva {
   max-width: 80px;
   min-width: 80px; }
 
-.wrap-frais-pro .list-line.list .list-line-header .status, .wrap-frais-pro .list-line.list .list-line-header .action {
+.wrap-frais-pro .single-note.list .list-line-header .status, .wrap-frais-pro .single-note.list .list-line-header .action {
   max-width: 30px;
   min-width: 30px; }
 
-.wrap-frais-pro .list-line.list .line .line-content .date {
+.wrap-frais-pro .single-note.list .list-line .line .line-content .date {
   max-width: 140px;
   min-width: 140px; }
 
-.wrap-frais-pro .list-line.list .line .line-content .type {
+.wrap-frais-pro .single-note.list .list-line .line .line-content .type {
   max-width: 220px;
   min-width: 220px; }
 
-.wrap-frais-pro .list-line.list .line .line-content .km, .wrap-frais-pro .list-line.list .line .line-content .ttc, .wrap-frais-pro .list-line.list .line .line-content .tva {
+.wrap-frais-pro .single-note.list .list-line .line .line-content .km, .wrap-frais-pro .single-note.list .list-line .line .line-content .ttc, .wrap-frais-pro .single-note.list .list-line .line .line-content .tva {
   max-width: 80px;
   min-width: 80px; }
 
-.wrap-frais-pro .list-line.list .line .line-content .status, .wrap-frais-pro .list-line.list .line .line-content .action {
+.wrap-frais-pro .single-note.list .list-line .line .line-content .status, .wrap-frais-pro .single-note.list .list-line .line .line-content .action {
   max-width: 30px;
   min-width: 30px; }
 
-.wrap-frais-pro .list-line.grid .list-line-header {
+.wrap-frais-pro .single-note.grid .list-line-header {
   display: none; }
 
-.wrap-frais-pro .list-line.grid .line .line-image {
-  width: 40%;
-  min-width: 40%; }
+.wrap-frais-pro .single-note.grid .list-line .line .line-content {
+  margin-top: 0; }
 
-.wrap-frais-pro .list-line.grid .line .line-content {
+.wrap-frais-pro .single-note.grid .list-line .line .media:not(.no-file), .wrap-frais-pro .single-note.grid .list-line .line .wpeo-media:not(.no-file) {
+  width: 100%;
+  height: auto; }
+
+.wrap-frais-pro .single-note.grid .list-line .line label {
+  color: #898de5;
+  text-transform: none;
+  font-size: 14px;
+  font-weight: 700; }
+
+.wrap-frais-pro .single-note.grid .list-line .line .line-image {
+  width: 40%;
+  min-width: 40%;
+  padding-right: 1em !important; }
+
+.wrap-frais-pro .single-note.grid .list-line .line .line-content {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap; }
 
-.wrap-frais-pro .list-line.grid .line .line-content .libelle {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content .libelle {
   -webkit-box-ordinal-group: 2;
   -webkit-order: 1;
      -moz-box-ordinal-group: 2;
       -ms-flex-order: 1;
           order: 1; }
 
-.wrap-frais-pro .list-line.grid .line .line-content .date {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content .date {
   -webkit-box-ordinal-group: 3;
   -webkit-order: 2;
      -moz-box-ordinal-group: 3;
       -ms-flex-order: 2;
           order: 2; }
 
-.wrap-frais-pro .list-line.grid .line .line-content .type {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content .type {
   -webkit-box-ordinal-group: 4;
   -webkit-order: 3;
      -moz-box-ordinal-group: 4;
       -ms-flex-order: 3;
           order: 3; }
 
-.wrap-frais-pro .list-line.grid .line .line-content .km {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content .km {
   -webkit-box-ordinal-group: 5;
   -webkit-order: 4;
      -moz-box-ordinal-group: 5;
       -ms-flex-order: 4;
           order: 4; }
 
-.wrap-frais-pro .list-line.grid .line .line-content .ttc {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content .ttc {
   -webkit-box-ordinal-group: 6;
   -webkit-order: 5;
      -moz-box-ordinal-group: 6;
       -ms-flex-order: 5;
           order: 5; }
 
-.wrap-frais-pro .list-line.grid .line .line-content .tva {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content .tva {
   -webkit-box-ordinal-group: 7;
   -webkit-order: 6;
      -moz-box-ordinal-group: 7;
       -ms-flex-order: 6;
           order: 6; }
 
-.wrap-frais-pro .list-line.grid .line .line-content .status {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content .status {
   -webkit-box-ordinal-group: 8;
   -webkit-order: 7;
      -moz-box-ordinal-group: 8;
       -ms-flex-order: 7;
           order: 7; }
 
-.wrap-frais-pro .list-line.grid .line .line-content .action {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content .action {
   -webkit-box-ordinal-group: 9;
   -webkit-order: 8;
      -moz-box-ordinal-group: 9;
       -ms-flex-order: 8;
           order: 8; }
 
-.wrap-frais-pro .list-line.grid .line .line-content .date, .wrap-frais-pro .list-line.grid .line .line-content .type {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content .date, .wrap-frais-pro .single-note.grid .list-line .line .line-content .type {
   min-width: 50%;
   max-width: 50%; }
 
-.wrap-frais-pro .list-line.grid .line .line-content .km, .wrap-frais-pro .list-line.grid .line .line-content .ttc, .wrap-frais-pro .list-line.grid .line .line-content .tva {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content .km, .wrap-frais-pro .single-note.grid .list-line .line .line-content .ttc, .wrap-frais-pro .single-note.grid .list-line .line .line-content .tva {
   min-width: 33.333333%;
   max-width: 33.333333%; }
 
-.wrap-frais-pro .list-line.grid .line .line-content .status {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content .status {
   margin-left: auto !important; }
 
 .wrap-frais-pro .clear:before,

@@ -50,7 +50,7 @@ endif;
 	<?php esc_html_e( 'Professionnal fees sheets', 'frais-pro' ); ?>
 </h1>
 
-<div class="single-note <?php echo esc_attr( $ndf_is_closed ? ' is_closed' : '' ); ?><?php echo esc_attr( $has_ko_line ? ' ndf-error' : '' ); ?>">
+<div class="single-note<?php echo esc_attr( $ndf_is_closed ? ' is_closed' : '' ); ?><?php echo esc_attr( $has_ko_line ? ' ndf-error' : '' ); ?> <?php echo esc_attr( $display_mode ); ?>" >
 	<?php if ( ! empty( $ndf ) ) : ?>
 	<input type="hidden" name="id" value="<?php echo esc_attr( $ndf->id ); ?>">
 	<input type="hidden" name="parent_id" value="<?php echo esc_attr( $ndf->id ); ?>">
@@ -155,7 +155,7 @@ endif;
 				</div>
 			</div>
 
-			<div class="wpeo-table table-flex list-line <?php echo esc_attr( $display_mode ); ?>">
+			<div class="wpeo-table table-flex list-line">
 				<?php echo $line_output; // WPCS: XSS ok. ?>
 			</div>
 

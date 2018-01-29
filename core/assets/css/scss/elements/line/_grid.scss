@@ -1,12 +1,32 @@
 // Affichage GRID
-.list-line.grid .list-line-header {
+.single-note.grid .list-line-header {
 	display: none;
 }
+.single-note.grid .list-line .line {
+		.line-content {
+			margin-top: 0;
+		}
+}
 
-.list-line.grid .line {
+// Media
+.single-note.grid .list-line .line {
+	.media:not(.no-file), .wpeo-media:not(.no-file) {
+		width: 100%;
+		height: auto;
+	}
+}
+
+.single-note.grid .list-line .line {
+	label {
+		color: $color__primary;
+		text-transform: none;
+		font-size: 14px;
+		font-weight: 700;
+	}
 	.line-image {
 		width: 40%;
 		min-width: 40%;
+		padding-right: 1em !important;
 	}
 	.line-content {
 		flex-wrap: wrap;

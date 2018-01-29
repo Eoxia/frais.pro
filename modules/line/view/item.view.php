@@ -21,10 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 	<div class="table-cell line-content wpeo-form">
 		<div class="date form-element">
-			<label class="date-label" for="line-date">
-				<i class="icon fa fa-calendar"></i>
-				<input id="line-date" type="text" />
-			</label>
+			<label><?php esc_attr_e( 'Date', 'frais-pro' ); ?></label>
+			<input id="line-date" type="text" />
 		</div>
 		<div class="libelle form-element">
 			<label><?php esc_attr_e( 'Libellé', 'frais-pro' ); ?></label>
