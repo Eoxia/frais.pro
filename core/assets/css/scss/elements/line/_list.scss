@@ -1,0 +1,46 @@
+// tailles header pour list
+.list-line.list .list-line-header {
+	.image {
+		max-width: 55px;
+		min-width: 55px;
+	}
+	.date {
+		max-width: 140px;
+		min-width: 140px;
+	}
+	.libelle {
+		width: 100%;
+	}
+	.type {
+		max-width: 220px;
+		min-width: 220px;
+	}
+	.km, .ttc, .tva {
+		max-width: 80px;
+		min-width: 80px;
+	}
+	.status, .action {
+		max-width: 30px;
+		min-width: 30px;
+	}
+}
+
+// Tailles fields
+.list-line.list .line .line-content {
+	.date {
+		max-width: 140px;
+		min-width: 140px;
+	}
+	.type {
+		max-width: 220px;
+		min-width: 220px;
+	}
+	.km, .ttc, .tva {
+		max-width: 80px;
+		min-width: 80px;
+	}
+	.status, .action {
+		max-width: 30px;
+		min-width: 30px;
+	}
+}

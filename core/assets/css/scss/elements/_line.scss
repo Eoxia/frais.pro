@@ -1,0 +1,124 @@
+// Général
+.list-line {
+	border: 0;
+
+	.line {
+		background: #fff !important;
+
+		.line-content {
+			@include flexbox;
+			flex-wrap: nowrap;
+		}
+		.table-cell {
+			padding: 0 !important;
+		}
+	}
+}
+.list-line-header {
+	border: 0;
+
+	.table-header {
+		background: none !important;
+	}
+	.table-cell {
+		color: $color__primary !important;
+		padding: .8em 0;
+	}
+}
+
+// Image field
+.list-line .line-image {
+	max-width: 52px;
+}
+
+// Fields
+.list-line .line .line-content {
+	> * {
+		margin: auto 0 !important;
+		padding: 0.2em;
+	}
+	input {
+		height: 50px;
+
+		&[disabled] {
+			background: url('images/disabled-pattern.png') #ececec;
+		}
+	}
+	// Date
+	.date {
+		.date-label {
+			background: #ececec;
+			position: relative;
+			font-weight: 400;
+			margin-bottom: 0;
+			@include transition;
+			&:hover {
+				background: #dfdfdf;
+			}
+		}
+		.icon {
+			position: absolute;
+			top: 50%;
+			left: 1em;
+			transform: translateY(-50%);
+			color: rgba(0,0,0,0.4);
+		}
+		input {
+			background: transparent;
+			padding-left: 2em;
+		}
+	}
+	// Type de note
+	.type {
+		.wpeo-dropdown, .wpeo-button {
+			width: 100%;
+		}
+		.wpeo-button {
+			height: 50px;
+			font-size: 14px;
+			text-align: left;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			padding-right: 28px;
+
+			.button-icon {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				right: 14px;
+			}
+			&:hover {
+				box-shadow: none;
+				background: #dfdfdf;
+			}
+		}
+	}
+	// Status
+	.status {
+		padding: 0.6em;
+
+		.pin {
+			display: inline-block;
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+
+			&.ndfl-error {
+				background: $color__red;
+			}
+			&.nfl-ok {
+				background: $color__green;
+			}
+		}
+	}
+	// Actions
+	.action {
+		.dropdown-toggle {
+			padding-right: 0;
+		}
+	}
+}
+
+@import "line/list";
+@import "line/grid";

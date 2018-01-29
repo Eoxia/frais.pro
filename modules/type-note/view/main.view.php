@@ -25,8 +25,8 @@ if ( empty( $types_note ) ) :
 else : ?>
 	<input name="taxonomy[<?php echo esc_attr( Type_Note_Class::g()->get_type() ); ?>][0]" type="hidden" value="<?php echo ( ! empty( $ndfl->id ) && ! empty( $ndfl_type_note_id ) ? esc_attr( $ndfl_type_note_id ) : '' ); ?>" />
 
-	<div class="wpeo-dropdown">
-		<button class="dropdown-toggle wpeo-button button-main">
+	<div class="wpeo-dropdown dropdown-large">
+		<button class="dropdown-toggle wpeo-button button-grey">
 			<span><?php echo esc_html( $selected_type_note_name ); ?></span>
 			<i class="button-icon fa fa-caret-down"></i>
 		</button>
