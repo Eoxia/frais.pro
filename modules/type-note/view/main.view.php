@@ -28,7 +28,7 @@ else : ?>
 	<div class="wpeo-dropdown dropdown-large">
 		<button class="dropdown-toggle wpeo-button button-grey">
 			<span><?php echo esc_html( $selected_type_note_name ); ?></span>
-			<i class="button-icon fa fa-caret-down"></i>
+			<i class="button-icon fas fa-caret-down"></i>
 		</button>
 		<ul class="dropdown-content">
 	<?php if ( ! empty( $types_note ) ) : ?>

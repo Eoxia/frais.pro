@@ -61,7 +61,7 @@ endif;
 
 	<div class="container">
 		<div class="header">
-			<a href="#" class="close"><i class="icon fa fa-angle-left"></i></a>
+			<a href="#" class="close"><i class="icon far fa-chevron-left"></i></a>
 			<div class="title">
 				<h2><?php echo esc_html( $ndf->title ); ?></h2>
 				<div class="note-last-update" ><?php esc_html_e( 'Last update', 'frais-pro' ); ?> : <?php echo esc_html( $ndf->date_modified['rendered']['date_human_readable'] ); ?></div>
@@ -76,7 +76,7 @@ endif;
 				<div class="wpeo-dropdown">
 					<button class="dropdown-toggle wpeo-button button-main">
 						<span class="pin-status <?php echo esc_html( $ndf->validation_status ); ?>"><?php echo esc_html( $ndf->validation_status ); ?></span>
-						<i class="button-icon fa fa-caret-down"></i>
+						<i class="button-icon fas fa-caret-down"></i>
 					</button>
 					<ul class="dropdown-content">
 					<?php foreach ( Note_Class::g()->get_statuses() as $slug => $label ) : ?>
@@ -99,11 +99,11 @@ endif;
 
 			<div class="note-action">
 				<div class="wpeo-button button-blue button-uppercase">
-					<i class="button-icon fa fa-picture-o"></i> <span>Ajout mutliple à partir d'images</span>
+					<i class="button-icon far fa-images"></i> <span>Ajout mutliple à partir d'images</span>
 				</div>
 
 				<div class="wpeo-button button-blue button-uppercase">
-					<i class="button-icon fa fa-plus-circle"></i> <span>Ajouter une ligne</span>
+					<i class="button-icon fas fa-plus-circle"></i> <span>Ajouter une ligne</span>
 				</div>
 
 				<div class="note-recap">
@@ -128,7 +128,7 @@ endif;
 						data-namespace="noteDeFrais"
 						data-module="NDFL"
 						data-before-method="beforeDisplayModeChange"
-						data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon fa fa-th-large"></i></span>
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon fas fa-th-large"></i></span>
 					<span class="action-attribute wpeo-button button-square-50 button-grey <?php echo esc_attr( 'list' === $display_mode ? 'active' : '' );  ?>"
 						data-id="<?php echo esc_attr( $ndf->id ); ?>"
 						data-display-mode="list"
@@ -137,7 +137,7 @@ endif;
 						data-module="NDFL"
 						data-before-method="beforeDisplayModeChange"
 						aria-label="<?php esc_attr_e( 'List mode', 'frais-pro' ); ?>"
-						data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon fa fa-list-ul"></i></span>
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon far fa-list-ul"></i></span>
 				</div> <!-- .display-method -->
 			</div> <!-- .note-action -->
 

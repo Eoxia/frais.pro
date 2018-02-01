@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="wpeo-button button-blue action-attribute button-size-small button-radius-2"
 				data-action="create_ndf"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_ndf' ) ); ?>" >
-			<i class="button-icon fa fa-plus-circle"></i>
+			<i class="button-icon fas fa-plus-circle"></i>
 			<span><?php esc_html_e( 'Add' ); ?></span>
 		</div>
 	</h1>

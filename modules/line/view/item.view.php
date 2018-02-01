@@ -48,11 +48,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<span class="pin <?php echo esc_attr( ! empty( $line_status ) && ( false === $line_status['status'] ) ? 'ndfl-error' : 'ndfl-ok' ); ?>"></span>
 		</div>
 		<div class="action">
-			<div class="wpeo-dropdown dropdown-left">
-				<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>"><i class="button-icon fa fa-ellipsis-v"></i></button>
+			<div class="wpeo-dropdown dropdown-right">
+				<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>"><i class="button-icon far fa-ellipsis-v"></i></button>
 					<ul class="dropdown-content">
-					<li class="dropdown-item"><i class="dropdown-icon fa fa-chain-broken"></i> <?php esc_html_e( 'Dissocier de la note', 'frais-pro' ); ?></li>
-					<li class="dropdown-item"><i class="dropdown-icon fa fa-trash"></i> <?php esc_html_e( 'Supprimer', 'frais-pro' ); ?></li>
+					<li class="dropdown-item"><i class="dropdown-icon far fa-unlink fa-fw"></i> <?php esc_html_e( 'Dissocier de la note', 'frais-pro' ); ?></li>
+					<li class="dropdown-item"><i class="dropdown-icon fas fa-trash-alt fa-fw"></i> <?php esc_html_e( 'Supprimer', 'frais-pro' ); ?></li>
 				</ul>
 			</div>
 		</div>
