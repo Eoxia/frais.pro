@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input type="text" value="<?php echo esc_html( $line->tax_amount ); ?>" />
 		</div>
 		<div class="status wpeo-tooltip-event" aria-label="<?php echo esc_attr( ! empty( $line_status ) && ( false === $line_status['status'] ) ? __( 'Invalid line', 'frais-pro' ) : __( 'Valid line', 'frais-pro' ) ); ?>">
-			<span class="pin <?php echo esc_attr( ! empty( $line_status ) && ( false === $line_status['status'] ) ? 'ndfl-error' : 'ndfl-ok' ); ?>"></span>
+			<span class="pin <?php echo esc_attr( ! empty( $line_status ) && ( false === $line_status['status'] ) ? 'line-error' : 'line-ok' ); ?>"></span>
 		</div>
 		<div class="action">
 			<div class="wpeo-dropdown dropdown-right">

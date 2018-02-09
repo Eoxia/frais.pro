@@ -16,27 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$has_ko_line = false;
-$line_output = '';
-if ( ! empty( $lines ) ) :
-	foreach ( $lines as $line ) :
-		if ( ! empty( $line ) ) :
-			$line_status = Line_Class::g()->check_line_status( $line );
-			if ( ! empty( $line_status ) && false === $line_status['status'] ) {
-				$has_ko_line = true;
-			}
-			ob_start();
-			Line_Class::g()->display( $line );
-			$line_output .= ob_get_clean();
-		endif;
-	endforeach;
-endif;
-
 ?>
 <h1>
 	<?php esc_html_e( 'Professionnal fees sheets', 'frais-pro' ); ?>
 </h1>
-<div class="single-note<?php echo esc_attr( $note_is_closed ? ' is_closed' : '' ); ?><?php echo esc_attr( $has_ko_line ? ' line-error' : '' ); ?> <?php echo esc_attr( $display_mode ); ?>" >
+<div class="single-note<?php echo esc_attr( $note_is_closed ? ' is_closed' : '' ); ?> <?php echo esc_attr( $display_mode ); ?>" >
 	<input type="hidden" name="id" value="<?php echo esc_attr( $note->id ); ?>" >
 	<input type="hidden" name="action" value="update_note" >
 	<input type="hidden" name="display_mode" value="<?php echo esc_attr( $display_mode ); ?>" >
@@ -111,7 +95,13 @@ endif;
 			</div>
 
 			<div class="wpeo-table table-flex list-line">
-				<?php echo $line_output; // WPCS: XSS ok. ?>
+			<?php
+			if ( ! empty( $lines ) ) :
+				foreach ( $lines as $line ) :
+					Line_Class::g()->display( $line );
+				endforeach;
+			endif;
+			?>
 			</div>
 
 		</div> <!-- .content -->
