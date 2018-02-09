@@ -95,24 +95,8 @@ endif;
 				</div> <!-- .note-recap -->
 
 				<div class="display-method">
-					<span class="action-attribute wpeo-button button-square-50 button-grey <?php echo esc_attr( 'grid' === $display_mode ? 'active' : '' );  ?>"
-						data-id="<?php echo esc_attr( $note->id ); ?>"
-						data-display-mode="grid"
-						data-action="open_ndf"
-						aria-label="<?php esc_attr_e( 'Grid mode', 'frais-pro' ); ?>"
-						data-namespace="noteDeFrais"
-						data-module="Note"
-						data-before-method="beforeDisplayModeChange"
-						data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon fas fa-th-large"></i></span>
-					<span class="action-attribute wpeo-button button-square-50 button-grey <?php echo esc_attr( 'list' === $display_mode ? 'active' : '' );  ?>"
-						data-id="<?php echo esc_attr( $note->id ); ?>"
-						data-display-mode="list"
-						data-action="open_ndf"
-						data-namespace="noteDeFrais"
-						data-module="Note"
-						data-before-method="beforeDisplayModeChange"
-						aria-label="<?php esc_attr_e( 'List mode', 'frais-pro' ); ?>"
-						data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon far fa-list-ul"></i></span>
+					<span class="wpeo-button button-square-50 button-grey <?php echo esc_attr( 'grid' === $display_mode ? 'active' : '' );  ?>" data-display-type="grid" ><i class="icon fas fa-th-large"></i></span>
+					<span class="wpeo-button button-square-50 button-grey <?php echo esc_attr( 'list' === $display_mode ? 'active' : '' );  ?>" data-display-type="list" ><i class="icon far fa-list-ul"></i></span>
 				</div> <!-- .display-method -->
 			</div> <!-- .note-action -->
 

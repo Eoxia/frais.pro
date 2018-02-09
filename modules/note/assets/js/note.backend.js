@@ -15,7 +15,8 @@ window.eoxiaJS.noteDeFrais.note = {};
  * @version 1.4.0
  */
 window.eoxiaJS.noteDeFrais.note.init = function() {
-	jQuery( document ).on( 'click', '.list-note .note', window.eoxiaJS.noteDeFrais.note.goToLink  );
+	jQuery( document ).on( 'click', '.list-note .note', window.eoxiaJS.noteDeFrais.note.goToLink );
+	jQuery( document ).on( 'click', '.display-method span.wpeo-button', window.eoxiaJS.noteDeFrais.note.changeDisplayMode );
 };
 
 /**
@@ -40,4 +41,18 @@ window.eoxiaJS.noteDeFrais.note.goToLink = function( event ) {
  */
 window.eoxiaJS.noteDeFrais.note.goToNote = function( element, response ) {
 	window.location.href = response.data.link;
+};
+
+/**
+ * Redirige l'utilisateur sur la note
+ *
+ * @return {void}
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ */
+window.eoxiaJS.noteDeFrais.note.changeDisplayMode = function( event ) {
+	event.preventDefault();
+	jQuery( this ).closest( 'div.single-note' ).toggleClass( 'grid list' );
+	jQuery( this ).closest( 'div.display-method' ).children( 'span' ).toggleClass( 'active' );
 };
