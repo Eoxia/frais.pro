@@ -11,9 +11,15 @@
 
 $datas = array(
 	array(
-		'action'            => 'frais_pro_update_1400_change_statuses_storage',
-		'description'       => __( 'Change notes statuses management. Use WordPress taxonomy utilities instead of using plain text', 'frais-pro' ),
-		'since'             => '1.4.0',
-		'version'           => '1.4.0',
+		'action'      => 'frais_pro_update_1400_update_note',
+		'description' => __( 'Change note type', 'frais-pro' ),
+		'since'       => '1.4.0',
+		'version'     => '1.4.0',
+	),
+	array(
+		'action'      => 'frais_pro_update_1400_update_line_type',
+		'description' => __( 'Change line type', 'frais-pro' ),
+		'since'       => '1.4.0',
+		'version'     => '1.4.0',
 	),
 );
