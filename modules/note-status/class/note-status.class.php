@@ -75,38 +75,58 @@ class Note_Status_Class extends \eoxia\Term_Class {
 
 		// DO NOT DELETE. Allows to get old validation status in order to make transfer and translation.
 		$this->status = array(
-			'en-cours' => __( 'In progress', 'frais-pro' ),
-			'valide'   => __( 'Validated', 'frais-pro' ),
-			'paye'     => __( 'Payed', 'frais-pro' ),
-			'refuse'   => __( 'Refused', 'frais-pro' ),
+			array(
+				'name'             => __( 'In progress', 'frais-pro' ),
+				'old_slug'         => 'En cours',
+				'is_default'       => true,
+				'special_behavior' => '',
+			),
+			array(
+				'name'             => __( 'Validated', 'frais-pro' ),
+				'old_slug'         => 'Validée',
+				'is_default'       => false,
+				'special_behavior' => '',
+			),
+			array(
+				'name'             => __( 'Payed', 'frais-pro' ),
+				'old_slug'         => 'Payée',
+				'is_default'       => false,
+				'special_behavior' => 'closed',
+			),
+			array(
+				'name'             => __( 'Refused', 'frais-pro' ),
+				'old_slug'         => 'Refusée',
+				'is_default'       => false,
+				'special_behavior' => '',
+			),
 		);
 	}
 
 	/**
 	 * Create default note statuses.
 	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
 	 * @return void
 	 */
 	public function create_default_statuses() {
-		$note_status = 'note-status';
-		$file_content = file_get_contents( \eoxia\Config_Util::$init['frais-pro']->$note_status->path . 'assets/json/default.json' );
-		$data = json_decode( $file_content, true );
-
-		if ( ! empty( $data ) ) {
+		if ( ! empty( $this->status ) ) {
 			// Utilisé pour déclarer la taxonomie à l'activation du plugin. L'action "init" n'est pas lancée à ce moment là.
 			$this->callback_init();
 
-			foreach ( $data as $category ) {
-				$category['name'] = __( $category['name'], 'frais-pro' );
-				$category_slug = sanitize_title( $category['name'] );
-				$tax = get_term_by( 'slug', $category_slug, $this->get_type(), ARRAY_A );
+			foreach ( $this->status as $category_data ) {
+				echo '<pre>'; print_r( $category_data ); echo '</pre>';exit;
+				$category_slug = sanitize_title( $category_data['name'] );
+				$tax           = get_term_by( 'slug', $category_slug, $this->get_type(), ARRAY_A );
 
 				if ( ! empty( $tax['term_id'] ) && is_int( $tax['term_id'] ) ) {
-					$category['id'] = $tax['term_id'];
+					$category_data['id'] = $tax['term_id'];
 				}
-				$category['slug'] = $category_slug;
 
-				$this->update( $category );
+				$category_data['slug'] = $category_slug;
+
+				$this->update( $category_data );
 			}
 		}
 	}
