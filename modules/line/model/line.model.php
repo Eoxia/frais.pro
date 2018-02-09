@@ -32,44 +32,44 @@ class Line_Model extends \eoxia\Post_Model {
 	 */
 	public function __construct( $data = null, $req_method = null ) {
 		$this->schema['category_name'] = array(
-			'type'          => 'string',
-			'meta_type'     => 'single',
-			'field'         => 'fp_line_category_name',
+			'type'      => 'string',
+			'meta_type' => 'single',
+			'field'     => 'fp_line_category_name',
 		);
 
 		$this->schema['vehicule'] = array(
-			'type'          => 'string',
-			'meta_type'     => 'single',
-			'field'         => 'fp_line_vehicule',
+			'type'      => 'string',
+			'meta_type' => 'single',
+			'field'     => 'fp_line_vehicule',
 		);
 
 		$this->schema['distance'] = array(
-			'type'          => 'integer',
-			'meta_type'     => 'single',
-			'field'         => 'fp_line_distance',
-			'default'       => 0,
+			'type'      => 'integer',
+			'meta_type' => 'single',
+			'field'     => 'fp_line_distance',
+			'default'   => 0,
 		);
 
 		$this->schema['tax_inclusive_amount'] = array(
-			'type'          => 'float',
-			'meta_type'     => 'single',
-			'field'         => 'fp_line_tax_inclusive_amount',
+			'type'      => 'float',
+			'meta_type' => 'single',
+			'field'     => 'fp_line_tax_inclusive_amount',
 		);
 
 		$this->schema['tax_amount'] = array(
-			'type'          => 'float',
-			'meta_type'     => 'single',
-			'field'         => 'fp_line_tax_amount',
+			'type'      => 'float',
+			'meta_type' => 'single',
+			'field'     => 'fp_line_tax_amount',
 		);
 
 		$this->schema['taxonomy'] = array(
-			'type' => 'array',
+			'type'      => 'array',
 			'meta_type' => 'multiple',
-			'child' => array(
+			'child'     => array(
 				Line_Type_Class::g()->get_type() => array(
-					'meta_type' => 'multiple',
+					'meta_type'  => 'multiple',
 					'array_type' => 'integer',
-					'type' => 'array',
+					'type'       => 'array',
 				),
 			),
 		);
