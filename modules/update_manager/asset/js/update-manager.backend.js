@@ -5,7 +5,7 @@
  * @version 1.4.0
  */
 
-window.eoxiaJS.noteDeFrais.updateManager = {};
+window.eoxiaJS.fraisPro.updateManager = {};
 
 /**
  * La méthode appelée automatiquement par la bibliothèque EoxiaJS.
@@ -15,15 +15,15 @@ window.eoxiaJS.noteDeFrais.updateManager = {};
  * @since 1.4.0
  * @version 1.4.0
  */
-window.eoxiaJS.noteDeFrais.updateManager.init = function() {
-	window.eoxiaJS.noteDeFrais.updateManager.requestUpdate();
-	window.addEventListener( 'beforeunload', window.eoxiaJS.noteDeFrais.updateManager.safeExit );
+window.eoxiaJS.fraisPro.updateManager.init = function() {
+	window.eoxiaJS.fraisPro.updateManager.requestUpdate();
+	window.addEventListener( 'beforeunload', window.eoxiaJS.fraisPro.updateManager.safeExit );
 };
 
-window.eoxiaJS.noteDeFrais.updateManager.requestUpdateFunc = {
+window.eoxiaJS.fraisPro.updateManager.requestUpdateFunc = {
 	endMethod: []
 };
-window.eoxiaJS.noteDeFrais.updateManager.requestUpdate = function( args ) {
+window.eoxiaJS.fraisPro.updateManager.requestUpdate = function( args ) {
 	var key             = jQuery( 'input.current-key' ).val();
 	var versionToUpdate = jQuery( 'input[name="version_available[]"]:first' ).val();
 	var action          = jQuery( 'input[name="version[' + versionToUpdate + '][action][]"]:first' ).val();
@@ -68,7 +68,7 @@ window.eoxiaJS.noteDeFrais.updateManager.requestUpdate = function( args ) {
 
 						jQuery.post( ajaxurl, { action: 'tm_redirect_to_dashboard', key: key }, function( response ) {
 							jQuery( '.log' ).append( '<li>' + response.data.message + '</li>' );
-							window.removeEventListener( 'beforeunload', window.eoxiaJS.noteDeFrais.updateManager.safeExit );
+							window.removeEventListener( 'beforeunload', window.eoxiaJS.fraisPro.updateManager.safeExit );
 							window.location = response.data.url;
 						});
 					} else {
@@ -76,17 +76,17 @@ window.eoxiaJS.noteDeFrais.updateManager.requestUpdate = function( args ) {
 						if ( response.data.args && response.data.args.resetArgs ) {
 							delete response.data.args;
 						}
-						window.eoxiaJS.noteDeFrais.updateManager.requestUpdate( response.data.args );
+						window.eoxiaJS.fraisPro.updateManager.requestUpdate( response.data.args );
 					}
 				} else {
-					window.eoxiaJS.noteDeFrais.updateManager.requestUpdate( response.data.args );
+					window.eoxiaJS.fraisPro.updateManager.requestUpdate( response.data.args );
 				}
 			} )
 			.fail( function( error, t, r ) {
 				// @todo Gérer ce cas dans une action personnalisée.
 				jQuery( '.log' ).append( '<li>Erreur: veuillez consulter les logs de la version: ' + versionToUpdate + '</li>' );
 				jQuery.post( ajaxurl, { action: 'tm_redirect_to_dashboard', key: key, error_version: versionToUpdate, error_status: error.status, error_text: error.responseText }, function( response ) {
-					window.removeEventListener( 'beforeunload', window.eoxiaJS.noteDeFrais.updateManager.safeExit );
+					window.removeEventListener( 'beforeunload', window.eoxiaJS.fraisPro.updateManager.safeExit );
 					// window.location = response.data.url;
 				});
 			} );
@@ -96,7 +96,7 @@ window.eoxiaJS.noteDeFrais.updateManager.requestUpdate = function( args ) {
 	if ( jQuery( '.no-update' ).length ) {
 		jQuery.post( ajaxurl, { action: 'tm_redirect_to_dashboard', key: key }, function( response ) {
 			jQuery( '.log' ).append( '<li>' + response.data.message + '</li>' );
-			window.removeEventListener( 'beforeunload', window.eoxiaJS.noteDeFrais.updateManager.safeExit );
+			window.removeEventListener( 'beforeunload', window.eoxiaJS.fraisPro.updateManager.safeExit );
 			window.location = response.data.url;
 		});
 	}
@@ -111,7 +111,7 @@ window.eoxiaJS.noteDeFrais.updateManager.requestUpdate = function( args ) {
  * @param  {WindowEventHandlers} event L'évènement de la fenêtre.
  * @return {string}
  */
-window.eoxiaJS.noteDeFrais.updateManager.safeExit = function( event ) {
+window.eoxiaJS.fraisPro.updateManager.safeExit = function( event ) {
 	if ( fraisPro.updateDataUrlPage === event.currentTarget.adminpage ) {
 		var confirmationMessage = fraisPro.confirmUpdateManagerExit;
 		event.returnValue = confirmationMessage;

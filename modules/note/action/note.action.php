@@ -65,7 +65,7 @@ class Note_Action {
 		$ndf = Note_Class::g()->create( $note_args );
 
 		wp_send_json_success( array(
-			'namespace'        => 'noteDeFrais',
+			'namespace'        => 'fraisPro',
 			'module'           => 'note',
 			'callback_success' => 'goToNote',
 			'link'             => admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['frais-pro']->slug, false ) . '&note=' . $ndf->id,
@@ -90,7 +90,7 @@ class Note_Action {
 		$response = ob_get_clean();
 
 		wp_send_json_success( array(
-			'namespace' => 'noteDeFrais',
+			'namespace' => 'fraisPro',
 			'module' => 'NDF',
 			'callback_success' => 'refresh',
 			'ndf' => $ndf,
@@ -117,7 +117,7 @@ class Note_Action {
 		$ndf->status = 'archive';
 
 		wp_send_json_success( array(
-			'namespace' => 'noteDeFrais',
+			'namespace' => 'fraisPro',
 			'module' => 'NDF',
 			'callback_success' => 'archived',
 			'ndf' => Note_Class::g()->update( $ndf ),
@@ -143,11 +143,11 @@ class Note_Action {
 		$response = Note_Class::g()->generate_document( $ndf_id, $picture, 'odt' );
 
 		wp_send_json_success( array(
-			'namespace' => 'noteDeFrais',
+			'namespace' => 'fraisPro',
 			'module' => 'NDF',
 			'link' => $response['link'],
 			'filename' => $response['filename'],
-			'callback_success' => 'exportedNoteDeFraisSuccess',
+			'callback_success' => 'exportedfraisProSuccess',
 		) );
 	}
 
@@ -166,11 +166,11 @@ class Note_Action {
 		$response = Note_Class::g()->generate_document( $ndf_id, false, 'csv' );
 
 		wp_send_json_success( array(
-			'namespace' => 'noteDeFrais',
+			'namespace' => 'fraisPro',
 			'module' => 'NDF',
 			'link' => $response['link'],
 			'filename' => $response['filename'],
-			'callback_success' => 'exportedNoteDeFraisSuccess',
+			'callback_success' => 'exportedfraisProSuccess',
 		) );
 	}
 

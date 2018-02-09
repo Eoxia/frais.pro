@@ -5,8 +5,16 @@
  * @version 1.2.0
  */
 
-window.eoxiaJS.noteDeFrais.Line = {};
+window.eoxiaJS.fraisPro.Line = {};
 
-window.eoxiaJS.noteDeFrais.Line.displayLine = function( element, response ) {
+/**
+ * Display new created line.
+ *
+ * @return {void}
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ */
+window.eoxiaJS.fraisPro.Line.displayLine = function( element, response ) {
 	jQuery( 'div.list-line' ).prepend( response.data.view );
 };

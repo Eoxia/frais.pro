@@ -30,7 +30,7 @@ class Line_Action {
 		add_action( 'wp_ajax_modify_ndfl', array( $this, 'callback_modify_ndfl' ) );
 		add_action( 'wp_ajax_delete_ndfl', array( $this, 'callback_delete_ndfl' ) );
 
-		add_action( 'wp_ajax_fraispro_create_line_from_picture', array( $this, 'ajaxcallback_fraispro_create_line_from_picture' ) );
+		add_action( 'wp_ajax_fp_create_line_from_picture', array( $this, 'callback_fp_create_line_from_picture' ) );
 	}
 
 	/**
@@ -39,18 +39,59 @@ class Line_Action {
 	public function callback_fp_create_line() {
 		check_ajax_referer( 'fp_create_line' );
 
-		$line_args = array();
+		$line_args              = array();
 		$line_args['parent_id'] = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
+
 		$line = Line_Class::g()->create( $line_args );
 		ob_start();
 		Line_Class::g()->display( $line );
 		$line_view = ob_get_clean();
 
 		wp_send_json_success( array(
-			'namespace'        => 'noteDeFrais',
+			'namespace'        => 'fraisPro',
 			'module'           => 'Line',
 			'callback_success' => 'displayLine',
-			'line' => $line,
+			'line'             => $line,
+			'view'             => $line_view,
+		) );
+	}
+
+	/**
+	 * Create a new line on a professionnal fess sheet for each sended picture.
+	 *
+	 * @since 1.2.0
+	 * @version 1.4.0
+	 *
+	 * @return void
+	 */
+	public function callback_fp_create_line_from_picture() {
+		check_ajax_referer( 'fp_create_line_from_picture' );
+
+		$files_id  = ! empty( $_POST['files_id'] ) ? (array) $_POST['files_id'] : array();
+		$note_id   = ! empty( $_POST['note_id'] ) ? (integer) $_POST['note_id'] : array();
+		$line_view = '';
+
+		if ( empty( $files_id ) || ! is_int( $note_id ) ) {
+			wp_send_json_error( array( 'message' => __( 'There is a missing parameter', 'frais-pro' ) ) );
+		}
+
+		if ( ! empty( $files_id ) ) {
+			foreach ( $files_id as $file_id ) {
+				$line = Line_Class::g()->update( array( 'parent_id' => $note_id ) );
+
+				// \eoxia\WPEO_Upload_Class::g()->set_thumbnail( array(
+				// 	'id'         => $line->id,
+				// 	'file_id'    => (int) $file_id,
+				// 	'model_name' => '\frais_pro\Line_Class',
+				// ) );
+
+				ob_start();
+				Line_Class::g()->display( $line );
+				$line_view .= ob_get_clean();
+			}
+		}
+
+		wp_send_json_success( array(
 			'view' => $line_view,
 		) );
 	}
@@ -67,7 +108,7 @@ class Line_Action {
 		check_ajax_referer( 'modify_ndfl' );
 
 		$edit_mode = false;
-		$ndf_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
+		$note_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
 		$display_mode = isset( $_POST['display_mode'] ) ? sanitize_text_field( $_POST['display_mode'] ) : 'list';
 
 		if ( isset( $_POST['row'] ) ) {
@@ -75,21 +116,21 @@ class Line_Action {
 				if ( isset( $row['id'] ) && ! empty( $row['id'] ) ) {
 					$edit_mode = true;
 				}
-				$row['parent_id'] = $ndf_id;
+				$row['parent_id'] = $note_id;
 				$current_row = Line_Class::g()->update( $row );
 			}
 		}
 
 		ob_start();
-		Line_Class::g()->display( $ndf_id, $display_mode );
+		Line_Class::g()->display( $note_id, $display_mode );
 		$response = ob_get_clean();
 
 		$ndf = Note_Class::g()->get( array(
-			'id' => $ndf_id,
+			'id' => $note_id,
 		), true );
 
 		wp_send_json_success( array(
-			'namespace' => 'noteDeFrais',
+			'namespace' => 'fraisPro',
 			'module' => 'NDF',
 			'callback_success' => 'refresh',
 			'no_refresh' => $edit_mode,
@@ -109,7 +150,7 @@ class Line_Action {
 	public function callback_delete_ndfl() {
 		check_ajax_referer( 'delete_ndfl' );
 
-		$ndf_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
+		$note_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
 		$row_to_delete = isset( $_POST['ndfl_id'] ) ? intval( $_POST['ndfl_id'] ) : -1;
 		$display_mode = isset( $_POST['display_mode'] ) ? sanitize_text_field( $_POST['display_mode'] ) : 'list';
 
@@ -125,48 +166,9 @@ class Line_Action {
 		$response = ob_get_clean();
 
 		wp_send_json_success( array(
-			'namespace' => 'noteDeFrais',
+			'namespace' => 'fraisPro',
 			'module' => 'NDF',
 			'callback_success' => 'refresh',
-			'view' => $response,
-		) );
-	}
-
-	/**
-	 * Pour chaque ID de fichier reçu, créer un EPI.
-	 *
-	 * @since 1.2.0
-	 * @version 1.2.0
-	 *
-	 * @return void
-	 */
-	public function ajaxcallback_fraispro_create_line_from_picture() {
-		check_ajax_referer( 'fraispro_create_line_from_picture' );
-
-		$files_id = ! empty( $_POST['files_id'] ) ? (array) $_POST['files_id'] : array();
-		$ndf_id = ! empty( $_POST['ndf_id'] ) ? (integer) $_POST['ndf_id'] : array();
-
-		if ( empty( $files_id ) || ! is_int( $ndf_id ) ) {
-			wp_send_json_error();
-		}
-
-		if ( ! empty( $files_id ) ) {
-			foreach ( $files_id as $file_id ) {
-				$ndfl = Line_Class::g()->update( array( 'parent_id' => $ndf_id ) );
-
-				\eoxia\WPEO_Upload_Class::g()->set_thumbnail( array(
-					'id' => $ndfl->id,
-					'file_id' => $file_id,
-					'model_name' => '\frais_pro\Line_Class',
-				) );
-			}
-		}
-
-		ob_start();
-		Line_Class::g()->display( $ndf_id, 'grid' );
-		$response = ob_get_clean();
-
-		wp_send_json_success( array(
 			'view' => $response,
 		) );
 	}

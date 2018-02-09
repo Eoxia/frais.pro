@@ -4,7 +4,32 @@
  * @since 1.4.0
  * @version 1.4.0
  */
-window.eoxiaJS.noteDeFrais.note = {};
+window.eoxiaJS.fraisPro.note = {};
+
+/**
+ * Keep the button in memory.
+ *
+ * @type {Object}
+ */
+ window.eoxiaJS.fraisPro.note.currentButton;
+
+/**
+ * Keep the media frame in memory.
+ * @type {Object}
+ */
+ window.eoxiaJS.fraisPro.note.mediaFrame;
+
+/**
+* Keep the media frame in memory.
+* @type {Object}
+*/
+ window.eoxiaJS.fraisPro.note.focusedElement;
+
+/**
+ * Keep the selected media in memory.
+ * @type {Object}
+ */
+ window.eoxiaJS.fraisPro.note.selectedInfos = [];
 
 /**
  * La méthode appelée automatiquement par la bibliothèque EoxiaJS.
@@ -14,9 +39,10 @@ window.eoxiaJS.noteDeFrais.note = {};
  * @since 1.4.0
  * @version 1.4.0
  */
-window.eoxiaJS.noteDeFrais.note.init = function() {
-	jQuery( document ).on( 'click', '.list-note .note', window.eoxiaJS.noteDeFrais.note.goToLink );
-	jQuery( document ).on( 'click', '.display-method span.wpeo-button', window.eoxiaJS.noteDeFrais.note.changeDisplayMode );
+window.eoxiaJS.fraisPro.note.init = function() {
+	jQuery( document ).on( 'click', '.list-note .note', window.eoxiaJS.fraisPro.note.goToLink );
+	jQuery( document ).on( 'click', '.display-method span.wpeo-button', window.eoxiaJS.fraisPro.note.changeDisplayMode );
+	jQuery( document ).on( 'click', '.wrap-frais-pro .fraispro-mass-line-creation', window.eoxiaJS.fraisPro.note.openMedia );
 };
 
 /**
@@ -27,7 +53,7 @@ window.eoxiaJS.noteDeFrais.note.init = function() {
  * @since 1.4.0
  * @version 1.4.0
  */
-window.eoxiaJS.noteDeFrais.note.goToLink = function( event ) {
+window.eoxiaJS.fraisPro.note.goToLink = function( event ) {
 	window.location.href = jQuery( this ).data( 'link' );
 };
 
@@ -39,7 +65,7 @@ window.eoxiaJS.noteDeFrais.note.goToLink = function( event ) {
  * @since 1.4.0
  * @version 1.4.0
  */
-window.eoxiaJS.noteDeFrais.note.goToNote = function( element, response ) {
+window.eoxiaJS.fraisPro.note.goToNote = function( element, response ) {
 	window.location.href = response.data.link;
 };
 
@@ -51,8 +77,52 @@ window.eoxiaJS.noteDeFrais.note.goToNote = function( element, response ) {
  * @since 1.4.0
  * @version 1.4.0
  */
-window.eoxiaJS.noteDeFrais.note.changeDisplayMode = function( event ) {
+window.eoxiaJS.fraisPro.note.changeDisplayMode = function( event ) {
 	event.preventDefault();
 	jQuery( this ).closest( 'div.single-note' ).toggleClass( 'grid list' );
 	jQuery( this ).closest( 'div.display-method' ).children( 'span' ).toggleClass( 'active' );
+};
+
+/**
+ * [description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
+window.eoxiaJS.fraisPro.note.openMedia = function( event ) {
+	window.eoxiaJS.fraisPro.note.currentButton = jQuery( this );
+	event.preventDefault();
+
+	window.eoxiaJS.fraisPro.note.mediaFrame = new window.wp.media.view.MediaFrame.Post({}).open();
+	window.eoxiaJS.fraisPro.note.mediaFrame.on( 'insert', function() {
+		window.eoxiaJS.fraisPro.note.selectedFile();
+	} );
+};
+/**
+ * [description]
+ * @param  {[type]} element [description]
+ * @return {[type]}         [description]
+ */
+window.eoxiaJS.fraisPro.note.selectedFile = function( element ) {
+	var data = {
+		action: 'fp_create_line_from_picture',
+		_wpnonce: window.eoxiaJS.fraisPro.note.currentButton.attr( 'data-nonce' ),
+		files_id: window.eoxiaJS.fraisPro.note.selectedInfos,
+		note_id: window.eoxiaJS.fraisPro.note.currentButton.attr( 'data-parent-id' )
+	};
+
+	window.eoxiaJS.fraisPro.note.mediaFrame.state().get( 'selection' ).map( function( attachment ) {
+		window.eoxiaJS.fraisPro.note.selectedInfos.push( attachment.id );
+	} );
+
+	jQuery( '.single-note' ).find( '.date_modified_value' ).addClass( 'loading' );
+	window.eoxiaJS.fraisPro.note.currentButton.addClass( 'loading' );
+	jQuery.post( window.ajaxurl, data, function( response ) {
+		window.eoxiaJS.fraisPro.note.currentButton.removeClass( 'loading' );
+		window.eoxiaJS.fraisPro.note.currentButton = undefined;
+		window.eoxiaJS.fraisPro.note.selectedInfos = [];
+		window.eoxiaJS.fraisPro.note.mediaFrame = undefined;
+		if ( response.success ) {
+			jQuery( 'div.list-line' ).prepend( response.data.view );
+		}
+	}, 'json' );
 };

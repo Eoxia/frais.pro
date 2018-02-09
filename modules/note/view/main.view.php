@@ -45,15 +45,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</ul>
 			</div>
 			<span class="export toggle list" data-parent="toggle" data-target="content" >
-				<?php \eoxia\View_Util::exec( 'frais-pro', 'note', 'actions', array(
+				<?php
+				\eoxia\View_Util::exec( 'frais-pro', 'note', 'actions', array(
 					'note' => $note,
-				) ); ?>
+				) );
+				?>
 			</span>
 		</div>
 
 		<div class="content">
 			<div class="note-action">
-				<div class="wpeo-button button-blue button-uppercase" >
+				<div class="wpeo-button button-blue button-uppercase fraispro-mass-line-creation" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_create_line_from_picture' ) ); ?>" data-parent-id="<?php echo esc_attr( $note->id ); ?>" >
 					<i class="button-icon far fa-images"></i> <span><?php esc_html_e( 'Multiple add from pictures', 'frais-pro' ); ?></span>
 				</div>
 
@@ -75,34 +77,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div> <!-- .note-recap -->
 
 				<div class="display-method">
-					<span class="wpeo-button button-square-50 button-grey <?php echo esc_attr( 'grid' === $display_mode ? 'active' : '' );  ?>" data-display-type="grid" ><i class="icon fas fa-th-large"></i></span>
-					<span class="wpeo-button button-square-50 button-grey <?php echo esc_attr( 'list' === $display_mode ? 'active' : '' );  ?>" data-display-type="list" ><i class="icon far fa-list-ul"></i></span>
+					<span class="wpeo-button button-square-50 button-grey <?php echo esc_attr( 'grid' === $display_mode ? 'active' : '' ); ?>" data-display-type="grid" ><i class="icon fas fa-th-large"></i></span>
+					<span class="wpeo-button button-square-50 button-grey <?php echo esc_attr( 'list' === $display_mode ? 'active' : '' ); ?>" data-display-type="list" ><i class="icon far fa-list-ul"></i></span>
 				</div> <!-- .display-method -->
 			</div> <!-- .note-action -->
 
-			<div class="wpeo-table table-flex list-line-header">
-				<div class="table-row table-header">
-					<div class="table-cell image"><?php esc_html_e( 'Picture', 'frais-pro' ); ?></div>
-					<div class="table-cell date"><?php esc_html_e( 'Date', 'frais-pro' ); ?></div>
-					<div class="table-cell libelle"><?php esc_html_e( 'Label', 'frais-pro' ); ?></div>
-					<div class="table-cell type"><?php esc_html_e( 'Type', 'frais-pro' ); ?></div>
-					<div class="table-cell km"><?php esc_html_e( 'Km', 'frais-pro' ); ?></div>
-					<div class="table-cell ttc"><?php esc_html_e( 'ATI(€)', 'frais-pro' ); ?></div>
-					<div class="table-cell tva"><?php esc_html_e( 'VAT', 'frais-pro' ); ?></div>
-					<div class="table-cell status"></div>
-					<div class="table-cell action table-end"></div>
-				</div>
-			</div>
-
-			<div class="wpeo-table table-flex list-line">
-			<?php
-			if ( ! empty( $lines ) ) :
-				foreach ( $lines as $line ) :
-					Line_Class::g()->display( $line );
-				endforeach;
-			endif;
-			?>
-			</div>
+			<?php \eoxia\View_Util::exec( 'frais-pro', 'line', 'list', array( 'lines' => $lines ) ); ?>
 
 		</div> <!-- .content -->
 

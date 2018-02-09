@@ -2,7 +2,7 @@
 /**
  * Vue principale de l'ajout des champs des utilisateurs
  *
- * @package Eoxia\NoteDeFrais
+ * @package Eoxia\fraisPro
  * @subpackage Views
  *
  * @since 1.0.0
