@@ -29,9 +29,10 @@ class Note_Model extends \eoxia\Post_Model {
 	public function __construct( $data = null, $req_method = null ) {
 
 		$this->schema['validation_status'] = array(
-			'type'      => 'string',
-			'meta_type' => 'single',
-			'field'     => 'fp_note_validation_status',
+			'type'       => 'string',
+			'meta_type'  => 'single',
+			'field'      => 'fp_note_validation_status',
+			'deprecated' => '< 1.4.0',
 		);
 
 		$this->schema['tax_inclusive_amount'] = array(
