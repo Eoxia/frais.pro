@@ -16,8 +16,8 @@ window.eoxiaJS.noteDeFrais.updateManager = {};
  * @version 1.4.0
  */
 window.eoxiaJS.noteDeFrais.updateManager.init = function() {
-	// window.eoxiaJS.noteDeFrais.updateManager.requestUpdate();
-	// window.addEventListener( 'beforeunload', window.eoxiaJS.noteDeFrais.updateManager.safeExit );
+	window.eoxiaJS.noteDeFrais.updateManager.requestUpdate();
+	window.addEventListener( 'beforeunload', window.eoxiaJS.noteDeFrais.updateManager.safeExit );
 };
 
 window.eoxiaJS.noteDeFrais.updateManager.requestUpdateFunc = {
@@ -44,7 +44,7 @@ window.eoxiaJS.noteDeFrais.updateManager.requestUpdate = function( args ) {
 				description += args.moreDescription;
 			}
 
-			jQuery( '.log' ).append( '<li>' + description + window.task_manager_loader + '</li>' );
+			jQuery( '.log' ).append( '<li>' + description + '</li>' );
 
 			jQuery.post( ajaxurl, data, function( response ) {
 				jQuery( '.log img' ).remove();
@@ -73,7 +73,7 @@ window.eoxiaJS.noteDeFrais.updateManager.requestUpdate = function( args ) {
 						});
 					} else {
 
-						if ( response.data.args.resetArgs ) {
+						if ( response.data.args && response.data.args.resetArgs ) {
 							delete response.data.args;
 						}
 						window.eoxiaJS.noteDeFrais.updateManager.requestUpdate( response.data.args );
