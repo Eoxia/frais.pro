@@ -33,49 +33,43 @@ class Line_Model extends \eoxia\Post_Model {
 		$this->schema['category_name'] = array(
 			'type'          => 'string',
 			'meta_type'     => 'single',
-			'field'         => '_ndfl_category_name',
-			'default'       => '',
+			'field'         => 'fp_line_category_name',
 		);
 
 		$this->schema['vehicule'] = array(
 			'type'          => 'string',
 			'meta_type'     => 'single',
-			'field'         => '_ndfl_vehicule',
-			'default'       => '',
+			'field'         => 'fp_line_vehicule',
 		);
 
 		$this->schema['distance'] = array(
 			'type'          => 'integer',
 			'meta_type'     => 'single',
-			'field'         => '_ndfl_distance',
-			'default'       => '',
+			'field'         => 'fp_line_distance',
 		);
 
 		$this->schema['tax_inclusive_amount'] = array(
 			'type'          => 'float',
 			'meta_type'     => 'single',
-			'field'         => '_ndfl_tax_inclusive_amount',
-			'default'       => '',
+			'field'         => 'fp_line_tax_inclusive_amount',
 		);
 
 		$this->schema['tax_amount'] = array(
 			'type'          => 'float',
 			'meta_type'     => 'single',
-			'field'         => '_ndfl_tax_amount',
-			'default'       => '',
+			'field'         => 'fp_line_tax_amount',
 		);
 
 		$this->schema['taxonomy'] = array(
 			'type' => 'array',
 			'meta_type' => 'multiple',
 			'child' => array(
-				'_type_note' => array(
+				Line_Type_Class::g()->get_type() => array(
 					'meta_type' => 'multiple',
 					'array_type' => 'integer',
 					'type' => 'array',
 				),
 			),
-			'default'       => '',
 		);
 
 		parent::__construct( $data, $req_method );

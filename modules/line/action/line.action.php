@@ -38,13 +38,11 @@ class Line_Action {
 	 */
 	public function callback_fp_create_line() {
 		check_ajax_referer( 'fp_create_line' );
+		$response = '';
 
-		$ndf_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
-		Line_Class::g()->create( $_POST );
-
-		ob_start();
-		Note_Class::g()->display( $ndf_id );
-		$response = ob_get_clean();
+		$line_args = array();
+		$line_args['parent_id'] = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
+		Line_Class::g()->create( $line_args );
 
 		wp_send_json_success( array(
 			'response' => $response,

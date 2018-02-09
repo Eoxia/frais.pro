@@ -33,7 +33,7 @@ $i = 1;
 
 	<div class="container">
 		<div class="header">
-			<a href="#" class="close"><i class="icon far fa-chevron-left"></i></a>
+			<a href="<?php echo esc_url( menu_page_url( \eoxia\Config_Util::$init['frais-pro']->slug, false ) ); ?>" class="close"><i class="icon far fa-chevron-left"></i></a>
 			<div class="title">
 				<h2><?php echo esc_html( $note->title ); ?></h2>
 				<div class="note-last-update" ><?php esc_html_e( 'Last update', 'frais-pro' ); ?> : <?php echo esc_html( $note->date_modified['rendered']['date_human_readable'] ); ?></div>

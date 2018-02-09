@@ -32,12 +32,12 @@ class Note_Status_Model extends \eoxia\Term_Model {
 		$this->schema['special_behaviour'] = array(
 			'type'          => 'string',
 			'meta_type'     => 'single',
-			'field'         => 'note_status_special_behaviour',
+			'field'         => 'fp_note_status_special_behaviour',
 		);
 		$this->schema['is_default'] = array(
 			'type'          => 'boolean',
 			'meta_type'     => 'single',
-			'field'         => 'note_status_is_default',
+			'field'         => 'fp_note_status_is_default',
 		);
 
 		parent::__construct( $data, $req_method );
