@@ -24,10 +24,11 @@ class Line_Model extends \eoxia\Post_Model {
 	/**
 	 * Le constructeur définis le schéma.
 	 *
-	 * @param object $object L'objet courant.
+	 * @param object $data       L'objet courant.
+	 * @param string $req_method La méthode HTTP actuelle.
 	 *
 	 * @since 1.0.0
-	 * @version 1.2.0
+	 * @version 1.4.0
 	 */
 	public function __construct( $data = null, $req_method = null ) {
 		$this->schema['category_name'] = array(
@@ -46,6 +47,7 @@ class Line_Model extends \eoxia\Post_Model {
 			'type'          => 'integer',
 			'meta_type'     => 'single',
 			'field'         => 'fp_line_distance',
+			'default'       => 0,
 		);
 
 		$this->schema['tax_inclusive_amount'] = array(

@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<td class="note-action">
 		<span class="export toggle list" data-parent="toggle" data-target="content">
 			<?php \eoxia\View_Util::exec( 'frais-pro', 'note', 'actions', array(
-				'ndf' => $note,
+				'note' => $note,
 			) ); ?>
 		</span>
 	</td>

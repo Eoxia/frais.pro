@@ -69,7 +69,7 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_post_function = array( '\frais_pro\after_update_line' );
+	protected $after_post_function = array( );
 
 	/**
 	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée

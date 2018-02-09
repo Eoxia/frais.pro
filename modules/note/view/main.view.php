@@ -26,10 +26,7 @@ if ( ! empty( $lines ) ) :
 				$has_ko_line = true;
 			}
 			ob_start();
-			\eoxia\View_Util::exec( 'frais-pro', 'line', 'item', array(
-				'line'          => $line,
-				'line_status'   => $line_status,
-			) );
+			Line_Class::g()->display( $line );
 			$line_output .= ob_get_clean();
 		endif;
 	endforeach;
@@ -72,12 +69,11 @@ endif;
 
 		<div class="content">
 			<div class="note-action">
-				<div class="wpeo-button button-blue button-uppercase">
+				<div class="wpeo-button button-blue button-uppercase" >
 					<i class="button-icon far fa-images"></i> <span><?php esc_html_e( 'Multiple add from pictures', 'frais-pro' ); ?></span>
 				</div>
 
-				<div class="wpeo-button button-blue button-uppercase action-attribute"
-					data-action="fp_create_line" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_create_line' ) ); ?>" data-parent-id="<?php echo esc_attr( $note->id ); ?>" >
+				<div class="wpeo-button button-blue button-uppercase action-attribute" data-action="fp_create_line" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_create_line' ) ); ?>" data-parent-id="<?php echo esc_attr( $note->id ); ?>" >
 					<i class="button-icon fas fa-plus-circle"></i> <span><?php esc_html_e( 'New line', 'frais-pro' ); ?></span>
 				</div>
 
