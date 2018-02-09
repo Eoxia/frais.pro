@@ -12,7 +12,9 @@
 
 namespace frais_pro;
 
-if ( ! defined( 'ABSPATH' ) ) {	exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Classe gérant le boot de l'application Frais.pro
@@ -38,7 +40,7 @@ class Note_De_Frais_Class extends \eoxia\Singleton_Util {
 	public function display() {
 		\eoxia\View_Util::exec( 'frais-pro', 'core', 'main', array(
 			'waiting_updates' => get_option( \eoxia\Config_Util::$init['frais-pro']->key_waited_updates, array() ),
-			'user'            => User_Class::g()->get( array( 'user_id' => get_current_user_id() ), true ),
+			'user'            => User_Class::g()->get( array( 'id' => get_current_user_id() ), true ),
 		) );
 	}
 
