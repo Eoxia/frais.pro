@@ -29,31 +29,31 @@ class Note_Model extends \eoxia\Post_Model {
 	public function __construct( $data = null, $req_method = null ) {
 
 		$this->schema['validation_status'] = array(
-			'type'          => 'string',
-			'meta_type'     => 'single',
-			'field'         => '_ndf_validation_status',
+			'type'      => 'string',
+			'meta_type' => 'single',
+			'field'     => 'fp_note_validation_status',
 		);
 
 		$this->schema['tax_inclusive_amount'] = array(
-			'type'          => 'float',
-			'meta_type'     => 'single',
-			'field'         => '_ndf_tax_inclusive_amount',
+			'type'      => 'float',
+			'meta_type' => 'single',
+			'field'     => 'fp_note_tax_inclusive_amount',
 		);
 
 		$this->schema['tax_amount'] = array(
-			'type'          => 'float',
-			'meta_type'     => 'single',
-			'field'         => '_ndf_tax_amount',
+			'type'      => 'float',
+			'meta_type' => 'single',
+			'field'     => 'fp_note_tax_amount',
 		);
 
 		$this->schema['taxonomy'] = array(
-			'type' => 'array',
+			'type'      => 'array',
 			'meta_type' => 'multiple',
-			'child' => array(
-				'_note_status' => array(
-					'meta_type' => 'multiple',
+			'child'     => array(
+				Line_Type_Class::g()->get_type() => array(
+					'meta_type'  => 'multiple',
 					'array_type' => 'integer',
-					'type' => 'array',
+					'type'       => 'array',
 				),
 			),
 		);
