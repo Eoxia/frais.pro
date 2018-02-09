@@ -47,7 +47,7 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $base  = 'ligne';
+	protected $base  = 'line';
 
 	/**
 	 * Fonction de callback avant d'insérer les données en mode POST.
@@ -69,14 +69,14 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_post_function = array(  );
+	protected $after_post_function = array( '\frais_pro\after_update_line' );
 
 	/**
 	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée
 	 *
 	 * @var array
 	 */
-	protected $after_put_function = array(  );
+	protected $after_put_function = array( '\frais_pro\after_update_line' );
 
 	/**
 	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée
@@ -91,6 +91,22 @@ class Line_Class extends \eoxia\Post_Class {
 	 * @var string
 	 */
 	protected $post_type_name = 'Note';
+
+	/**
+	 * Display a line.
+	 *
+	 * @param Line_Model $line The full line model.
+	 *
+	 * @return void
+	 */
+	public function display( $line ) {
+		$line_status = Line_Class::g()->check_line_status( $line );
+
+		\eoxia\View_Util::exec( 'frais-pro', 'line', 'item', array(
+			'line'          => $line,
+			'line_status'   => $line_status,
+		) );
+	}
 
 	/**
 	 * Vérifie si une ligne de note est valide ou non

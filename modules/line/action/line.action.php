@@ -46,6 +46,7 @@ class Line_Action {
 
 		wp_send_json_success( array(
 			'response' => $response,
+			'view'     => $line,
 		) );
 	}
 

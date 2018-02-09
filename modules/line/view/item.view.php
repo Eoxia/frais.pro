@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 <div class="table-row line">
 	<div class="table-cell line-image">
-		<?php do_shortcode( '[wpeo_upload id="' . $ndfl->id . '" model_name="/frais_pro/Line_Class" single="true" size="full" ]' ); ?>
+		<?php do_shortcode( '[wpeo_upload id="' . $line->id . '" model_name="/frais_pro/Line_Class" single="true" size="full" ]' ); ?>
 	</div>
 	<div class="table-cell line-content wpeo-form">
 		<div class="date form-element">
@@ -26,23 +26,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<div class="libelle form-element">
 			<label><?php esc_attr_e( 'Label', 'frais-pro' ); ?></label>
-			<input type="text" placeholder="<?php esc_attr_e( 'Label', 'frais-pro' ); ?>" value="<?php echo esc_html( $ndfl->title ); ?>" />
+			<input type="text" placeholder="<?php esc_attr_e( 'Label', 'frais-pro' ); ?>" value="<?php echo esc_html( $line->title ); ?>" />
 		</div>
 		<div class="type form-element">
 			<label><?php esc_attr_e( 'Line type', 'frais-pro' ); ?></label>
-			<?php Line_Type_Class::g()->display( $ndfl ); ?>
+			<?php Line_Type_Class::g()->display( $line ); ?>
 		</div>
 		<div class="km form-element">
 			<label><?php esc_attr_e( 'Km', 'frais-pro' ); ?></label>
-			<input type="text" value="<?php echo esc_html( $ndfl->distance ); ?>" />
+			<input type="text" value="<?php echo esc_html( $line->distance ); ?>" />
 		</div>
 		<div class="ttc form-element">
 			<label><?php esc_attr_e( 'ATI(€)', 'frais-pro' ); ?></label>
-			<input type="text" value="<?php echo esc_html( $ndfl->tax_inclusive_amount ); ?>" />
+			<input type="text" value="<?php echo esc_html( $line->tax_inclusive_amount ); ?>" />
 		</div>
 		<div class="tva form-element">
 			<label><?php esc_attr_e( 'VAT', 'frais-pro' ); ?></label>
-			<input type="text" value="<?php echo esc_html( $ndfl->tax_amount ); ?>" />
+			<input type="text" value="<?php echo esc_html( $line->tax_amount ); ?>" />
 		</div>
 		<div class="status wpeo-tooltip-event" aria-label="<?php echo esc_attr( ! empty( $line_status ) && ( false === $line_status['status'] ) ? __( 'Invalid line', 'frais-pro' ) : __( 'Valid line', 'frais-pro' ) ); ?>">
 			<span class="pin <?php echo esc_attr( ! empty( $line_status ) && ( false === $line_status['status'] ) ? 'ndfl-error' : 'ndfl-ok' ); ?>"></span>

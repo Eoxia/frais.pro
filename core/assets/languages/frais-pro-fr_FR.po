@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Frais.pro V1.X.X\n"
-"POT-Creation-Date: 2018-02-09 11:21+0100\n"
-"PO-Revision-Date: 2018-02-09 11:23+0100\n"
+"POT-Creation-Date: 2018-02-09 14:39+0100\n"
+"PO-Revision-Date: 2018-02-09 14:39+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia dev@eoxia.com\n"
 "Language: fr_FR\n"
@@ -160,7 +160,7 @@ msgstr "Notes de frais"
 msgid "Add"
 msgstr "Ajouter"
 
-#: modules/note/view/list.view.php:48
+#: modules/note/view/list.view.php:34
 msgid "Actually you do not have professionnal fees sheet"
 msgstr ""
 "Vous n'avez pas de notes de frais pour le moment. Vous pouvez utiliser le "

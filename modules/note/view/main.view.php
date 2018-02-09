@@ -18,18 +18,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $has_ko_line = false;
 $line_output = '';
-$i = 1;
+if ( ! empty( $lines ) ) :
+	foreach ( $lines as $line ) :
+		if ( ! empty( $line ) ) :
+			$line_status = Line_Class::g()->check_line_status( $line );
+			if ( ! empty( $line_status ) && false === $line_status['status'] ) {
+				$has_ko_line = true;
+			}
+			ob_start();
+			\eoxia\View_Util::exec( 'frais-pro', 'line', 'item', array(
+				'line'          => $line,
+				'line_status'   => $line_status,
+			) );
+			$line_output .= ob_get_clean();
+		endif;
+	endforeach;
+endif;
 
 ?>
 <h1>
 	<?php esc_html_e( 'Professionnal fees sheets', 'frais-pro' ); ?>
 </h1>
-
-<div class="single-note<?php echo esc_attr( $note_is_closed ? ' is_closed' : '' ); ?><?php echo esc_attr( $has_ko_line ? ' ndf-error' : '' ); ?> <?php echo esc_attr( $display_mode ); ?>" >
-	<input type="hidden" name="id" value="<?php echo esc_attr( $note->id ); ?>">
-	<input type="hidden" name="action" value="update_note">
-	<input type="hidden" name="display_mode" value="<?php echo esc_attr( $display_mode ); ?>">
-	<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'update_note' ) ); ?>">
+<div class="single-note<?php echo esc_attr( $note_is_closed ? ' is_closed' : '' ); ?><?php echo esc_attr( $has_ko_line ? ' line-error' : '' ); ?> <?php echo esc_attr( $display_mode ); ?>" >
+	<input type="hidden" name="id" value="<?php echo esc_attr( $note->id ); ?>" >
+	<input type="hidden" name="action" value="update_note" >
+	<input type="hidden" name="display_mode" value="<?php echo esc_attr( $display_mode ); ?>" >
+	<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'update_note' ) ); ?>" >
 
 	<div class="container">
 		<div class="header">
@@ -51,7 +65,7 @@ $i = 1;
 			</div>
 			<span class="export toggle list" data-parent="toggle" data-target="content" >
 				<?php \eoxia\View_Util::exec( 'frais-pro', 'note', 'actions', array(
-					'ndf' => $note,
+					'note' => $note,
 				) ); ?>
 			</span>
 		</div>
@@ -87,7 +101,7 @@ $i = 1;
 						data-action="open_ndf"
 						aria-label="<?php esc_attr_e( 'Grid mode', 'frais-pro' ); ?>"
 						data-namespace="noteDeFrais"
-						data-module="NDFL"
+						data-module="Note"
 						data-before-method="beforeDisplayModeChange"
 						data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon fas fa-th-large"></i></span>
 					<span class="action-attribute wpeo-button button-square-50 button-grey <?php echo esc_attr( 'list' === $display_mode ? 'active' : '' );  ?>"
@@ -95,7 +109,7 @@ $i = 1;
 						data-display-mode="list"
 						data-action="open_ndf"
 						data-namespace="noteDeFrais"
-						data-module="NDFL"
+						data-module="Note"
 						data-before-method="beforeDisplayModeChange"
 						aria-label="<?php esc_attr_e( 'List mode', 'frais-pro' ); ?>"
 						data-nonce="<?php echo esc_attr( wp_create_nonce( 'open_ndf' ) ); ?>"><i class="icon far fa-list-ul"></i></span>
