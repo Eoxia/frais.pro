@@ -3,14 +3,12 @@
 	"slug": "update_manager",
 	"since": "1.4.0",
 	"version": "1.4.0",
-	"description": "Le module gérant les mises à jour de Frais.pro",
+	"description": "Le module gérant les mises à jour",
 	"path": "modules/update_manager/",
 	"state": true,
 	"dependencies": {
 		"update": {},
 		"action": {},
 		"class": {}
-	},
-	"page_url": "frais-pro-update",
-	"option_key": "_fp_waited_updates"
+	}
 }

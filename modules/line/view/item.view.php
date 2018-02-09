@@ -25,34 +25,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input id="line-date" type="text" />
 		</div>
 		<div class="libelle form-element">
-			<label><?php esc_attr_e( 'Libellé', 'frais-pro' ); ?></label>
-			<input type="text" placeholder="<?php esc_attr_e( 'My entry', 'frais-pro' ); ?>" value="<?php echo esc_html( $ndfl->title ); ?>" />
+			<label><?php esc_attr_e( 'Label', 'frais-pro' ); ?></label>
+			<input type="text" placeholder="<?php esc_attr_e( 'Label', 'frais-pro' ); ?>" value="<?php echo esc_html( $ndfl->title ); ?>" />
 		</div>
 		<div class="type form-element">
-			<label><?php esc_attr_e( 'Type de note', 'frais-pro' ); ?></label>
-			<?php Type_Note_Class::g()->display( $ndfl ); ?>
+			<label><?php esc_attr_e( 'Line type', 'frais-pro' ); ?></label>
+			<?php Line_Type_Class::g()->display( $ndfl ); ?>
 		</div>
 		<div class="km form-element">
 			<label><?php esc_attr_e( 'Km', 'frais-pro' ); ?></label>
 			<input type="text" value="<?php echo esc_html( $ndfl->distance ); ?>" />
 		</div>
 		<div class="ttc form-element">
-			<label><?php esc_attr_e( 'TTC(€)', 'frais-pro' ); ?></label>
+			<label><?php esc_attr_e( 'ATI(€)', 'frais-pro' ); ?></label>
 			<input type="text" value="<?php echo esc_html( $ndfl->tax_inclusive_amount ); ?>" />
 		</div>
 		<div class="tva form-element">
-			<label><?php esc_attr_e( 'TVA récup.', 'frais-pro' ); ?></label>
+			<label><?php esc_attr_e( 'VAT', 'frais-pro' ); ?></label>
 			<input type="text" value="<?php echo esc_html( $ndfl->tax_amount ); ?>" />
 		</div>
-		<div class="status wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Ligne valide', 'frais-pro' ); ?>">
+		<div class="status wpeo-tooltip-event" aria-label="<?php echo esc_attr( ! empty( $line_status ) && ( false === $line_status['status'] ) ? __( 'Invalid line', 'frais-pro' ) : __( 'Valid line', 'frais-pro' ) ); ?>">
 			<span class="pin <?php echo esc_attr( ! empty( $line_status ) && ( false === $line_status['status'] ) ? 'ndfl-error' : 'ndfl-ok' ); ?>"></span>
 		</div>
 		<div class="action">
 			<div class="wpeo-dropdown dropdown-right">
 				<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>"><i class="button-icon far fa-ellipsis-v"></i></button>
 					<ul class="dropdown-content">
-					<li class="dropdown-item"><i class="dropdown-icon far fa-unlink fa-fw"></i> <?php esc_html_e( 'Dissocier de la note', 'frais-pro' ); ?></li>
-					<li class="dropdown-item"><i class="dropdown-icon fas fa-trash-alt fa-fw"></i> <?php esc_html_e( 'Supprimer', 'frais-pro' ); ?></li>
+					<li class="dropdown-item"><i class="dropdown-icon far fa-unlink fa-fw"></i> <?php esc_html_e( 'Dissociate from note', 'frais-pro' ); ?></li>
+					<li class="dropdown-item"><i class="dropdown-icon fas fa-trash-alt fa-fw"></i> <?php esc_html_e( 'Delete', 'frais-pro' ); ?></li>
 				</ul>
 			</div>
 		</div>

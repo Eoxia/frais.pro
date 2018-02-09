@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<tbody>
 		<tr class="user-marque-wrap">
 			<th><label for="marque"><?php esc_html_e( 'Brand of the car', 'frais-pro' ); ?></label></th>
-			<td><input type="text" name="marque" id="marque" value="<?php echo esc_attr( $user->marque ); ?>" class="regular-text ltr"></td>
+			<td><input type="text" name="marque" id="marque" value="<?php echo esc_attr( $user['marque'] ); ?>" class="regular-text ltr"></td>
 		</tr>
 
 		<tr class="user-marque-wrap">
@@ -55,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php if ( ( get_current_user_id() !== $user->id ) || ( 1 === get_current_user_id() ) ) : ?>
 		<tr class="user-marque-wrap">
 			<th><label for="ndf_admin"><?php esc_html_e( 'User is allowed to view all fees sheet', 'frais-pro' ); ?></label></th>
-			<td><input type="checkbox" name="ndf_admin" id="ndf_admin" value="1" <?php checked( $user->ndf_admin, true, true ); ?>></td>
+			<td><input type="checkbox" name="ndf_admin" id="ndf_admin" value="true" <?php checked( $user->ndf_admin, true, true ); ?>></td>
 		</tr>
 	<?php endif; ?>
 	</tbody>

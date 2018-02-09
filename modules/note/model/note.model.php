@@ -32,7 +32,6 @@ class Note_Model extends \eoxia\Post_Model {
 			'type'          => 'string',
 			'meta_type'     => 'single',
 			'field'         => '_ndf_validation_status',
-			'default'     => __( 'In progress', 'frais-pro' ),
 		);
 
 		$this->schema['tax_inclusive_amount'] = array(
@@ -45,6 +44,18 @@ class Note_Model extends \eoxia\Post_Model {
 			'type'          => 'float',
 			'meta_type'     => 'single',
 			'field'         => '_ndf_tax_amount',
+		);
+
+		$this->schema['taxonomy'] = array(
+			'type' => 'array',
+			'meta_type' => 'multiple',
+			'child' => array(
+				'_note_status' => array(
+					'meta_type' => 'multiple',
+					'array_type' => 'integer',
+					'type' => 'array',
+				),
+			),
 		);
 
 		parent::__construct( $data, $req_method );

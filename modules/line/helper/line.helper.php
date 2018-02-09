@@ -22,19 +22,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param  Object $data L'objet.
  * @return Object       L'objet avec tous les éléments ajoutés par cette méthode.
  */
-function before_update_ndfl( $data ) {
-	if ( ! empty( $data->distance ) ) {
+function before_update_line( $data ) {
+	$data['tax_inclusive_amount'] = 0;
+	$data['tax_amount'] = 0;
+
+	if ( ! empty( $data['distance'] ) ) {
 		$user = User_Class::g()->get( array(
 			'include' => array( get_current_user_id() ),
 		), true );
-		$data->tax_inclusive_amount = $data->distance * $user->prixkm;
-		$data->tax_amount = 0;
+		$data['tax_inclusive_amount'] = $data['distance'] * $user->prixkm;
+		$data['tax_amount'] = 0;
 	}
 
-	wp_set_object_terms( $data->id, array(), Type_Note_Class::g()->get_type(), false );
-
-	$data->tax_inclusive_amount = round( $data->tax_inclusive_amount, 2 );
-	$data->tax_amount = round( $data->tax_amount, 2 );
+	$data['tax_inclusive_amount'] = round( $data['tax_inclusive_amount'], 2 );
+	$data['tax_amount'] = round( $data['tax_amount'], 2 );
 
 	return $data;
 }
@@ -50,9 +51,9 @@ function before_update_ndfl( $data ) {
  */
 function get_current_category( $data ) {
 	$data->current_category = null;
-	$data->taxonomy['_type_note'] = wp_get_object_terms( $data->id, Type_Note_Class::g()->get_type() );
+	$data->taxonomy['_type_note'] = wp_get_object_terms( $data->id, Line_Type_Class::g()->get_type() );
 	if ( ! empty( $data->taxonomy['_type_note'] ) && ! empty( $data->taxonomy['_type_note'][0] ) ) {
-		$data->current_category = Type_Note_Class::g()->get( array( 'id' => $data->taxonomy['_type_note'][0]->term_id ), true );
+		$data->current_category = Line_Type_Class::g()->get( array( 'id' => $data->taxonomy['_type_note'][0]->term_id ), true );
 	}
 	return $data;
 }
@@ -63,7 +64,7 @@ function get_current_category( $data ) {
  * @param  Object $data L'objet.
  * @return Object       L'objet non modifié.
  */
-function after_update_ndfl( $data ) {
+function after_update_line( $data ) {
 	$ndf = Note_Class::g()->get( array(
 		'id' => $data->parent_id,
 	), true );

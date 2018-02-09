@@ -25,7 +25,8 @@ class Line_Action {
 	 * Instanciate Note De Frais Line
 	 */
 	public function __construct() {
-		add_action( 'wp_ajax_add_ndfl', array( $this, 'callback_add_ndfl' ) );
+		add_action( 'wp_ajax_fp_create_line', array( $this, 'callback_fp_create_line' ) );
+
 		add_action( 'wp_ajax_modify_ndfl', array( $this, 'callback_modify_ndfl' ) );
 		add_action( 'wp_ajax_delete_ndfl', array( $this, 'callback_delete_ndfl' ) );
 
@@ -35,8 +36,8 @@ class Line_Action {
 	/**
 	 * [callback_add_ndfl description]
 	 */
-	public function callback_add_ndfl() {
-		check_ajax_referer( 'add_ndfl' );
+	public function callback_fp_create_line() {
+		check_ajax_referer( 'fp_create_line' );
 
 		$ndf_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
 		Line_Class::g()->create( $_POST );

@@ -2,11 +2,11 @@
 /**
  * Définition du modèle de type note.
  *
- * @author eoxia
+ * @author EOxia <dev@eoxia.com>
  * @since 1.2.0
- * @version 1.2.0
- * @copyright 2017 Eoxia
- * @package NDF
+ * @version 1.4.0
+ * @copyright 2017-2018 Eoxia
+ * @package Frais.pro
  */
 
 namespace frais_pro;
@@ -18,12 +18,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Définition du modèle de type note.
  */
-class Type_Note_Model extends \eoxia\Term_Model {
+class Line_Type_Model extends \eoxia\Term_Model {
 
 	/**
 	 * Le constructeur définis le schéma.
 	 *
-	 * @param object $object L'objet courant.
+	 * @param object $data       L'objet courant.
+	 * @param object $req_method La méthode
 	 *
 	 * @since 1.0.0
 	 * @version 1.2.0

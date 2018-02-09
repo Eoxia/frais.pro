@@ -17,9 +17,10 @@
 		"core/core.config.json",
 		"modules/document/document.config.json",
 		"modules/user/user.config.json",
-		"modules/type-note/type-note.config.json",
 		"modules/note/note.config.json",
+		"modules/note-status/note-status.config.json",
 		"modules/line/line.config.json",
+		"modules/line-type/line-type.config.json",
 		"modules/update_manager/update_manager.config.json"
 	],
 	"debug": false,
@@ -31,5 +32,7 @@
 		"7 CV et plus"
 	],
 	"core_option": "_ndf_core",
-	"key_last_update_version" : "_fp_last_update_version"
+	"key_last_update_version" : "_fp_last_update_version",
+	"key_waited_updates": "_fp_waited_updates",
+	"update_page_url": "frais-pro-update"
 }

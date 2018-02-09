@@ -1,8 +1,8 @@
 /**
  * Initialise l'objet "updateManager" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
- * @since 1.6.0
- * @version 1.6.0
+ * @since 1.4.0
+ * @version 1.4.0
  */
 
 window.eoxiaJS.noteDeFrais.updateManager = {};
@@ -12,12 +12,12 @@ window.eoxiaJS.noteDeFrais.updateManager = {};
  *
  * @return {void}
  *
- * @since 1.6.0
- * @version 1.6.0
+ * @since 1.4.0
+ * @version 1.4.0
  */
 window.eoxiaJS.noteDeFrais.updateManager.init = function() {
-	window.eoxiaJS.noteDeFrais.updateManager.requestUpdate();
-	window.addEventListener( 'beforeunload', window.eoxiaJS.noteDeFrais.updateManager.safeExit );
+	// window.eoxiaJS.noteDeFrais.updateManager.requestUpdate();
+	// window.addEventListener( 'beforeunload', window.eoxiaJS.noteDeFrais.updateManager.safeExit );
 };
 
 window.eoxiaJS.noteDeFrais.updateManager.requestUpdateFunc = {
@@ -28,20 +28,18 @@ window.eoxiaJS.noteDeFrais.updateManager.requestUpdate = function( args ) {
 	var versionToUpdate = jQuery( 'input[name="version_available[]"]:first' ).val();
 	var action          = jQuery( 'input[name="version[' + versionToUpdate + '][action][]"]:first' ).val();
 	var description     = jQuery( 'input[name="version[' + versionToUpdate + '][description][]"]:first' ).val();
+	var data = {
+		action: action,
+		versionToUpdate: versionToUpdate,
+		args: args
+	};
 
 	if ( versionToUpdate ) {
 		if ( ( args && ! args.more ) || ! args ) {
 			jQuery( '.log' ).append( '<li><h2>Update <strong>' + versionToUpdate + '</strong> in progress...</h2></li>' );
 		}
 
-		var data = {
-			action: action,
-			versionToUpdate: versionToUpdate,
-			args: args
-		};
-
 		if ( action ) {
-
 			if ( args && args.moreDescription ) {
 				description += args.moreDescription;
 			}
@@ -85,9 +83,9 @@ window.eoxiaJS.noteDeFrais.updateManager.requestUpdate = function( args ) {
 				}
 			} )
 			.fail( function( error, t, r ) {
+				// @todo Gérer ce cas dans une action personnalisée.
 				jQuery( '.log' ).append( '<li>Erreur: veuillez consulter les logs de la version: ' + versionToUpdate + '</li>' );
 				jQuery.post( ajaxurl, { action: 'tm_redirect_to_dashboard', key: key, error_version: versionToUpdate, error_status: error.status, error_text: error.responseText }, function( response ) {
-					jQuery( '.log' ).append( '<li>' + response.data.message + '</li>' );
 					window.removeEventListener( 'beforeunload', window.eoxiaJS.noteDeFrais.updateManager.safeExit );
 					// window.location = response.data.url;
 				});
@@ -107,16 +105,15 @@ window.eoxiaJS.noteDeFrais.updateManager.requestUpdate = function( args ) {
 /**
  * Vérification avant la fermeture de la page si la mise à jour est terminée.
  *
- * @since 1.6.0
- * @version 1.6.0
+ * @since 1.4.0
+ * @version 1.4.0
  *
  * @param  {WindowEventHandlers} event L'évènement de la fenêtre.
  * @return {string}
  */
 window.eoxiaJS.noteDeFrais.updateManager.safeExit = function( event ) {
-	if ( 'admin_page_frais-pro-update' === event.currentTarget.adminpage ) {
-		var confirmationMessage = 'Vos données sont en cours de mise à jour, elles risque d\'être corrompues si vous quittez la page de mise à jour.';
-
+	if ( fraisPro.updateDataUrlPage === event.currentTarget.adminpage ) {
+		var confirmationMessage = fraisPro.confirmUpdateManagerExit;
 		event.returnValue = confirmationMessage;
 		return confirmationMessage;
 	}

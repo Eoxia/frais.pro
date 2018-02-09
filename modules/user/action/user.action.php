@@ -65,7 +65,7 @@ class User_Action {
 		$user['prixkm'] = ! empty( $_POST ) && ! empty( $_POST['prixkm'] ) ? sanitize_text_field( str_replace( ',', '.', $_POST['prixkm'] ) ) : '';
 
 		if ( get_current_user_id() !== $user_id || ( 1 === get_current_user_id() ) ) {
-			$user['ndf_admin'] = ! empty( $_POST ) && ! empty( $_POST['ndf_admin'] ) ? sanitize_text_field( $_POST['ndf_admin'] ) : '';
+			$user['ndf_admin'] = ! empty( $_POST ) && ! empty( $_POST['ndf_admin'] ) && ( 'true' === sanitize_text_field( $_POST['ndf_admin'] ) ) ? true : false;
 		}
 
 		$user_update = User_Class::g()->update( $user );
@@ -73,9 +73,9 @@ class User_Action {
 		if ( ! empty( $user_update ) && ! is_wp_error( $user_update ) ) {
 			$the_user = new \WP_User( $user_id );
 			if ( true === $user_update->ndf_admin ) {
-				$the_user->add_cap( 'ndf_view_all' );
+				$the_user->add_cap( 'frais_pro_view_all_user_sheets' );
 			} else {
-				$the_user->remove_cap( 'ndf_view_all' );
+				$the_user->remove_cap( 'frais_pro_view_all_user_sheets' );
 			}
 		}
 	}

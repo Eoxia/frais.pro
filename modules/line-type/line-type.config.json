@@ -1,0 +1,12 @@
+{
+	"name": "Type de ligne",
+	"slug": "line-type",
+	"version": "1.2.0",
+	"description": "Le module gérant le type des lignes",
+	"path": "modules/line-type/",
+	"dependencies": {
+		"model": {},
+		"action": {},
+		"class": {}
+	}
+}

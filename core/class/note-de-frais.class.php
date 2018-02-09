@@ -5,7 +5,7 @@
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.4.0
- * @copyright 2015-2017 Eoxia
+ * @copyright 2015-2018 Eoxia
  * @package Frais.pro
  * @subpackage Core_Class
  */
@@ -37,8 +37,35 @@ class Note_De_Frais_Class extends \eoxia\Singleton_Util {
 	 */
 	public function display() {
 		\eoxia\View_Util::exec( 'frais-pro', 'core', 'main', array(
-			'waiting_updates' => get_option( '_fp_waited_updates', array() ),
+			'waiting_updates' => get_option( \eoxia\Config_Util::$init['frais-pro']->key_waited_updates, array() ),
+			'user'            => User_Class::g()->get( array( 'user_id' => get_current_user_id() ), true ),
 		) );
+	}
+
+	/**
+	 * When plugin is activated on a website, get current version and set into database in order to avoid un-required updates.
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 * @version 1.4.0
+	 */
+	public function activation() {
+		$current_version = get_option( \eoxia\Config_Util::$init['frais-pro']->key_last_update_version, null );
+		if ( null === $current_version ) {
+			// Call default note types creation.
+			Line_Type_Class::g()->create_default_types();
+
+			// Call default note status creation.
+			Note_Status_Class::g()->create_default_statuses();
+
+			// Define current version for the Frais.pro plugin.
+			$version = (int) str_replace( '.', '', \eoxia\Config_Util::$init['frais-pro']->version );
+			if ( 3 === strlen( $version ) ) {
+				$version *= 10;
+			}
+			update_option( \eoxia\Config_Util::$init['frais-pro']->key_last_update_version, $version );
+		}
 	}
 
 }

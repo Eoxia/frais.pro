@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Frais.pro V1.X.X\n"
-"POT-Creation-Date: 2017-11-21 09:50+0100\n"
-"PO-Revision-Date: 2017-11-21 09:50+0100\n"
+"POT-Creation-Date: 2018-02-09 11:21+0100\n"
+"PO-Revision-Date: 2018-02-09 11:23+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia dev@eoxia.com\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -26,153 +26,227 @@ msgstr ""
 "Etes vous sûr de vouloir marquer cette note comme payée? Aucuns changement "
 "ne sera possible par la suite."
 
-#: core/action/note-de-frais.action.php:153
-msgid "Frais.pro"
-msgstr "Frais.pro"
+#: core/action/note-de-frais.action.php:73
+msgid ""
+"Your data are being updated. If you confirm that you want to leave this "
+"page, your data could be corrupted"
+msgstr ""
+"La mise à jour de vos données est en cours. Si vous quitter cette page, vos "
+"données pourraient être corrompues"
 
-#: core/action/note-de-frais.action.php:154
-msgid "Archives"
-msgstr "Archives"
-
-#: modules/ndf/class/ndf.class.php:100 modules/ndf/model/ndf.model.php:33
+#: core/action/note-de-frais.action.php:74
+#: modules/note-status/class/note-status.class.php:78
 msgid "In progress"
 msgstr "En cours"
 
-#: modules/ndf/class/ndf.class.php:101
+#: core/action/note-de-frais.action.php:75
+#: modules/note-status/class/note-status.class.php:79
 msgid "Validated"
 msgstr "Validée"
 
-#: modules/ndf/class/ndf.class.php:102 modules/ndf/class/ndf.class.php:107
+#: core/action/note-de-frais.action.php:76
+#: modules/note-status/class/note-status.class.php:80
 msgid "Payed"
 msgstr "Payée"
 
-#: modules/ndf/class/ndf.class.php:103
+#: core/action/note-de-frais.action.php:77
+#: modules/note-status/class/note-status.class.php:81
 msgid "Refused"
 msgstr "Réfusée"
 
-#: modules/ndf/view/item.view.php:28
-msgid "Delete"
-msgstr "Supprimer"
+#: core/action/note-de-frais.action.php:113
+msgid "Frais.pro"
+msgstr "Frais.pro"
 
-#: modules/ndf/view/item.view.php:40 modules/ndf/view/item.view.php:45
-msgid "€"
-msgstr "€"
+#: core/action/note-de-frais.action.php:114
+msgid "Frais.pro - Notes"
+msgstr "Frais.pro - Notes"
 
-#: modules/ndf/view/item.view.php:41
-msgid "ATI"
-msgstr "TTC"
+#: core/action/note-de-frais.action.php:114
+msgid "Notes"
+msgstr "Notes"
 
-#: modules/ndf/view/item.view.php:46 modules/ndfl/view/item-grid.view.php:44
-#: modules/ndfl/view/item-list.view.php:31 modules/ndfl/view/main.view.php:120
-#: modules/ndfl/view/main.view.php:142
-msgid "Recoverable VAT"
-msgstr "TVA Récup."
-
-#: modules/ndf/view/item.view.php:49 modules/ndfl/view/main.view.php:84
-msgid "Last update"
-msgstr "MAJ"
-
-#: modules/ndf/view/main.view.php:20
-#, php-format
-msgid "My %s professionnal fees sheet"
-msgstr "Mes notes de frais %s"
-
-#: modules/ndf/view/main.view.php:20
-msgid "archived"
-msgstr "archivées"
-
-#: modules/ndf/view/main.view.php:25
-msgid "Add"
-msgstr "Ajouter"
-
-#: modules/ndf/view/toggle-export.view.php:26
-msgid "With picture"
-msgstr "Avec photos"
-
-#: modules/ndf/view/toggle-export.view.php:31
-msgid "Without picture"
-msgstr "Sans photo"
-
-#: modules/ndf/view/toggle-export.view.php:35
-msgid "CSV"
-msgstr "CSV"
-
-#: modules/ndfl/view/item-grid.view.php:23
-#: modules/ndfl/view/item-list.view.php:32 modules/ndfl/view/main.view.php:121
-#: modules/ndfl/view/main.view.php:145
-msgid "Picture"
-msgstr "Photo"
-
-#: modules/ndfl/view/item-grid.view.php:28
-#: modules/ndfl/view/item-list.view.php:21 modules/ndfl/view/main.view.php:115
-#: modules/ndfl/view/main.view.php:128
-msgid "Date"
-msgstr "Date"
-
-#: modules/ndfl/view/item-grid.view.php:32
-#: modules/ndfl/view/item-list.view.php:25 modules/ndfl/view/main.view.php:116
-#: modules/ndfl/view/main.view.php:132
-msgid "Name"
-msgstr "Libellé"
-
-#: modules/ndfl/view/item-grid.view.php:35
-#: modules/ndfl/view/item-list.view.php:26 modules/ndfl/view/main.view.php:133
-msgid "Line type"
-msgstr "Type de ligne"
-
-#: modules/ndfl/view/item-grid.view.php:38
-#: modules/ndfl/view/item-list.view.php:29 modules/ndfl/view/main.view.php:118
-#: modules/ndfl/view/main.view.php:136
-msgid "Km"
-msgstr "Km"
-
-#: modules/ndfl/view/item-grid.view.php:41
-#: modules/ndfl/view/item-list.view.php:30 modules/ndfl/view/main.view.php:119
-#: modules/ndfl/view/main.view.php:139
-msgid "ATI (€)"
-msgstr "TTC (€)"
-
-#: modules/ndfl/view/item-grid.view.php:59
-#: modules/ndfl/view/item-list.view.php:44
-msgid ""
-"Are you sur you want to delete this line? This action can not be revert."
-msgstr ""
-"Etes vous sûr de vouloir supprimer cette ligne? Attention cette action est "
-"irréversible."
-
-#: modules/ndfl/view/main.view.php:87
-#, php-format
-msgid ""
-"Your %1$sprice per kilometer%2$s is not setted. Please go to %3$syour profile"
-"%4$s in order to set it."
-msgstr ""
-"Votre %1$sprix/km%2$s n'est pas configuré. Merci de vous rendre dans "
-"%3$svotre profil%4$s pour le configurer."
-
-#: modules/ndfl/view/main.view.php:95
-msgid "Grid mode"
-msgstr "Mode grille"
-
-#: modules/ndfl/view/main.view.php:107
-msgid "List mode"
-msgstr "Mode liste"
-
-#: modules/ndfl/view/main.view.php:117
-msgid "Type"
-msgstr "Type"
-
-#: modules/ndfl/view/main.view.php:150
-msgid "Create lines from picture"
-msgstr "Créer des lignes en masse à partir d'images"
-
-#: modules/type-note/action/type-note.action.php:42
-#: modules/type-note/class/type-note.class.php:67
+#: modules/line-type/action/line-type.action.php:42
 msgid "Note types"
 msgstr "Types de note"
 
-#: modules/type-note/view/main.view.php:22
+#: modules/line-type/class/line-type.class.php:75
+#: modules/line/view/item.view.php:32
+msgid "Line type"
+msgstr "Type de ligne"
+
+#: modules/line-type/view/main.view.php:22
 msgid "Create type notes"
 msgstr "Créer un type de note"
+
+#: modules/line/view/item.view.php:24 modules/note/view/main.view.php:108
+msgid "Date"
+msgstr "Date"
+
+#: modules/line/view/item.view.php:28 modules/line/view/item.view.php:29
+#: modules/note/view/main.view.php:109
+msgid "Label"
+msgstr "Libellé"
+
+#: modules/line/view/item.view.php:36 modules/note/view/main.view.php:111
+msgid "Km"
+msgstr "Km"
+
+#: modules/line/view/item.view.php:40 modules/note/view/main.view.php:112
+msgid "ATI(€)"
+msgstr "TTC(€)"
+
+#: modules/line/view/item.view.php:44 modules/note/view/item.view.php:33
+#: modules/note/view/main.view.php:79 modules/note/view/main.view.php:113
+msgid "VAT"
+msgstr "TVA"
+
+#: modules/line/view/item.view.php:47
+msgid "Invalid line"
+msgstr "Line invalide"
+
+#: modules/line/view/item.view.php:47
+msgid "Valid line"
+msgstr "Ligne valide"
+
+#: modules/line/view/item.view.php:52 modules/note/view/actions.view.php:36
+msgid "Options"
+msgstr "Options"
+
+#: modules/line/view/item.view.php:54
+msgid "Dissociate from note"
+msgstr "Dissocier de la note"
+
+#: modules/line/view/item.view.php:55
+msgid "Delete"
+msgstr "Supprimer"
+
+#: modules/note-status/action/note-status.action.php:42
+msgid "Note status"
+msgstr "Statut de la note"
+
+#: modules/note/action/note.action.php:214
+#: modules/note/view/actions.view.php:23 modules/note/view/actions.view.php:32
+#: modules/note/view/actions.view.php:41
+msgid "Archive"
+msgstr "Archive"
+
+#: modules/note/view/actions.view.php:18
+msgid "Generate file"
+msgstr "Générer le fichier"
+
+#: modules/note/view/actions.view.php:27
+msgid "Download file"
+msgstr "Télécharger le fichier"
+
+#: modules/note/view/item.view.php:23 modules/note/view/main.view.php:39
+msgid "Last update"
+msgstr "MAJ"
+
+#: modules/note/view/item.view.php:27 modules/note/view/item.view.php:32
+#: modules/note/view/main.view.php:73 modules/note/view/main.view.php:78
+msgid "€"
+msgstr "€"
+
+#: modules/note/view/item.view.php:28 modules/note/view/main.view.php:74
+msgid "ATI"
+msgstr "TTC"
+
+#: modules/note/view/list.view.php:18 modules/note/view/main.view.php:25
+msgid "Professionnal fees sheets"
+msgstr "Notes de frais"
+
+#: modules/note/view/list.view.php:24
+msgid "Add"
+msgstr "Ajouter"
+
+#: modules/note/view/list.view.php:48
+msgid "Actually you do not have professionnal fees sheet"
+msgstr ""
+"Vous n'avez pas de notes de frais pour le moment. Vous pouvez utiliser le "
+"bouton d'ajout pour en débuter une nouvelle"
+
+#: modules/note/view/main.view.php:62
+msgid "Multiple add from pictures"
+msgstr "Ajout multiple à partir d'images"
+
+#: modules/note/view/main.view.php:67
+msgid "New line"
+msgstr "Ajouter une ligne"
+
+#: modules/note/view/main.view.php:88
+msgid "Grid mode"
+msgstr "Mode grille"
+
+#: modules/note/view/main.view.php:100
+msgid "List mode"
+msgstr "Mode liste"
+
+#: modules/note/view/main.view.php:107
+msgid "Picture"
+msgstr "Photo"
+
+#: modules/note/view/main.view.php:110
+msgid "Type"
+msgstr "Type"
+
+#: modules/update_manager/action/class-update-manager-action.php:90
+#, php-format
+msgid "%s Update."
+msgstr "Mise à jour pour %s."
+
+#: modules/update_manager/action/class-update-manager-action.php:101
+msgid "Data update done. User can go to main application"
+msgstr ""
+"Mise à jour des données terminées. L'utilisateur va être redirigé vers "
+"l'application"
+
+#: modules/update_manager/action/class-update-manager-action.php:112
+msgid "Redirect to Frais.pro main application"
+msgstr "Redirection vers l'application Frais.pro"
+
+#: modules/update_manager/data/update-1400-data.php:15
+msgid ""
+"Change notes statuses management. Use WordPress taxonomy utilities instead "
+"of using plain text"
+msgstr ""
+"Modification de la gestion des statuts des notes. Utilisation des termes de "
+"WordPress au lieu d'utiliser du texte"
+
+#: modules/update_manager/view/main.view.php:17
+msgid "Update Manager"
+msgstr "Module de mise à jour des données"
+
+#: modules/update_manager/view/main.view.php:26
+#, php-format
+msgid "V%1$s - %2$s"
+msgstr "V%1$s - %2$s"
+
+#: modules/update_manager/view/main.view.php:36
+msgid "Nothing to update"
+msgstr "Toutes les mises à jour on été effectuées avec succès"
+
+#: modules/update_manager/view/main.view.php:37
+msgid "Back to Frais.pro main page."
+msgstr "Revenir au tableau de bord de Frais.pro."
+
+#: modules/update_manager/view/say-to-update.view.php:20
+msgid "An update of Frais.pro data is required"
+msgstr "Une mise à jour des données de Frais.pro est nécessaire"
+
+#: modules/update_manager/view/say-to-update.view.php:23
+msgid "Warning! Stop the update process can destroy your data."
+msgstr ""
+"Attention! Si vous arrêtez le processus de mise à jour en cours, vous "
+"risquez de perdre vos données."
+
+#: modules/update_manager/view/say-to-update.view.php:26
+msgid "Back"
+msgstr "Retour. (Annule la mise à jour)"
+
+#: modules/update_manager/view/say-to-update.view.php:28
+msgid "Start update"
+msgstr "Lancer la mise à jour"
 
 #: modules/user/view/main.view.php:18
 msgid "User informations for Frais.pro"
@@ -180,7 +254,7 @@ msgstr "Informations de l'utilisateur pour l'application Frais.pro"
 
 #: modules/user/view/main.view.php:23
 msgid "Brand of the car"
-msgstr "Marque duvéhicule"
+msgstr "Marque du véhicule"
 
 #: modules/user/view/main.view.php:28
 msgid "Tax horsepower"
@@ -197,6 +271,75 @@ msgstr "Scan de la carte grise"
 #: modules/user/view/main.view.php:57
 msgid "User is allowed to view all fees sheet"
 msgstr "L'utilisateur peut voir les notes des autres"
+
+#: modules/user/view/need-profil-settings.view.php:19
+#, php-format
+msgid ""
+"Your %1$sprice per kilometer%2$s is not setted. Please go to %3$syour profile"
+"%4$s in order to set it."
+msgstr ""
+"Votre %1$sprix/km%2$s n'est pas configuré. Merci de vous rendre dans "
+"%3$svotre profil%4$s pour le configurer."
+
+#: modules/user/view/say-to-set-profil.view.php:20
+msgid "Missing profil settings"
+msgstr "Des réglages sont manquants dans votre profil"
+
+#: modules/user/view/say-to-set-profil.view.php:24
+msgid ""
+"You have to set your profil to get full feature from Frais.pro application."
+msgstr ""
+"Vous devez configurer votre profil pour tirer le meilleur de l'application "
+"Frais.pro."
+
+#: modules/user/view/say-to-set-profil.view.php:28
+msgid "Go to my profile"
+msgstr "Aller à mon profil"
+
+#~ msgid "Change notes statuses storage."
+#~ msgstr "Modification de la gestion des statuts des notes."
+
+#~ msgid "It will create a taxonomy for better management."
+#~ msgstr "Les statuts seront gérés par les termes de WordPress."
+
+#~ msgid "Update required"
+#~ msgstr "Une mise à jour est nécessaire"
+
+#~ msgid "Archives"
+#~ msgstr "Archives"
+
+#~ msgid "Recoverable VAT"
+#~ msgstr "TVA Récup."
+
+#~ msgid "My %s professionnal fees sheet"
+#~ msgstr "Mes notes de frais %s"
+
+#~ msgid "archived"
+#~ msgstr "archivées"
+
+#~ msgid "With picture"
+#~ msgstr "Avec photos"
+
+#~ msgid "Without picture"
+#~ msgstr "Sans photo"
+
+#~ msgid "CSV"
+#~ msgstr "CSV"
+
+#~ msgid "Name"
+#~ msgstr "Libellé"
+
+#~ msgid "ATI (€)"
+#~ msgstr "TTC (€)"
+
+#~ msgid ""
+#~ "Are you sur you want to delete this line? This action can not be revert."
+#~ msgstr ""
+#~ "Etes vous sûr de vouloir supprimer cette ligne? Attention cette action "
+#~ "est irréversible."
+
+#~ msgid "Create lines from picture"
+#~ msgstr "Créer des lignes en masse à partir d'images"
 
 #~ msgid "Other"
 #~ msgstr "Autre"

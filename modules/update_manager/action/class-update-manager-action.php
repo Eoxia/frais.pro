@@ -21,16 +21,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Update_Manager_Action {
 
 	/**
+	 * Define the current plugin slug to use for getting config var.
+	 *
+	 * @var string
+	 */
+	protected $current_module = 'frais-pro';
+
+	/**
 	 * Instanciation de la classe de gestions des mises à jour des données suite aux différentes versions de l'extension
 	 *
 	 * @since 1.4.0
 	 * @version 1.4.0
 	 */
 	public function __construct() {
+		// When WordPress is loaded check if there are updates to do from defined files.
 		add_action( 'wp_loaded', array( $this, 'automatic_update_redirect' ) );
+
+		// Add the hidden update menu to back admin.
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
 
-		add_action( 'wp_ajax_tm_redirect_to_dashboard', array( $this, 'callback_tm_redirect_to_dashboard' ) );
+		// Appel de l'action permettant de rediriger l'utilisateur vers l'application principale une fois la mise à jour terminée.
+		add_action( 'wp_ajax_tm_redirect_to_dashboard', array( $this, 'callback_redirect_to_main_application' ) );
 	}
 
 	/**
@@ -41,26 +52,26 @@ class Update_Manager_Action {
 	 * @version 1.4.0
 	 */
 	public function automatic_update_redirect() {
-		$waiting_updates = get_option( '_fp_waited_updates', array() );
+		$waiting_updates = get_option( \eoxia\Config_Util::$init[ $this->current_module ]->key_waited_updates, array() );
 
 		if ( ! strpos( $_SERVER['REQUEST_URI'], 'admin-ajax.php' ) ) {
-			$current_version_to_check = (int) str_replace( '.', '', \eoxia\Config_Util::$init['frais-pro']->version );
-			$last_version_done        = (int) get_option( \eoxia\Config_Util::$init['frais-pro']->key_last_update_version, 1300 );
+			$current_version_to_check = (int) str_replace( '.', '', \eoxia\Config_Util::$init[ $this->current_module ]->version );
+			$last_version_done        = (int) get_option( \eoxia\Config_Util::$init[ $this->current_module ]->key_last_update_version, 1300 );
 
 			if ( 3 === strlen( $current_version_to_check ) ) {
 				$current_version_to_check *= 10;
 			}
 
 			if ( $last_version_done !== $current_version_to_check ) {
-				$update_path      = \eoxia\Config_Util::$init['frais-pro']->update_manager->path . 'update/';
-				$update_data_path = \eoxia\Config_Util::$init['frais-pro']->update_manager->path . 'data/';
+				$update_path      = \eoxia\Config_Util::$init[ $this->current_module ]->update_manager->path . 'update/';
+				$update_data_path = \eoxia\Config_Util::$init[ $this->current_module ]->update_manager->path . 'data/';
 
 				for ( $i = ( (int) substr( $last_version_done, 0, 4 ) + 1 ); $i <= $current_version_to_check; $i++ ) {
 					if ( is_file( $update_data_path . 'update-' . $i . '-data.php' ) ) {
 						require_once $update_data_path . 'update-' . $i . '-data.php';
 						$waiting_updates[ $i ] = $datas;
 
-						update_option( '_fp_waited_updates', $waiting_updates );
+						update_option( \eoxia\Config_Util::$init[ $this->current_module ]->key_waited_updates, $waiting_updates );
 					}
 				}
 			}
@@ -76,7 +87,8 @@ class Update_Manager_Action {
 	 * @version 1.4.0
 	 */
 	public function callback_admin_menu() {
-		add_submenu_page( '123', __( 'Task Manager Update', 'frais-pro' ), __( 'Task Manager Update', 'frais-pro' ), 'manage_options', 'frais-pro-update', array( Update_Manager::g(), 'display' ) );
+		$menu_labels = sprintf( __( '%s Update.', 'frais-pro' ), \eoxia\Config_Util::$init[ $this->current_module ]->name );
+		add_submenu_page( '123', $menu_labels, $menu_labels, 'manage_options', \eoxia\Config_Util::$init[ $this->current_module ]->update_page_url, array( Update_Manager::g(), 'display' ) );
 	}
 
 	/**
@@ -85,27 +97,19 @@ class Update_Manager_Action {
 	 * @since 1.4.0
 	 * @version 1.4.0
 	 */
-	public function callback_tm_redirect_to_dashboard() {
-		$error_version = ! empty( $_POST['error_version'] ) ? sanitize_text_field( $_POST['error_version'] ) : '';
-		$error_status  = ! empty( $_POST['error_status'] ) ? sanitize_text_field( $_POST['error_status'] ) : '';
-		$error_text    = ! empty( $_POST['error_text'] ) ? sanitize_text_field( $_POST['error_text'] ) : '';
+	public function callback_redirect_to_main_application() {
+		\eoxia\LOG_Util::log( __( 'Data update done. User can go to main application', 'frais-pro' ), $this->current_module );
 
-		if ( ! empty( $error_version ) ) {
-			\eoxia\LOG_Util::log( apply_filters( 'digi_update_redirect_to_dashboard', 'FIN - Mise à jour ' . $error_version, $error_version, $error_status, $error_text ), 'frais-pro' );
-		}
-
-		\eoxia\LOG_Util::log( 'mise à jour end', 'frais-pro' );
-
-		$version = (int) str_replace( '.', '', \eoxia\Config_Util::$init['frais-pro']->version );
+		$version = (int) str_replace( '.', '', \eoxia\Config_Util::$init[ $this->current_module ]->version );
 		if ( 3 === strlen( $version ) ) {
 			$version *= 10;
 		}
-		update_option( \eoxia\Config_Util::$init['frais-pro']->key_last_update_version, $version );
-		delete_option( '_fp_waited_updates' );
+		update_option( \eoxia\Config_Util::$init[ $this->current_module ]->key_last_update_version, $version );
+		delete_option( \eoxia\Config_Util::$init[ $this->current_module ]->key_waited_updates );
 
 		$data = array(
-			'url'     => menu_page_url( 'frais-pro', false ),
-			'message' => __( 'Redirect to Task Manager', 'frais-pro' ),
+			'url'     => menu_page_url( \eoxia\Config_Util::$init[ $this->current_module ]->slug, false ),
+			'message' => __( 'Redirect to Frais.pro main application', 'frais-pro' ),
 		);
 
 		wp_send_json_success( $data );

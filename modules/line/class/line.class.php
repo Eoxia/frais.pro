@@ -33,14 +33,14 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $post_type  = 'ndfl';
+	protected $post_type  = 'fp_line';
 
 	/**
 	 * La clé principale du modèle
 	 *
 	 * @var string
 	 */
-	protected $meta_key   = '_ndfl';
+	protected $meta_key   = 'fp_line';
 
 	/**
 	 * Slug de base pour la route dans l'api rest
@@ -54,7 +54,7 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\frais_pro\before_update_ndfl' );
+	protected $before_post_function = array( '\frais_pro\before_update_line' );
 
 
 	/**
@@ -62,21 +62,21 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_put_function = array( '\frais_pro\before_update_ndfl' );
+	protected $before_put_function = array( '\frais_pro\before_update_line' );
 
 	/**
 	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée
 	 *
 	 * @var array
 	 */
-	protected $after_post_function = array( '\frais_pro\after_update_ndfl' );
+	protected $after_post_function = array( '\frais_pro\after_update_line' );
 
 	/**
 	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée
 	 *
 	 * @var array
 	 */
-	protected $after_put_function = array( '\frais_pro\after_update_ndfl' );
+	protected $after_put_function = array( '\frais_pro\after_update_line' );
 
 	/**
 	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée
@@ -90,39 +90,7 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $post_type_name = 'NDFL';
-
-	/**
-	 * La taxonomy lié à ce post type.
-	 *
-	 * @var string
-	 */
-	protected $attached_taxonomy_type = '_type_note';
-
-	/**
-	 * Affichage d'une note de frais avec ses lignes
-	 *
-	 * @param  integer $ndf_id       Identifiant de la note de frais à récupérer.
-	 * @param  string  $display_mode Quel est le mode d'affichage a utiliser.
-	 */
-	public function display( $ndf_id = -1, $display_mode = 'list' ) {
-		$ndfl = $this->get( array(
-			'post_parent' => $ndf_id,
-		) );
-		$template_vars = array(
-			'ndfl' => $ndfl,
-		);
-		$template_vars['ndf'] = Note_Class::g()->get( array(
-			'id' => $ndf_id,
-		), true );
-		$template_vars['user'] = User_Class::g()->get( array(
-			'id' => get_current_user_id(),
-		), true );
-		$template_vars['display_mode'] = $display_mode;
-		$template_vars['ndf_is_closed'] = in_array( $template_vars['ndf']->validation_status, Note_Class::g()->closed_status, true ) ? true : false;
-
-		\eoxia\View_Util::exec( 'frais-pro', 'line', 'main', $template_vars );
-	}
+	protected $post_type_name = 'Note';
 
 	/**
 	 * Vérifie si une ligne de note est valide ou non

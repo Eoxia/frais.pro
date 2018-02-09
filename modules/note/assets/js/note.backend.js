@@ -29,3 +29,15 @@ window.eoxiaJS.noteDeFrais.note.init = function() {
 window.eoxiaJS.noteDeFrais.note.goToLink = function( event ) {
 	window.location.href = jQuery( this ).data( 'link' );
 };
+
+/**
+ * Redirige l'utilisateur sur la note
+ *
+ * @return {void}
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ */
+window.eoxiaJS.noteDeFrais.note.goToNote = function( element, response ) {
+	window.location.href = response.data.link;
+};

@@ -32,7 +32,7 @@ class Note_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $post_type  = 'ndf';
+	protected $post_type  = 'fp_note';
 
 	/**
 	 * Slug de base pour la route dans l'api rest
@@ -46,7 +46,7 @@ class Note_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $meta_key   = '_ndf';
+	protected $meta_key   = 'fp_note';
 
 	/**
 	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée
@@ -67,48 +67,14 @@ class Note_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array();
+	protected $after_get_function = array( '\frais_pro\get_full_note' );
 
 	/**
 	 * Le nom pour le resgister post type
 	 *
 	 * @var string
 	 */
-	protected $post_type_name = 'NDF';
-
-	/**
-	 * Nom du statut à afficher.
-	 *
-	 * @var array
-	 */
-	public $status = array();
-
-	/**
-	 * Le ou les statuts pour lesquels on ne peut plus modifier les notes
-	 *
-	 * @var array
-	 *
-	 * @todo nécessite un transfert
-	 */
-	public $closed_status = array();
-
-	/**
-	 * Définition des statuts
-	 */
-	protected function construct() {
-		parent::construct();
-
-		$this->status = array(
-			'en-cours' => __( 'In progress', 'frais-pro' ),
-			'valide'   => __( 'Validated', 'frais-pro' ),
-			'paye'     => __( 'Payed', 'frais-pro' ),
-			'refuse'   => __( 'Refused', 'frais-pro' ),
-		);
-
-		$this->closed_status = array(
-			__( 'Payed', 'frais-pro' ),
-		);
-	}
+	protected $post_type_name = 'Note';
 
 	/**
 	 * Récupères les notes de frais et les envoies à la vue principale.
@@ -121,46 +87,37 @@ class Note_Class extends \eoxia\Post_Class {
 	 * @version 1.0.0.0
 	 */
 	public function display( $status = array( 'publish', 'future' ) ) {
+		$note_status_taxonomy = Note_Status_Class::g()->get_type();
+		$status_list = Note_Status_Class::g()->get();
+
+		// Display list of exsiting notes.
 		if ( empty( $_GET ) || ! isset( $_GET['note'] ) || empty( $_GET['note'] ) ) {
-			$ndf_args = array(
-				'post_status' => $status,
+			$args_note_list = array(
+				'post_status'          => $status,
 			);
-			if ( ! current_user_can( 'ndf_view_all' ) ) {
-				$ndf_args['author'] = get_current_user_id();
+			if ( ! current_user_can( 'frais_pro_view_all_user_sheets' ) ) {
+				$args_note_list['author'] = get_current_user_id();
 			}
-			$ndfs = $this->get( $ndf_args );
+
+			\eoxia\View_Util::exec( 'frais-pro', 'note', 'list', array(
+				'note_list'            => $this->get( $args_note_list ),
+				'note_status_taxonomy' => $note_status_taxonomy,
+				'status_list'          => $status_list,
+				'user'                 => User_Class::g()->get( array( 'user_id' => get_current_user_id() ), true ),
+			) );
+		} else { // Display a given note.
+			$current_note_id = (int) $_GET['note'];
+			$current_note = $this->get( array( 'id' => $current_note_id ), true );
 
 			\eoxia\View_Util::exec( 'frais-pro', 'note', 'main', array(
-				'ndfs' => $ndfs,
-				'status' => $status,
+				'note_is_closed'       => ! empty( $current_note->$note_status_taxonomy->special_behaviour ) && ( 'closed' === $current_note->$note_status_taxonomy->special_behaviour ) ? true : false,
+				'display_mode'         => 'grid',
+				'note'                 => $current_note,
+				'lines'                => Line_Class::g()->get( array( 'post_parent' => $current_note_id ) ),
+				'note_status_taxonomy' => $note_status_taxonomy,
+				'status_list'          => $status_list,
 			) );
-		} else {
-			Line_Class::g()->display( $_GET['note'], 'grid' );
 		}
-	}
-
-	/**
-	 * Récupère le nom de statut avec en fonction du code.
-	 *
-	 * @param  string $status Code statut @see this->status.
-	 * @return string         Nom du statut @see this->status.
-	 *
-	 * @since 1.0.0.0
-	 * @version 1.0.0.0
-	 */
-	public function get_status( $status ) {
-		// $flipped_status = array_flip( $this->status );
-    //
-		// return $flipped_status[ __( $status, 'frais-pro' ) ];
-	}
-
-	/**
-	 * Récupère la liste des statuts possible pour les notes de frais
-	 *
-	 * @return [type] [description]
-	 */
-	public function get_statuses() {
-		return $this->status;
 	}
 
 	/**
@@ -194,7 +151,7 @@ class Note_Class extends \eoxia\Post_Class {
 			'include' => array( $ndf->author_id ),
 		), true );
 
-		$types_de_note = Type_Note_Class::g()->get();
+		$types_de_note = Line_Type_Class::g()->get();
 		$list_type_de_note = array();
 		foreach ( $types_de_note as $type_de_note ) {
 			$list_type_de_note[ $type_de_note->id ]['id'] = $type_de_note->category_id;
@@ -253,9 +210,9 @@ class Note_Class extends \eoxia\Post_Class {
 
 				$categorie_id = '-';
 				$categorie_label = $ndfl->category_name;
-				if ( ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_type() ] ) && ! empty( $ndfl->taxonomy[ Type_Note_Class::g()->get_type() ][0] ) && array_key_exists( $ndfl->taxonomy[ Type_Note_Class::g()->get_type() ][0]->term_id, $list_type_de_note ) ) {
-					$categorie_id = $list_type_de_note[ $ndfl->taxonomy[ Type_Note_Class::g()->get_type() ][0]->term_id ]['id'];
-					$categorie_label = $list_type_de_note[ $ndfl->taxonomy[ Type_Note_Class::g()->get_type() ][0]->term_id ]['name'];
+				if ( ! empty( $ndfl->taxonomy[ Line_Type_Class::g()->get_type() ] ) && ! empty( $ndfl->taxonomy[ Line_Type_Class::g()->get_type() ][0] ) && array_key_exists( $ndfl->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id, $list_type_de_note ) ) {
+					$categorie_id = $list_type_de_note[ $ndfl->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id ]['id'];
+					$categorie_label = $list_type_de_note[ $ndfl->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id ]['name'];
 				}
 
 				$sheet_details['ndf']['value'][] = array(

@@ -44,7 +44,25 @@ function set_note_name( $data ) {
 	}
 	update_user_meta( get_current_user_id(), 'ndf_' . $date . '_identifier', $identifier );
 
-	$data->title = str_replace( '-', '', $date ) . $identifier . '-' . strtoupper( $user->displayname );
+	$data['title'] = str_replace( '-', '', $date ) . $identifier . '-' . strtoupper( $user->displayname );
+
+	return $data;
+}
+
+/**
+ * Récupères tous les éléments nécessaires pour le fonctionnement d'une note
+ *
+ * @param  Note_Model $data L'objet.
+ * @return Note_Model L'objet avec tous les éléments ajoutés par cette méthode.
+ */
+function get_full_note( $data ) {
+	$args_note_status = array( 'schema' => true );
+	if ( ! empty( $data->id ) && ! empty( $data->taxonomy[ Note_Status_Class::g()->get_type() ] ) ) {
+		$args_note_status = array( 'include' => end( $data->taxonomy[ Note_Status_Class::g()->get_type() ] ) );
+	}
+	// Récupères la catégorie du danger.
+	$note_status = Note_Status_Class::g()->get_type();
+	$data->$note_status = Note_Status_Class::g()->get( $args_note_status, true );
 
 	return $data;
 }

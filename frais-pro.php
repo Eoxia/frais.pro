@@ -23,3 +23,6 @@ DEFINE( 'PLUGIN_NOTE_DE_FRAIS_DIR', basename( __DIR__ ) );
 require_once( 'core/external/eo-framework/eo-framework.php' );
 
 \eoxia\Init_Util::g()->exec( PLUGIN_NOTE_DE_FRAIS_PATH, basename( __FILE__, '.php' ) );
+
+// Launch specific actions when plugin is activated.
+register_activation_hook( __FILE__, array( Note_De_Frais_Class::g(), 'activation' ) );

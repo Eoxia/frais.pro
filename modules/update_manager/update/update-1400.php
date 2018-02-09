@@ -6,7 +6,7 @@
  * @since 1.4.0
  * @version 1.4.0
  * @copyright 2015-2018 Eoxia
- * @package Task_Manager
+ * @package Frais.pro
  */
 
 namespace frais_pro;
@@ -24,7 +24,7 @@ class Update_140 {
 	 *
 	 * @var integer
 	 */
-	private $limit = 50;
+	private $limit = 5;
 
 	/**
 	 * Le constructeur
@@ -37,7 +37,7 @@ class Update_140 {
 	}
 
 	/**
-	 * Récupères le nombre de points
+	 * Change notes statuses. Create a term into note-status taxonomy in order to have easyiest management on notes statuses.
 	 *
 	 * @since 1.4.0
 	 * @version 1.4.0
@@ -45,6 +45,14 @@ class Update_140 {
 	 * @return void
 	 */
 	public function callback_frais_pro_update_1400_change_statuses_storage() {
+		global $wpdb;
+
+		// Get existing statuses in order to create them into taxonomy.
+		$existing_statuses = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT( meta_value ) FROM {$wpdb->postmeta} INNER JOIN {$wpdb->posts} ON ID = post_id WHERE meta_key = %s", '_ndf_validation_status' ) );
+		foreach ( $existing_statuses as $status ) {
+
+		}
+
 		wp_send_json_success( array(
 			'done' => true,
 		) );
