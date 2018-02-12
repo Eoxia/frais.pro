@@ -69,7 +69,7 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_post_function = array( );
+	protected $after_post_function = array();
 
 	/**
 	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée
@@ -83,7 +83,7 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array( '\frais_pro\get_current_category' );
+	protected $after_get_function = array( '\frais_pro\build_line_datas' );
 
 	/**
 	 * Le nom pour le resgister post type
@@ -101,8 +101,7 @@ class Line_Class extends \eoxia\Post_Class {
 	 */
 	public function display( $line ) {
 		\eoxia\View_Util::exec( 'frais-pro', 'line', 'item', array(
-			'line'        => $line,
-			'line_status' => $this->check_line_status( $line ),
+			'line' => $line,
 		) );
 	}
 

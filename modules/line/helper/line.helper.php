@@ -41,20 +41,25 @@ function before_update_line( $data ) {
 }
 
 /**
- * Récupères les term_id associés à la ligne de note de frais.
+ * Fill missing datas (just information) in line after get
  *
  * @since 1.2.0
- * @version 1.2.0
+ * @version 1.4.0
  *
- * @param  Object $data L'objet NDFL.
- * @return Object       L'objet NDFL avec les terms id.
+ * @param  Line_Model $data Current line informations.
+ *
+ * @return Line_Model       The line with new informations.
  */
-function get_current_category( $data ) {
+function build_line_datas( $data ) {
 	$data->current_category = null;
-	$data->taxonomy['_type_note'] = wp_get_object_terms( $data->id, Line_Type_Class::g()->get_type() );
-	if ( ! empty( $data->taxonomy['_type_note'] ) && ! empty( $data->taxonomy['_type_note'][0] ) ) {
+
+	$data->taxonomy[ Line_Type_Class::g()->get_type() ] = wp_get_object_terms( $data->id, Line_Type_Class::g()->get_type() );
+	if ( ! empty( $data->taxonomy[ Line_Type_Class::g()->get_type() ] ) && ! empty( $data->taxonomy['_type_note'][0] ) ) {
 		$data->current_category = Line_Type_Class::g()->get( array( 'id' => $data->taxonomy['_type_note'][0]->term_id ), true );
 	}
+
+	$data->line_status = Line_CLass::g()->check_line_status( $data );
+
 	return $data;
 }
 
