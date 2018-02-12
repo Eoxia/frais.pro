@@ -100,20 +100,18 @@ class Line_Class extends \eoxia\Post_Class {
 	 * @return void
 	 */
 	public function display( $line ) {
-		$line_status = Line_Class::g()->check_line_status( $line );
-
 		\eoxia\View_Util::exec( 'frais-pro', 'line', 'item', array(
-			'line'          => $line,
-			'line_status'   => $line_status,
+			'line'        => $line,
+			'line_status' => $this->check_line_status( $line ),
 		) );
 	}
 
 	/**
-	 * Vérifie si une ligne de note est valide ou non
+	 * Check if a line is correctly filled in or if there are missing fields.
 	 *
-	 * @param  array|object $line La définition de la ligne à vérifier.
+	 * @param  array|object $line Current line to check if all values are correctly setted.
 	 *
-	 * @return array       Le statut de la ligne avec le détail si elle n'est pas valide.
+	 * @return array                      Line status with details if there are errors.
 	 */
 	public function check_line_status( $line ) {
 		$line_state = array(
@@ -124,7 +122,7 @@ class Line_Class extends \eoxia\Post_Class {
 		foreach ( \eoxia\Config_Util::$init['frais-pro']->line->line_mandatory_values as $field_key => $field_details ) {
 			if ( empty( $field_details ) ) {
 				if ( empty( $line->$field_key ) ) {
-					$line_state['status'] = false;
+					$line_state['status']   = false;
 					$line_state['errors'][] = $field_key;
 				}
 			} else {
@@ -136,13 +134,67 @@ class Line_Class extends \eoxia\Post_Class {
 				}
 
 				if ( $has_error ) {
-					$line_state['status'] = false;
+					$line_state['status']   = false;
 					$line_state['errors'][] = $field_key;
 				}
 			}
 		}
 
 		return $line_state;
+	}
+
+	/**
+	 * Get orphelan lines from database.
+	 * Orphelan lines are lines that do not have parent identifier.
+	 *
+	 * @return Line_Class The list of orphelan lines.
+	 */
+	public function get_orphelan_lines() {
+		$args_orphelan_lines = array(
+			'post_parent' => 0,
+			'post_status' => array( 'publish', 'inherit', 'future', 'draft' ),
+		);
+		if ( ! current_user_can( 'frais_pro_view_all_user_sheets' ) ) {
+			$args_orphelan_lines['author'] = get_current_user_id();
+		}
+		$orphelan_lines = $this->get( $args_orphelan_lines );
+
+		return $orphelan_lines;
+	}
+
+	/**
+	 * Display the main bloc allowing to know if there are orphelan lines in main application page.
+	 */
+	public function display_orphelans() {
+		$lines = $this->get_orphelan_lines();
+
+		$last_line_date = '-';
+		if ( 0 < count( $lines ) ) {
+			$last_line_date = $lines[0]->date_modified['rendered']['date_human_readable'];
+
+			\eoxia\View_Util::exec( 'frais-pro', 'line', 'orphelan/main', array(
+				'lines'          => $lines,
+				'last_line_date' => $last_line_date,
+			) );
+		}
+	}
+
+	/**
+	 * Display the main bloc allowing to know if there are orphelan lines in main application page.
+	 */
+	public function display_orphelan_list() {
+		$lines = $this->get_orphelan_lines();
+
+		$last_line_date = '-';
+		if ( 0 < count( $lines ) ) {
+			$last_line_date = $lines[0]->date_modified['rendered']['date_human_readable'];
+		}
+
+		\eoxia\View_Util::exec( 'frais-pro', 'line', 'orphelan/list', array(
+			'lines'          => $lines,
+			'last_line_date' => $last_line_date,
+			'display_mode'   => 'list',
+		) );
 	}
 
 }

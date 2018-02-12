@@ -16,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 <div class="table-row line" data-id="<?php echo esc_attr( $line->id ); ?>" >
+	<?php apply_filters( 'fp_filter_note_line_start', '', $line ); ?>
 	<div class="table-cell line-image">
 		<?php do_shortcode( '[wpeo_upload id="' . $line->id . '" model_name="/frais_pro/Line_Class" single="true" size="full" ]' ); ?>
 	</div>
@@ -51,12 +52,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="wpeo-dropdown dropdown-right">
 				<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>"><i class="button-icon far fa-ellipsis-v"></i></button>
 				<ul class="dropdown-content">
-					<li class="dropdown-item action-attribute"
+					<li class="dropdown-item action-delete"
+						data-message-delete="<?php esc_html_e( 'Are you sure you want to dissociate this line', 'frais-pro' ); ?>"
 						data-id="<?php echo esc_attr( $line->id ); ?>"
 						data-parent-id="<?php echo esc_attr( $line->parent_id ); ?>"
 						data-action="<?php echo esc_attr( 'fp_dissociate_line_from_note' ); ?>"
 						data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_dissociate_line_from_note' ) ); ?>" ><i class="dropdown-icon far fa-unlink fa-fw"></i> <?php esc_html_e( 'Dissociate from note', 'frais-pro' ); ?></li>
-					<li class="dropdown-item action-attribute"
+					<li class="dropdown-item action-delete"
+						data-message-delete="<?php esc_html_e( 'Are you sure you want to delete this line', 'frais-pro' ); ?>"
 						data-id="<?php echo esc_attr( $line->id ); ?>"
 						data-action="<?php echo esc_attr( 'fp_delete_line' ); ?>"
 						data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_delete_line' ) ); ?>" ><i class="dropdown-icon fas fa-trash-alt fa-fw"></i> <?php esc_html_e( 'Delete', 'frais-pro' ); ?></li>

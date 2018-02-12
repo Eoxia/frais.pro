@@ -32,21 +32,21 @@ class Note_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $post_type  = 'fp_note';
+	protected $post_type = 'fp_note';
 
 	/**
 	 * Slug de base pour la route dans l'api rest
 	 *
 	 * @var string
 	 */
-	protected $base  = 'note';
+	protected $base = 'note';
 
 	/**
 	 * La clé principale du modèle
 	 *
 	 * @var string
 	 */
-	protected $meta_key   = 'fp_note';
+	protected $meta_key = 'fp_note';
 
 	/**
 	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée
@@ -83,17 +83,19 @@ class Note_Class extends \eoxia\Post_Class {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.0.0.0
+	 * @since 1.0.0
+	 * @version 1.4.0
 	 */
 	public function display( $status = array( 'publish', 'future' ) ) {
 		$note_status_taxonomy = Note_Status_Class::g()->get_type();
-		$status_list = Note_Status_Class::g()->get();
+		$status_list          = Note_Status_Class::g()->get();
+
+		$requested_note = ! empty( $_GET ) && isset( $_GET['note'] ) && ! empty( $_GET['note'] ) ? $_GET['note'] : '';
 
 		// Display list of exsiting notes.
-		if ( empty( $_GET ) || ! isset( $_GET['note'] ) || empty( $_GET['note'] ) ) {
+		if ( '' === $requested_note ) {
 			$args_note_list = array(
-				'post_status'          => $status,
+				'post_status' => $status,
 			);
 			if ( ! current_user_can( 'frais_pro_view_all_user_sheets' ) ) {
 				$args_note_list['author'] = get_current_user_id();
@@ -105,18 +107,19 @@ class Note_Class extends \eoxia\Post_Class {
 				'status_list'          => $status_list,
 				'user'                 => User_Class::g()->get( array( 'user_id' => get_current_user_id() ), true ),
 			) );
-		} else { // Display a given note.
-			$current_note_id = (int) $_GET['note'];
-			$current_note = $this->get( array( 'id' => $current_note_id ), true );
+		} elseif ( is_int( (int) $requested_note ) && ( 0 !== (int) $requested_note ) ) { // Display a given note.
+			$current_note = $this->get( array( 'id' => $requested_note ), true );
 
 			\eoxia\View_Util::exec( 'frais-pro', 'note', 'main', array(
 				'note_is_closed'       => ! empty( $current_note->$note_status_taxonomy->special_behaviour ) && ( 'closed' === $current_note->$note_status_taxonomy->special_behaviour ) ? true : false,
 				'display_mode'         => 'grid',
 				'note'                 => $current_note,
-				'lines'                => Line_Class::g()->get( array( 'post_parent' => $current_note_id ) ),
+				'lines'                => Line_Class::g()->get( array( 'post_parent' => $requested_note ) ),
 				'note_status_taxonomy' => $note_status_taxonomy,
 				'status_list'          => $status_list,
 			) );
+		} elseif ( '' !== $requested_note && 'unclassified' === $requested_note ) {
+			Line_Class::g()->display_orphelan_list();
 		}
 	}
 

@@ -52,24 +52,24 @@ class Note_Action {
 		$default_status = Note_Status_Class::g()->get( array(
 			'meta_query' => array(
 				array(
-					'key'   => 'note_status_is_default',
+					'key'   => 'fp_note_status_is_default',
 					'value' => true,
 				),
 			),
 		), true );
+
 		if ( ! empty( $default_status ) && ! empty( $default_status->id ) ) {
 			$note_args['$push']['taxonomy'] = array(
 				Note_Status_Class::g()->get_type() => $default_status->id,
 			);
 		}
-
-		$ndf = Note_Class::g()->create( $note_args );
+		$note = Note_Class::g()->create( $note_args );
 
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',
 			'module'           => 'note',
 			'callback_success' => 'goToNote',
-			'link'             => admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['frais-pro']->slug, false ) . '&note=' . $ndf->id,
+			'link'             => admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['frais-pro']->slug, false ) . '&note=' . $note->id,
 		) );
 	}
 

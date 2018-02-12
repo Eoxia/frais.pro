@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Frais.pro V1.X.X\n"
-"POT-Creation-Date: 2018-02-09 14:39+0100\n"
-"PO-Revision-Date: 2018-02-09 14:39+0100\n"
+"POT-Creation-Date: 2018-02-12 13:28+0100\n"
+"PO-Revision-Date: 2018-02-12 13:29+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia dev@eoxia.com\n"
 "Language: fr_FR\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: core/external\n"
 "X-Poedit-SearchPathExcluded-1: node_modules\n"
 
-#: core/action/note-de-frais.action.php:72
+#: core/action/note-de-frais.action.php:73
 msgid ""
 "Are you sur you want to mark as payed? You won't be able to change anything "
 "after this action."
@@ -26,7 +26,7 @@ msgstr ""
 "Etes vous sûr de vouloir marquer cette note comme payée? Aucuns changement "
 "ne sera possible par la suite."
 
-#: core/action/note-de-frais.action.php:73
+#: core/action/note-de-frais.action.php:74
 msgid ""
 "Your data are being updated. If you confirm that you want to leave this "
 "page, your data could be corrupted"
@@ -34,35 +34,35 @@ msgstr ""
 "La mise à jour de vos données est en cours. Si vous quitter cette page, vos "
 "données pourraient être corrompues"
 
-#: core/action/note-de-frais.action.php:74
-#: modules/note-status/class/note-status.class.php:78
+#: core/action/note-de-frais.action.php:75
+#: modules/note-status/class/note-status.class.php:88
 msgid "In progress"
 msgstr "En cours"
 
-#: core/action/note-de-frais.action.php:75
-#: modules/note-status/class/note-status.class.php:79
+#: core/action/note-de-frais.action.php:76
+#: modules/note-status/class/note-status.class.php:94
 msgid "Validated"
 msgstr "Validée"
 
-#: core/action/note-de-frais.action.php:76
-#: modules/note-status/class/note-status.class.php:80
+#: core/action/note-de-frais.action.php:77
+#: modules/note-status/class/note-status.class.php:100
 msgid "Payed"
 msgstr "Payée"
 
-#: core/action/note-de-frais.action.php:77
-#: modules/note-status/class/note-status.class.php:81
+#: core/action/note-de-frais.action.php:78
+#: modules/note-status/class/note-status.class.php:106
 msgid "Refused"
 msgstr "Réfusée"
 
-#: core/action/note-de-frais.action.php:113
+#: core/action/note-de-frais.action.php:126
 msgid "Frais.pro"
 msgstr "Frais.pro"
 
-#: core/action/note-de-frais.action.php:114
+#: core/action/note-de-frais.action.php:127
 msgid "Frais.pro - Notes"
 msgstr "Frais.pro - Notes"
 
-#: core/action/note-de-frais.action.php:114
+#: core/action/note-de-frais.action.php:127
 msgid "Notes"
 msgstr "Notes"
 
@@ -79,25 +79,66 @@ msgstr "Type de ligne"
 msgid "Create type notes"
 msgstr "Créer un type de note"
 
-#: modules/line/view/item.view.php:24 modules/note/view/main.view.php:108
+#: modules/line/action/line.action.php:77
+#, php-format
+msgid "User %1$d try to delete the line %2$d"
+msgstr ""
+
+#: modules/line/action/line.action.php:81
+#, php-format
+msgid "The given ID %1$d is invalid"
+msgstr ""
+
+#: modules/line/action/line.action.php:82
+msgid "You try to delete a line that does not exists"
+msgstr ""
+
+#: modules/line/action/line.action.php:113
+#, php-format
+msgid "User %1$d try to dissociate the line %2$d from %3$d"
+msgstr ""
+
+#: modules/line/action/line.action.php:117
+#, php-format
+msgid "The given line ID %1$d is invalid"
+msgstr ""
+
+#: modules/line/action/line.action.php:118
+msgid "You try to dissociate a line that does not exists"
+msgstr ""
+
+#: modules/line/action/line.action.php:123
+#, php-format
+msgid "The given note ID %1$d is invalid"
+msgstr ""
+
+#: modules/line/action/line.action.php:124
+msgid "You try to dissociate a line from a note that does not exists"
+msgstr ""
+
+#: modules/line/action/line.action.php:156
+msgid "There is a missing parameter"
+msgstr ""
+
+#: modules/line/view/item.view.php:24 modules/line/view/main.view.php:22
 msgid "Date"
 msgstr "Date"
 
 #: modules/line/view/item.view.php:28 modules/line/view/item.view.php:29
-#: modules/note/view/main.view.php:109
+#: modules/line/view/main.view.php:23
 msgid "Label"
 msgstr "Libellé"
 
-#: modules/line/view/item.view.php:36 modules/note/view/main.view.php:111
+#: modules/line/view/item.view.php:36 modules/line/view/main.view.php:25
 msgid "Km"
 msgstr "Km"
 
-#: modules/line/view/item.view.php:40 modules/note/view/main.view.php:112
+#: modules/line/view/item.view.php:40 modules/line/view/main.view.php:26
 msgid "ATI(€)"
 msgstr "TTC(€)"
 
-#: modules/line/view/item.view.php:44 modules/note/view/item.view.php:33
-#: modules/note/view/main.view.php:79 modules/note/view/main.view.php:113
+#: modules/line/view/item.view.php:44 modules/line/view/main.view.php:27
+#: modules/note/view/item.view.php:33 modules/note/view/main.view.php:75
 msgid "VAT"
 msgstr "TVA"
 
@@ -109,23 +150,58 @@ msgstr "Line invalide"
 msgid "Valid line"
 msgstr "Ligne valide"
 
-#: modules/line/view/item.view.php:52 modules/note/view/actions.view.php:36
+#: modules/line/view/item.view.php:52
+#: modules/line/view/orphelan/main.view.php:37
+#: modules/note/view/actions.view.php:36
 msgid "Options"
 msgstr "Options"
 
-#: modules/line/view/item.view.php:54
+#: modules/line/view/item.view.php:58
 msgid "Dissociate from note"
 msgstr "Dissocier de la note"
 
-#: modules/line/view/item.view.php:55
+#: modules/line/view/item.view.php:62
 msgid "Delete"
 msgstr "Supprimer"
 
-#: modules/note-status/action/note-status.action.php:42
+#: modules/line/view/main.view.php:21
+msgid "Picture"
+msgstr "Photo"
+
+#: modules/line/view/main.view.php:24
+msgid "Type"
+msgstr "Type"
+
+#: modules/line/view/orphelan/list.view.php:21
+#: modules/note/view/list.view.php:18 modules/note/view/main.view.php:21
+msgid "Professionnal fees sheets"
+msgstr "Notes de frais"
+
+#: modules/line/view/orphelan/list.view.php:31
+#: modules/line/view/orphelan/main.view.php:27
+#, php-format
+msgid "Unaffected lines (%d)"
+msgstr ""
+
+#: modules/line/view/orphelan/list.view.php:34
+#: modules/line/view/orphelan/main.view.php:30
+#: modules/note/view/item.view.php:23 modules/note/view/main.view.php:34
+msgid "Last update"
+msgstr "MAJ"
+
+#: modules/line/view/orphelan/main.view.php:41
+msgid "Delete all lines"
+msgstr ""
+
+#: modules/note-status/action/note-status.action.php:55
 msgid "Note status"
 msgstr "Statut de la note"
 
-#: modules/note/action/note.action.php:214
+#: modules/note/action/note.action.php:85
+msgid "You did not choose a note to mark as archive"
+msgstr ""
+
+#: modules/note/action/note.action.php:218
 #: modules/note/view/actions.view.php:23 modules/note/view/actions.view.php:32
 #: modules/note/view/actions.view.php:41
 msgid "Archive"
@@ -139,22 +215,14 @@ msgstr "Générer le fichier"
 msgid "Download file"
 msgstr "Télécharger le fichier"
 
-#: modules/note/view/item.view.php:23 modules/note/view/main.view.php:39
-msgid "Last update"
-msgstr "MAJ"
-
 #: modules/note/view/item.view.php:27 modules/note/view/item.view.php:32
-#: modules/note/view/main.view.php:73 modules/note/view/main.view.php:78
+#: modules/note/view/main.view.php:69 modules/note/view/main.view.php:74
 msgid "€"
 msgstr "€"
 
-#: modules/note/view/item.view.php:28 modules/note/view/main.view.php:74
+#: modules/note/view/item.view.php:28 modules/note/view/main.view.php:70
 msgid "ATI"
 msgstr "TTC"
-
-#: modules/note/view/list.view.php:18 modules/note/view/main.view.php:25
-msgid "Professionnal fees sheets"
-msgstr "Notes de frais"
 
 #: modules/note/view/list.view.php:24
 msgid "Add"
@@ -166,29 +234,13 @@ msgstr ""
 "Vous n'avez pas de notes de frais pour le moment. Vous pouvez utiliser le "
 "bouton d'ajout pour en débuter une nouvelle"
 
-#: modules/note/view/main.view.php:62
+#: modules/note/view/main.view.php:59
 msgid "Multiple add from pictures"
 msgstr "Ajout multiple à partir d'images"
 
-#: modules/note/view/main.view.php:67
+#: modules/note/view/main.view.php:63
 msgid "New line"
 msgstr "Ajouter une ligne"
-
-#: modules/note/view/main.view.php:88
-msgid "Grid mode"
-msgstr "Mode grille"
-
-#: modules/note/view/main.view.php:100
-msgid "List mode"
-msgstr "Mode liste"
-
-#: modules/note/view/main.view.php:107
-msgid "Picture"
-msgstr "Photo"
-
-#: modules/note/view/main.view.php:110
-msgid "Type"
-msgstr "Type"
 
 #: modules/update_manager/action/class-update-manager-action.php:90
 #, php-format
@@ -206,27 +258,90 @@ msgid "Redirect to Frais.pro main application"
 msgstr "Redirection vers l'application Frais.pro"
 
 #: modules/update_manager/data/update-1400-data.php:15
-msgid ""
-"Change notes statuses management. Use WordPress taxonomy utilities instead "
-"of using plain text"
+msgid "Change note type"
 msgstr ""
-"Modification de la gestion des statuts des notes. Utilisation des termes de "
-"WordPress au lieu d'utiliser du texte"
 
-#: modules/update_manager/view/main.view.php:17
+#: modules/update_manager/data/update-1400-data.php:21
+msgid "Change line type"
+msgstr ""
+
+#: modules/update_manager/update/update-1400.php:99
+msgid "Start update 1400 update_note method."
+msgstr ""
+
+#: modules/update_manager/update/update-1400.php:108
+#: modules/update_manager/update/update-1400.php:181
+#, php-format
+msgid "List of existing note to be upgrading to new type: %s "
+msgstr ""
+
+#: modules/update_manager/update/update-1400.php:122
+#: modules/update_manager/update/update-1400.php:194
+#, php-format
+msgid "Transfert value %1$s old meta %2$s to new meta %3$s for the post %4$d"
+msgstr ""
+
+#: modules/update_manager/update/update-1400.php:135
+#: modules/update_manager/update/update-1400.php:212
+#, php-format
+msgid "Error for set term to the post %1$d : %2$s"
+msgstr ""
+
+#: modules/update_manager/update/update-1400.php:138
+#: modules/update_manager/update/update-1400.php:215
+msgid "Set the term #%1$s for the post %2$d with the status %3%s"
+msgstr ""
+
+#: modules/update_manager/update/update-1400.php:142
+#, php-format
+msgid "No term found for the post %1$d"
+msgstr ""
+
+#: modules/update_manager/update/update-1400.php:148
+#: modules/update_manager/update/update-1400.php:229
+#, php-format
+msgid "List of existing note updated to the new type: %s "
+msgstr ""
+
+#: modules/update_manager/update/update-1400.php:150
+msgid "End update 1400 update_note method."
+msgstr ""
+
+#: modules/update_manager/update/update-1400.php:169
+msgid "Start update 1400 update_line method."
+msgstr ""
+
+#: modules/update_manager/update/update-1400.php:219
+#: modules/update_manager/update/update-1400.php:223
+#, php-format
+msgid "No term found for the line %1$d"
+msgstr ""
+
+#: modules/update_manager/update/update-1400.php:230
+msgid "End update 1400 update_line method."
+msgstr ""
+
+#: modules/update_manager/update/update-1400.php:260
+#: modules/update_manager/update/update-1400.php:292
+#, php-format
+msgid "Search term %1$s by slug"
+msgstr ""
+
+#: modules/update_manager/update/update-1400.php:268
+#: modules/update_manager/update/update-1400.php:300
+#, php-format
+msgid "Founded term %1$s"
+msgstr ""
+
+#: modules/update_manager/view/main.view.php:18
 msgid "Update Manager"
 msgstr "Module de mise à jour des données"
 
-#: modules/update_manager/view/main.view.php:26
-#, php-format
-msgid "V%1$s - %2$s"
-msgstr "V%1$s - %2$s"
-
-#: modules/update_manager/view/main.view.php:36
+#: modules/update_manager/view/main.view.php:32
 msgid "Nothing to update"
 msgstr "Toutes les mises à jour on été effectuées avec succès"
 
-#: modules/update_manager/view/main.view.php:37
+#: modules/update_manager/view/main.view.php:34
 msgid "Back to Frais.pro main page."
 msgstr "Revenir au tableau de bord de Frais.pro."
 
@@ -295,6 +410,22 @@ msgstr ""
 #: modules/user/view/say-to-set-profil.view.php:28
 msgid "Go to my profile"
 msgstr "Aller à mon profil"
+
+#~ msgid "Grid mode"
+#~ msgstr "Mode grille"
+
+#~ msgid "List mode"
+#~ msgstr "Mode liste"
+
+#~ msgid ""
+#~ "Change notes statuses management. Use WordPress taxonomy utilities "
+#~ "instead of using plain text"
+#~ msgstr ""
+#~ "Modification de la gestion des statuts des notes. Utilisation des termes "
+#~ "de WordPress au lieu d'utiliser du texte"
+
+#~ msgid "V%1$s - %2$s"
+#~ msgstr "V%1$s - %2$s"
 
 #~ msgid "Change notes statuses storage."
 #~ msgstr "Modification de la gestion des statuts des notes."

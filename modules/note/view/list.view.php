@@ -50,3 +50,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?>
 	</tbody>
 </table>
+
+<?php Line_Class::g()->display_orphelans(); ?>

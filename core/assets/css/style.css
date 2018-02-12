@@ -310,6 +310,9 @@
 .wrap-frais-pro .list-note.main .note-action {
   padding-left: 1.6em; }
 
+.wrap-frais-pro .list-note.main.orphelan-lines {
+  margin-top: 50px; }
+
 .wrap-frais-pro .single-note .header {
   background: #898de5;
   display: -webkit-box;
