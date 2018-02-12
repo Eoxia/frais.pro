@@ -39,8 +39,8 @@ class Update_140 {
 	 * @var array
 	 */
 	private $link_note_metas_name = array(
-		'_ndfl_tax_inclusive_amount' => 'tax_inclusive_amount',
-		'_ndfl_tax_amount'           => 'tax_amount',
+		'_ndf_tax_inclusive_amount' => 'tax_inclusive_amount',
+		'_ndf_tax_amount'           => 'tax_amount',
 	);
 
 	/**
@@ -49,7 +49,6 @@ class Update_140 {
 	 * @var string
 	 */
 	private $old_status = '_ndf_validation_status';
-
 
 	/**
 	 * Post type of line before version 1.4.0
@@ -71,6 +70,13 @@ class Update_140 {
 	);
 
 	/**
+	 * Old line type taxonomy name.
+	 *
+	 * @var string
+	 */
+	private $old_line_type_taxonomy = '_type_note';
+
+	/**
 	 * Le constructeur
 	 *
 	 * @since 1.4.0
@@ -78,7 +84,7 @@ class Update_140 {
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_frais_pro_update_1400_update_note', array( $this, 'callback_frais_pro_update_1400_update_note' ) );
-		add_action( 'wp_ajax_frais_pro_update_1400_update_line_type', array( $this, 'callback_frais_pro_update_1400_update_line_type' ) );
+		add_action( 'wp_ajax_frais_pro_update_1400_update_line', array( $this, 'callback_frais_pro_update_1400_update_line' ) );
 	}
 
 	/**
@@ -90,6 +96,8 @@ class Update_140 {
 	 * @return void
 	 */
 	public function callback_frais_pro_update_1400_update_note() {
+		\eoxia\LOG_Util::log( __( 'Start update 1400 update_note method.', 'frais-pro' ), 'frais-pro' );
+
 		global $wpdb;
 
 		$schema = Note_Class::g()->get_schema();
@@ -117,28 +125,29 @@ class Update_140 {
 
 				// Update status of the note.
 				$taxonomy_name = get_post_meta( $post_id, $this->old_status, true );
-				$term_id       = $this->get_status_by_old( $taxonomy_name );
+				$term          = $this->get_status_by_old( $taxonomy_name );
 
-				if ( null !== $term_id ) {
-					$status = wp_set_object_terms( $post_id, $term_id, Note_Status_Class::g()->get_type() );
+				if ( null !== $term->term_id ) {
+					$status = wp_set_post_terms( $post_id, $term->term_id, Note_Status_Class::g()->get_type() );
 
 					if ( is_wp_error( $status ) ) {
 						// translators: %s is list of old posts id.
 						\eoxia\LOG_Util::log( sprintf( __( 'Error for set term to the post %1$d : %2$s', 'frais-pro' ), $post_id, wp_json_encode( $status ) ), 'frais-pro' );
 					} else {
 						// translators: %s is list of old posts id.
-						\eoxia\LOG_Util::log( sprintf( __( 'Set the term #%1$d for the post %2$d ', 'frais-pro' ), $term_id, $post_id ), 'frais-pro' );
+						\eoxia\LOG_Util::log( sprintf( __( 'Set the term #%1$s for the post %2$d with the status %3%s', 'frais-pro' ), wp_json_encode( $term ), $post_id, wp_json_encode( $status ) ), 'frais-pro' );
 					}
 				} else {
 					// translators: %s is list of old posts id.
-					\eoxia\LOG_Util::log( sprintf( __( 'No term found for the post %2$d ', 'frais-pro' ), $post_id ), 'frais-pro' );
-
+					\eoxia\LOG_Util::log( sprintf( __( 'No term found for the post %1$d', 'frais-pro' ), $post_id ), 'frais-pro' );
 				}
 			}
 		}
 
 		// translators: %s is list of old posts id.
 		\eoxia\LOG_Util::log( sprintf( __( 'List of existing note updated to the new type: %s ', 'frais-pro' ), implode( ',', $old_posts_id ) ), 'frais-pro' );
+
+		\eoxia\LOG_Util::log( __( 'End update 1400 update_note method.', 'frais-pro' ), 'frais-pro' );
 
 		wp_send_json_success( array(
 			'done' => true,
@@ -156,7 +165,12 @@ class Update_140 {
 	 *
 	 * @return void
 	 */
-	public function callback_frais_pro_update_1400_update_line_type() {
+	public function callback_frais_pro_update_1400_update_line() {
+		\eoxia\LOG_Util::log( __( 'Start update 1400 update_line method.', 'frais-pro' ), 'frais-pro' );
+
+		// Register old taxonomy for next request. Only for this method.
+		register_taxonomy( $this->old_line_type_taxonomy, Line_Class::g()->get_type() );
+
 		global $wpdb;
 
 		$schema = Line_Class::g()->get_schema();
@@ -181,11 +195,39 @@ class Update_140 {
 
 					}
 				}
+
+				// Update taxonomy.
+				$taxonomies_slug = wp_get_object_terms( $post_id, $this->old_line_type_taxonomy, array(
+					'fields' => 'slugs',
+				) );
+
+				if ( ! empty( $taxonomies_slug ) ) {
+					$term = $this->get_line_type_by_old( $taxonomies_slug );
+
+					if ( null !== $term->term_id ) {
+						$status = wp_set_post_terms( $post_id, $term->term_id, Line_Type_Class::g()->get_type(), true );
+
+						if ( is_wp_error( $status ) ) {
+							// translators: %s is list of old posts id.
+							\eoxia\LOG_Util::log( sprintf( __( 'Error for set term to the post %1$d : %2$s', 'frais-pro' ), $post_id, wp_json_encode( $status ) ), 'frais-pro' );
+						} else {
+							// translators: %s is list of old posts id.
+							\eoxia\LOG_Util::log( sprintf( __( 'Set the term #%1$s for the post %2$d with the status %3%s', 'frais-pro' ), wp_json_encode( $term ), $post_id, wp_json_encode( $status ) ), 'frais-pro' );
+						}
+					} else {
+						// translators: %s is list of old posts id.
+						\eoxia\LOG_Util::log( sprintf( __( 'No term found for the line %1$d', 'frais-pro' ), $post_id ), 'frais-pro' );
+					}
+				} else {
+					// translators: %s is list of old posts id.
+					\eoxia\LOG_Util::log( sprintf( __( 'No term found for the line %1$d', 'frais-pro' ), $post_id ), 'frais-pro' );
+				}
 			}
 		}
 
 		// translators: %s is list of old posts id.
 		\eoxia\LOG_Util::log( sprintf( __( 'List of existing note updated to the new type: %s ', 'frais-pro' ), implode( ',', $old_posts_id ) ), 'frais-pro' );
+		\eoxia\LOG_Util::log( __( 'End update 1400 update_line method.', 'frais-pro' ), 'frais-pro' );
 
 		wp_send_json_success( array(
 			'done' => true,
@@ -202,6 +244,7 @@ class Update_140 {
 	 * @return mixed            null if statuses is empty. null if term is wp_error. Or WP_Term_Object if success.
 	 */
 	public function get_status_by_old( $old_name ) {
+		Note_Status_Class::g()->init_status_note();
 		$statuses = Note_Status_Class::g()->status;
 
 		if ( empty( $statuses ) ) {
@@ -213,6 +256,7 @@ class Update_140 {
 				// translators: %s is list of old posts id.
 				$category_slug = sanitize_title( $status['name'] );
 
+				// translators: Slug of the category.
 				\eoxia\LOG_Util::log( sprintf( __( 'Search term %1$s by slug', 'frais-pro' ), $category_slug ), 'frais-pro' );
 				$term = get_term_by( 'slug', $category_slug, Note_Status_Class::g()->get_type() );
 
@@ -220,6 +264,7 @@ class Update_140 {
 					return null;
 				}
 
+				// translators: a json encoded of the term.
 				\eoxia\LOG_Util::log( sprintf( __( 'Founded term %1$s', 'frais-pro' ), wp_json_encode( $term ) ), 'frais-pro' );
 
 				return $term;
@@ -227,6 +272,33 @@ class Update_140 {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Get the type of line by the old name.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param  array $old_taxonomies_slug Table of old types line name.
+	 * @return mixed                      null if statuses is empty. null if term is wp_error. Or WP_Term_Object if success.
+	 */
+	public function get_line_type_by_old( $old_taxonomies_slug ) {
+
+		// The index 0 is obviously the Line type.
+		$old_taxonomies_slug = $old_taxonomies_slug[0];
+
+		// translators: Slug of the line type.
+		\eoxia\LOG_Util::log( sprintf( __( 'Search term %1$s by slug', 'frais-pro' ), $old_taxonomies_slug ), 'frais-pro' );
+		$new_line_type = get_term_by( 'slug', $old_taxonomies_slug, Line_Type_Class::g()->get_type() );
+
+		if ( is_wp_error( $new_line_type ) ) {
+			return null;
+		}
+
+		// translators: a json encoded of the term.
+		\eoxia\LOG_Util::log( sprintf( __( 'Founded term %1$s', 'frais-pro' ), wp_json_encode( $new_line_type ) ), 'frais-pro' );
+		return $new_line_type;
 	}
 
 }
