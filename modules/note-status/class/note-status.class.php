@@ -72,8 +72,17 @@ class Note_Status_Class extends \eoxia\Term_Class {
 	public function construct() {
 		$this->associate_post_types = Note_Class::g()->get_type();
 		parent::construct();
+	}
 
-		// DO NOT DELETE. Allows to get old validation status in order to make transfer and translation.
+	/**
+	 * Initialise le tableau des status de note.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @return void
+	 */
+	public function init_status_note() {
 		$this->status = array(
 			array(
 				'name'             => __( 'In progress', 'frais-pro' ),
@@ -111,12 +120,13 @@ class Note_Status_Class extends \eoxia\Term_Class {
 	 * @return void
 	 */
 	public function create_default_statuses() {
+		$this->init_status_note();
+
 		if ( ! empty( $this->status ) ) {
 			// Utilisé pour déclarer la taxonomie à l'activation du plugin. L'action "init" n'est pas lancée à ce moment là.
 			$this->callback_init();
 
 			foreach ( $this->status as $category_data ) {
-				echo '<pre>'; print_r( $category_data ); echo '</pre>';exit;
 				$category_slug = sanitize_title( $category_data['name'] );
 				$tax           = get_term_by( 'slug', $category_slug, $this->get_type(), ARRAY_A );
 
@@ -133,9 +143,12 @@ class Note_Status_Class extends \eoxia\Term_Class {
 
 
 	/**
-	 * Récupère la liste des statuts possible pour les notes de frais
+	 * Récupères la liste des status possible pour les notes de frais
 	 *
-	 * @return [type] [description]
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @return array (Voir au dessus).
 	 */
 	public function get_statuses() {
 		return $this->status;
