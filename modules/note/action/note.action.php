@@ -28,6 +28,7 @@ class Note_Action {
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_create_note', array( $this, 'callback_create_note' ) );
+		add_action( 'wp_ajax_fp_note_archive', array( $this, 'callback_fp_note_archive' ) );
 
 		add_action( 'wp_ajax_update_note', array( $this, 'callback_update_note' ) );
 		add_action( 'wp_ajax_archive_ndf', array( $this, 'callback_archive_ndf' ) );
@@ -40,7 +41,7 @@ class Note_Action {
 	}
 
 	/**
-	 * Action : créer une note de frais.
+	 * Action : Create a note.
 	 */
 	public function callback_create_note() {
 		check_ajax_referer( 'create_note' );
@@ -73,6 +74,34 @@ class Note_Action {
 	}
 
 	/**
+	 * Action : Archive a note.
+	 */
+	public function callback_fp_note_archive() {
+		check_ajax_referer( 'fp_note_archive' );
+
+		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		if ( empty( $id ) ) {
+			wp_send_json_error( array( 'message' => __( 'You did not choose a note to mark as archive', 'frais-pro' ) ) );
+		}
+
+		$note = Note_Class::g()->get( array(
+			'post__in' => array( $id ),
+		), true );
+
+		$note->status = 'archive';
+
+		wp_send_json_success( array(
+			'namespace'        => 'fraisPro',
+			'module'           => 'note',
+			'callback_success' => 'note_is_marked_as_archive',
+			'note'             => Note_Class::g()->update( $note ),
+			'link'             => admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['frais-pro']->slug, false ),
+		) );
+	}
+
+
+	/**
 	 * Action : modifier une note de frais.
 	 *
 	 * @since 1.0.0
@@ -98,31 +127,6 @@ class Note_Action {
 		) );
 	}
 
-	/**
-	 * Action : archiver une note de frais.
-	 */
-	public function callback_archive_ndf() {
-		check_ajax_referer( 'archive_ndf' );
-
-		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
-
-		if ( empty( $id ) ) {
-			wp_send_json_error();
-		}
-
-		$ndf = Note_Class::g()->get( array(
-			'post__in' => array( $id ),
-		), true );
-
-		$ndf->status = 'archive';
-
-		wp_send_json_success( array(
-			'namespace' => 'fraisPro',
-			'module' => 'NDF',
-			'callback_success' => 'archived',
-			'ndf' => Note_Class::g()->update( $ndf ),
-		) );
-	}
 
 	/**
 	 * Génère un document .odt avec les données qui vont bien.

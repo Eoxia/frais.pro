@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <h1>
 	<?php esc_html_e( 'Professionnal fees sheets', 'frais-pro' ); ?>
 </h1>
-<div class="single-note<?php echo esc_attr( $note_is_closed ? ' is_closed' : '' ); ?> <?php echo esc_attr( $display_mode ); ?>" >
+<div class="single-note<?php echo esc_attr( $note_is_closed ? ' is_closed' : '' ); ?> <?php echo esc_attr( $display_mode ); ?>" data-id="<?php echo esc_attr( $note->id ); ?>" >
 	<input type="hidden" name="id" value="<?php echo esc_attr( $note->id ); ?>" >
 	<input type="hidden" name="action" value="update_note" >
 	<input type="hidden" name="display_mode" value="<?php echo esc_attr( $display_mode ); ?>" >
@@ -82,7 +82,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div> <!-- .display-method -->
 			</div> <!-- .note-action -->
 
-			<?php \eoxia\View_Util::exec( 'frais-pro', 'line', 'list', array( 'lines' => $lines ) ); ?>
+			<?php \eoxia\View_Util::exec( 'frais-pro', 'line', 'main', array( 'lines' => $lines ) ); ?>
 
 		</div> <!-- .content -->
 

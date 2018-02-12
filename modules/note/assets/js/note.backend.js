@@ -126,3 +126,21 @@ window.eoxiaJS.fraisPro.note.selectedFile = function( element ) {
 		}
 	}, 'json' );
 };
+
+/**
+ * Delete the archived note from display.
+ *
+ * @return {void}
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ */
+window.eoxiaJS.fraisPro.note.note_is_marked_as_archive = function( element, response ) {
+
+	// Check if the user is on list or in a single note
+	if ( 1 === jQuery( '.list-note' ).length ) {
+		jQuery( 'tr.note[data-id=' + response.data.note.id + ']' ).fadeOut();
+	} else {
+		window.location.href = response.data.link;
+	}
+};
