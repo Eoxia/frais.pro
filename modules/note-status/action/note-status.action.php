@@ -2,9 +2,9 @@
 /**
  * Classe gérant les actions des types de note des notes de frais.
  *
- * @author eoxia
- * @since 1.2.0
- * @version 1.3.0
+ * @author Eoxia
+ * @since 1.4.0
+ * @version 1.4.0
  * @copyright 2017 Eoxia
  * @package NDF
  */
@@ -23,18 +23,31 @@ class Note_Status_Action {
 	/**
 	 * Le constructeur
 	 *
-	 * @since 1.2.0
-	 * @version 1.2.0
+	 * @since 1.4.0
+	 * @version 1.4.0
 	 */
 	public function __construct() {
+		add_action( 'admin_init', array( $this, 'callback_admin_init' ) );
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 99 );
+	}
+
+	/**
+	 * Permet d'intialiser les traductions des type de note au bon moment.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @return void
+	 */
+	public function callback_admin_init() {
+		Note_Status_Class::g()->init_status_note();
 	}
 
 	/**
 	 * Ajoutes un sous menu "Categories" qui renvoie vers la page pour créer les catégories de NDF.
 	 *
-	 * @since 1.2.0
-	 * @version 1.2.0
+	 * @since 1.4.0
+	 * @version 1.4.0
 	 *
 	 * @return void
 	 */
