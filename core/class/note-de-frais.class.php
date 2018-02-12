@@ -52,7 +52,7 @@ class Note_De_Frais_Class extends \eoxia\Singleton_Util {
 	 * @since 1.0.0
 	 * @version 1.4.0
 	 */
-	public function activation() {
+	public function init_default_data() {
 		$current_version = get_option( \eoxia\Config_Util::$init['frais-pro']->key_last_update_version, null );
 		if ( null === $current_version ) {
 			// Call default note types creation.
