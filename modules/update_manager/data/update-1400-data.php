@@ -22,4 +22,10 @@ $datas = array(
 		'since'       => '1.4.0',
 		'version'     => '1.4.0',
 	),
+	array(
+		'action'      => 'frais_pro_update_1400_update_user_capabilities',
+		'description' => __( 'Update user capability "ndf_view_all" to "frais_pro_view_all_user_sheets"', 'frais-pro' ),
+		'since'       => '1.4.0',
+		'version'     => '1.4.0',
+	),
 );

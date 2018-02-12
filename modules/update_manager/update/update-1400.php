@@ -77,6 +77,13 @@ class Update_140 {
 	private $old_line_type_taxonomy = '_type_note';
 
 	/**
+	 * Old capability name.
+	 *
+	 * @var string
+	 */
+	private $old_capability_name = 'ndf_view_all';
+
+	/**
 	 * Le constructeur
 	 *
 	 * @since 1.4.0
@@ -85,6 +92,7 @@ class Update_140 {
 	public function __construct() {
 		add_action( 'wp_ajax_frais_pro_update_1400_update_note', array( $this, 'callback_frais_pro_update_1400_update_note' ) );
 		add_action( 'wp_ajax_frais_pro_update_1400_update_line', array( $this, 'callback_frais_pro_update_1400_update_line' ) );
+		add_action( 'wp_ajax_frais_pro_update_1400_update_user_capabilities', array( $this, 'callback_frais_pro_update_1400_update_user_capabilities' ) );
 	}
 
 	/**
@@ -228,6 +236,47 @@ class Update_140 {
 		// translators: %s is list of old posts id.
 		\eoxia\LOG_Util::log( sprintf( __( 'List of existing note updated to the new type: %s ', 'frais-pro' ), implode( ',', $old_posts_id ) ), 'frais-pro' );
 		\eoxia\LOG_Util::log( __( 'End update 1400 update_line method.', 'frais-pro' ), 'frais-pro' );
+
+		wp_send_json_success( array(
+			'done' => true,
+			'args' => array(
+				'more' => true,
+			),
+		) );
+	}
+
+	/**
+	 * Update the capability "ndf_view_all" to "frais_pro_view_all_user_sheets" for user get the old capability.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @return void
+	 */
+	public function callback_frais_pro_update_1400_update_user_capabilities() {
+		\eoxia\LOG_Util::log( __( 'Start update 1400 update_user_capabilities method.', 'frais-pro' ), 'frais-pro' );
+		$new_capability_name = \eoxia\Config_Util::$init['frais-pro']->user->capability_view_all_user_sheets;
+
+		$users            = get_users( array( 'role' => 'administrator' ) );
+		$list_users_login = array();
+
+		if ( ! empty( $users ) ) {
+			foreach ( $users as $user ) {
+				\eoxia\LOG_Util::log( sprintf( __( 'Key in user role %s of user : %s', 'frais-pro' ), implode( ',', $user->caps ), $user->user_login ), 'frais-pro' );
+				if ( array_key_exists( $this->old_capability_name, $user->caps ) ) {
+					$list_users_login[] = $user->user_login;
+
+					// translators: test.
+					\eoxia\LOG_Util::log( sprintf( __( 'The user %s get the old capability: %s', 'frais-pro' ), $user->user_login, $this->old_capability_name ), 'frais-pro' );
+					$user->add_cap( $new_capability_name );
+					\eoxia\LOG_Util::log( sprintf( __( 'New capability: %s added to user %s', 'frais-pro' ), $new_capability_name, $user->user_login ), 'frais-pro' );
+				}
+			}
+		}
+
+		// translators: %s is the new capability name.
+		\eoxia\LOG_Util::log( sprintf( __( 'List of existing users updated to the new role: %s => %s', 'frais-pro' ), $new_capability_name, implode( ',', $list_users_login ) ), 'frais-pro' );
+		\eoxia\LOG_Util::log( __( 'End update 1400 update_user_capabilities method.', 'frais-pro' ), 'frais-pro' );
 
 		wp_send_json_success( array(
 			'done' => true,
