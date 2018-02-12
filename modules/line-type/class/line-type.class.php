@@ -96,9 +96,9 @@ class Line_Type_Class extends \eoxia\Term_Class {
 	 * @return void
 	 */
 	public function create_default_types() {
-		$type_note = 'line-type';
+		$type_note    = 'line-type';
 		$file_content = file_get_contents( \eoxia\Config_Util::$init['frais-pro']->$type_note->path . 'assets/json/default.json' );
-		$data = json_decode( $file_content, true );
+		$data         = json_decode( $file_content, true );
 
 		if ( ! empty( $data ) ) {
 			// Utilisé pour déclarer la taxonomie à l'activation du plugin. L'action "init" n'est pas lancée à ce moment là.
@@ -106,8 +106,8 @@ class Line_Type_Class extends \eoxia\Term_Class {
 
 			foreach ( $data as $category ) {
 				$category['name'] = __( $category['name'], 'frais-pro' );
-				$category_slug = sanitize_title( $category['category_id'] . ' : ' . $category['name'] );
-				$tax = get_term_by( 'slug', $category_slug, $this->get_type(), ARRAY_A );
+				$category_slug    = sanitize_title( $category['category_id'] . ' : ' . $category['name'] );
+				$tax              = get_term_by( 'slug', $category_slug, $this->get_type(), ARRAY_A );
 
 				if ( ! empty( $tax['term_id'] ) && is_int( $tax['term_id'] ) ) {
 					$category['id'] = $tax['term_id'];
