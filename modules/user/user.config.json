@@ -1,12 +1,14 @@
 {
 	"name": "Utilisateurs",
 	"slug": "user",
-	"version": "1.0.0.0",
-	"description": "Le module gérant les utilisateurs",
+	"since": "1.0.0",
+	"version": "1.4.0",
+	"description": "Handle users in frais.pro",
 	"path": "modules/user/",
 	"dependencies": {
 		"model": {},
 		"action": {},
 		"class": {}
-	}
+	},
+	"capability_view_all_user_sheets": "frais_pro_view_all_user_sheets"
 }
