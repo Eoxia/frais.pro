@@ -5,7 +5,7 @@
  * @package Eoxia\Plugin
  *
  * @since 1.0.0
- * @version 1.3.0
+ * @version 1.4.0
  */
 
 namespace frais_pro;
@@ -41,6 +41,7 @@ class Note_De_Frais_Action {
 		}
 
 		add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
+		add_action( 'init', array( $this, 'callback_init' ), 11 );
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
 	}
 
@@ -58,7 +59,7 @@ class Note_De_Frais_Action {
 	}
 
 	/**
-	 * Initialise le fichier style.min.css et backend.min.js du plugin DigiRisk.
+	 * Initialise le fichier style.min.css et backend.min.js du plugin Frais Pro.
 	 *
 	 * @return void nothing
 	 *
@@ -79,7 +80,7 @@ class Note_De_Frais_Action {
 	}
 
 	/**
-	 * Initialise le fichier style.min.css et backend.min.js du plugin DigiRisk.
+	 * Initialise le fichier style.min.css et backend.min.js du plugin Frais Pro.
 	 *
 	 * @return void nothing
 	 *
@@ -104,7 +105,19 @@ class Note_De_Frais_Action {
 	}
 
 	/**
-	 * Définition du menu dans l'administration de wordpress pour Digirisk / Define the menu for wordpress administration
+	 * Appel la méthode pour initialiser les données par défaut.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @return void
+	 */
+	public function callback_init() {
+		Note_De_Frais_Class::g()->init_default_data();
+	}
+
+	/**
+	 * Définition du menu dans l'administration de WordPress pour Frais Pro.
 	 *
 	 * @since 1.0.0
 	 * @version 1.4.0
