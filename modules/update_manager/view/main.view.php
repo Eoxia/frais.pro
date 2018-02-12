@@ -14,22 +14,7 @@ namespace frais_pro;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<?php
-/**
- * Display update manager main page.
- *
- * @author Eoxia <dev@eoxia.com>
- * @since 1.4.0
- * @version 1.4.0
- * @copyright 2015-2018 Eoxia
- * @package Frais.pro
- */
 
-namespace frais_pro;
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} ?>
 <h1><?php esc_html_e( 'Update Manager', 'frais-pro' ); ?></h1>
 
 <?php if ( ! empty( $waiting_updates ) ) : ?>
