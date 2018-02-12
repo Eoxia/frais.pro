@@ -17,7 +17,7 @@ $datas = array(
 		'version'     => '1.4.0',
 	),
 	array(
-		'action'      => 'frais_pro_update_1400_update_line_type',
+		'action'      => 'frais_pro_update_1400_update_line',
 		'description' => __( 'Change line type', 'frais-pro' ),
 		'since'       => '1.4.0',
 		'version'     => '1.4.0',
