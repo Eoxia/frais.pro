@@ -98,14 +98,18 @@ class Note_Class extends \eoxia\Post_Class {
 	 * @since 1.0.0
 	 * @version 1.4.0
 	 *
-	 * @param  array $status Post_status, permet d'afficher notes archivés ou publique.
+	 * @param  array $args Arguments pour le get.
 	 *
 	 * @return void
 	 */
-	public function display_list( $status = array( 'publish', 'future' ) ) {
+	public function display_list( $args = array() ) {
+		$default_status = array( 'publish', 'future' );
+
 		$args_note_list = array(
-			'post_status' => $status,
+			'post_status' => $default_status,
 		);
+
+		$args_note_list = wp_parse_args( $args_note_list, $args );
 
 		if ( ! current_user_can( 'frais_pro_view_all_user_sheets' ) ) {
 			$args_note_list['author'] = get_current_user_id();
