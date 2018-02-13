@@ -21,13 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div>
 		<div class="form-element group-date">
-			<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none;" name="start_date" value="<?php echo esc_attr( current_time( 'mysql' ) ); ?>" />
+			<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none;" name="start_date" value="" />
 			<input type="text" class="date" placeholder="<?php esc_html_e( 'Start date', 'frais-pro' ); ?>" value="" />
 		</div>
 	</div>
 	<div>
 		<div class="form-element group-date">
-			<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none;" name="end_date" value="<?php echo esc_attr( current_time( 'mysql' ) ); ?>" />
+			<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none;" name="end_date" value="" />
 			<input type="text" class="date" placeholder="<?php esc_html_e( 'End date', 'frais-pro' ); ?>" value="" />
 		</div>
 	</div>
@@ -35,13 +35,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div>
 		<div class="wpeo-dropdown">
 			<input type="hidden" name="selected_status_id" />
-			<div class="dropdown-toggle wpeo-button button-transparent">
-				<span class="pin-status"><?php esc_html_e( 'Status', 'frais-pro' ); ?></span>
+
+			<button class="dropdown-toggle wpeo-button button-main">
+				<span class="pin-status">
+					<span class="pin-dot" style="color:<?php echo esc_html( 'black' ); ?>;"></span>
+					<span class="pin-label"><?php echo esc_html( 'All status', 'frais-pro' ); ?></span>
+				</span>
 				<i class="button-icon fas fa-caret-down"></i>
-			</div>
+			</button>
+
 			<ul class="dropdown-content">
+				<li data-id="0" class="dropdown-item pin-status" color="black" >
+					<span class="pin-dot" style="color:<?php echo esc_html( 'black' ); ?>;"></span>
+					<span class="pin-label"><?php echo esc_html( 'All status', 'frais-pro' ); ?></span>
+				</li>
 				<?php foreach ( $status_list as $note_status ) : ?>
-					<li data-id="<?php echo esc_attr( $note_status->id ); ?>" class="dropdown-item pin-status" color="<?php echo esc_attr( $note_status->color ); ?>" ><?php echo esc_html( $note_status->name ); ?></li>
+					<li data-id="<?php echo esc_attr( $note_status->id ); ?>" class="dropdown-item pin-status" color="<?php echo esc_attr( $note_status->color ); ?>" >
+						<span class="pin-dot" style="color:<?php echo esc_html( $note_status->color ); ?>;"></span>
+						<span class="pin-label"><?php echo esc_html( $note_status->name ); ?></span>
+					</li>
 				<?php endforeach; ?>
 			</ul>
 		</div>
@@ -49,7 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div>
 		<div class="wpeo-autocomplete" data-action="fp_search_users" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_search_users' ) ); ?>">
-			<input type="hidden" name="selected_user_id" />
+			<input type="hidden" name="selected_user_id" value="" />
 			<label class="autocomplete-label" for="mon-autocomplete">
 				<i class="autocomplete-icon-before far fa-search"></i>
 				<input id="mon-autocomplete" placeholder="Recherche..." class="autocomplete-search-input" type="text" />
