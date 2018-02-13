@@ -14,11 +14,6 @@ namespace frais_pro;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-
-<h1>
-	<?php esc_html_e( 'Professionnal fees sheets', 'frais-pro' ); ?>
-</h1>
-
 <div class="single-note<?php echo esc_attr( $note_is_closed ? ' is_closed' : '' ); ?> <?php echo esc_attr( $display_mode ); ?>" data-id="<?php echo esc_attr( $note->id ); ?>" >
 	<input type="hidden" name="id" value="<?php echo esc_attr( $note->id ); ?>" >
 	<input type="hidden" name="action" value="update_note" >

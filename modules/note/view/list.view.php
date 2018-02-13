@@ -14,18 +14,6 @@ namespace frais_pro;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-
-<h1>
-	<?php esc_html_e( 'Professionnal fees sheets', 'frais-pro' ); ?>
-
-	<div class="wpeo-button button-blue action-attribute button-size-small button-radius-2"
-			data-action="create_note"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_note' ) ); ?>" >
-		<i class="button-icon fas fa-plus-circle"></i>
-		<span><?php esc_html_e( 'Add' ); ?></span>
-	</div>
-</h1>
-
 <?php Search_Class::g()->display(); ?>
 
 <?php if ( empty( $user->prixkm ) ) : ?>

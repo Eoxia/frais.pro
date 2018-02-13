@@ -16,11 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-?>
-<h1>
-	<?php esc_html_e( 'Professionnal fees sheets', 'frais-pro' ); ?>
-</h1>
-<div class="single-note <?php echo esc_attr( $display_mode ); ?>">
+?><div class="single-note <?php echo esc_attr( $display_mode ); ?>">
 	<div class="container">
 		<div class="header">
 			<a href="<?php echo esc_url( menu_page_url( \eoxia\Config_Util::$init['frais-pro']->slug, false ) ); ?>" class="close"><i class="icon far fa-chevron-left"></i></a>
