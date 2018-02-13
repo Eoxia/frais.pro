@@ -18,8 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="table-row line" data-id="<?php echo esc_attr( $line->id ); ?>" >
 	<?php apply_filters( 'fp_filter_note_line_start', '', $line ); ?>
 	<div class="table-cell line-image">
-		<?php do_shortcode( '[wpeo_upload id="' . $line->id . '" model_name="/frais_pro/Line_Class" single="true" size="full"]' ); ?>
-		<?php do_shortcode( '[wpeo_upload id="' . $line->id . '" model_name="/frais_pro/Line_Class" single="true"]' ); ?>
+		<?php do_shortcode( '[wpeo_upload id="' . $line->id . '" model_name="/frais_pro/Line_Class" single="true" size="full" custom_class="media-grid"]' ); ?>
+		<?php do_shortcode( '[wpeo_upload id="' . $line->id . '" model_name="/frais_pro/Line_Class" single="true" custom_class="media_list"]' ); ?>
 	</div>
 	<div class="table-cell line-content wpeo-form">
 		<div class="date form-element group-date">

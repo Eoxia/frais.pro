@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?><table class="wpeo-table list-note orphelan-lines main" >
 	<tbody>
-		<tr class="note" data-link="<?php menu_page_url( 'frais-pro', true ); ?>&note=unclassified">
+		<tr class="note" data-link="<?php echo admin_url( 'admin.php?page=frais-pro-edit' ); ?>&note=unclassified">
 			<td class="note-status" >&nbsp;</td>
 			<td class="note-title">
 				<span>
