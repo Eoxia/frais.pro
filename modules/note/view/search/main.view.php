@@ -44,6 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div>
 		<div class="wpeo-autocomplete" data-action="fp_search_users" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_search_users' ) ); ?>">
+			<input type="hidden" name="selected_user_id" />
 			<label class="autocomplete-label" for="mon-autocomplete">
 				<i class="autocomplete-icon-before far fa-search"></i>
 				<input id="mon-autocomplete" placeholder="Recherche..." class="autocomplete-search-input" type="text" />

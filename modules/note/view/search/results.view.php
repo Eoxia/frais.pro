@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! empty( $users ) ) :
 	foreach ( $users as $user ) :
 		?>
-		<li class="autocomplete-result">
+		<li data-id="<?php echo esc_attr( $user->ID ); ?>" data-result="<?php echo esc_html( $user->display_name ); ?>" class="autocomplete-result">
 			<?php echo get_avatar( $user->ID, 32, '', '', array( 'class' => 'autocomplete-result-image' ) ); ?>
 			<div class="autocomplete-result-container">
 				<span class="autocomplete-result-title"><?php echo esc_html( $user->display_name ); ?></span>

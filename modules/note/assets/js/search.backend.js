@@ -28,6 +28,7 @@ window.eoxiaJS.fraisPro.search.init = function() {
  */
 window.eoxiaJS.fraisPro.search.event = function() {
 	jQuery( '.bloc-search' ).on( 'click', '.dropdown-content li', window.eoxiaJS.fraisPro.search.selectStatus );
+	jQuery( '.bloc-search' ).on( 'click', '.autocomplete-search-list li', window.eoxiaJS.fraisPro.search.selectUser );
 };
 
 /**
@@ -46,4 +47,22 @@ window.eoxiaJS.fraisPro.search.selectStatus = function( event ) {
 	parent.find( 'input' ).val( jQuery( this ).data( 'id' ) );
 	parent.find( 'span' ).text( jQuery( this ).text() );
 
+};
+
+/**
+ * Met l'ID de l'utilisateur dans un input caché.
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ *
+ * @param MouseEvent L'état de la souri au moment du clic
+ *
+ * @return {void}
+ */
+window.eoxiaJS.fraisPro.search.selectUser = function( event ) {
+	var parent = jQuery( this ).closest( '.wpeo-autocomplete' );
+
+	parent.find( 'input[type="hidden"]' ).val( jQuery( this ).data( 'id' ) );
+	parent.find( '.autocomplete-icon-after' ).click();
+	parent.find( 'input[type="text"]' ).val( jQuery( this ).data( 'result' ) );
 };
