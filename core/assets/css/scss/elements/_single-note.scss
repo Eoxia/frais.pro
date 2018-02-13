@@ -45,21 +45,25 @@
 				box-shadow: none;
 				background: rgba(255,255,255,0.4);
 			}
+			&.button-disable {
+				background: rgba(255,255,255,0.1) !important;
+				border-color: transparent !important;
+				color: rgba(255,255,255,0.6) !important;
+
+				.button-icon {
+					display: none;
+				}
+			}
 		}
 		.pin-status {
-			&:before {
+			.pin-dot {
 				display: inline-block;
-				content: '';
 				width: 8px;
 				height: 8px;
 				margin-right: 8px;
 				border-radius: 50%;
 				background: #fff;
 			}
-			&.en-cours:before { background: $color__main; }
-			&.valide:before { background: $color__blue; }
-			&.paye:before { background: $color__green; }
-			&.refuse:before { background: $color__red; }
 		}
 	}
 	.export {
@@ -75,8 +79,9 @@
 			}
 		}
 		.dropdown-toggle.button-disable {
-			background: rgba(255,255,255,0.1);
-			color: $color__primary;
+			background: rgba(255,255,255,0.1) !important;
+			border-color: transparent !important;
+			color: $color__primary !important;
 		}
 		.dropdown-toggle.button-transparent {
 			color: rgba(255,255,255,0.6);

@@ -378,27 +378,22 @@
           box-shadow: none;
   background: rgba(255, 255, 255, 0.4); }
 
-.wrap-frais-pro .single-note .header .validation_status .pin-status:before {
+.wrap-frais-pro .single-note .header .validation_status .dropdown-toggle.button-disable {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: transparent !important;
+  color: rgba(255, 255, 255, 0.6) !important; }
+
+.wrap-frais-pro .single-note .header .validation_status .dropdown-toggle.button-disable .button-icon {
+  display: none; }
+
+.wrap-frais-pro .single-note .header .validation_status .pin-status .pin-dot {
   display: inline-block;
-  content: '';
   width: 8px;
   height: 8px;
   margin-right: 8px;
   -webkit-border-radius: 50%;
           border-radius: 50%;
   background: #fff; }
-
-.wrap-frais-pro .single-note .header .validation_status .pin-status.en-cours:before {
-  background: #9b59b6; }
-
-.wrap-frais-pro .single-note .header .validation_status .pin-status.valide:before {
-  background: #139bf2; }
-
-.wrap-frais-pro .single-note .header .validation_status .pin-status.paye:before {
-  background: #47e58e; }
-
-.wrap-frais-pro .single-note .header .validation_status .pin-status.refuse:before {
-  background: #e05353; }
 
 .wrap-frais-pro .single-note .header .export {
   text-align: right;
@@ -413,8 +408,9 @@
           box-shadow: none; }
 
 .wrap-frais-pro .single-note .header .export .dropdown-toggle.button-disable {
-  background: rgba(255, 255, 255, 0.1);
-  color: #898de5; }
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: transparent !important;
+  color: #898de5 !important; }
 
 .wrap-frais-pro .single-note .header .export .dropdown-toggle.button-transparent {
   color: rgba(255, 255, 255, 0.6);
@@ -588,42 +584,45 @@
 .wrap-frais-pro .single-note.list .list-line .form-element label {
   display: none; }
 
-.wrap-frais-pro .single-note.list .list-line-header .image {
+.wrap-frais-pro .single-note.list .list-line .media-grid {
+  display: none; }
+
+.wrap-frais-pro .single-note.list .list-line-header > .image {
   max-width: 55px;
   min-width: 55px; }
 
-.wrap-frais-pro .single-note.list .list-line-header .date {
+.wrap-frais-pro .single-note.list .list-line-header > .date {
   max-width: 140px;
   min-width: 140px; }
 
-.wrap-frais-pro .single-note.list .list-line-header .libelle {
+.wrap-frais-pro .single-note.list .list-line-header > .libelle {
   width: 100%; }
 
-.wrap-frais-pro .single-note.list .list-line-header .type {
+.wrap-frais-pro .single-note.list .list-line-header > .type {
   max-width: 220px;
   min-width: 220px; }
 
-.wrap-frais-pro .single-note.list .list-line-header .km, .wrap-frais-pro .single-note.list .list-line-header .ttc, .wrap-frais-pro .single-note.list .list-line-header .tva {
+.wrap-frais-pro .single-note.list .list-line-header > .km, .wrap-frais-pro .single-note.list .list-line-header > .ttc, .wrap-frais-pro .single-note.list .list-line-header > .tva {
   max-width: 80px;
   min-width: 80px; }
 
-.wrap-frais-pro .single-note.list .list-line-header .status, .wrap-frais-pro .single-note.list .list-line-header .action {
+.wrap-frais-pro .single-note.list .list-line-header > .status, .wrap-frais-pro .single-note.list .list-line-header > .action {
   max-width: 30px;
   min-width: 30px; }
 
-.wrap-frais-pro .single-note.list .list-line .line .line-content .date {
+.wrap-frais-pro .single-note.list .list-line .line .line-content > .date {
   max-width: 140px;
   min-width: 140px; }
 
-.wrap-frais-pro .single-note.list .list-line .line .line-content .type {
+.wrap-frais-pro .single-note.list .list-line .line .line-content > .type {
   max-width: 220px;
   min-width: 220px; }
 
-.wrap-frais-pro .single-note.list .list-line .line .line-content .km, .wrap-frais-pro .single-note.list .list-line .line .line-content .ttc, .wrap-frais-pro .single-note.list .list-line .line .line-content .tva {
+.wrap-frais-pro .single-note.list .list-line .line .line-content > .km, .wrap-frais-pro .single-note.list .list-line .line .line-content > .ttc, .wrap-frais-pro .single-note.list .list-line .line .line-content > .tva {
   max-width: 80px;
   min-width: 80px; }
 
-.wrap-frais-pro .single-note.list .list-line .line .line-content .status, .wrap-frais-pro .single-note.list .list-line .line .line-content .action {
+.wrap-frais-pro .single-note.list .list-line .line .line-content > .status, .wrap-frais-pro .single-note.list .list-line .line .line-content > .action {
   max-width: 30px;
   min-width: 30px; }
 
@@ -636,6 +635,9 @@
 .wrap-frais-pro .single-note.grid .list-line .line .media:not(.no-file), .wrap-frais-pro .single-note.grid .list-line .line .wpeo-media:not(.no-file) {
   width: 100%;
   height: auto; }
+
+.wrap-frais-pro .single-note.grid .list-line .line .media-list {
+  display: none; }
 
 .wrap-frais-pro .single-note.grid .list-line .line label {
   color: #898de5;
@@ -653,71 +655,71 @@
       -ms-flex-wrap: wrap;
           flex-wrap: wrap; }
 
-.wrap-frais-pro .single-note.grid .list-line .line .line-content .libelle {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content > .libelle {
   -webkit-box-ordinal-group: 2;
   -webkit-order: 1;
      -moz-box-ordinal-group: 2;
       -ms-flex-order: 1;
           order: 1; }
 
-.wrap-frais-pro .single-note.grid .list-line .line .line-content .date {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content > .date {
   -webkit-box-ordinal-group: 3;
   -webkit-order: 2;
      -moz-box-ordinal-group: 3;
       -ms-flex-order: 2;
           order: 2; }
 
-.wrap-frais-pro .single-note.grid .list-line .line .line-content .type {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content > .type {
   -webkit-box-ordinal-group: 4;
   -webkit-order: 3;
      -moz-box-ordinal-group: 4;
       -ms-flex-order: 3;
           order: 3; }
 
-.wrap-frais-pro .single-note.grid .list-line .line .line-content .km {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content > .km {
   -webkit-box-ordinal-group: 5;
   -webkit-order: 4;
      -moz-box-ordinal-group: 5;
       -ms-flex-order: 4;
           order: 4; }
 
-.wrap-frais-pro .single-note.grid .list-line .line .line-content .ttc {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content > .ttc {
   -webkit-box-ordinal-group: 6;
   -webkit-order: 5;
      -moz-box-ordinal-group: 6;
       -ms-flex-order: 5;
           order: 5; }
 
-.wrap-frais-pro .single-note.grid .list-line .line .line-content .tva {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content > .tva {
   -webkit-box-ordinal-group: 7;
   -webkit-order: 6;
      -moz-box-ordinal-group: 7;
       -ms-flex-order: 6;
           order: 6; }
 
-.wrap-frais-pro .single-note.grid .list-line .line .line-content .status {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content > .status {
   -webkit-box-ordinal-group: 8;
   -webkit-order: 7;
      -moz-box-ordinal-group: 8;
       -ms-flex-order: 7;
           order: 7; }
 
-.wrap-frais-pro .single-note.grid .list-line .line .line-content .action {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content > .action {
   -webkit-box-ordinal-group: 9;
   -webkit-order: 8;
      -moz-box-ordinal-group: 9;
       -ms-flex-order: 8;
           order: 8; }
 
-.wrap-frais-pro .single-note.grid .list-line .line .line-content .date, .wrap-frais-pro .single-note.grid .list-line .line .line-content .type {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content > .date, .wrap-frais-pro .single-note.grid .list-line .line .line-content > .type {
   min-width: 50%;
   max-width: 50%; }
 
-.wrap-frais-pro .single-note.grid .list-line .line .line-content .km, .wrap-frais-pro .single-note.grid .list-line .line .line-content .ttc, .wrap-frais-pro .single-note.grid .list-line .line .line-content .tva {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content > .km, .wrap-frais-pro .single-note.grid .list-line .line .line-content > .ttc, .wrap-frais-pro .single-note.grid .list-line .line .line-content > .tva {
   min-width: 33.333333%;
   max-width: 33.333333%; }
 
-.wrap-frais-pro .single-note.grid .list-line .line .line-content .status {
+.wrap-frais-pro .single-note.grid .list-line .line .line-content > .status {
   margin-left: auto !important; }
 
 .wrap-frais-pro .clear:before,

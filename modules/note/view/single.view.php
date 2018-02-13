@@ -29,9 +29,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="note-last-update" ><?php esc_html_e( 'Last update', 'frais-pro' ); ?> : <?php echo esc_html( $note->date_modified['rendered']['date_human_readable'] ); ?></div>
 			</div>
 			<div class="validation_status wpeo-dropdown">
-				<button class="dropdown-toggle wpeo-button button-main<?php echo ( $note_is_closed ? ' button-disabled' : '' ); ?>">
+				<button class="dropdown-toggle wpeo-button button-main<?php echo ( $note_is_closed ? ' button-disable' : '' ); ?>">
 					<span class="pin-status">
-						<span class="pin-dot" style="color:<?php echo esc_html( $note->fp_note_status->color ); ?>;"></span>
+						<span class="pin-dot" style="background:<?php echo esc_html( $note->fp_note_status->color ); ?>;"></span>
 						<span class="pin-label"><?php echo esc_html( $note->fp_note_status->name ); ?></span>
 					</span>
 					<i class="button-icon fas fa-caret-down"></i>
@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<ul class="dropdown-content">
 					<?php foreach ( $status_list as $note_status ) : ?>
 						<li data-id="<?php echo esc_attr( $note_status->id ); ?>" class="dropdown-item pin-status">
-							<span class="pin-dot" style="color:<?php echo esc_html( $note_status->color ); ?>;"></span>
+							<span class="pin-dot" style="background:<?php echo esc_html( $note_status->color ); ?>;"></span>
 							<span class="pin-label"><?php echo esc_html( $note_status->name ); ?></span>
 						</li>
 					<?php endforeach; ?>

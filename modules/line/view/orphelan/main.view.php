@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<ul class="dropdown-content" >
 							<li class="dropdown-item action-attribute"
 								data-action="fp_delete_orphelan_lines"
-								data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_delete_orphelan_lines' ) ); ?>"><i class="icon fas fa-archive"></i>&nbsp;<?php esc_html_e( 'Delete all lines', 'frais-pro' ); ?></li>
+								data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_delete_orphelan_lines' ) ); ?>"><i class="icon fa-fw fas fa-archive"></i>&nbsp;<?php esc_html_e( 'Delete all lines', 'frais-pro' ); ?></li>
 						</ul>
 					</div>
 				</span>
