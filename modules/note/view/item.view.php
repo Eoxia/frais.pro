@@ -14,7 +14,7 @@ namespace frais_pro;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<tr class="note en-cours" data-link="<?php echo esc_url( admin_url( 'admin.php?page=frais-pro-edit' ) ); ?>&note=<?php echo esc_attr( $note->id ); ?>" data-id="<?php echo esc_attr( $note->id ); ?>" >
+<tr class="note" style="border-left-color:<?php echo esc_html( $note->fp_note_status->color ); ?>" data-link="<?php echo esc_url( admin_url( 'admin.php?page=frais-pro-edit' ) ); ?>&note=<?php echo esc_attr( $note->id ); ?>" data-id="<?php echo esc_attr( $note->id ); ?>" >
 	<td class="note-status" >
 		<span class="status-label"><?php echo esc_html( $note->fp_note_status->name ); ?></span>
 	</td>
