@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<ul class="dropdown-content">
 				<?php foreach ( $status_list as $note_status ) : ?>
-					<li data-id="<?php echo esc_attr( $note_status->id ); ?>" class="dropdown-item pin-status <?php echo esc_attr( $note_status->slug ); ?>"><?php echo esc_html( $note_status->name ); ?></li>
+					<li data-id="<?php echo esc_attr( $note_status->id ); ?>" class="dropdown-item pin-status" color="<?php echo esc_attr( $note_status->color ); ?>" ><?php echo esc_html( $note_status->name ); ?></li>
 				<?php endforeach; ?>
 			</ul>
 		</div>

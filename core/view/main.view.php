@@ -17,14 +17,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 <h1>
 	<?php esc_html_e( 'Professionnal fees sheets', 'frais-pro' ); ?>
 
-	<?php if ( ! isset( $_GET ) || ! isset( $_GET['note'] ) ) : // WPCS: CSRF ok. ?>
 	<div class="wpeo-button button-blue action-attribute button-size-small button-radius-2"
 			data-action="create_note"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_note' ) ); ?>" >
 		<i class="button-icon fas fa-plus-circle"></i>
 		<span><?php esc_html_e( 'Add' ); ?></span>
 	</div>
-	<?php endif; ?>
 </h1>
 
 <div class="wrap wpeo-wrap wrap-frais-pro" >

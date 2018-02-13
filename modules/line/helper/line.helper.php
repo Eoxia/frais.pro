@@ -24,18 +24,19 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function before_update_line( $data ) {
 	$data['tax_inclusive_amount'] = 0;
-	$data['tax_amount'] = 0;
+	$data['tax_amount']           = 0;
 
 	if ( ! empty( $data['distance'] ) ) {
 		$user = User_Class::g()->get( array(
 			'include' => array( get_current_user_id() ),
 		), true );
+
 		$data['tax_inclusive_amount'] = $data['distance'] * $user->prixkm;
-		$data['tax_amount'] = 0;
+		$data['tax_amount']           = 0;
 	}
 
 	$data['tax_inclusive_amount'] = round( $data['tax_inclusive_amount'], 2 );
-	$data['tax_amount'] = round( $data['tax_amount'], 2 );
+	$data['tax_amount']           = round( $data['tax_amount'], 2 );
 
 	return $data;
 }

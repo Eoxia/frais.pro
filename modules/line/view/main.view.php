@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 if ( ! empty( $lines ) ) :
 	foreach ( $lines as $line ) :
-		Line_Class::g()->display( $line );
+		Line_Class::g()->display( $line, array( 'note_is_closed' => $note_is_closed ) );
 	endforeach;
 endif;
 ?>

@@ -89,24 +89,28 @@ class Note_Status_Class extends \eoxia\Term_Class {
 				'old_slug'         => 'En cours',
 				'is_default'       => true,
 				'special_behavior' => '',
+				'color'            => '#898de5',
 			),
 			array(
 				'name'             => __( 'Validated', 'frais-pro' ),
 				'old_slug'         => 'Validée',
 				'is_default'       => false,
 				'special_behavior' => '',
+				'color'            => '#139bf2',
 			),
 			array(
 				'name'             => __( 'Payed', 'frais-pro' ),
 				'old_slug'         => 'Payée',
 				'is_default'       => false,
 				'special_behavior' => 'closed',
+				'color'            => '#47e58e',
 			),
 			array(
 				'name'             => __( 'Refused', 'frais-pro' ),
 				'old_slug'         => 'Refusée',
 				'is_default'       => false,
 				'special_behavior' => '',
+				'color'            => '#e05353',
 			),
 		);
 	}

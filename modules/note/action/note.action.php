@@ -115,7 +115,7 @@ class Note_Action {
 		$ndf = Note_Class::g()->update( $_POST );
 
 		ob_start();
-		Line_Class::g()->display( $ndf->id, $display_mode );
+		Line_Class::g()->display( $ndf->id );
 		$response = ob_get_clean();
 
 		wp_send_json_success( array(

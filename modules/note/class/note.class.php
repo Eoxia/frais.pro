@@ -133,17 +133,15 @@ class Note_Class extends \eoxia\Post_Class {
 			$note_id = ! empty( $_GET['note'] ) ? (int) $_GET['note'] : 0;
 		}
 
-		$current_note         = $this->get( array( 'id' => $note_id ), true );
-		$note_status_taxonomy = Note_Status_Class::g()->get_type();
-		$status_list          = Note_Status_Class::g()->get();
+		$current_note = $this->get( array( 'id' => $note_id ), true );
+		$status_list  = Note_Status_Class::g()->get();
 
 		\eoxia\View_Util::exec( 'frais-pro', 'note', 'single', array(
-			'note_is_closed'       => ! empty( $current_note->$note_status_taxonomy->special_behaviour ) && ( 'closed' === $current_note->$note_status_taxonomy->special_behaviour ) ? true : false,
-			'display_mode'         => 'grid',
-			'note'                 => $current_note,
-			'lines'                => Line_Class::g()->get( array( 'post_parent' => $note_id ) ),
-			'note_status_taxonomy' => $note_status_taxonomy,
-			'status_list'          => $status_list,
+			'note_is_closed' => ! empty( $current_note->fp_note_status->special_treatment ) && ( 'closed' === $current_note->fp_note_status->special_treatment ) ? true : false,
+			'display_mode'   => 'grid',
+			'note'           => $current_note,
+			'lines'          => Line_Class::g()->get( array( 'post_parent' => $note_id ) ),
+			'status_list'    => $status_list,
 		) );
 	}
 

@@ -226,7 +226,7 @@ class Line_Action {
 		}
 
 		ob_start();
-		Line_Class::g()->display( $note_id, $display_mode );
+		Line_Class::g()->display( $note_id );
 		$response = ob_get_clean();
 
 		$ndf = Note_Class::g()->get( array(
