@@ -16,14 +16,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div class="bloc-search wpeo-form wpeo-grid grid-5">
+	<input type="hidden" name="action" value="fp_search_notes" />
+	<?php wp_nonce_field( 'fp_search_notes' ); ?>
+
 	<div>
-		<div class="form-element">
-			<input name="" type="text" value="" />
+		<div class="form-element group-date">
+			<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none;" name="start_date" value="<?php echo esc_attr( current_time( 'mysql' ) ); ?>" />
+			<input type="text" class="date" placeholder="<?php esc_html_e( 'Start date', 'frais-pro' ); ?>" value="" />
 		</div>
 	</div>
 	<div>
-		<div class="form-element">
-			<input name="" type="text" value="" />
+		<div class="form-element group-date">
+			<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none;" name="end_date" value="<?php echo esc_attr( current_time( 'mysql' ) ); ?>" />
+			<input type="text" class="date" placeholder="<?php esc_html_e( 'End date', 'frais-pro' ); ?>" value="" />
 		</div>
 	</div>
 
@@ -66,6 +71,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<div>
-		<div class="wpeo-button button-square-50"><i class="button-icon fas fa-heart"></i></div>
+		<div class="action-input wpeo-button button-square-50"
+			data-parent="bloc-search"><i class="button-icon fas fa-heart"></i></div>
 	</div>
 </div>

@@ -38,7 +38,14 @@ class Note_De_Frais_Class extends \eoxia\Singleton_Util {
 	 * @version 1.4.0
 	 */
 	public function display() {
-		\eoxia\View_Util::exec( 'frais-pro', 'core', 'main', array(
+		$current_screen = get_current_screen();
+		$view           = 'main';
+
+		if ( \eoxia\Config_Util::$init['frais-pro']->menu_edit_parent_slug === $current_screen->parent_base ) {
+			$view = 'main-single';
+		}
+
+		\eoxia\View_Util::exec( 'frais-pro', 'core', $view, array(
 			'waiting_updates' => get_option( \eoxia\Config_Util::$init['frais-pro']->key_waited_updates, array() ),
 			'user'            => User_Class::g()->get( array( 'id' => get_current_user_id() ), true ),
 		) );

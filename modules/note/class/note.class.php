@@ -77,50 +77,74 @@ class Note_Class extends \eoxia\Post_Class {
 	protected $post_type_name = 'Note';
 
 	/**
-	 * Récupères les notes de frais et les envoies à la vue principale.
-	 *
-	 * @param  array $status Post_status, permet d'afficher notes archivés ou publique.
+	 * Fait l'affichage principale du module "note".
 	 *
 	 * @return void
 	 *
 	 * @since 1.0.0
 	 * @version 1.4.0
 	 */
-	public function display( $status = array( 'publish', 'future' ) ) {
+	public function display() {
+		$user = User_Class::g()->get( array( 'id' => get_current_user_id() ), true );
+
+		\eoxia\View_Util::exec( 'frais-pro', 'note', 'main', array(
+			'user' => $user,
+		) );
+	}
+
+	/**
+	 * Récupères les notes de frais et les envoies à la vue "list".
+	 *
+	 * @since 1.0.0
+	 * @version 1.4.0
+	 *
+	 * @param  array $status Post_status, permet d'afficher notes archivés ou publique.
+	 *
+	 * @return void
+	 */
+	public function display_list( $status = array( 'publish', 'future' ) ) {
+		$args_note_list = array(
+			'post_status' => $status,
+		);
+
+		if ( ! current_user_can( 'frais_pro_view_all_user_sheets' ) ) {
+			$args_note_list['author'] = get_current_user_id();
+		}
+
+		$note_list = $this->get( $args_note_list );
+
+		\eoxia\View_Util::g()->exec( 'frais-pro', 'note', 'list', array(
+			'note_list' => $note_list,
+		) );
+	}
+
+	/**
+	 * Récupères les notes et les lignes puis appel la vue "single".
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param  integer $note_id ID de la note.
+	 *
+	 * @return void
+	 */
+	public function display_single( $note_id = 0 ) {
+		if ( empty( $note_id ) ) {
+			$note_id = ! empty( $_GET['note'] ) ? (int) $_GET['note'] : 0;
+		}
+
+		$current_note         = $this->get( array( 'id' => $note_id ), true );
 		$note_status_taxonomy = Note_Status_Class::g()->get_type();
 		$status_list          = Note_Status_Class::g()->get();
 
-		$requested_note = ! empty( $_GET ) && isset( $_GET['note'] ) && ! empty( $_GET['note'] ) ? $_GET['note'] : '';
-
-		// Display list of exsiting notes.
-		if ( '' === $requested_note ) {
-			$args_note_list = array(
-				'post_status' => $status,
-			);
-			if ( ! current_user_can( 'frais_pro_view_all_user_sheets' ) ) {
-				$args_note_list['author'] = get_current_user_id();
-			}
-
-			\eoxia\View_Util::exec( 'frais-pro', 'note', 'list', array(
-				'note_list'            => $this->get( $args_note_list ),
-				'note_status_taxonomy' => $note_status_taxonomy,
-				'status_list'          => $status_list,
-				'user'                 => User_Class::g()->get( array( 'id' => get_current_user_id() ), true ),
-			) );
-		} elseif ( is_int( (int) $requested_note ) && ( 0 !== (int) $requested_note ) ) { // Display a given note.
-			$current_note = $this->get( array( 'id' => $requested_note ), true );
-
-			\eoxia\View_Util::exec( 'frais-pro', 'note', 'main', array(
-				'note_is_closed'       => ! empty( $current_note->$note_status_taxonomy->special_behaviour ) && ( 'closed' === $current_note->$note_status_taxonomy->special_behaviour ) ? true : false,
-				'display_mode'         => 'grid',
-				'note'                 => $current_note,
-				'lines'                => Line_Class::g()->get( array( 'post_parent' => $requested_note ) ),
-				'note_status_taxonomy' => $note_status_taxonomy,
-				'status_list'          => $status_list,
-			) );
-		} elseif ( '' !== $requested_note && 'unclassified' === $requested_note ) {
-			Line_Class::g()->display_orphelan_list();
-		}
+		\eoxia\View_Util::exec( 'frais-pro', 'note', 'single', array(
+			'note_is_closed'       => ! empty( $current_note->$note_status_taxonomy->special_behaviour ) && ( 'closed' === $current_note->$note_status_taxonomy->special_behaviour ) ? true : false,
+			'display_mode'         => 'grid',
+			'note'                 => $current_note,
+			'lines'                => Line_Class::g()->get( array( 'post_parent' => $note_id ) ),
+			'note_status_taxonomy' => $note_status_taxonomy,
+			'status_list'          => $status_list,
+		) );
 	}
 
 	/**

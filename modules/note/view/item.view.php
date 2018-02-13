@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 <tr class="note en-cours" data-link="<?php menu_page_url( 'frais-pro', true ); ?>&note=<?php echo esc_attr( $note->id ); ?>" data-id="<?php echo esc_attr( $note->id ); ?>" >
 	<td class="note-status" >
-		<span class="status-label"><?php echo esc_html( $note->$note_status_taxonomy->name ); ?></span>
+		<span class="status-label"><?php echo esc_html( $note->fp_note_status->name ); ?></span>
 	</td>
 	<td class="note-title">
 		<span><?php echo esc_html( $note->title ); ?></span>

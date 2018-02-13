@@ -28,6 +28,7 @@ class Search_Action {
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_fp_search_users', array( $this, 'callback_search_users' ) );
+		add_action( 'wp_ajax_fp_search_notes', array( $this, 'callback_search_notes' ) );
 	}
 
 	/**
@@ -56,6 +57,24 @@ class Search_Action {
 		) );
 
 		$users = $user_query->results;
+
+		ob_start();
+		\eoxia\View_Util::exec( 'frais-pro', 'note', 'search/results', array(
+			'users' => $users,
+		) );
+		wp_send_json_success( array(
+			'view' => ob_get_clean(),
+		) );
+	}
+
+	/**
+	 * Search notes in database and return view.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 */
+	public function callback_search_notes() {
+		check_ajax_referer( 'fp_search_notes' );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'frais-pro', 'note', 'search/results', array(
