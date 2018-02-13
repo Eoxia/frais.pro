@@ -90,8 +90,6 @@ class Note_De_Frais_Action {
 	public function callback_admin_enqueue_scripts_css() {
 		wp_register_style( 'frais-pro-style', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/css/style.css', array(), \eoxia\Config_Util::$init['frais-pro']->version );
 		wp_enqueue_style( 'frais-pro-style' );
-
-		wp_enqueue_style( 'frais-pro-datepicker', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/css/jquery.datetimepicker.css', array(), \eoxia\Config_Util::$init['frais-pro']->version );
 	}
 
 	/**

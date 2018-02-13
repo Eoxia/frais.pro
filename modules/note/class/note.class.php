@@ -105,7 +105,7 @@ class Note_Class extends \eoxia\Post_Class {
 				'note_list'            => $this->get( $args_note_list ),
 				'note_status_taxonomy' => $note_status_taxonomy,
 				'status_list'          => $status_list,
-				'user'                 => User_Class::g()->get( array( 'user_id' => get_current_user_id() ), true ),
+				'user'                 => User_Class::g()->get( array( 'id' => get_current_user_id() ), true ),
 			) );
 		} elseif ( is_int( (int) $requested_note ) && ( 0 !== (int) $requested_note ) ) { // Display a given note.
 			$current_note = $this->get( array( 'id' => $requested_note ), true );

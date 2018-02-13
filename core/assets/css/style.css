@@ -524,6 +524,9 @@
   color: #898de5 !important;
   padding: .8em 0; }
 
+.wrap-frais-pro .list-line .line-association-selection {
+  max-width: 30px; }
+
 .wrap-frais-pro .list-line .line-image {
   max-width: 52px; }
 

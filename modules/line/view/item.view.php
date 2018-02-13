@@ -4,7 +4,7 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.3.0
+ * @version 1.4.0
  * @copyright 2017 Eoxia
  * @package Eoxia/NodeDeFrais
  * @subpackage LigneDeFrais
@@ -21,9 +21,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php do_shortcode( '[wpeo_upload id="' . $line->id . '" model_name="/frais_pro/Line_Class" single="true" size="full" ]' ); ?>
 	</div>
 	<div class="table-cell line-content wpeo-form">
-		<div class="date form-element">
+		<div class="date form-element group-date">
 			<label><?php esc_attr_e( 'Date', 'frais-pro' ); ?></label>
-			<input id="line-date" type="text" />
+			<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none;" name="" value="<?php echo esc_attr( $line->date['raw'] ); ?>" />
+			<input type="text" class="date" placeholder="<?php echo esc_html( $line->date['rendered']['date'] ); ?>" value="<?php echo esc_html( $line->date['rendered']['date'] ); ?>" />
 		</div>
 		<div class="libelle form-element">
 			<label><?php esc_attr_e( 'Label', 'frais-pro' ); ?></label>
