@@ -4,22 +4,21 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.3.0
+ * @version 1.4.0
  * @copyright 2017 Eoxia
- * @package Eoxia/NodeDeFrais
- * @subpackage LigneDeFrais
+ * @package Frais.pro
  */
 
 namespace frais_pro;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-}
+} ?>
 
-?>
 <h1>
 	<?php esc_html_e( 'Professionnal fees sheets', 'frais-pro' ); ?>
 </h1>
+
 <div class="single-note<?php echo esc_attr( $note_is_closed ? ' is_closed' : '' ); ?> <?php echo esc_attr( $display_mode ); ?>" data-id="<?php echo esc_attr( $note->id ); ?>" >
 	<input type="hidden" name="id" value="<?php echo esc_attr( $note->id ); ?>" >
 	<input type="hidden" name="action" value="update_note" >
@@ -39,9 +38,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<i class="button-icon fas fa-caret-down"></i>
 				</button>
 				<ul class="dropdown-content">
-				<?php foreach ( $status_list as $note_status ) : ?>
-					<li data-id="<?php echo esc_attr( $note_status->id ); ?>" class="dropdown-item pin-status <?php echo esc_attr( $note_status->slug ); ?>"><?php echo esc_html( $note_status->name ); ?></li>
-				<?php endforeach; ?>
+					<?php foreach ( $status_list as $note_status ) : ?>
+						<li data-id="<?php echo esc_attr( $note_status->id ); ?>" class="dropdown-item pin-status <?php echo esc_attr( $note_status->slug ); ?>"><?php echo esc_html( $note_status->name ); ?></li>
+					<?php endforeach; ?>
 				</ul>
 			</div>
 			<span class="export toggle list" data-parent="toggle" data-target="content" >
