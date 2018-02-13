@@ -29,8 +29,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="note-last-update" ><?php esc_html_e( 'Last update', 'frais-pro' ); ?> : <?php echo esc_html( $note->date_modified['rendered']['date_human_readable'] ); ?></div>
 			</div>
 			<div class="validation_status wpeo-dropdown">
-				<button class="dropdown-toggle wpeo-button button-main">
-					<span class="pin-status <?php echo esc_html( $note->$note_status_taxonomy->slug ); ?>"><?php echo esc_html( $note->$note_status_taxonomy->name ); ?></span>
+				<button class="dropdown-toggle wpeo-button button-main<?php echo ( $note_is_closed ? ' button-disabled' : '' ); ?>">
+					<span class="pin-status" style="color:<?php echo esc_html( $note->fp_note_status->color ); ?>;" ><?php echo esc_html( $note->fp_note_status->name ); ?></span>
 					<i class="button-icon fas fa-caret-down"></i>
 				</button>
 				<ul class="dropdown-content">
@@ -50,13 +50,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="content">
 			<div class="note-action">
-				<div class="wpeo-button button-blue button-uppercase fraispro-mass-line-creation" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_create_line_from_picture' ) ); ?>" data-parent-id="<?php echo esc_attr( $note->id ); ?>" >
-					<i class="button-icon far fa-images"></i> <span><?php esc_html_e( 'Multiple add from pictures', 'frais-pro' ); ?></span>
-				</div>
-
-				<div class="wpeo-button button-blue button-uppercase action-attribute" data-action="fp_create_line" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_create_line' ) ); ?>" data-parent-id="<?php echo esc_attr( $note->id ); ?>" >
-					<i class="button-icon fas fa-plus-circle"></i> <span><?php esc_html_e( 'New line', 'frais-pro' ); ?></span>
-				</div>
+				<?php if ( ! $note_is_closed ) : ?>
+					<div class="wpeo-button button-blue button-uppercase fraispro-mass-line-creation" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_create_line_from_picture' ) ); ?>" data-parent-id="<?php echo esc_attr( $note->id ); ?>" >
+						<i class="button-icon far fa-images"></i> <span><?php esc_html_e( 'Multiple add from pictures', 'frais-pro' ); ?></span>
+					</div>
+					<div class="wpeo-button button-blue button-uppercase action-attribute" data-action="fp_create_line" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_create_line' ) ); ?>" data-parent-id="<?php echo esc_attr( $note->id ); ?>" >
+						<i class="button-icon fas fa-plus-circle"></i> <span><?php esc_html_e( 'New line', 'frais-pro' ); ?></span>
+					</div>
+				<?php endif; ?>
 
 				<div class="note-recap">
 					<div class="note-ttc">
@@ -77,7 +78,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div> <!-- .display-method -->
 			</div> <!-- .note-action -->
 
-			<?php \eoxia\View_Util::exec( 'frais-pro', 'line', 'main', array( 'lines' => $lines ) ); ?>
+			<?php
+				\eoxia\View_Util::exec( 'frais-pro', 'line', 'main', array(
+					'lines'          => $lines,
+					'note_is_closed' => $note_is_closed,
+				) );
+			?>
 
 		</div> <!-- .content -->
 

@@ -29,15 +29,22 @@ class Note_Status_Model extends \eoxia\Term_Model {
 	 * @version 1.4.0
 	 */
 	public function __construct( $data = null, $req_method = null ) {
-		$this->schema['special_behaviour'] = array(
-			'type'          => 'string',
-			'meta_type'     => 'single',
-			'field'         => 'fp_note_status_special_behaviour',
+		$this->schema['special_treatment'] = array(
+			'type'      => 'string',
+			'meta_type' => 'single',
+			'field'     => 'fp_note_status_special_treatment',
 		);
+
 		$this->schema['is_default'] = array(
-			'type'          => 'boolean',
-			'meta_type'     => 'single',
-			'field'         => 'fp_note_status_is_default',
+			'type'      => 'boolean',
+			'meta_type' => 'single',
+			'field'     => 'fp_note_status_is_default',
+		);
+
+		$this->schema['color'] = array(
+			'type'      => 'string',
+			'meta_type' => 'single',
+			'field'     => 'fp_note_status_color',
 		);
 
 		parent::__construct( $data, $req_method );

@@ -33,21 +33,21 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $post_type  = 'fp_line';
+	protected $post_type = 'fp_line';
 
 	/**
 	 * La clé principale du modèle
 	 *
 	 * @var string
 	 */
-	protected $meta_key   = 'fp_line';
+	protected $meta_key = 'fp_line';
 
 	/**
 	 * Slug de base pour la route dans l'api rest
 	 *
 	 * @var string
 	 */
-	protected $base  = 'line';
+	protected $base = 'line';
 
 	/**
 	 * Fonction de callback avant d'insérer les données en mode POST.
@@ -96,13 +96,15 @@ class Line_Class extends \eoxia\Post_Class {
 	 * Display a line.
 	 *
 	 * @param Line_Model $line The full line model.
+	 * @param array      $args Optionnal. Optionnal arguments to pass through display.
 	 *
 	 * @return void
 	 */
-	public function display( $line ) {
-		\eoxia\View_Util::exec( 'frais-pro', 'line', 'item', array(
+	public function display( $line, $args = array() ) {
+		$template_args = wp_parse_args( $args, array(
 			'line' => $line,
 		) );
+		\eoxia\View_Util::exec( 'frais-pro', 'line', 'item', $template_args );
 	}
 
 	/**
