@@ -62,7 +62,22 @@ window.eoxiaJS.fraisPro.search.selectStatus = function( event ) {
 window.eoxiaJS.fraisPro.search.selectUser = function( event ) {
 	var parent = jQuery( this ).closest( '.wpeo-autocomplete' );
 
-	parent.find( 'input[type="hidden"]' ).val( jQuery( this ).data( 'id' ) );
 	parent.find( '.autocomplete-icon-after' ).click();
-	parent.find( 'input[type="text"]' ).val( jQuery( this ).data( 'result' ) );
+
+	parent.find( 'input[name="selected_user_id"]' ).val(jQuery( this ).data( 'id' ) );
+	parent.find( 'input.autocomplete-search-input' ).val( jQuery( this ).data( 'result' ) );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "fp_search_notes".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ */
+window.eoxiaJS.fraisPro.search.searchedSuccess = function( triggeredElement, response ) {
+	jQuery( 'table.list-note' ).replaceWith( response.data.view );
 };
