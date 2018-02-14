@@ -14,6 +14,9 @@
 		width: 100%;
 		height: auto;
 	}
+	.media-list {
+		display: none;
+	}
 }
 
 .single-note.grid .list-line .line {
@@ -31,24 +34,24 @@
 	.line-content {
 		flex-wrap: wrap;
 
-		.libelle { order: 1; }
-		.date { order: 2; }
-		.type { order: 3; }
-		.km { order: 4; }
-		.ttc { order: 5; }
-		.tva { order: 6; }
-		.status { order: 7; }
-		.action { order: 8; }
+		> .libelle { order: 1; }
+		> .date { order: 2; }
+		> .type { order: 3; }
+		> .km { order: 4; }
+		> .ttc { order: 5; }
+		> .tva { order: 6; }
+		> .status { order: 7; }
+		> .action { order: 8; }
 
-		.date, .type {
+		> .date, > .type {
 			min-width: 50%;
 			max-width: 50%;
 		}
-		.km, .ttc, .tva {
+		> .km, > .ttc, > .tva {
 			min-width: 33.333333%;
 			max-width: 33.333333%;
 		}
-		.status {
+		> .status {
 			margin-left: auto !important;
 		}
 	}

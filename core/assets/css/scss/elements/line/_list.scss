@@ -2,30 +2,33 @@
 	.form-element label {
 		display: none;
 	}
+	.media-grid {
+		display: none;
+	}
 }
 
 // tailles header pour list
 .single-note.list .list-line-header {
-	.image {
+	> .image {
 		max-width: 55px;
 		min-width: 55px;
 	}
-	.date {
+	> .date {
 		max-width: 140px;
 		min-width: 140px;
 	}
-	.libelle {
+	> .libelle {
 		width: 100%;
 	}
-	.type {
+	> .type {
 		max-width: 220px;
 		min-width: 220px;
 	}
-	.km, .ttc, .tva {
+	> .km, > .ttc, > .tva {
 		max-width: 80px;
 		min-width: 80px;
 	}
-	.status, .action {
+	> .status, > .action {
 		max-width: 30px;
 		min-width: 30px;
 	}
@@ -33,19 +36,19 @@
 
 // Tailles fields
 .single-note.list .list-line .line .line-content {
-	.date {
+	> .date {
 		max-width: 140px;
 		min-width: 140px;
 	}
-	.type {
+	> .type {
 		max-width: 220px;
 		min-width: 220px;
 	}
-	.km, .ttc, .tva {
+	> .km, > .ttc, > .tva {
 		max-width: 80px;
 		min-width: 80px;
 	}
-	.status, .action {
+	> .status, > .action {
 		max-width: 30px;
 		min-width: 30px;
 	}

@@ -134,7 +134,7 @@ class Note_Class extends \eoxia\Post_Class {
 	 */
 	public function display_single( $note_id = 0 ) {
 		if ( empty( $note_id ) ) {
-			$note_id = ! empty( $_GET['note'] ) ? (int) $_GET['note'] : 0;
+			$note_id = ! empty( $_GET['note'] ) ? (int) $_GET['note'] : 0; // WPCS: CSRF is ok.
 		}
 
 		$current_note = $this->get( array( 'id' => $note_id ), true );

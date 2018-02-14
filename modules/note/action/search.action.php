@@ -76,12 +76,48 @@ class Search_Action {
 	public function callback_search_notes() {
 		check_ajax_referer( 'fp_search_notes' );
 
+		$end_date           = ! empty( $_POST['end_date'] ) ? sanitize_text_field( $_POST['end_date'] ) : '';
+		$start_date         = ! empty( $_POST['start_date'] ) ? sanitize_text_field( $_POST['start_date'] ) : '';
+		$selected_status_id = ! empty( $_POST['selected_status_id'] ) ? (int) $_POST['selected_status_id'] : 0;
+		$selected_user_id   = ! empty( $_POST['selected_user_id'] ) ? (int) $_POST['selected_user_id'] : 0;
+
+		$args = array();
+
+		$args['date_query'] = array(
+			array(
+				'inclusive' => true,
+			),
+		);
+
+		if ( ! empty( $start_date ) ) {
+			$args['date_query'][0]['after'] = $start_date;
+		}
+
+		if ( ! empty( $end_date ) ) {
+			$args['date_query'][0]['before'] = $end_date;
+		}
+
+		if ( ! empty( $selected_status_id ) ) {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => Note_Status_Class::g()->get_type(),
+					'field'    => 'term_id',
+					'terms'    => $selected_status_id,
+				),
+			);
+		}
+
+		if ( ! empty( $selected_user_id ) ) {
+			$args['author'] = $selected_user_id;
+		}
+
 		ob_start();
-		\eoxia\View_Util::exec( 'frais-pro', 'note', 'search/results', array(
-			'users' => $users,
-		) );
+		Note_Class::g()->display_list( $args );
 		wp_send_json_success( array(
-			'view' => ob_get_clean(),
+			'namespace'        => 'fraisPro',
+			'module'           => 'search',
+			'callback_success' => 'searchedSuccess',
+			'view'             => ob_get_clean(),
 		) );
 	}
 
