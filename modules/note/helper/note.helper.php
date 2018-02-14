@@ -22,6 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return Object L'objet avec tous les éléments ajoutés par cette méthode.
  */
 function set_note_name( $data ) {
+	if ( $data['contains_unaffected'] ) {
+			return $data;
+	}
+
 	$user = User_Class::g()->get( array(
 		'include' => get_current_user_id(),
 	), true );
