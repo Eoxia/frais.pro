@@ -53,7 +53,7 @@ class Line_Action {
 
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',
-			'module'           => 'Line',
+			'module'           => 'line',
 			'callback_success' => 'displayLine',
 			'line'             => $line,
 			'view'             => $line_view,
@@ -89,7 +89,7 @@ class Line_Action {
 
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',
-			'module'           => 'Line',
+			'module'           => 'line',
 			'callback_success' => 'deleteLineFromDisplay',
 			'line'             => $line,
 		) );
@@ -133,7 +133,7 @@ class Line_Action {
 
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',
-			'module'           => 'Line',
+			'module'           => 'line',
 			'callback_success' => 'deleteLineFromDisplay',
 			'line'             => $line,
 		) );
