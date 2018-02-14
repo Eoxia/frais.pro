@@ -47,6 +47,13 @@ class Note_Model extends \eoxia\Post_Model {
 			'field'     => 'fp_note_tax_amount',
 		);
 
+		$this->schema['contains_unaffected'] = array(
+			'type'      => 'boolean',
+			'meta_type' => 'single',
+			'field'     => 'fp_contains_unaffected',
+			'default'   => false,
+		);
+
 		$this->schema['taxonomy'] = array(
 			'type'      => 'array',
 			'meta_type' => 'multiple',
