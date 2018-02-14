@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<div class="km form-element">
 			<label><?php esc_attr_e( 'Km', 'frais-pro' ); ?></label>
-			<input type="text" value="<?php echo esc_html( $line->distance ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?>/>
+			<input type="text" value="<?php echo esc_html( $line->distance ); ?>" <?php echo ( $note_is_closed || ( ! empty( $line->taxonomy ) && ! empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ] ) && ! empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ][0] ) && empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ][0]->special_treatment ) ) ? 'readonly="readonly"' : '' ); ?>/>
 		</div>
 		<div class="ttc form-element <?php echo esc_attr( ! empty( $line->line_status ) && ( false === $line->line_status['status'] ) && in_array( 'amount', $line->line_status['errors'], true ) ? 'input-error' : '' ); ?>">
 			<label><?php esc_attr_e( 'ATI(€)', 'frais-pro' ); ?></label>
