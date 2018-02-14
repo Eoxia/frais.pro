@@ -158,6 +158,43 @@ class Note_Status_Class extends \eoxia\Term_Class {
 		return $this->status;
 	}
 
+	/**
+	 * Affiches le dropdown des status de note.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param  integer $status_id ID du status par défaut.
+	 *
+	 * array['class']          string Classe supplémentaire pour personnalisé le dropdown. (optional)
+	 * array['current_screen'] string Page courante. (optional)
+	 *
+	 * @param  array   $args      (Voir au dessus).
+	 *
+	 * @return void
+	 */
+	public function display( $status_id = 0, $args = array() ) {
+		$args['class']          = ! empty( $args['class'] ) ? sanitize_text_field( $args['class'] ) : '';
+		$args['current_screen'] = ! empty( $args['current_screen'] ) ? sanitize_text_field( $args['current_screen'] ) : '';
+
+		$default_status = null;
+		$status_list    = apply_filters( 'fp_before_dropdown_note_status', $this->get(), $args );
+
+		if ( ! empty( $status_list ) ) {
+			foreach ( $status_list as $status ) {
+				if ( $status->id === $status_id ) {
+					$default_status = $status;
+				}
+			}
+		}
+
+		\eoxia\View_Util::exec( 'frais-pro', 'note-status', 'dropdown', array(
+			'status_list'    => $status_list,
+			'status_id'      => $status_id,
+			'default_status' => $default_status,
+			'args'           => $args,
+		) );
+	}
 }
 
 Note_Status_Class::g();

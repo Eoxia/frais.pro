@@ -29,7 +29,7 @@ class Search_Class extends \eoxia\Singleton_Util {
 	protected function construct() {}
 
 	/**
-	 * Display the view search.
+	 * Display the search view.
 	 *
 	 * @since 1.4.0
 	 * @version 1.4.0
@@ -37,11 +37,7 @@ class Search_Class extends \eoxia\Singleton_Util {
 	 * @return void
 	 */
 	public function display() {
-		$status_list = Note_Status_Class::g()->get();
-
-		\eoxia\View_Util::exec( 'frais-pro', 'note', 'search/main', array(
-			'status_list' => $status_list,
-		) );
+		\eoxia\View_Util::exec( 'frais-pro', 'note', 'search/main' );
 	}
 
 }

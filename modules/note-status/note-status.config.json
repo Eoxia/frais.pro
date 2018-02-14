@@ -8,6 +8,7 @@
 	"dependencies": {
 		"model": {},
 		"class": {},
-		"action": {}
+		"action": {},
+		"filter": {}
 	}
 }
