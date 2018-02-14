@@ -98,11 +98,12 @@ class Note_Class extends \eoxia\Post_Class {
 	 * @since 1.0.0
 	 * @version 1.4.0
 	 *
-	 * @param  array $args Arguments pour le get.
+	 * @param  array   $args         Arguments pour le get.
+	 * @param  boolean $note_message Si oui affiche le message indiquant qu'aucune note est créée pour le moment. Si non, n'affiches rien.
 	 *
 	 * @return void
 	 */
-	public function display_list( $args = array() ) {
+	public function display_list( $args = array(), $note_message = true ) {
 		$default_status = array( 'publish', 'future' );
 
 		$args_note_list = array(
@@ -118,7 +119,8 @@ class Note_Class extends \eoxia\Post_Class {
 		$note_list = $this->get( $args_note_list );
 
 		\eoxia\View_Util::g()->exec( 'frais-pro', 'note', 'list', array(
-			'note_list' => $note_list,
+			'note_list'    => $note_list,
+			'note_message' => $note_message,
 		) );
 	}
 
@@ -147,6 +149,33 @@ class Note_Class extends \eoxia\Post_Class {
 			'lines'          => Line_Class::g()->get( array( 'post_parent' => $note_id ) ),
 			'status_list'    => $status_list,
 		) );
+	}
+
+	/**
+	 * Créer la note pour les lignes désaffectées.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @return Note_Model Les données de la note.
+	 */
+	public function create_unaffected_note() {
+		$title = __( 'Unaffected lines', 'frais-pro' );
+		$name  = sanitize_title( $title );
+
+		$note = $this->get( array(
+			'name' => $name,
+		), true );
+
+		if ( empty( $note ) ) {
+			$note = $this->update( array(
+				'title'               => $title,
+				'slug'                => $name,
+				'contains_unaffected' => true,
+			) );
+		}
+
+		return $note;
 	}
 
 	/**
