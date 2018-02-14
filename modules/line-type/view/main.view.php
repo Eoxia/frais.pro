@@ -15,18 +15,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<?php
-if ( empty( $line_types ) ) :
-	?>
+<?php if ( empty( $line_types ) ) : ?>
 	<span class="action">
 		<span class="label"><a href="<?php echo esc_attr( admin_url( 'edit-tags.php?taxonomy=_type_note' ) ); ?>" target="_blank"><?php esc_html_e( 'Create type notes', 'frais-pro' ); ?></a></span>
 	</span>
-	<?php
-else : ?>
+<?php else : ?>
 	<input name="taxonomy[<?php echo esc_attr( Line_Type_Class::g()->get_type() ); ?>][0]" type="hidden" value="<?php echo ( ! empty( $line->id ) && ! empty( $line_type_note_id ) ? esc_attr( $line_type_note_id ) : '' ); ?>" />
 
 	<div class="wpeo-dropdown dropdown-large">
-		<button class="dropdown-toggle wpeo-button button-grey">
+		<button class="dropdown-toggle wpeo-button button-grey<?php echo esc_attr( ! empty( $args ) && ! empty( $args['class'] ) ? ' ' . implode( ' ', $args['class'] ) : '' ); ?>" >
 			<span><?php echo esc_html( $selected_type_note_name ); ?></span>
 			<i class="button-icon fas fa-caret-down"></i>
 		</button>

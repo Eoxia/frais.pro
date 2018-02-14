@@ -102,7 +102,8 @@ class Line_Class extends \eoxia\Post_Class {
 	 */
 	public function display( $line, $args = array() ) {
 		$template_args = wp_parse_args( $args, array(
-			'line' => $line,
+			'line'         => $line,
+			'line_type_id' => ( null !== $line && ! empty( $line->taxonomy[ $this->get_type() ][0] ) && ! empty( $line->taxonomy[ $this->get_type() ][0]->term_id ) ? $line->taxonomy[ $this->get_type() ][0]->term_id : 0 ),
 		) );
 		\eoxia\View_Util::exec( 'frais-pro', 'line', 'item', $template_args );
 	}

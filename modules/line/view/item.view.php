@@ -33,7 +33,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<div class="type form-element <?php echo esc_attr( ! empty( $line->line_status ) && ( false === $line->line_status['status'] ) && in_array( 'category', $line->line_status['errors'], true ) ? 'input-error' : '' ); ?>">
 			<label><?php esc_attr_e( 'Line type', 'frais-pro' ); ?></label>
-			<?php Line_Type_Class::g()->display( $line ); ?>
+			<?php
+				Line_Type_Class::g()->display( $line_type_id, array(
+					'class' => array(
+						( $note_is_closed ? 'button-disabled' : '' ),
+					),
+				) );
+			?>
 		</div>
 		<div class="km form-element">
 			<label><?php esc_attr_e( 'Km', 'frais-pro' ); ?></label>

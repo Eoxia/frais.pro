@@ -57,25 +57,26 @@ class Line_Type_Class extends \eoxia\Term_Class {
 	}
 
 	/**
-	 * Appelle la vue pour afficher le toggle.
+	 * Affiche le dropdown des status de note.
 	 *
 	 * @since 1.2.0
-	 * @version 1.2.0
+	 * @version 1.4.0
 	 *
-	 * @param integer $line (optional) La définition complète de la ligne de frais . Null par défaut.
+	 * @param integer $type_id ID du type par défaut.
+	 *
+	 * array['class']          string Classe supplémentaire pour personnaliser le dropdown. (optional)
+	 *
+	 * @param  array   $args      (Voir au dessus).
+	 *
 	 * @return void
 	 */
-	public function display( $line = null ) {
-		$line_types = self::g()->get( array(
-			'taxonomy' => $this->taxonomy,
-		) );
-
-		$line_type_note = null !== $line && ! empty( $line->taxonomy[ $this->get_type() ][0] ) && ! empty( $line->taxonomy[ $this->get_type() ][0]->term_id ) ? $line->taxonomy[ $this->get_type() ][0]->term_id : 0;
+	public function display( $type_id = 0, $args = array() ) {
+		$line_types = $this->get();
 
 		$selected_type_note_name = __( 'Line type', 'frais-pro' );
-		if ( ! empty( $line_types ) && ! empty( $line_type_note ) ) {
+		if ( ! empty( $line_types ) && ! empty( $type_id ) ) {
 			foreach ( $line_types as $element ) {
-				if ( $element->id === (int) $line_type_note ) {
+				if ( $element->id === (int) $type_id ) {
 					$selected_type_note_name = $element->category_id . ' : ' . $element->name;
 					break;
 				}
@@ -83,10 +84,10 @@ class Line_Type_Class extends \eoxia\Term_Class {
 		}
 
 		\eoxia\View_Util::exec( 'frais-pro', 'line-type', 'main', array(
-			'line_types' => $line_types,
-			'line' => $line,
-			'line_type_note_id' => $line_type_note,
+			'line_types'              => $line_types,
+			'line_type_note_id'       => $type_id,
 			'selected_type_note_name' => $selected_type_note_name,
+			'args'                    => $args,
 		) );
 	}
 
