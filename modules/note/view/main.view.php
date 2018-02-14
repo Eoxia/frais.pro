@@ -18,4 +18,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 Search_Class::g()->display();
 Note_Class::g()->display_list();
-Line_Class::g()->display_orphelans();
+
+Note_Class::g()->display_list( array(
+	'meta_query' => array(
+		array(
+			'key'     => 'fp_contains_unaffected',
+			'value'   => true,
+			'compare' => '=',
+		),
+	),
+), false );
