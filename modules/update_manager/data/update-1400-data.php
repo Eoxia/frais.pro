@@ -12,13 +12,13 @@
 $datas = array(
 	array(
 		'action'      => 'frais_pro_update_1400_update_note',
-		'description' => __( 'Change note type', 'frais-pro' ),
+		'description' => __( 'Update note type and categorie. Also update metadata.', 'frais-pro' ),
 		'since'       => '1.4.0',
 		'version'     => '1.4.0',
 	),
 	array(
 		'action'      => 'frais_pro_update_1400_update_line',
-		'description' => __( 'Change line type', 'frais-pro' ),
+		'description' => __( 'Update line type and categorie. Also update metadata', 'frais-pro' ),
 		'since'       => '1.4.0',
 		'version'     => '1.4.0',
 	),
