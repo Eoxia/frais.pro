@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php
 				Line_Type_Class::g()->display( $line_type_id, array(
 					'class' => array(
-						( $note_is_closed ? 'button-disabled' : '' ),
+						( $note_is_closed ? 'button-disable' : '' ),
 					),
 				) );
 			?>
