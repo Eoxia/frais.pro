@@ -118,15 +118,17 @@ class Line_Action {
 			wp_send_json_error( array( 'message' => __( 'You try to dissociate a line that does not exists', 'frais-pro' ) ) );
 		}
 
-		if ( 0 >= $parent_line_id ) {
+		if ( 0 === $parent_line_id ) {
 			// Translators: $1 given note id.
 			\eoxia\LOG_Util::log( sprintf( __( 'The given note ID %1$d is invalid', 'digirisk' ), $parent_line_id ), 'frais-pro' );
 			wp_send_json_error( array( 'message' => __( 'You try to dissociate a line from a note that does not exists', 'frais-pro' ) ) );
 		}
 
+		$note = Note_Class::g()->create_unaffected_note();
+
 		$line = Line_Class::g()->update( array(
 			'id'        => $line_id,
-			'parent_id' => 0,
+			'parent_id' => $note->id,
 		), true );
 
 		wp_send_json_success( array(
