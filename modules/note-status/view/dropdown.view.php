@@ -16,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div class="validation_status wpeo-dropdown">
+	<input type="hidden" name="selected_status_id" />
 
 	<button class="dropdown-toggle wpeo-button button-main <?php echo esc_attr( $args['class'] ); ?>">
 		<span class="pin-status">

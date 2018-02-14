@@ -35,6 +35,8 @@
   /**
  * Tailles - a supprimer si le nospace fonctionne
  */
+  /** Read Only */
+  /** Input Error */
   /*--------------------------------------------------------------
 	# Modules
 	--------------------------------------------------------------*/ }
@@ -581,32 +583,46 @@
 .wrap-frais-pro .list-line .line .line-content .action .dropdown-toggle {
   padding-right: 0; }
 
+.wrap-frais-pro .list-line .line input[readonly] {
+  background: url("images/disabled-pattern.png") #ececec;
+  pointer-events: none; }
+
+.wrap-frais-pro .list-line .line .type .dropdown-toggle.button-disable {
+  background: url("images/disabled-pattern.png") #ececec !important;
+  pointer-events: none; }
+
+.wrap-frais-pro .list-line .line .type .dropdown-toggle.button-disable .button-icon {
+  display: none; }
+
+.wrap-frais-pro .list-line .line .input-error input, .wrap-frais-pro .list-line .line .input-error .wpeo-button {
+  border: 1px solid #e05353; }
+
 .wrap-frais-pro .single-note.list .list-line .form-element label {
   display: none; }
 
 .wrap-frais-pro .single-note.list .list-line .media-grid {
   display: none; }
 
-.wrap-frais-pro .single-note.list .list-line-header > .image {
+.wrap-frais-pro .single-note.list .list-line-header .table-header > .image {
   max-width: 55px;
   min-width: 55px; }
 
-.wrap-frais-pro .single-note.list .list-line-header > .date {
+.wrap-frais-pro .single-note.list .list-line-header .table-header > .date {
   max-width: 140px;
   min-width: 140px; }
 
-.wrap-frais-pro .single-note.list .list-line-header > .libelle {
+.wrap-frais-pro .single-note.list .list-line-header .table-header > .libelle {
   width: 100%; }
 
-.wrap-frais-pro .single-note.list .list-line-header > .type {
+.wrap-frais-pro .single-note.list .list-line-header .table-header > .type {
   max-width: 220px;
   min-width: 220px; }
 
-.wrap-frais-pro .single-note.list .list-line-header > .km, .wrap-frais-pro .single-note.list .list-line-header > .ttc, .wrap-frais-pro .single-note.list .list-line-header > .tva {
+.wrap-frais-pro .single-note.list .list-line-header .table-header > .km, .wrap-frais-pro .single-note.list .list-line-header .table-header > .ttc, .wrap-frais-pro .single-note.list .list-line-header .table-header > .tva {
   max-width: 80px;
   min-width: 80px; }
 
-.wrap-frais-pro .single-note.list .list-line-header > .status, .wrap-frais-pro .single-note.list .list-line-header > .action {
+.wrap-frais-pro .single-note.list .list-line-header .table-header > .status, .wrap-frais-pro .single-note.list .list-line-header .table-header > .action {
   max-width: 30px;
   min-width: 30px; }
 

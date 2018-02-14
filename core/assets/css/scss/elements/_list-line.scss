@@ -126,5 +126,28 @@
 	}
 }
 
+/** Read Only */
+.list-line {
+	.line input[readonly] {
+		background: url('images/disabled-pattern.png') #ececec;
+		pointer-events: none;
+	}
+	.line .type .dropdown-toggle.button-disable {
+		background: url('images/disabled-pattern.png') #ececec !important;
+		pointer-events: none;
+
+		.button-icon {
+			display: none;
+		}
+	}
+}
+
+/** Input Error */
+.list-line .line {
+	.input-error input, .input-error .wpeo-button {
+		border: 1px solid $color__red;
+	}
+}
+
 @import "line/list";
 @import "line/grid";
