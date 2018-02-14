@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="note-last-update" ><?php esc_html_e( 'Last update', 'frais-pro' ); ?> : <?php echo esc_html( $note->date_modified['rendered']['date_human_readable'] ); ?></div>
 			</div>
 			<div class="validation_status wpeo-dropdown">
-				<button class="dropdown-toggle wpeo-button button-main<?php echo ( $note_is_closed ? ' button-disabled' : '' ); ?>">
+				<button class="dropdown-toggle wpeo-button button-main<?php echo ( $note_is_closed ? ' disabled' : '' ); ?>">
 					<span class="pin-status">
 						<span class="pin-dot" style="color:<?php echo esc_html( $note->fp_note_status->color ); ?>;"></span>
 						<span class="pin-label"><?php echo esc_html( $note->fp_note_status->name ); ?></span>

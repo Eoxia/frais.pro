@@ -51,6 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<span class="pin <?php echo esc_attr( ! empty( $line->line_status ) && ( false === $line->line_status['status'] ) ? 'line-error' : 'line-ok' ); ?>"></span>
 		</div>
 		<div class="action">
+		<?php if ( ! $note_is_closed ) : ?>
 			<div class="wpeo-dropdown dropdown-right">
 				<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>"><i class="button-icon far fa-ellipsis-v"></i></button>
 				<ul class="dropdown-content">
@@ -62,6 +63,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_delete_line' ) ); ?>" ><i class="dropdown-icon fas fa-trash-alt fa-fw"></i> <?php esc_html_e( 'Delete', 'frais-pro' ); ?></li>
 				</ul>
 			</div>
+		<?php endif; ?>
 		</div>
 	</div> <!-- .line-content -->
 </div>
