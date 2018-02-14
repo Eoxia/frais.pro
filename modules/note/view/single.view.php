@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php
 			Note_Status_Class::g()->display( $note->fp_note_status->id, array(
-				'class' => 'button-disable',
+				'class' => $note_is_closed ? 'button-disable' : '',
 			) );
 			?>
 
