@@ -19,7 +19,7 @@ if ( ! empty( $users ) ) :
 	foreach ( $users as $user ) :
 		?>
 		<li data-id="<?php echo esc_attr( $user->ID ); ?>" data-result="<?php echo esc_html( $user->display_name ); ?>" class="autocomplete-result">
-			<?php echo get_avatar( $user->ID, 32, '', '', array( 'class' => 'autocomplete-result-image' ) ); ?>
+			<?php echo get_avatar( $user->ID, 32, '', '', array( 'class' => 'autocomplete-result-image autocomplete-image-rounded' ) ); ?>
 			<div class="autocomplete-result-container">
 				<span class="autocomplete-result-title"><?php echo esc_html( $user->display_name ); ?></span>
 				<span class="autocomplete-result-subtitle"><?php echo esc_html( $user->user_email ); ?></span>
