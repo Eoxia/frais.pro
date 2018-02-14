@@ -76,6 +76,7 @@ class Note_De_Frais_Action {
 			'noteStatusInValidated'    => __( 'Validated', 'frais-pro' ),
 			'noteStatusInPayed'        => __( 'Payed', 'frais-pro' ),
 			'noteStatusInRefused'      => __( 'Refused', 'frais-pro' ),
+			'loader'                   => '<img src=' . admin_url( '/images/loading.gif' ) . ' />',
 		) );
 	}
 
