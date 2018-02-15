@@ -1,0 +1,20 @@
+// Content
+.single-note .content .document-list-container {
+	margin-top: 50px;
+
+	.document-title {
+		.document-generation-date {
+			font-size: 14px;
+			font-style: italic;
+		}
+	}
+
+	td.document-summary {
+		text-align: right;
+	}
+
+	td.document-action {
+		width: 120px;
+		text-align: right;
+	}
+}

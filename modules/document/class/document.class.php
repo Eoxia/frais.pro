@@ -249,6 +249,69 @@ class Document_Class extends \eoxia\Post_Class {
 
 		return $response;
 	}
+
+	/**
+	 * Récupère et affiche la liste des documents associés à une note.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param array $args Arguments pour récupérer les documents.
+	 *
+	 * @return void
+	 */
+	public function display_list( $args = array() ) {
+		$document_list = $this->get( array(
+			'post_parent' => $args['id'],
+		) );
+
+		\eoxia\View_Util::exec( 'frais-pro', 'document', 'list', array(
+			'documents' => $document_list,
+		) );
+	}
+
+	/**
+	 * Vérification de l'existence d'un fichier à partir de la définition d'un document.
+	 * 1- On remplace l'url du site "site_url( '/' )" par le chemin "ABSPATH" contenant les fichiers du site: on vérifie si le fichier existe.
+	 * 2- Si le fichier n'existe pas:
+	 *  2.a- On récupère la meta associée automatiqumeent par WordPress.
+	 *  2.b- Si la méta n'est pas vide, on vérifie que sa valeur concaténée au chemin absolu des uploads "wp_upload_dir()" de WordPress soit bien un fichier
+	 *
+	 * @param Document_Model $document La définition du document à vérifier.
+	 *
+	 * @return array                   Tableau avec le statuts d'existence du fichier (True/False) et le lien de téléchargement du fichier.
+	 */
+	public function check_file( $document ) {
+		$file_check = array(
+			'exists' => false,
+			'link'   => '',
+		);
+		$upload_dir = wp_upload_dir();
+
+		// Vérification principale. cf 1 ci-dessus.
+		$file_path = str_replace( site_url( '/' ), ABSPATH, $document->link );
+		if ( is_file( $file_path ) ) {
+			$file_check = array(
+				'exists' => true,
+				'link'   => $document->link,
+			);
+		}
+
+		// La vérification principale n'a pas fonctionnée. cf 2 ci-dessus.
+		$wp_attached_file = get_post_meta( $document->id, '_wp_attached_file', true );
+		if ( ! empty( $wp_attached_file ) ) {
+			$file_to_check = $upload_dir['basedir'] . '/' . $wp_attached_file;
+			if ( is_file( $file_to_check ) ) {
+				$file_check = array(
+					'exists' => true,
+					'link'   => $upload_dir['baseurl'] . '/' . $wp_attached_file,
+				);
+			}
+		}
+
+		return $file_check;
+	}
+
 }
 
 document_class::g();

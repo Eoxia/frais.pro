@@ -799,6 +799,20 @@
   -webkit-box-shadow: inset 0 -3em rgba(255, 255, 255, 0.25);
           box-shadow: inset 0 -3em rgba(255, 255, 255, 0.25); }
 
+.wrap-frais-pro .single-note .content .document-list-container {
+  margin-top: 50px; }
+
+.wrap-frais-pro .single-note .content .document-list-container .document-title .document-generation-date {
+  font-size: 14px;
+  font-style: italic; }
+
+.wrap-frais-pro .single-note .content .document-list-container td.document-summary {
+  text-align: right; }
+
+.wrap-frais-pro .single-note .content .document-list-container td.document-action {
+  width: 120px;
+  text-align: right; }
+
 .wrap-frais-pro .clear:before,
 .wrap-frais-pro .clear:after,
 .wrap-frais-pro .entry-content:before,
