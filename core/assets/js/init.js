@@ -38,5 +38,5 @@ window.eoxiaJS.fraisPro.selectStatus = function( event ) {
 	var parent = jQuery( this ).closest( '.wpeo-dropdown' );
 
 	parent.find( 'input' ).val( jQuery( this ).data( 'id' ) );
-	parent.find( 'button > span' ).html( jQuery( this ).html() );
+	parent.find( '.dropdown-toggle > span' ).html( jQuery( this ).html() );
 };
