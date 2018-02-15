@@ -35,6 +35,8 @@ class Note_Action {
 		add_action( 'wp_ajax_export_ndf', array( $this, 'callback_export_ndf' ) );
 		add_action( 'wp_ajax_export_csv', array( $this, 'callback_export_ndf_to_csv' ) );
 
+		add_action( 'wp_ajax_reassign_lines', array( $this, 'callback_reassign_lines' ) );
+
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 
 		add_action( 'init', array( $this, 'register_note_status' ) );
@@ -175,6 +177,51 @@ class Note_Action {
 			'link' => $response['link'],
 			'filename' => $response['filename'],
 			'callback_success' => 'exportedfraisProSuccess',
+		) );
+	}
+
+	/**
+	 * Met à jour le parent_id pour chaque ligne reçu par le formulaire.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @return void
+	 */
+	public function callback_reassign_lines() {
+		check_ajax_referer( 'reassign_lines' );
+
+		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+
+		if ( empty( $parent_id ) ) {
+			wp_send_json_error();
+		}
+
+		$lines_id         = ! empty( $_POST['lines_id'] ) ? (array) $_POST['lines_id'] : array();
+		$updated_lines_id = array();
+
+		if ( ! empty( $lines_id ) ) {
+			foreach ( $lines_id as $line_id ) {
+				$line_id = (int) $line_id;
+
+				if ( $line_id ) {
+					$line = Line_Class::g()->update( array(
+						'id'        => $line_id,
+						'parent_id' => $parent_id,
+					), true );
+
+					if ( empty( $line->wp_errors ) ) {
+						$updated_lines_id[] = $line->id;
+					}
+				}
+			}
+		}
+
+		wp_send_json_success( array(
+			'namespace'        => 'fraisPro',
+			'module'           => 'note',
+			'callback_success' => 'reassignedLineUnaffectedSuccess',
+			'updated_lines_id' => $updated_lines_id,
 		) );
 	}
 
