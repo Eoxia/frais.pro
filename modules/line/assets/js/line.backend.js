@@ -20,8 +20,8 @@ window.eoxiaJS.fraisPro.line.init = function() {
  * @return {void}
  */
 window.eoxiaJS.fraisPro.line.event = function() {
-	jQuery( document ).on( 'keyup', 'input[type=text]', window.eoxiaJS.fraisPro.line.checkInputStatus );
-	jQuery( document ).on( 'blur', 'input[type=text]', window.eoxiaJS.fraisPro.line.save );
+	jQuery( document ).on( 'keyup', '.list-line input[type=text]', window.eoxiaJS.fraisPro.line.checkInputStatus );
+	jQuery( document ).on( 'blur', '.list-line input[type=text]', window.eoxiaJS.fraisPro.line.save );
 };
 
 /**
