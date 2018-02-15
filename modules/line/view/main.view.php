@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </div>
 
-<div class="wpeo-table table-flex list-line">
+<div class="wpeo-table table-flex list-line" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_update_line' ) ); ?>" >
 <?php
 if ( ! empty( $lines ) ) :
 	foreach ( $lines as $line ) :

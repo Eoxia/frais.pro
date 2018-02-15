@@ -24,21 +24,46 @@ window.eoxiaJS.fraisPro.line.event = function() {
 	jQuery( document ).on( 'blur', 'input[type=text]', window.eoxiaJS.fraisPro.line.save );
 };
 
+/**
+ * Enregistrement d'une ligne.
+ *
+ * @param  {[type]} element  [description]
+ * @param  {[type]} response [description]
+ *
+ * @return {void}
+ */
 window.eoxiaJS.fraisPro.line.save = function( element, response ) {
 	var parentElement = jQuery( this ).closest( 'div.line-content' );
 	var listInput = window.eoxiaJS.arrayForm.getInput( parentElement );
-	var data = {};
+	var data = {
+		'action': 'fp_update_line',
+		'_wpnonce': parentElement.closest( 'div.list-line' ).data( 'nonce' ),
+		'id': parentElement.closest( 'div.line' ).data( 'id' ),
+		'parent_id': parentElement.closest( 'div.single-note' ).data( 'id' )
+	};
 
 	for ( i = 0; i < listInput.length; i++ ) {
 		if ( listInput[i].name ) {
 			data[listInput[i].name] = window.eoxiaJS.arrayForm.getInputValue( listInput[i] );
 		}
 	}
-	console.log(data);
-	window.eoxiaJS.loader.display( parentElement );
-	// window.eoxiaJS.loader.remove( parentElement );
-	// window.eoxiaJS.request.send( element, data );
-}
+
+	window.eoxiaJS.request.send( parentElement, data );
+};
+
+/**
+ * After line is saved. Do some action.
+ *
+ * @param  {[type]} element  [description]
+ * @param  {[type]} response [description]
+ *
+ * @return {void}
+ */
+window.eoxiaJS.fraisPro.line.lineSaved = function( element, response ) {
+	jQuery( '.note-recap .note-ttc span.value' ).html( response.data.note.tax_inclusive_amount );
+	jQuery( '.note-recap .note-tva span.value' ).html( response.data.note.tax_amount );
+	jQuery( '.title .note-last-update' ).html( response.data.note_last_update );
+};
 
 /**
  * Display new created line.

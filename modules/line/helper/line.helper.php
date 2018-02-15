@@ -23,9 +23,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return Object       L'objet avec tous les éléments ajoutés par cette méthode.
  */
 function before_update_line( $data ) {
-	$data['tax_inclusive_amount'] = 0;
-	$data['tax_amount']           = 0;
-
 	if ( ! empty( $data['distance'] ) ) {
 		$user = User_Class::g()->get( array(
 			'include' => array( get_current_user_id() ),
@@ -71,20 +68,24 @@ function build_line_datas( $data ) {
  * @return Object       L'objet non modifié.
  */
 function after_update_line( $data ) {
-	$ndf = Note_Class::g()->get( array(
+	$compilated_tax_amount           = 0;
+	$compilated_tax_inclusive_amount = 0;
+
+	$note = Note_Class::g()->get( array(
 		'id' => $data->parent_id,
 	), true );
-	$compilated_tax_amount = 0;
-	$compilated_tax_inclusive_amount = 0;
-	$ndfls = Line_Class::g()->get( array(
-		'post_parent' => $ndf->id,
+
+	$lines = Line_Class::g()->get( array(
+		'post_parent' => $note->id,
 	) );
-	foreach ( $ndfls as $ndfl ) {
-		$compilated_tax_inclusive_amount += $ndfl->tax_inclusive_amount;
-		$compilated_tax_amount += $ndfl->tax_amount;
+	foreach ( $lines as $line ) {
+		$compilated_tax_inclusive_amount += $line->tax_inclusive_amount;
+		$compilated_tax_amount           += $line->tax_amount;
 	}
-	$ndf->tax_inclusive_amount = $compilated_tax_inclusive_amount;
-	$ndf->tax_amount = $compilated_tax_amount;
-	Note_Class::g()->update( $ndf );
+	$note->date                 = current_time( 'mysql' );
+	$note->tax_inclusive_amount = $compilated_tax_inclusive_amount;
+	$note->tax_amount           = $compilated_tax_amount;
+	Note_Class::g()->update( $note );
+
 	return $data;
 }

@@ -26,6 +26,7 @@ class Line_Action {
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_fp_create_line', array( $this, 'callback_fp_create_line' ) );
+		add_action( 'wp_ajax_fp_update_line', array( $this, 'callback_fp_update_line' ) );
 
 		add_action( 'wp_ajax_fp_delete_line', array( $this, 'callback_fp_delete_line' ) );
 		add_action( 'wp_ajax_fp_dissociate_line_from_note', array( $this, 'callback_fp_dissociate_line_from_note' ) );
@@ -34,7 +35,6 @@ class Line_Action {
 
 		add_action( 'wp_ajax_fp_delete_orphelan_lines', array( $this, 'callback_fp_delete_orphelan_lines' ) );
 
-		add_action( 'wp_ajax_modify_ndfl', array( $this, 'callback_modify_ndfl' ) );
 	}
 
 	/**
@@ -209,45 +209,37 @@ class Line_Action {
 	}
 
 	/**
-	 * [callback_modify_ndfl description]
+	 * Mise à jour d'une ligne
 	 *
 	 * @since 1.0.0
-	 * @version 1.2.0
+	 * @version 1.4.0
 	 *
 	 * @return void
 	 */
-	public function callback_modify_ndfl() {
-		check_ajax_referer( 'modify_ndfl' );
+	public function callback_fp_update_line() {
+		check_ajax_referer( 'fp_update_line' );
 
-		$edit_mode = false;
-		$note_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
-		$display_mode = isset( $_POST['display_mode'] ) ? sanitize_text_field( $_POST['display_mode'] ) : 'list';
+		// Définition des arguments pour la mise à jour de la ligne.
+		$line_args                         = array();
+		$line_args['id']                   = isset( $_POST['id'] ) ? intval( $_POST['id'] ) : 0;
+		$line_args['title']                = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : __( 'Label', 'frais-pro' );
+		$line_args['date']                 = isset( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : current_time( 'mysql' );
+		$line_args['parent_id']            = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : 0;
+		$line_args['distance']             = isset( $_POST['distance'] ) ? intval( $_POST['distance'] ) : 0;
+		$line_args['tax_amount']           = isset( $_POST['tax_amount'] ) ? floatval( $_POST['tax_amount'] ) : 0;
+		$line_args['tax_inclusive_amount'] = isset( $_POST['tax_inclusive_amount'] ) ? floatval( $_POST['tax_inclusive_amount'] ) : 0;
 
-		if ( isset( $_POST['row'] ) ) {
-			foreach ( $_POST['row'] as $row ) {
-				if ( isset( $row['id'] ) && ! empty( $row['id'] ) ) {
-					$edit_mode = true;
-				}
-				$row['parent_id'] = $note_id;
-				$current_row = Line_Class::g()->update( $row );
-			}
-		}
-
-		ob_start();
-		Line_Class::g()->display( $note_id );
-		$response = ob_get_clean();
-
-		$ndf = Note_Class::g()->get( array(
-			'id' => $note_id,
-		), true );
+		// Enregistrement de la ligne.
+		$line = Line_Class::g()->update( $line_args, true );
+		$note = Note_Class::g()->get( array( 'id' => $line_args['parent_id'] ), true );
 
 		wp_send_json_success( array(
-			'namespace' => 'fraisPro',
-			'module' => 'NDF',
-			'callback_success' => 'refresh',
-			'no_refresh' => $edit_mode,
-			'ndf' => $ndf,
-			'view' => $response,
+			'namespace'        => 'fraisPro',
+			'module'           => 'line',
+			'callback_success' => 'lineSaved',
+			'note'             => $note,
+			'note_last_update' => __( 'Last Update', 'frais-pro' ) . ' ' . $note->date_modified['rendered']['date_human_readable'],
+			'line'             => $line,
 		) );
 	}
 

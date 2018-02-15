@@ -54,12 +54,14 @@ class Line_Model extends \eoxia\Post_Model {
 			'type'      => 'float',
 			'meta_type' => 'single',
 			'field'     => 'fp_line_tax_inclusive_amount',
+			'default'   => 0,
 		);
 
 		$this->schema['tax_amount'] = array(
 			'type'      => 'float',
 			'meta_type' => 'single',
 			'field'     => 'fp_line_tax_amount',
+			'default'   => 0,
 		);
 
 		$this->schema['taxonomy'] = array(
