@@ -21,7 +21,24 @@ window.eoxiaJS.fraisPro.line.init = function() {
  */
 window.eoxiaJS.fraisPro.line.event = function() {
 	jQuery( document ).on( 'keyup', 'input[type=text]', window.eoxiaJS.fraisPro.line.checkInputStatus );
+	jQuery( document ).on( 'blur', 'input[type=text]', window.eoxiaJS.fraisPro.line.save );
 };
+
+window.eoxiaJS.fraisPro.line.save = function( element, response ) {
+	var parentElement = jQuery( this ).closest( 'div.line-content' );
+	var listInput = window.eoxiaJS.arrayForm.getInput( parentElement );
+	var data = {};
+
+	for ( i = 0; i < listInput.length; i++ ) {
+		if ( listInput[i].name ) {
+			data[listInput[i].name] = window.eoxiaJS.arrayForm.getInputValue( listInput[i] );
+		}
+	}
+	console.log(data);
+	// window.eoxiaJS.loader.display( parentElement );
+	// window.eoxiaJS.loader.remove( parentElement );
+	// window.eoxiaJS.request.send( element, data );
+}
 
 /**
  * Display new created line.

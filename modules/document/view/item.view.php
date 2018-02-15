@@ -21,10 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</td>
 			<td class="document-summary" >ext</td>
 			<td class="document-action" >
-				<?php
-				$document_checked = Document_Class::g()->check_file( $document );
-				if ( $document_checked['exists'] ) :
-				?>
+			<?php if ( $document_checked['exists'] ) :?>
 				<a href="<?php echo esc_url( $document_checked['link'] ); ?>" class="wpeo-button button-main button-square-40 button-rounded wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Download file', 'frais-pro' ); ?>" ><i class="button-icon far fa-arrow-to-bottom" ></i></a>
 			<?php else : ?>
 				<span class="wpeo-button button-red button-square-40 button-rounded wpeo-tooltip-event" aria-label="<?php echo esc_attr_e( 'File does not exists', 'frais-pro' ); ?>">

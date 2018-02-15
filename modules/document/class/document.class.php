@@ -271,6 +271,25 @@ class Document_Class extends \eoxia\Post_Class {
 	}
 
 	/**
+	 * Récupère et affiche la liste des documents associés à une note.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param array $document Arguments pour récupérer les documents.
+	 *
+	 * @return void
+	 */
+	public function display_item( $document ) {
+		$document_checked = $this->check_file( $document );
+
+		\eoxia\View_Util::exec( 'frais-pro', 'document', 'item', array(
+			'document'         => $document,
+			'document_checked' => $document_checked,
+		) );
+	}
+
+	/**
 	 * Vérification de l'existence d'un fichier à partir de la définition d'un document.
 	 * 1- On remplace l'url du site "site_url( '/' )" par le chemin "ABSPATH" contenant les fichiers du site: on vérifie si le fichier existe.
 	 * 2- Si le fichier n'existe pas:
@@ -291,7 +310,7 @@ class Document_Class extends \eoxia\Post_Class {
 		// Vérification principale. cf 1 ci-dessus.
 		$file_path = str_replace( site_url( '/' ), ABSPATH, $document->link );
 		if ( is_file( $file_path ) ) {
-			$file_check = array(
+			return array(
 				'exists' => true,
 				'link'   => $document->link,
 			);
@@ -301,7 +320,7 @@ class Document_Class extends \eoxia\Post_Class {
 		if ( ! empty( $document->_wp_attached_file ) ) {
 			$file_to_check = $upload_dir['basedir'] . '/' . $document->_wp_attached_file;
 			if ( is_file( $file_to_check ) ) {
-				$file_check = array(
+				return array(
 					'exists' => true,
 					'link'   => $upload_dir['baseurl'] . '/' . $document->_wp_attached_file,
 				);
