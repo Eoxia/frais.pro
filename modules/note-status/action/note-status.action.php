@@ -28,7 +28,7 @@ class Note_Status_Action {
 	 */
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'callback_admin_init' ) );
-		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 99 );
+		// add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 99 );
 	}
 
 	/**
