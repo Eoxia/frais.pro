@@ -103,7 +103,7 @@ class Note_Class extends \eoxia\Post_Class {
 	 *
 	 * @return void
 	 */
-	public function display_list( $args = array(), $note_message = true ) {
+	public function display_list( $args = array() ) {
 		$default_status = array( 'publish', 'future' );
 
 		$args_note_list = array(
@@ -119,8 +119,7 @@ class Note_Class extends \eoxia\Post_Class {
 		$note_list = $this->get( $args_note_list );
 
 		\eoxia\View_Util::g()->exec( 'frais-pro', 'note', 'list', array(
-			'note_list'    => $note_list,
-			'note_message' => $note_message,
+			'note_list' => $note_list,
 		) );
 	}
 
@@ -142,7 +141,12 @@ class Note_Class extends \eoxia\Post_Class {
 		$current_note = $this->get( array( 'id' => $note_id ), true );
 		$status_list  = Note_Status_Class::g()->get();
 
-		\eoxia\View_Util::exec( 'frais-pro', 'note', 'single', array(
+		$view = 'single';
+		if ( $current_note->contains_unaffected ) {
+			$view = 'single-unaffected';
+		}
+
+		\eoxia\View_Util::exec( 'frais-pro', 'note', $view, array(
 			'note_is_closed' => ! empty( $current_note->fp_note_status->special_treatment ) && ( 'closed' === $current_note->fp_note_status->special_treatment ) ? true : false,
 			'display_mode'   => 'grid',
 			'note'           => $current_note,
