@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<span class="export toggle list" data-parent="toggle" data-target="content" >
 				<?php
-				\eoxia\View_Util::exec( 'frais-pro', 'note', 'actions', array(
+				\eoxia\View_Util::exec( 'frais-pro', 'note', 'filter/item-actions', array(
 					'note' => $note,
 				) );
 				?>
@@ -55,12 +55,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 				<?php endif; ?>
 
+
 				<div class="note-recap">
 					<div class="note-ttc">
 						<span class="value"><?php echo esc_html( $note->tax_inclusive_amount ); ?></span>
 						<span class="currency"><?php esc_html_e( '€', 'frais-pro' ); ?></span>
 						<span class="taxe"><?php esc_html_e( 'ATI', 'frais-pro' ); ?></span>
 					</div>
+
 					<div class="note-tva">
 						<span class="value"><?php echo esc_html( $note->tax_amount ); ?></span>
 						<span class="currency"><?php esc_html_e( '€', 'frais-pro' ); ?></span>
