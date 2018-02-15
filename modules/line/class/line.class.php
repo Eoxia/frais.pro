@@ -149,61 +149,6 @@ class Line_Class extends \eoxia\Post_Class {
 
 		return $line_state;
 	}
-
-	/**
-	 * Get orphelan lines from database.
-	 * Orphelan lines are lines that do not have parent identifier.
-	 *
-	 * @return Line_Class The list of orphelan lines.
-	 */
-	public function get_orphelan_lines() {
-		$args_orphelan_lines = array(
-			'post_parent' => 0,
-			'post_status' => array( 'publish', 'inherit', 'future', 'draft' ),
-		);
-		if ( ! current_user_can( 'frais_pro_view_all_user_sheets' ) ) {
-			$args_orphelan_lines['author'] = get_current_user_id();
-		}
-		$orphelan_lines = $this->get( $args_orphelan_lines );
-
-		return $orphelan_lines;
-	}
-
-	/**
-	 * Display the main bloc allowing to know if there are orphelan lines in main application page.
-	 */
-	public function display_orphelans() {
-		$lines = $this->get_orphelan_lines();
-
-		$last_line_date = '-';
-		if ( 0 < count( $lines ) ) {
-			$last_line_date = $lines[0]->date_modified['rendered']['date_human_readable'];
-
-			\eoxia\View_Util::exec( 'frais-pro', 'line', 'orphelan/main', array(
-				'lines'          => $lines,
-				'last_line_date' => $last_line_date,
-			) );
-		}
-	}
-
-	/**
-	 * Display the main bloc allowing to know if there are orphelan lines in main application page.
-	 */
-	public function display_orphelan_list() {
-		$lines = $this->get_orphelan_lines();
-
-		$last_line_date = '-';
-		if ( 0 < count( $lines ) ) {
-			$last_line_date = $lines[0]->date_modified['rendered']['date_human_readable'];
-		}
-
-		\eoxia\View_Util::exec( 'frais-pro', 'line', 'orphelan/list', array(
-			'lines'          => $lines,
-			'last_line_date' => $last_line_date,
-			'display_mode'   => 'list',
-		) );
-	}
-
 }
 
 Line_Class::g();
