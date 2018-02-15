@@ -178,7 +178,7 @@ class Note_Status_Class extends \eoxia\Term_Class {
 		$args['current_screen'] = ! empty( $args['current_screen'] ) ? sanitize_text_field( $args['current_screen'] ) : '';
 
 		$default_status = null;
-		$status_list    = apply_filters( 'fp_filter_before_dropdown_note_status', $this->get(), $args );
+		$status_list    = apply_filters( 'fp_filter_note_status_list', $this->get(), $args );
 
 		if ( ! empty( $status_list ) ) {
 			foreach ( $status_list as $status ) {

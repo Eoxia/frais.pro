@@ -27,7 +27,7 @@ class Note_Status_Filter {
 	 * @version 1.4.0
 	 */
 	public function __construct() {
-		add_filter( 'fp_filter_before_dropdown_note_status', array( $this, 'callback_before_dropdown_note_status' ), 10, 2 );
+		add_filter( 'fp_filter_note_status_list', array( $this, 'callback_before_dropdown_note_status' ), 10, 2 );
 	}
 
 	/**
