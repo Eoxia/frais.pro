@@ -83,7 +83,7 @@ class Line_Type_Class extends \eoxia\Term_Class {
 			}
 		}
 
-		\eoxia\View_Util::exec( 'frais-pro', 'line-type', 'main', array(
+		\eoxia\View_Util::exec( 'frais-pro', 'line-type', 'dropdown', array(
 			'line_types'              => $line_types,
 			'line_type_note_id'       => $type_id,
 			'selected_type_note_name' => $selected_type_note_name,

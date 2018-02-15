@@ -43,6 +43,7 @@ window.eoxiaJS.fraisPro.note.init = function() {
 	jQuery( document ).on( 'click', '.list-note .note', window.eoxiaJS.fraisPro.note.goToLink );
 	jQuery( document ).on( 'click', '.display-method span.wpeo-button', window.eoxiaJS.fraisPro.note.changeDisplayMode );
 	jQuery( document ).on( 'click', '.wrap-frais-pro .fraispro-mass-line-creation', window.eoxiaJS.fraisPro.note.openMedia );
+	jQuery( document ).on( 'click', '.single-note .header .validation_status .wpeo-dropdown li', window.eoxiaJS.fraisPro.note.changeNoteStatus );
 };
 
 /**
@@ -136,11 +137,38 @@ window.eoxiaJS.fraisPro.note.selectedFile = function( element ) {
  * @version 1.4.0
  */
 window.eoxiaJS.fraisPro.note.note_is_marked_as_archive = function( element, response ) {
-
 	// Check if the user is on list or in a single note
 	if ( 1 === jQuery( '.list-note' ).length ) {
 		jQuery( 'tr.note[data-id=' + response.data.note.id + ']' ).fadeOut();
 	} else {
 		window.location.href = response.data.link;
 	}
+};
+
+/**
+ * [description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
+window.eoxiaJS.fraisPro.note.changeNoteStatus = function( event ) {
+	var data = {
+		'action': jQuery( this ).data( 'action' ),
+		'_wpnonce': jQuery( this ).data( 'nonce' )
+	};
+
+	// D'abord on vérifier si l'utilisateur utilise un statut avec un traitement special.
+	if ( 'closed' === jQuery( this ).attr( 'data-special-treatment' ) && ! confirm( fraisPro.confirmMarkAsPayed ) ) {
+		return false;
+	}
+
+	// Envoi de la requete pour la modification du statut de la note.
+	jQuery.post( window.ajaxurl, data, function( response ) {
+		window.eoxiaJS.fraisPro.note.currentButton.removeClass( 'loading' );
+		window.eoxiaJS.fraisPro.note.currentButton = undefined;
+		window.eoxiaJS.fraisPro.note.selectedInfos = [];
+		window.eoxiaJS.fraisPro.note.mediaFrame = undefined;
+		if ( response.success ) {
+			jQuery( 'div.list-line' ).prepend( response.data.view );
+		}
+	}, 'json' );
 };

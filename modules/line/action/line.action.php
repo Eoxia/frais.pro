@@ -39,6 +39,11 @@ class Line_Action {
 
 	/**
 	 * Create a new empty line in a note.
+	 *
+	 * @since 1.0.0
+	 * @version 1.4.0
+	 *
+	 * @return void
 	 */
 	public function callback_fp_create_line() {
 		check_ajax_referer( 'fp_create_line' );
@@ -47,6 +52,7 @@ class Line_Action {
 		$line_args['parent_id'] = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
 
 		$line = Line_Class::g()->create( $line_args );
+
 		ob_start();
 		Line_Class::g()->display( $line );
 		$line_view = ob_get_clean();

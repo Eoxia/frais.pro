@@ -20,9 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 		if ( ! empty( $documents ) ) :
 			foreach ( $documents as $document ) :
-				\eoxia\View_Util::exec( 'frais-pro', 'document', 'item', array(
-					'document' => $document,
-				) );
+				Document_Class::g()->display_item( $document );
 			endforeach;
 		else :
 			?>

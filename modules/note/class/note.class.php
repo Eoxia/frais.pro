@@ -98,8 +98,7 @@ class Note_Class extends \eoxia\Post_Class {
 	 * @since 1.0.0
 	 * @version 1.4.0
 	 *
-	 * @param  array   $args         Arguments pour le get.
-	 * @param  boolean $note_message Si oui affiche le message indiquant qu'aucune note est créée pour le moment. Si non, n'affiches rien.
+	 * @param  array $args         Arguments pour le get.
 	 *
 	 * @return void
 	 */
