@@ -12,10 +12,16 @@ class document_model extends \eoxia\Post_Model {
 	 * @param boolean $cropped Permet de ne récupèrer que les données principales de l'objet demandé / If true, return only main informations about object
 	 */
 	public function __construct( $data = null, $req_method = null ) {
-			$this->schema['mime_type'] = array(
-			'type' 				=> 'string',
-			'meta_type'		=> 'single',
-			'field'				=> 'post_mime_type'
+		$this->schema['mime_type'] = array(
+			'type'      => 'string',
+			'meta_type' => 'single',
+			'field'     => 'post_mime_type',
+		);
+
+		$this->schema['_wp_attached_file'] = array(
+			'type'      => 'string',
+			'meta_type' => 'single',
+			'field'     => '_wp_attached_file',
 		);
 
 		parent::__construct( $data, $req_method );

@@ -298,13 +298,12 @@ class Document_Class extends \eoxia\Post_Class {
 		}
 
 		// La vérification principale n'a pas fonctionnée. cf 2 ci-dessus.
-		$wp_attached_file = get_post_meta( $document->id, '_wp_attached_file', true );
-		if ( ! empty( $wp_attached_file ) ) {
-			$file_to_check = $upload_dir['basedir'] . '/' . $wp_attached_file;
+		if ( ! empty( $document->_wp_attached_file ) ) {
+			$file_to_check = $upload_dir['basedir'] . '/' . $document->_wp_attached_file;
 			if ( is_file( $file_to_check ) ) {
 				$file_check = array(
 					'exists' => true,
-					'link'   => $upload_dir['baseurl'] . '/' . $wp_attached_file,
+					'link'   => $upload_dir['baseurl'] . '/' . $document->_wp_attached_file,
 				);
 			}
 		}
