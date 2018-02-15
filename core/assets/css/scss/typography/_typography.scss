@@ -1,9 +1,4 @@
-body,
-button,
-input,
-select,
-optgroup,
-textarea {
+body {
 	color: rgba(0,0,0,0.7);
 	font-family: $font__main;
 	@include font-size(1);

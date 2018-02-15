@@ -176,6 +176,7 @@ class Note_Class extends \eoxia\Post_Class {
 			$note = $this->update( array(
 				'title'               => $title,
 				'slug'                => $name,
+				'status'              => 'publish',
 				'contains_unaffected' => true,
 			) );
 		}

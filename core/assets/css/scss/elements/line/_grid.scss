@@ -20,7 +20,7 @@
 }
 
 .single-note.grid .list-line .line {
-	label {
+	.form-label {
 		color: $color__primary;
 		text-transform: none;
 		font-size: 14px;
@@ -33,16 +33,7 @@
 	}
 	.line-content {
 		flex-wrap: wrap;
-
-		> .libelle { order: 1; }
-		> .date { order: 2; }
-		> .type { order: 3; }
-		> .km { order: 4; }
-		> .ttc { order: 5; }
-		> .tva { order: 6; }
-		> .status { order: 7; }
-		> .action { order: 8; }
-
+	
 		> .date, > .type {
 			min-width: 50%;
 			max-width: 50%;

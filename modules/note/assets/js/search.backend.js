@@ -27,11 +27,12 @@ window.eoxiaJS.fraisPro.search.init = function() {
  * @return {void}
  */
 window.eoxiaJS.fraisPro.search.event = function() {
-	jQuery( '.bloc-search' ).on( 'click', '.autocomplete-search-list li', window.eoxiaJS.fraisPro.search.selectUser );
+	jQuery( document ).on( 'click', '.autocomplete-search-list li', window.eoxiaJS.fraisPro.search.select );
+	jQuery( document ).on( 'click', '.bloc-reassign .autocomplete-search-list li', window.eoxiaJS.fraisPro.search.selectNote );
 };
 
 /**
- * Met l'ID de l'utilisateur dans un input caché.
+ * Met l'ID dans un input caché.
  *
  * @since 1.4.0
  * @version 1.4.0
@@ -40,13 +41,25 @@ window.eoxiaJS.fraisPro.search.event = function() {
  *
  * @return {void}
  */
-window.eoxiaJS.fraisPro.search.selectUser = function( event ) {
+window.eoxiaJS.fraisPro.search.select = function( event ) {
 	var parent = jQuery( this ).closest( '.wpeo-autocomplete' );
 
-	parent.find( '.autocomplete-icon-after' ).click();
-
-	parent.find( 'input[name="selected_user_id"]' ).val(jQuery( this ).data( 'id' ) );
+	parent.find( 'input[type="hidden"]' ).val(jQuery( this ).data( 'id' ) );
 	parent.find( 'input.autocomplete-search-input' ).val( jQuery( this ).data( 'result' ) );
+};
+
+/**
+ * Lors de la sélection d'une note, rend le bouton enable.
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ *
+ * @param MouseEvent L'état de la souri au moment du clic
+ *
+ * @return {void}
+ */
+window.eoxiaJS.fraisPro.search.selectNote = function( event ) {
+	jQuery( this ).closest( '.bloc-reassign' ).find( '.button-disable' ).removeClass( 'button-disable' );
 };
 
 /**

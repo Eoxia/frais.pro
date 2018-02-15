@@ -1,13 +1,12 @@
 <?php
 /**
- * Affichage du tableau ainsi que la ligne pour ajouter une ligne de note de frais.
+ * Affichage de la checkbox.
  *
  * @author Eoxia <dev@eoxia.com>
- * @since 1.0.0
- * @version 1.3.0
+ * @since 1.4.0
+ * @version 1.4.0
  * @copyright 2017 Eoxia
- * @package Eoxia/NodeDeFrais
- * @subpackage LigneDeFrais
+ * @package Frais.pro
  */
 
 namespace frais_pro;
