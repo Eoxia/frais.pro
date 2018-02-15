@@ -79,6 +79,6 @@ window.eoxiaJS.fraisPro.noteUnaffected.reassignedLineUnaffectedSuccess = functio
 	jQuery( '.bloc-reassign .autocomplete-icon-after' ).click();
 
 	for (var key in response.data.updated_lines_id) {
-		jQuery( '.list-line .line[data-id=" + response.data.updated_lines_id[key] + "]').fadeOut();
+		jQuery( '.list-line .line[data-id="' + response.data.updated_lines_id[key] + '"]' ).fadeOut();
 	}
 };
