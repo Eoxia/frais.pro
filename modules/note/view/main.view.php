@@ -17,7 +17,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php
 Search_Class::g()->display();
-Note_Class::g()->display_list();
+
+Note_Class::g()->display_list( array(
+	'meta_query' => array(
+		'relation' => 'OR',
+		array(
+			'key'     => 'fp_contains_unaffected',
+			'value'   => false,
+			'compare' => '=',
+		),
+		array(
+			'key'     => 'fp_contains_unaffected',
+			'compare' => 'NOT EXISTS',
+		),
+	),
+));
 
 Note_Class::g()->display_list( array(
 	'meta_query' => array(
@@ -27,4 +41,4 @@ Note_Class::g()->display_list( array(
 			'compare' => '=',
 		),
 	),
-), false );
+) );
