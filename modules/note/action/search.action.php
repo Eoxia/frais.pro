@@ -29,7 +29,6 @@ class Search_Action {
 	public function __construct() {
 		add_action( 'wp_ajax_fp_search_users', array( $this, 'callback_search_users' ) );
 		add_action( 'wp_ajax_fp_search_notes', array( $this, 'callback_search_notes' ) );
-		add_action( 'wp_ajax_fp_search_notes_reassign', array( $this, 'callback_search_notes_reassign' ) );
 	}
 
 	/**
@@ -121,62 +120,6 @@ class Search_Action {
 			'view'             => ob_get_clean(),
 		) );
 	}
-
-	/**
-	 * Recherches les notes en base de donnée, puis les renvoies au formulaire autocomplete.
-	 *
-	 * @since 1.4.0
-	 * @version 1.4.0
-	 *
-	 * @return void
-	 */
-	public function callback_search_notes_reassign() {
-		check_ajax_referer( 'search_notes_reassign' );
-
-		$s = ! empty( $_POST['s'] ) ? sanitize_text_field( $_POST['s'] ) : '';
-
-		if ( empty( $s ) ) {
-			wp_send_json_error();
-		}
-
-		$post_query = new \WP_Query( array(
-			'fields'      => 'ids',
-			'post_type'   => Note_Class::g()->get_type(),
-			's'           => $s,
-			'post_status' => array( 'publish', 'future' ),
-			'meta_query'  => array(
-				'relation' => 'OR',
-				array(
-					'key'     => 'fp_contains_unaffected',
-					'value'   => false,
-					'compare' => '=',
-				),
-				array(
-					'key'     => 'fp_contains_unaffected',
-					'compare' => 'NOT EXISTS',
-				),
-			),
-		) );
-
-		$note_ids = $post_query->posts;
-
-		$notes = array();
-
-		if ( ! empty( $note_ids ) ) {
-			$notes = Note_Class::g()->get( array(
-				'include' => $note_ids,
-			) );
-		}
-
-		ob_start();
-		\eoxia\View_Util::exec( 'frais-pro', 'note', 'search/results-notes', array(
-			'notes' => $notes,
-		) );
-		wp_send_json_success( array(
-			'view' => ob_get_clean(),
-		) );
-	}
-
 }
 
 new Search_Action();
