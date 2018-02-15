@@ -25,13 +25,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			) );
 		endforeach;
 	else :
-		if ( $note_message ) :
-			?>
-			<tr class="notice notice-info">
-				<td colspan="5"><?php esc_html_e( 'Actually you do not have professionnal fees sheet', 'frais-pro' ); ?></td>
-			</tr>
-			<?php
-		endif;
+		?>
+		<tr class="notice notice-info">
+			<td colspan="5"><?php esc_html_e( 'Actually you do not have professionnal fees sheet', 'frais-pro' ); ?></td>
+		</tr>
+		<?php
 	endif;
 	?>
 	</tbody>
