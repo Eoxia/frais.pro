@@ -35,7 +35,7 @@ window.eoxiaJS.fraisPro.line.save = function( element, response ) {
 		}
 	}
 	console.log(data);
-	window.eoxiaJS.loader.display( parentElement );
+	// window.eoxiaJS.loader.display( parentElement );
 	// window.eoxiaJS.loader.remove( parentElement );
 	// window.eoxiaJS.request.send( element, data );
 }
