@@ -14,6 +14,7 @@ namespace frais_pro;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
+
 <div class="wpeo-dropdown dropdown-right" >
 	<button class="dropdown-toggle wpeo-button button-main button-square-40 button-rounded wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Generate file', 'frais-pro' ); ?>" ><i class="button-icon far fa-sync-alt"></i></button>
 	<ul class="dropdown-content" >

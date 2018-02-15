@@ -1,9 +1,9 @@
 <?php
 /**
- * Affichage du tableau ainsi que la ligne pour ajouter une ligne de note de frais.
+ * Affichage d'une note qui contient les lignes désaffectées en view 'single'.
  *
  * @author Eoxia <dev@eoxia.com>
- * @since 1.0.0
+ * @since 1.4.0
  * @version 1.4.0
  * @copyright 2017 Eoxia
  * @package Frais.pro
@@ -28,47 +28,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<h2><?php echo esc_html( $note->title ); ?></h2>
 				<div class="note-last-update" ><?php esc_html_e( 'Last update', 'frais-pro' ); ?> : <?php echo esc_html( $note->date_modified['rendered']['date_human_readable'] ); ?></div>
 			</div>
-
-			<?php
-			Note_Status_Class::g()->display( $note->fp_note_status->id, array(
-				'class' => $note_is_closed ? 'button-disable' : '',
-			) );
-			?>
-
-			<span class="export toggle list" data-parent="toggle" data-target="content" >
-				<?php
-				\eoxia\View_Util::exec( 'frais-pro', 'note', 'filter/item-actions', array(
-					'note' => $note,
-				) );
-				?>
-			</span>
 		</div>
 
 		<div class="content">
 			<div class="note-action">
-				<?php if ( ! $note_is_closed ) : ?>
-					<div class="wpeo-button button-blue button-uppercase fraispro-mass-line-creation" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_create_line_from_picture' ) ); ?>" data-parent-id="<?php echo esc_attr( $note->id ); ?>" >
-						<i class="button-icon far fa-images"></i> <span><?php esc_html_e( 'Multiple add from pictures', 'frais-pro' ); ?></span>
-					</div>
-					<div class="wpeo-button button-blue button-uppercase action-attribute" data-action="fp_create_line" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_create_line' ) ); ?>" data-parent-id="<?php echo esc_attr( $note->id ); ?>" >
-						<i class="button-icon fas fa-plus-circle"></i> <span><?php esc_html_e( 'New line', 'frais-pro' ); ?></span>
-					</div>
-				<?php endif; ?>
 
-
-				<div class="note-recap">
-					<div class="note-ttc">
-						<span class="value"><?php echo esc_html( $note->tax_inclusive_amount ); ?></span>
-						<span class="currency"><?php esc_html_e( '€', 'frais-pro' ); ?></span>
-						<span class="taxe"><?php esc_html_e( 'ATI', 'frais-pro' ); ?></span>
-					</div>
-
-					<div class="note-tva">
-						<span class="value"><?php echo esc_html( $note->tax_amount ); ?></span>
-						<span class="currency"><?php esc_html_e( '€', 'frais-pro' ); ?></span>
-						<span class="taxe"><?php esc_html_e( 'VAT', 'frais-pro' ); ?></span>
-					</div>
-				</div> <!-- .note-recap -->
+				<div class="note-recap"></div> <!-- Sans cette div, la div.display-method est placé à gauche au lieu d'être à droite. -->
 
 				<div class="display-method">
 					<span class="wpeo-button button-square-50 button-grey <?php echo esc_attr( 'grid' === $display_mode ? 'active' : '' ); ?>" data-display-type="grid" ><i class="icon fas fa-th-large"></i></span>
@@ -83,9 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				) );
 			?>
 
-			<?php Document_Class::g()->display_list( array( 'id' => $note->id ) ); ?>
 		</div> <!-- .content -->
-
 
 	</div> <!-- .container -->
 </div> <!-- .single-note -->
