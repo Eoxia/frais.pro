@@ -80,7 +80,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="action">
 		<?php if ( ! $note_is_closed ) : ?>
 			<div class="wpeo-dropdown dropdown-right">
-				<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>"><i class="button-icon far fa-ellipsis-v"></i></button>
+				<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-eventwpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>"><i class="button-icon far fa-ellipsis-v"></i></button>
 				<ul class="dropdown-content">
 					<?php apply_filters( 'fp_filter_line_item_action_before', '', $line ); ?>
 					<li class="dropdown-item action-delete"

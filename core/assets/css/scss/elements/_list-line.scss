@@ -79,7 +79,7 @@
 		.wpeo-dropdown, .wpeo-button {
 			width: 100%;
 		}
-		.wpeo-button {
+		.dropdown-toggle {
 			height: 50px;
 			font-size: 14px;
 			text-align: left;
@@ -144,7 +144,7 @@
 
 /** Input Error */
 .list-line .line {
-	.input-error input, .input-error .wpeo-button {
+	.input-error input, .input-error .dropdown-toggle {
 		border: 1px solid $color__red;
 	}
 }
