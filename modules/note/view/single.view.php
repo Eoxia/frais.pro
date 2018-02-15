@@ -78,6 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php
 				\eoxia\View_Util::exec( 'frais-pro', 'line', 'main', array(
+					'note'           => $note,
 					'lines'          => $lines,
 					'note_is_closed' => $note_is_closed,
 				) );
