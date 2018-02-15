@@ -81,7 +81,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				) );
 			?>
 
+			<?php Document_Class::g()->display_list( array( 'id' => $note->id ) ); ?>
 		</div> <!-- .content -->
+
 
 	</div> <!-- .container -->
 </div> <!-- .single-note -->
