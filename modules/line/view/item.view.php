@@ -16,7 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 <div class="table-row line" data-id="<?php echo esc_attr( $line->id ); ?>" >
-	<?php apply_filters( 'fp_filter_line_item_before', '', $line ); ?>
+	<?php apply_filters( 'fp_filter_line_item_before', '', $note, $line ); ?>
+
 	<div class="table-cell line-image">
 		<?php do_shortcode( '[wpeo_upload id="' . $line->id . '" model_name="/frais_pro/Line_Class" single="true" size="full" custom_class="media-grid" mode="' . $mode . '"]' ); ?>
 		<?php do_shortcode( '[wpeo_upload id="' . $line->id . '" model_name="/frais_pro/Line_Class" single="true" custom_class="media-list" mode="' . $mode . '"]' ); ?>
