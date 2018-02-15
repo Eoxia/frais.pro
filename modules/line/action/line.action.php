@@ -48,8 +48,10 @@ class Line_Action {
 	public function callback_fp_create_line() {
 		check_ajax_referer( 'fp_create_line' );
 
-		$line_args              = array();
-		$line_args['parent_id'] = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
+		$line_args                         = array();
+		$line_args['parent_id']            = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
+		$line_args['tax_amount']           = 0;
+		$line_args['tax_inclusive_amount'] = 0;
 
 		$line = Line_Class::g()->create( $line_args );
 

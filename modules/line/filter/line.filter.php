@@ -27,7 +27,7 @@ class Line_Filter {
 	 * @version 1.4.0
 	 */
 	public function __construct() {
-		add_filter( 'fp_filter_line_item_before', array( $this, 'callback_fp_filter_line_item_before' ), 10, 3 );
+		// add_filter( 'fp_filter_line_item_before', array( $this, 'callback_fp_filter_line_item_before' ), 10, 23 );
 		add_filter( 'fp_filter_line_item_action_before', array( $this, 'callback_fp_filter_line_item_action_before' ), 10, 2 );
 	}
 
@@ -43,7 +43,7 @@ class Line_Filter {
 	 *
 	 * @return void
 	 */
-	public function callback_fp_filter_line_item_before( $content, $note, $line ) {
+	public function callback_fp_filter_line_item_before( $content, $line ) {
 		if ( $note->contains_unaffected ) {
 			\eoxia\View_Util::exec( 'frais-pro', 'line', 'filter/checkbox', array(
 				'line' => $line,

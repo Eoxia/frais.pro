@@ -98,15 +98,13 @@ class Line_Class extends \eoxia\Post_Class {
 	 * @since 1.4.0
 	 * @version 1.4.0
 	 *
-	 * @param Note_Model $note The note.
 	 * @param Line_Model $line The full line model.
 	 * @param array      $args Optionnal. Optionnal arguments to pass through display.
 	 *
 	 * @return void
 	 */
-	public function display( $note, $line, $args = array() ) {
+	public function display( $line, $args = array() ) {
 		$template_args = wp_parse_args( $args, array(
-			'note'         => $note,
 			'line'         => $line,
 			'line_type_id' => ( null !== $line && ! empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ][0] ) && ! empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id ) ? $line->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id : 0 ),
 			'mode'         => ( ( ! empty( $args ) && ! empty( $args['note_is_closed'] ) && $args['note_is_closed'] ) ? 'view' : 'edit' ),
