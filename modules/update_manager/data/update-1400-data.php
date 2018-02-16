@@ -28,4 +28,10 @@ $datas = array(
 		'since'       => '1.4.0',
 		'version'     => '1.4.0',
 	),
+	array(
+		'action'      => 'frais_pro_update_1400_update_attachment_guid_mime_type',
+		'description' => __( 'Update attachment GUID and mime type', 'frais-pro' ),
+		'since'       => '1.4.0',
+		'version'     => '1.4.0',
+	),
 );

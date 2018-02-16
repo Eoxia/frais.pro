@@ -106,10 +106,11 @@ class Note_Class extends \eoxia\Post_Class {
 		$default_status = array( 'publish', 'future' );
 
 		$args_note_list = array(
-			'post_status' => $default_status,
+			'post_status'           => $default_status,
+			'display_only_has_note' => false,
 		);
 
-		$args_note_list = wp_parse_args( $args_note_list, $args );
+		$args_note_list = wp_parse_args( $args, $args_note_list );
 
 		if ( ! current_user_can( 'frais_pro_view_all_user_sheets' ) ) {
 			$args_note_list['author'] = get_current_user_id();
@@ -117,9 +118,11 @@ class Note_Class extends \eoxia\Post_Class {
 
 		$note_list = $this->get( $args_note_list );
 
-		\eoxia\View_Util::g()->exec( 'frais-pro', 'note', 'list', array(
-			'note_list' => $note_list,
-		) );
+		if ( ! $args['display_only_has_note'] || ( $args['display_only_has_note'] && ! empty( $note_list ) ) ) {
+			\eoxia\View_Util::g()->exec( 'frais-pro', 'note', 'list', array(
+				'note_list' => $note_list,
+			) );
+		}
 	}
 
 	/**
