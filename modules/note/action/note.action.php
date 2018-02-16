@@ -132,25 +132,30 @@ class Note_Action {
 	 * Génère un document .odt avec les données qui vont bien.
 	 *
 	 * @since 1.0.0
-	 * @version 1.3.0
+	 * @version 1.4.0
 	 */
 	public function callback_export_ndf() {
 		check_ajax_referer( 'export_ndf' );
 
-		$ndf_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$note_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		$picture = ! empty( $_POST['picture'] ) ? (bool) $_POST['picture'] : false;
 
-		if ( empty( $ndf_id ) ) {
+		if ( empty( $note_id ) ) {
 			wp_send_json_error();
 		}
 
-		$response = Note_Class::g()->generate_document( $ndf_id, $picture, 'odt' );
+		$type = 'ndf';
+
+		if ( $picture ) {
+			$type = 'ndf-photo';
+		}
+
+		$response = Note_Class::g()->generate_document( $note_id, $type );
 
 		wp_send_json_success( array(
-			'namespace' => 'fraisPro',
-			'module' => 'NDF',
-			'link' => $response['link'],
-			'filename' => $response['filename'],
+			'namespace'        => 'fraisPro',
+			'module'           => 'NDF',
+			'filename'         => $response['filename'],
 			'callback_success' => 'exportedfraisProSuccess',
 		) );
 	}
@@ -172,7 +177,6 @@ class Note_Action {
 		wp_send_json_success( array(
 			'namespace' => 'fraisPro',
 			'module' => 'NDF',
-			'link' => $response['link'],
 			'filename' => $response['filename'],
 			'callback_success' => 'exportedfraisProSuccess',
 		) );
