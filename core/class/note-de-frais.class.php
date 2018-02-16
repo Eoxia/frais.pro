@@ -68,12 +68,16 @@ class Note_De_Frais_Class extends \eoxia\Singleton_Util {
 			// Call default note status creation.
 			Note_Status_Class::g()->create_default_statuses();
 
-			// Define current version for the Frais.pro plugin.
-			$version = (int) str_replace( '.', '', \eoxia\Config_Util::$init['frais-pro']->version );
-			if ( 3 === strlen( $version ) ) {
-				$version *= 10;
+			$ndf_core = get_option( '_ndf_core', '' );
+
+			if ( empty( $ndf_core ) ) {
+				// Define current version for the Frais.pro plugin.
+				$version = (int) str_replace( '.', '', \eoxia\Config_Util::$init['frais-pro']->version );
+				if ( 3 === strlen( $version ) ) {
+					$version *= 10;
+				}
+				update_option( \eoxia\Config_Util::$init['frais-pro']->key_last_update_version, $version );
 			}
-			update_option( \eoxia\Config_Util::$init['frais-pro']->key_last_update_version, $version );
 		}
 	}
 
