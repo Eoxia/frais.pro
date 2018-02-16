@@ -19,10 +19,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<span><?php echo esc_html( $document->title ); ?></span>
 				<div class="document-generation-date" ><?php esc_html_e( 'Generated on', 'frais-pro' ); ?> : <?php echo esc_html( $document->date_modified['rendered']['date'] ); ?></div>
 			</td>
-			<td class="document-summary" ><?php echo esc_html( $document->mime_type['ext'] ); ?></td>
+			<td class="document-summary">
+				<?php
+				if ( ! empty( $document_checked['mime_type']['ext'] ) ) :
+					echo esc_html( $document_checked['mime_type']['ext'] );
+				else:
+					esc_html_e( 'Corrupt file extension', 'frais-pro' );
+				endif;
+				?>
+			</td>
 			<td class="document-action" >
 			<?php if ( $document_checked['exists'] ) : ?>
-				<a href="<?php echo esc_url( $document_checked['link'] ); ?>" class="wpeo-button button-main button-square-40 button-rounded wpeo-tooltip-event" aria-label="<?php echo esc_attr( sprintf( __( 'Download %s file', 'frais-pro' ), $document->mime_type['ext'] ) ); ?>" ><i class="button-icon far fa-arrow-to-bottom" ></i></a>
+				<a href="<?php echo esc_url( $document_checked['link'] ); ?>" class="wpeo-button button-main button-square-40 button-rounded wpeo-tooltip-event" aria-label="<?php echo esc_attr( sprintf( __( 'Download %s file', 'frais-pro' ), $document_checked['mime_type']['ext'] ) ); ?>" ><i class="button-icon far fa-arrow-to-bottom" ></i></a>
 			<?php else : ?>
 				<span class="wpeo-button button-red button-square-40 button-rounded wpeo-tooltip-event" aria-label="<?php echo esc_attr_e( 'File does not exists', 'frais-pro' ); ?>">
 					<i class="fa fa-times icon" aria-hidden="true"></i>
