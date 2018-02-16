@@ -218,7 +218,7 @@ class Note_Action {
 	 * @version 1.4.0
 	 */
 	public function register_note_status() {
-		register_post_status( 'archive-note', array(
+		register_post_status( 'archive', array(
 			'label'                     => __( 'Archive', 'frais-pro' ),
 			'internal'                  => true,
 			'public'                    => true,

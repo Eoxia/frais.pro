@@ -80,6 +80,7 @@ class Search_Action {
 		$start_date         = ! empty( $_POST['start_date'] ) ? sanitize_text_field( $_POST['start_date'] ) : '';
 		$selected_status_id = ! empty( $_POST['selected_status_id'] ) ? (int) $_POST['selected_status_id'] : 0;
 		$selected_user_id   = ! empty( $_POST['selected_user_id'] ) ? (int) $_POST['selected_user_id'] : 0;
+		$include_archives   = ! empty( $_POST['include_archives'] ) ? (bool) $_POST['include_archives'] : false;
 
 		$args = array();
 
@@ -122,6 +123,10 @@ class Search_Action {
 
 		if ( ! empty( $selected_user_id ) ) {
 			$args['author'] = $selected_user_id;
+		}
+
+		if ( $include_archives ) {
+			$args['post_status'] = array( 'publish', 'future', 'archive' );
 		}
 
 		ob_start();

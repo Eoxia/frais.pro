@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="bloc-search wpeo-form form-light wpeo-grid grid-5">
+<div class="bloc-search wpeo-form form-light wpeo-grid grid-6">
 
 	<!-- Start date -->
 	<div>
@@ -57,6 +57,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<span class="autocomplete-icon-after"><i class="far fa-times"></i></span>
 					</label>
 					<ul class="autocomplete-search-list"></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Include Archives -->
+	<div>
+		<div class="form-element form-align-horizontal">
+			<div class="form-field-container">
+				<div class="form-field-inline">
+					<input type="checkbox" class="form-field" name="include_archives" value="yes" id="search_include_archives" >
+					<label for="search_include_archives" ><?php esc_html_e( 'View also archives', 'frais-pro' ); ?></label>
 				</div>
 			</div>
 		</div>
