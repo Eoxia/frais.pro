@@ -108,7 +108,7 @@ class Update_Manager_Action {
 		delete_option( \eoxia\Config_Util::$init[ $this->current_module ]->key_waited_updates );
 
 		$data = array(
-			'url'     => menu_page_url( \eoxia\Config_Util::$init[ $this->current_module ]->slug, false ),
+			'url'     => admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init[ $this->current_module ]->slug ),
 			'message' => __( 'Redirect to Frais.pro main application', 'frais-pro' ),
 		);
 
