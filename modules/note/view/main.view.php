@@ -34,10 +34,11 @@ Note_Class::g()->display_list( array(
 ));
 
 Note_Class::g()->display_list( array(
-	'custom_css' => array(
+	'display_only_has_note' => true,
+	'custom_css'            => array(
 		'list-note-unaffected',
 	),
-	'meta_query' => array(
+	'meta_query'            => array(
 		array(
 			'key'     => 'fp_contains_unaffected',
 			'value'   => true,
