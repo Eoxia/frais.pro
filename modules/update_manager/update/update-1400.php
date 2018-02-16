@@ -93,6 +93,7 @@ class Update_140 {
 		add_action( 'wp_ajax_frais_pro_update_1400_update_note', array( $this, 'callback_frais_pro_update_1400_update_note' ) );
 		add_action( 'wp_ajax_frais_pro_update_1400_update_line', array( $this, 'callback_frais_pro_update_1400_update_line' ) );
 		add_action( 'wp_ajax_frais_pro_update_1400_update_user_capabilities', array( $this, 'callback_frais_pro_update_1400_update_user_capabilities' ) );
+		add_action( 'wp_ajax_frais_pro_update_1400_update_attachment_guid_mime_type', array( $this, 'callback_frais_pro_update_1400_update_attachment_guid_mime_type' ) );
 	}
 
 	/**
@@ -280,6 +281,64 @@ class Update_140 {
 
 		wp_send_json_success( array(
 			'done' => true,
+			'args' => array(
+				'more' => true,
+			),
+		) );
+	}
+
+	/**
+	 * Update the GUID and mime type of attachment from note.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @return void
+	 */
+	public function callback_frais_pro_update_1400_update_attachment_guid_mime_type() {
+		\eoxia\LOG_Util::log( __( 'Start update 1400 update_attachment_guid_mime_type.', 'frais-pro' ), 'frais-pro' );
+
+		global $wpdb;
+
+		// Ici, le type de la note a déjà changé dans l'action "update_note".
+		$notes_id = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type=%s", Note_Class::g()->get_type() ) );
+
+		if ( ! empty( $notes_id ) ) {
+			foreach ( $notes_id as $note_id ) {
+				$attachments_id = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type=%s AND post_parent=%d", 'attachment', $note_id ) );
+
+				if ( ! empty( $attachments_id ) ) {
+					$documents = Document_Class::g()->get( array(
+						'post_type'      => 'attachment',
+						'include'        => $attachments_id,
+						'posts_per_page' => -1,
+						'post_status'    => array( 'publish', 'inherit' ),
+					) );
+
+					if ( ! empty( $documents ) ) {
+						foreach ( $documents as $document ) {
+							$document_info = Document_Class::g()->check_file( $document );
+
+							// Appliques le bon GUID et le bon mime type si le fichier existe.
+							if ( $document_info['exists'] ) {
+								$document->mime_type = $document_info['mime_type']['type'];
+								$document->link      = $document_info['link'];
+								$document->slug      = $document->title;
+								$document            = Document_Class::g()->update( $document );
+
+								// translators: 1. <link_to_path> 2. <mime_type> 3. <i>.
+								\eoxia\LOG_Util::log( sprintf( __( 'Updated GUID %1$s, mime_type %2$s and slug = %3$s for the document %3$d', 'frais-pro' ), $document->link, $document->mime_type, $document->slug, $document->id ), 'frais-pro' );
+							}
+						}
+					}
+				}
+			}
+		}
+
+		\eoxia\LOG_Util::log( __( 'End update 1400 update_attachment_guid_mime_type.', 'frais-pro' ), 'frais-pro' );
+
+		wp_send_json_success( array(
+			'done' => true,
 		) );
 	}
 
@@ -349,7 +408,6 @@ class Update_140 {
 		\eoxia\LOG_Util::log( sprintf( __( 'Founded term %1$s', 'frais-pro' ), wp_json_encode( $new_line_type ) ), 'frais-pro' );
 		return $new_line_type;
 	}
-
 }
 
 new Update_140();
