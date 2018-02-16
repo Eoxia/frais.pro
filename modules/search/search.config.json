@@ -6,7 +6,6 @@
 	"path": "modules/search/",
 	"dependencies": {
 		"class": {},
-		"action": {},
-		"filter": {}
+		"action": {}
 	}
 }
