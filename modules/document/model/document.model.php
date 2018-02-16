@@ -13,9 +13,9 @@ class document_model extends \eoxia\Post_Model {
 	 */
 	public function __construct( $data = null, $req_method = null ) {
 		$this->schema['mime_type'] = array(
-			'type'      => 'string',
-			'meta_type' => 'single',
-			'field'     => 'post_mime_type',
+			'type'    => 'string',
+			'field'   => 'post_mime_type',
+			'context' => array( 'GET' ),
 		);
 
 		$this->schema['_wp_attached_file'] = array(
