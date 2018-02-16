@@ -254,14 +254,9 @@ class Document_Class extends \eoxia\Post_Class {
 						$csv_file_content = str_replace( '{LignesDeFrais}', $file_lines, $csv_file_content );
 					}
 				}
-<<<<<<< HEAD
 
 				// Vérification de l'existence du dossier de destination.
 				if( ! is_dir( dirname( $this->get_digirisk_dir_path() . '/' . $path ) ) ) {
-=======
-				// Vérification de l'existence du dossier de destination / Check if final directory exists.
-				if( !is_dir( dirname( $this->get_digirisk_dir_path() . '/' . $path ) ) ) {
->>>>>>> 4b8bc6722ad5eb8257d78aca2d3087a2e17e9524
 					wp_mkdir_p( dirname( $this->get_digirisk_dir_path() . '/' . $path ) );
 				}
 
