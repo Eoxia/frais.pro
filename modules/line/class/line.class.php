@@ -1,6 +1,6 @@
 <?php
 /**
- * Classe gérant les NDF
+ * Classe gérant les lignes des notes de frais
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
@@ -90,7 +90,7 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $post_type_name = 'Note';
+	protected $post_type_name = 'Line';
 
 	/**
 	 * Display a line.
@@ -105,9 +105,10 @@ class Line_Class extends \eoxia\Post_Class {
 	 */
 	public function display( $line, $args = array() ) {
 		$template_args = wp_parse_args( $args, array(
-			'line'         => $line,
-			'line_type_id' => ( null !== $line && ! empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ][0] ) && ! empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id ) ? $line->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id : 0 ),
-			'mode'         => ( ( ! empty( $args ) && ! empty( $args['note_is_closed'] ) && $args['note_is_closed'] ) ? 'view' : 'edit' ),
+			'line'           => $line,
+			'line_type_id'   => ( null !== $line && ! empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ][0] ) && ! empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id ) ? $line->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id : 0 ),
+			'mode'           => ( ( ! empty( $args ) && ! empty( $args['note_is_closed'] ) && $args['note_is_closed'] ) ? 'view' : 'edit' ),
+			'note_is_closed' => ( ! empty( $args ) && isset( $args['note_is_closed'] ) ? (bool) $args['note_is_closed'] : false ), // Voir Alex si c'est de la merde.
 		) );
 
 		\eoxia\View_Util::exec( 'frais-pro', 'line', 'item', $template_args );

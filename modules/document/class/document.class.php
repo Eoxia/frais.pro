@@ -193,7 +193,7 @@ class Document_Class extends \eoxia\Post_Class {
 					$template_path = str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf.odt' );
 				}
 				$document_creation = $this->generate_document( $template_path, $document_meta, $path );
-			break;
+				break;
 
 			case 'csv':
 				$response['filename'] = sanitize_title( str_replace( ' ', '_', $main_title_part ) ) . '.csv';
@@ -215,7 +215,7 @@ class Document_Class extends \eoxia\Post_Class {
 						$csv_file_content = str_replace( '{LignesDeFrais}', $file_lines, $csv_file_content );
 					}
 				}
-				/**	Vérification de l'existence du dossier de destination / Check if final directory exists	*/
+				// Vérification de l'existence du dossier de destination / Check if final directory exists.
 				if( !is_dir( dirname( $this->get_digirisk_dir_path() . '/' . $path ) ) ) {
 					wp_mkdir_p( dirname( $this->get_digirisk_dir_path() . '/' . $path ) );
 				}
@@ -223,7 +223,7 @@ class Document_Class extends \eoxia\Post_Class {
 				$csv_file_handler = fopen( $this->get_digirisk_dir_path() . '/' . $path, 'w' );
 				fwrite( $csv_file_handler, $csv_file_content );
 				fclose( $csv_file_handler );
-			break;
+				break;
 		}
 
 		$response['id'] = wp_insert_attachment( $document_args, $this->get_digirisk_dir_path() . '/' . $path, $element->id );
@@ -291,6 +291,7 @@ class Document_Class extends \eoxia\Post_Class {
 
 	/**
 	 * Vérification de l'existence d'un fichier à partir de la définition d'un document.
+	 *
 	 * 1- On remplace l'url du site "site_url( '/' )" par le chemin "ABSPATH" contenant les fichiers du site: on vérifie si le fichier existe.
 	 * 2- Si le fichier n'existe pas:
 	 *  2.a- On récupère la meta associée automatiqumeent par WordPress.

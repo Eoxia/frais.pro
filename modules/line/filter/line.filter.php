@@ -46,13 +46,14 @@ class Line_Filter {
 		$contains_unaffected = get_post_meta( $line->parent_id, 'fp_contains_unaffected', true );
 
 		if ( $contains_unaffected ) {
+			ob_start();
 			\eoxia\View_Util::exec( 'frais-pro', 'line', 'filter/checkbox', array(
 				'line' => $line,
 			) );
 			$content = ob_get_clean();
 		}
 
-		echo $content; // WPCS: XSS ok.
+		return $content;
 	}
 
 	/**
@@ -71,13 +72,14 @@ class Line_Filter {
 		$contains_unaffected = get_post_meta( $line->parent_id, 'fp_contains_unaffected', true );
 
 		if ( ! $contains_unaffected ) {
+			ob_start();
 			\eoxia\View_Util::exec( 'frais-pro', 'line', 'filter/dissociation', array(
 				'line' => $line,
 			) );
 			$content = ob_get_clean();
 		}
 
-		echo $content; // WPCS: XSS ok.
+		return $content;
 	}
 
 }
