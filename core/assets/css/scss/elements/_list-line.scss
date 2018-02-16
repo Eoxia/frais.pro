@@ -74,6 +74,10 @@
 		// 	padding-left: 2em;
 		// }
 	}
+	// Field date invisible
+	.group-date .mysql-date {
+		width: 0;
+	}
 	// Type de note
 	.type {
 		.wpeo-dropdown, .wpeo-button {
