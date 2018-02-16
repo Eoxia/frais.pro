@@ -87,7 +87,7 @@ window.eoxiaJS.fraisPro.updateManager.requestUpdate = function( args ) {
 				jQuery( '.log' ).append( '<li>Erreur: veuillez consulter les logs de la version: ' + versionToUpdate + '</li>' );
 				jQuery.post( ajaxurl, { action: 'tm_redirect_to_dashboard', key: key, error_version: versionToUpdate, error_status: error.status, error_text: error.responseText }, function( response ) {
 					window.removeEventListener( 'beforeunload', window.eoxiaJS.fraisPro.updateManager.safeExit );
-					// window.location = response.data.url;
+					window.location = response.data.url;
 				});
 			} );
 		}
