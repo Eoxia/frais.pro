@@ -323,18 +323,15 @@ class Document_Class extends \eoxia\Post_Class {
 		if ( is_file( $file_path ) ) {
 			$file_check['mime_type'] = wp_check_filetype( $file_check['path'] );
 			$file_check['exists']    = true;
-			return $file_check;
 		}
 
 		// La vérification principale n'a pas fonctionnée. cf 2 ci-dessus.
-		if ( ! empty( $document['_wp_attached_file'] ) ) {
-			$file_to_check      = $upload_dir['basedir'] . '/' . $document['_wp_attached_file'];
+		if ( ! $file_check['exists'] && ! empty( $document['_wp_attached_file'] ) ) {
+			$file_check['path'] = $upload_dir['basedir'] . '/' . $document['_wp_attached_file'];
 			$file_check['link'] = $upload_dir['baseurl'] . '/' . $document['_wp_attached_file'];
-			$file_check['path'] = $file_to_check;
-			if ( is_file( $file_to_check ) ) {
+			if ( is_file( $file_check['path'] ) ) {
 				$file_check['mime_type'] = wp_check_filetype( $file_check['path'] );
 				$file_check['exists']    = true;
-				return $file_check;
 			}
 		}
 
