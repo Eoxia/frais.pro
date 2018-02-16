@@ -16,8 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div class="bloc-search wpeo-form form-light wpeo-grid grid-5">
-	<input type="hidden" name="action" value="fp_search_notes" />
-	<?php wp_nonce_field( 'fp_search_notes' ); ?>
 
 	<!-- Start date -->
 	<div>
@@ -53,29 +51,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="form-field-container">
 				<div class="wpeo-autocomplete autocomplete-light" data-action="fp_search_users" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_search_users' ) ); ?>">
 					<input type="hidden" name="selected_user_id" value="" />
-					<label class="autocomplete-label" for="mon-autocomplete">
+					<label class="autocomplete-label" for="autocomplete-search-users">
 						<i class="autocomplete-icon-before far fa-search"></i>
-						<input id="mon-autocomplete" placeholder="Utilisateur" class="autocomplete-search-input" type="text" />
+						<input id="autocomplete-search-users" placeholder="Utilisateur" class="autocomplete-search-input" type="text" />
 						<span class="autocomplete-icon-after"><i class="far fa-times"></i></span>
 					</label>
-					<ul class="autocomplete-search-list">
-						<li class="autocomplete-result">
-							<div class="autocomplete-result-container">
-								<span class="autocomplete-result-title">Résultat 1</span>
-							</div>
-						</li>
-						<li class="autocomplete-result">
-							<div class="autocomplete-result-container">
-								<span class="autocomplete-result-title">Résultat 1</span>
-							</div>
-						</li>
-					</ul>
+					<ul class="autocomplete-search-list"></ul>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- Search icon -->
 	<div>
-		<div class="action-input wpeo-button button-blue button-square-40" data-parent="bloc-search"><i class="button-icon far fa-search"></i></div>
+		<div data-action="fp_search_notes" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_search_notes' ) ); ?>" class="action-input wpeo-button button-blue button-square-40" data-parent="bloc-search"><i class="button-icon far fa-search"></i></div>
 	</div>
 </div>

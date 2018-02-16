@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 <div class="table-row line" data-id="<?php echo esc_attr( $line->id ); ?>" >
-	<?php apply_filters( 'fp_filter_line_item_before', '', $line ); ?>
+	<?php echo apply_filters( 'fp_filter_line_item_before', '', $line );  // WPCS: XSS ok. ?>
 
 	<div class="table-cell line-image">
 		<?php do_shortcode( '[wpeo_upload id="' . $line->id . '" model_name="/frais_pro/Line_Class" single="true" size="full" custom_class="media-grid" mode="' . $mode . '"]' ); ?>
@@ -83,7 +83,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="wpeo-dropdown dropdown-right">
 				<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-eventwpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>"><i class="button-icon far fa-ellipsis-v"></i></button>
 				<ul class="dropdown-content">
-					<?php apply_filters( 'fp_filter_line_item_action_before', '', $line ); ?>
+					<?php echo apply_filters( 'fp_filter_line_item_action_before', '', $line ); // WPCS: XSS ok. ?>
 					<li class="dropdown-item action-delete"
 						data-message-delete="<?php esc_html_e( 'Are you sure you want to delete this line', 'frais-pro' ); ?>"
 						data-id="<?php echo esc_attr( $line->id ); ?>"

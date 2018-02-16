@@ -60,7 +60,7 @@ class Document_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array();
+	protected $after_get_function = array( '\frais_pro\build_document_datas' );
 
 	/**
 	 * Slug de base pour la route dans l'api rest
@@ -254,9 +254,14 @@ class Document_Class extends \eoxia\Post_Class {
 						$csv_file_content = str_replace( '{LignesDeFrais}', $file_lines, $csv_file_content );
 					}
 				}
+<<<<<<< HEAD
 
 				// Vérification de l'existence du dossier de destination.
 				if( ! is_dir( dirname( $this->get_digirisk_dir_path() . '/' . $path ) ) ) {
+=======
+				// Vérification de l'existence du dossier de destination / Check if final directory exists.
+				if( !is_dir( dirname( $this->get_digirisk_dir_path() . '/' . $path ) ) ) {
+>>>>>>> 4b8bc6722ad5eb8257d78aca2d3087a2e17e9524
 					wp_mkdir_p( dirname( $this->get_digirisk_dir_path() . '/' . $path ) );
 				}
 
@@ -331,6 +336,7 @@ class Document_Class extends \eoxia\Post_Class {
 
 	/**
 	 * Vérification de l'existence d'un fichier à partir de la définition d'un document.
+	 *
 	 * 1- On remplace l'url du site "site_url( '/' )" par le chemin "ABSPATH" contenant les fichiers du site: on vérifie si le fichier existe.
 	 * 2- Si le fichier n'existe pas:
 	 *  2.a- On récupère la meta associée automatiqumeent par WordPress.
@@ -341,34 +347,32 @@ class Document_Class extends \eoxia\Post_Class {
 	 * @return array                   Tableau avec le statuts d'existence du fichier (True/False) et le lien de téléchargement du fichier.
 	 */
 	public function check_file( $document ) {
+		// Définition des valeurs par défaut.
 		$file_check = array(
 			'exists'    => false,
-			'path'      => '',
+			'path'      => str_replace( site_url( '/' ), ABSPATH, $document['link'] ),
 			'mime_type' => '',
-			'link'      => '',
+			'link'      => $document['link'],
 		);
 		$upload_dir = wp_upload_dir();
 
 		// Vérification principale. cf 1 ci-dessus.
-		$file_path          = str_replace( site_url( '/' ), ABSPATH, $document['link'] );
-		$file_check['link'] = $document['link'];
-		$file_check['path'] = $file_path;
-		if ( is_file( $file_path ) ) {
-			$file_check['mime_type'] = wp_check_filetype( $file_check['path'] );
-			$file_check['exists']    = true;
-			return $file_check;
+		if ( is_file( $file_check['path'] ) ) {
+			$file_check['exists'] = true;
 		}
 
 		// La vérification principale n'a pas fonctionnée. cf 2 ci-dessus.
-		if ( ! empty( $document['_wp_attached_file'] ) ) {
-			$file_to_check      = $upload_dir['basedir'] . '/' . $document['_wp_attached_file'];
+		if ( ! $file_check['exists'] && ! empty( $document['_wp_attached_file'] ) ) {
+			$file_check['path'] = $upload_dir['basedir'] . '/' . $document['_wp_attached_file'];
 			$file_check['link'] = $upload_dir['baseurl'] . '/' . $document['_wp_attached_file'];
-			$file_check['path'] = $file_to_check;
-			if ( is_file( $file_to_check ) ) {
-				$file_check['mime_type'] = wp_check_filetype( $file_check['path'] );
-				$file_check['exists']    = true;
-				return $file_check;
+			if ( is_file( $file_check['path'] ) ) {
+				$file_check['exists'] = true;
 			}
+		}
+
+		// Si le fichier existe on récupère le type mime.
+		if ( $file_check['exists'] ) {
+			$file_check['mime_type'] = wp_check_filetype( $file_check['path'] );
 		}
 
 		return $file_check;

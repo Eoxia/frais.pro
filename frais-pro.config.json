@@ -23,7 +23,8 @@
 		"modules/note-status/note-status.config.json",
 		"modules/line/line.config.json",
 		"modules/line-type/line-type.config.json",
-		"modules/update_manager/update_manager.config.json"
+		"modules/update_manager/update_manager.config.json",
+		"modules/search/search.config.json"
 	],
 	"debug": false,
 	"chevaux": [

@@ -37,7 +37,7 @@ class Search_Class extends \eoxia\Singleton_Util {
 	 * @return void
 	 */
 	public function display() {
-		\eoxia\View_Util::exec( 'frais-pro', 'note', 'search/main' );
+		\eoxia\View_Util::exec( 'frais-pro', 'search', 'main' );
 	}
 
 }

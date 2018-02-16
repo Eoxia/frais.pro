@@ -319,6 +319,9 @@ class Update_140 {
 						foreach ( $documents as $document ) {
 							$document_info = Document_Class::g()->check_file( $document );
 
+							// Suppression de l'ancienne meta contenant le type mime du fichier.
+							delete_post_meta( $document->id, 'mime_type' );
+
 							// Appliques le bon GUID et le bon mime type si le fichier existe.
 							if ( $document_info['exists'] ) {
 								$document->mime_type = $document_info['mime_type']['type'];

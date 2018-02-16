@@ -83,6 +83,19 @@ class Search_Action {
 
 		$args = array();
 
+		$args['meta_query'] = array(
+			'relation' => 'OR',
+			array(
+				'key'     => 'fp_contains_unaffected',
+				'value'   => true,
+				'compare' => '!=',
+			),
+			array(
+				'key'     => 'fp_contains_unaffected',
+				'compare' => 'NOT EXISTS',
+			),
+		);
+
 		$args['date_query'] = array(
 			array(
 				'inclusive' => true,
@@ -120,6 +133,7 @@ class Search_Action {
 			'view'             => ob_get_clean(),
 		) );
 	}
+
 }
 
 new Search_Action();
