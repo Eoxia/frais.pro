@@ -124,6 +124,9 @@
   background: rgba(0, 0, 0, 0.05);
   cursor: pointer; }
 
+.wrap-frais-pro .list-note.main .note .note-status .status-label .fa-archive {
+  margin: 0 10px; }
+
 .wrap-frais-pro .list-note.main td {
   white-space: nowrap; }
 
