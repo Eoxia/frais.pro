@@ -1,13 +1,65 @@
-<?php namespace frais_pro;
+<?php
+/**
+ * Gestion des documents ODT et CSV.
+ *
+ * @author Eoxia <dev@eoxia.com>
+ * @since 1.0.0
+ * @version 1.4.0
+ * @copyright 2017 Eoxia
+ * @package Frais.pro
+ */
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+namespace frais_pro;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Gestion des documents ODT et CSV.
+ */
 class Document_Class extends \eoxia\Post_Class {
-	protected $model_name   				= '\frais_pro\document_model';
-	protected $post_type    				= 'attachment';
-	public $attached_taxonomy_type  = 'attachment_category';
-	protected $meta_key    					= '_wpdigi_document';
+
+	/**
+	 * Le nom du modèle
+	 *
+	 * @var string
+	 */
+	protected $model_name = '\frais_pro\document_model';
+
+	/**
+	 * Le post type
+	 *
+	 * @var string
+	 */
+	protected $post_type = 'attachment';
+
+	/**
+	 * Nom de la taxonomy
+	 *
+	 * @var string
+	 */
+	public $attached_taxonomy_type = 'attachment_category';
+
+	/**
+	 * La clé principale du modèle
+	 *
+	 * @var string
+	 */
+	protected $meta_key = '_wpdigi_document';
+
+	/**
+	 * Fonction de callback avant de modifier les données en mode PUT.
+	 *
+	 * @var array
+	 */
 	protected $before_put_function = array();
+
+	/**
+	 * Fonction de callback après la modification des données.
+	 *
+	 * @var array
+	 */
 	protected $after_get_function = array();
 
 	/**
@@ -15,28 +67,15 @@ class Document_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $base  = 'note-papier';
-
-
-	public $mime_type_link = array(
-		'application/vnd.oasis.opendocument.text' => '.odt',
-		'application/zip' => '.zip',
-	);
+	protected $base = 'note-papier';
 
 	/**
-	 * Instanciation de la gestion des document imprimés / Instanciate printes document
+	 * Récupères le chemin vers le dossier digirisk dans wp-content/uploads
+	 *
+	 * @param string $path_type (Optional) Le type de path
+	 *
+	 * @return string Le chemin vers le document
 	 */
- 	public function construct() {
- 		parent::construct();
- 	}
-
-	/**
-	* Récupères le chemin vers le dossier digirisk dans wp-content/uploads
-	*
-	* @param string $path_type (Optional) Le type de path
-	*
-	* @return string Le chemin vers le document
-	*/
 	public function get_digirisk_dir_path( $path_type = 'basedir' ) {
 		$upload_dir = wp_upload_dir();
 		return str_replace( '\\', '/', $upload_dir[ $path_type ] ) . '/ndf';
@@ -104,14 +143,14 @@ class Document_Class extends \eoxia\Post_Class {
 	}
 
 	/**
-	* Ecris dans le document ODT
-	*
-	* @param string $data_key La clé dans le ODT.
-	* @param string $data_value La valeur de la clé.
-	* @param object $current_odf Le document courant
-	*
-	* @return object Le document courant
-	*/
+	 * Ecris dans le document ODT
+	 *
+	 * @param string $data_key La clé dans le ODT.
+	 * @param string $data_value La valeur de la clé.
+	 * @param object $current_odf Le document courant
+	 *
+	 * @return object Le document courant
+	 */
 	public function set_document_meta( $data_key, $data_value, $current_odf ) {
 		// if ( !is_string( $data_key ) || !is_string( $data_value ) || !is_object( $current_odf ) ) {
 		// 	return false;
@@ -175,10 +214,10 @@ class Document_Class extends \eoxia\Post_Class {
 		/**	Enregistrement de la fiche dans la base de donnée. */
 		$document_args = array(
 			'post_content' => '',
-			'post_status' => 'inherit',
-			'post_author' => get_current_user_id(),
-			'post_date' => current_time( 'mysql' ),
-			'post_title' => basename( 'test', '.odt' ),
+			'post_status'  => 'inherit',
+			'post_author'  => get_current_user_id(),
+			'post_date'    => current_time( 'mysql' ),
+			'post_title'   => basename( 'test', '.odt' ),
 		);
 
 		/**	On créé le document / Create the document	*/
@@ -187,17 +226,17 @@ class Document_Class extends \eoxia\Post_Class {
 		switch ( $document_type ) {
 			case 'odt':
 				$response['filename'] = sanitize_title( str_replace( ' ', '_', $main_title_part ) ) . '.odt';
-				$path = 'document/' . $element->id . '/' . $response['filename'];
-				$template_path = str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf-photo.odt' );
+				$path                 = 'document/' . $element->id . '/' . $response['filename'];
+				$template_path        = str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf-photo.odt' );
 				if ( ! $with_picture ) {
 					$template_path = str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf.odt' );
 				}
 				$document_creation = $this->generate_document( $template_path, $document_meta, $path );
-			break;
+				break;
 
 			case 'csv':
 				$response['filename'] = sanitize_title( str_replace( ' ', '_', $main_title_part ) ) . '.csv';
-				$path = 'document/' . $element->id . '/' . $response['filename'];
+				$path                 = 'document/' . $element->id . '/' . $response['filename'];
 				ob_start();
 				require( PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/ndf.csv' );
 				$csv_file_content = ob_get_clean();
@@ -215,15 +254,16 @@ class Document_Class extends \eoxia\Post_Class {
 						$csv_file_content = str_replace( '{LignesDeFrais}', $file_lines, $csv_file_content );
 					}
 				}
-				/**	Vérification de l'existence du dossier de destination / Check if final directory exists	*/
-				if( !is_dir( dirname( $this->get_digirisk_dir_path() . '/' . $path ) ) ) {
+
+				// Vérification de l'existence du dossier de destination.
+				if( ! is_dir( dirname( $this->get_digirisk_dir_path() . '/' . $path ) ) ) {
 					wp_mkdir_p( dirname( $this->get_digirisk_dir_path() . '/' . $path ) );
 				}
 
 				$csv_file_handler = fopen( $this->get_digirisk_dir_path() . '/' . $path, 'w' );
 				fwrite( $csv_file_handler, $csv_file_content );
 				fclose( $csv_file_handler );
-			break;
+				break;
 		}
 
 		$response['id'] = wp_insert_attachment( $document_args, $this->get_digirisk_dir_path() . '/' . $path, $element->id );
@@ -233,14 +273,14 @@ class Document_Class extends \eoxia\Post_Class {
 
 		/**	On met à jour les informations concernant le document dans la base de données / Update data for document into database	*/
 		$document_args = array(
-			'id' => $response['id'],
-			'title' => basename( $response['filename'], '.odt' ),
-			'parent_id' => $element->id,
-			'author_id' => get_current_user_id(),
-			'date' => current_time( 'mysql' ),
-			'mime_type' => ! empty( $filetype['type'] ) ? $filetype['type'] : $filetype,
+			'id'            => $response['id'],
+			'title'         => basename( $response['filename'], '.odt' ),
+			'parent_id'     => $element->id,
+			'author_id'     => get_current_user_id(),
+			'date'          => current_time( 'mysql' ),
+			'mime_type'     => ! empty( $filetype['type'] ) ? $filetype['type'] : $filetype,
 			'document_meta' => $document_meta,
-			'status' => 'inherit',
+			'status'        => 'inherit',
 		);
 
 		self::g()->update( $document_args );
