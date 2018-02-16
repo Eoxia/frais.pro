@@ -118,9 +118,10 @@ class Note_Class extends \eoxia\Post_Class {
 
 		$note_list = $this->get( $args_note_list );
 
-		if ( ! $args['display_only_has_note'] || ( $args['display_only_has_note'] && ! empty( $note_list ) ) ) {
+		if ( ! isset( $args['display_only_has_note'] ) || ! $args['display_only_has_note'] || ( $args['display_only_has_note'] && ! empty( $note_list ) ) ) {
 			\eoxia\View_Util::g()->exec( 'frais-pro', 'note', 'list', array(
-				'note_list' => $note_list,
+				'note_list'    => $note_list,
+				'custom_class' => ( ! empty( $args ) && ! empty( $args['custom_css'] ) && is_array( $args['custom_css'] ) ? implode( ' ', $args['custom_css'] ) : '' ),
 			) );
 		}
 	}

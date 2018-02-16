@@ -8,7 +8,13 @@ class Document_Class extends \eoxia\Post_Class {
 	public $attached_taxonomy_type  = 'attachment_category';
 	protected $meta_key    					= '_wpdigi_document';
 	protected $before_put_function = array();
-	protected $after_get_function = array();
+
+	/**
+	 * La fonction appelée automatiquement après la récupération de l'élément dans la base de données.
+	 *
+	 * @var array
+	 */
+	protected $after_get_function = array( '\frais_pro\build_document_datas' );
 
 	/**
 	 * Slug de base pour la route dans l'api rest

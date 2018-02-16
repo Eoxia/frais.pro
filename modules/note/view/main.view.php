@@ -13,9 +13,8 @@ namespace frais_pro;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?>
+}
 
-<?php
 Search_Class::g()->display();
 
 Note_Class::g()->display_list( array(

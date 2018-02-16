@@ -1,0 +1,12 @@
+{
+	"name": "Recherche",
+	"slug": "search",
+	"version": "1.4.0",
+	"description": "Le module gérant la recherche de notes",
+	"path": "modules/search/",
+	"dependencies": {
+		"class": {},
+		"action": {},
+		"filter": {}
+	}
+}

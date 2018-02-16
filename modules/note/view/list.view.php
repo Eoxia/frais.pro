@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<table class="wpeo-table list-note main">
+<table class="wpeo-table list-note main <?php echo esc_attr( $custom_class ); ?>">
 	<tbody>
 	<?php
 	if ( ! empty( $note_list ) ) :

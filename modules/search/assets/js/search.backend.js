@@ -44,7 +44,7 @@ window.eoxiaJS.fraisPro.search.event = function() {
 window.eoxiaJS.fraisPro.search.select = function( event ) {
 	var parent = jQuery( this ).closest( '.wpeo-autocomplete' );
 
-	parent.find( 'input[type="hidden"]' ).val(jQuery( this ).data( 'id' ) );
+	parent.find( 'input[type="hidden"]' ).val( jQuery( this ).data( 'id' ) );
 	parent.find( 'input.autocomplete-search-input' ).val( jQuery( this ).data( 'result' ) );
 };
 
@@ -73,5 +73,5 @@ window.eoxiaJS.fraisPro.search.selectNote = function( event ) {
  * @version 1.4.0
  */
 window.eoxiaJS.fraisPro.search.searchedSuccess = function( triggeredElement, response ) {
-	jQuery( 'table.list-note' ).replaceWith( response.data.view );
+	jQuery( 'table.list-note:not( .list-note-unaffected )' ).replaceWith( response.data.view );
 };
