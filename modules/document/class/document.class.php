@@ -308,21 +308,18 @@ class Document_Class extends \eoxia\Post_Class {
 	 * @return array                   Tableau avec le statuts d'existence du fichier (True/False) et le lien de téléchargement du fichier.
 	 */
 	public function check_file( $document ) {
+		// Définition des valeurs par défaut.
 		$file_check = array(
 			'exists'    => false,
-			'path'      => '',
+			'path'      => str_replace( site_url( '/' ), ABSPATH, $document['link'] ),
 			'mime_type' => '',
-			'link'      => '',
+			'link'      => $document['link'],
 		);
 		$upload_dir = wp_upload_dir();
 
 		// Vérification principale. cf 1 ci-dessus.
-		$file_path          = str_replace( site_url( '/' ), ABSPATH, $document['link'] );
-		$file_check['link'] = $document['link'];
-		$file_check['path'] = $file_path;
-		if ( is_file( $file_path ) ) {
-			$file_check['mime_type'] = wp_check_filetype( $file_check['path'] );
-			$file_check['exists']    = true;
+		if ( is_file( $file_check['path'] ) ) {
+			$file_check['exists'] = true;
 		}
 
 		// La vérification principale n'a pas fonctionnée. cf 2 ci-dessus.
@@ -330,9 +327,13 @@ class Document_Class extends \eoxia\Post_Class {
 			$file_check['path'] = $upload_dir['basedir'] . '/' . $document['_wp_attached_file'];
 			$file_check['link'] = $upload_dir['baseurl'] . '/' . $document['_wp_attached_file'];
 			if ( is_file( $file_check['path'] ) ) {
-				$file_check['mime_type'] = wp_check_filetype( $file_check['path'] );
-				$file_check['exists']    = true;
+				$file_check['exists'] = true;
 			}
+		}
+
+		// Si le fichier existe on récupère le type mime.
+		if ( $file_check['exists'] ) {
+			$file_check['mime_type'] = wp_check_filetype( $file_check['path'] );
 		}
 
 		return $file_check;
