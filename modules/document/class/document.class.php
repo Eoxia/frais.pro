@@ -302,28 +302,32 @@ class Document_Class extends \eoxia\Post_Class {
 	 */
 	public function check_file( $document ) {
 		$file_check = array(
-			'exists' => false,
-			'link'   => '',
+			'exists'    => false,
+			'path'      => '',
+			'mime_type' => '',
+			'link'      => '',
 		);
 		$upload_dir = wp_upload_dir();
 
 		// Vérification principale. cf 1 ci-dessus.
-		$file_path = str_replace( site_url( '/' ), ABSPATH, $document->link );
+		$file_path          = str_replace( site_url( '/' ), ABSPATH, $document['link'] );
+		$file_check['link'] = $document['link'];
+		$file_check['path'] = $file_path;
 		if ( is_file( $file_path ) ) {
-			return array(
-				'exists' => true,
-				'link'   => $document->link,
-			);
+			$file_check['mime_type'] = wp_check_filetype( $file_check['path'] );
+			$file_check['exists']    = true;
+			return $file_check;
 		}
 
 		// La vérification principale n'a pas fonctionnée. cf 2 ci-dessus.
-		if ( ! empty( $document->_wp_attached_file ) ) {
-			$file_to_check = $upload_dir['basedir'] . '/' . $document->_wp_attached_file;
+		if ( ! empty( $document['_wp_attached_file'] ) ) {
+			$file_to_check      = $upload_dir['basedir'] . '/' . $document['_wp_attached_file'];
+			$file_check['link'] = $upload_dir['baseurl'] . '/' . $document['_wp_attached_file'];
+			$file_check['path'] = $file_to_check;
 			if ( is_file( $file_to_check ) ) {
-				return array(
-					'exists' => true,
-					'link'   => $upload_dir['baseurl'] . '/' . $document->_wp_attached_file,
-				);
+				$file_check['mime_type'] = wp_check_filetype( $file_check['path'] );
+				$file_check['exists']    = true;
+				return $file_check;
 			}
 		}
 
