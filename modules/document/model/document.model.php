@@ -1,15 +1,33 @@
-<?php namespace frais_pro;
+<?php
+/**
+ * Définition du modèle des documents de note de frais.
+ *
+ * @author Eoxia <dev@eoxia.com>
+ * @since 1.0.0
+ * @version 1.4.0
+ * @copyright 2017-2018 Eoxia
+ * @package Frais.pro
+ */
 
-if ( !defined( 'ABSPATH' ) ) exit;
+namespace frais_pro;
 
-class document_model extends \eoxia\Post_Model {
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Définition du modèle des documents de note de frais.
+ */
+class Document_Model extends \eoxia\Post_Model {
 
 	/**
-	 * Construit le modèle / Fill the model
+	 * Le constructeur définis le schéma.
 	 *
-	 * @param array|WP_Object $object La définition de l'objet dans l'instance actuelle / Object currently present into model instance
-	 * @param string $meta_key Le nom de la metakey utilisée pour le rangement des données associées à l'élément / The main metakey used to store data associated to current object
-	 * @param boolean $cropped Permet de ne récupèrer que les données principales de l'objet demandé / If true, return only main informations about object
+	 * @param object $data       L'objet courant.
+	 * @param string $req_method La méthode HTTP actuelle.
+	 *
+	 * @since 1.0.0
+	 * @version 1.4.0
 	 */
 	public function __construct( $data = null, $req_method = null ) {
 		$this->schema['mime_type'] = array(
@@ -22,6 +40,17 @@ class document_model extends \eoxia\Post_Model {
 			'type'      => 'string',
 			'meta_type' => 'single',
 			'field'     => '_wp_attached_file',
+		);
+
+		$this->schema['model_path'] = array(
+			'type'      => 'string',
+			'meta_type' => 'single',
+			'field'     => 'fp_model_path',
+		);
+
+		$this->schema['document_meta'] = array(
+			'type'      => 'array',
+			'meta_type' => 'multiple',
 		);
 
 		parent::__construct( $data, $req_method );
