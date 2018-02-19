@@ -422,6 +422,13 @@
 .wrap-frais-pro .list-line .line .type .dropdown-toggle.button-disable .button-icon {
   display: none; }
 
+.wrap-frais-pro .list-line .notice-info {
+  background-color: #FFF;
+  margin: 5px 0 15px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #00a0d2;
+  padding: .8em .6em; }
+
 .wrap-frais-pro .list-line .line .input-error input, .wrap-frais-pro .list-line .line .input-error .dropdown-toggle {
   border: 1px solid #e05353; }
 
