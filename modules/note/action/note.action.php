@@ -152,10 +152,13 @@ class Note_Action {
 
 		$response = Note_Class::g()->generate_document( $note_id, $type );
 
+		ob_start();
+		Document_Class::g()->display_item( $response['document'] );
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',
-			'module'           => 'NDF',
+			'module'           => 'note',
 			'filename'         => $response['filename'],
+			'view'             => ob_get_clean(),
 			'callback_success' => 'exportedfraisProSuccess',
 		) );
 	}
