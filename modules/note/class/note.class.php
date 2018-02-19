@@ -249,7 +249,7 @@ class Note_Class extends \eoxia\Post_Class {
 			$sheet_details['utilisateur_prenom_nom'] = $user->login;
 		}
 
-		$sheet_details['status']    = $note->validation_status;
+		$sheet_details['status']    = $note->fp_note_status['name'];
 		$sheet_details['miseajour'] = $note->date_modified['rendered']['date_human_readable'];
 
 		if ( ! empty( $lines ) ) {
@@ -278,15 +278,16 @@ class Note_Class extends \eoxia\Post_Class {
 
 				$categorie_id    = '-';
 				$categorie_label = $line->category_name;
-				if ( ! empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ] ) && ! empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ][0] ) && array_key_exists( $line->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id, $list_type_de_note ) ) {
-					$categorie_id    = $list_type_de_note[ $line->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id ]['id'];
-					$categorie_label = $list_type_de_note[ $line->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id ]['name'];
+
+				if ( ! empty( $line->current_category ) ) {
+					$categorie_id    = $line->current_category->category_id;
+					$categorie_label = $line->current_category->name;
 				}
 
 				$sheet_details['ndf']['value'][] = array(
 					'id_ligne'          => $line->id,
 					'date'              => $line->date['rendered']['date_time'],
-					'libelle'           => $line->title,
+					'libelle'           => ! empty( $line->title ) ? $line->title : '-',
 					'num_categorie'     => $categorie_id,
 					'nom_categorie'     => $categorie_label,
 					'km'                => $line->distance,
