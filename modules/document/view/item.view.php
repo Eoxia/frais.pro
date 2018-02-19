@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php
 				if ( ! empty( $document_checked['mime_type']['ext'] ) ) :
 					echo esc_html( $document_checked['mime_type']['ext'] );
-				else:
+				else :
 					esc_html_e( 'Corrupt file extension', 'frais-pro' );
 				endif;
 				?>
