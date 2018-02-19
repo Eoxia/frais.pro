@@ -53,7 +53,7 @@ class Document_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	public $element_prefix = 'N';
+	public $element_prefix = 'FN';
 
 	/**
 	 * Fonction de callback avant de modifier les données en mode PUT.
@@ -85,7 +85,8 @@ class Document_Class extends \eoxia\Post_Class {
 	 */
 	public function get_dir_path( $path_type = 'basedir' ) {
 		$upload_dir = wp_upload_dir();
-		return str_replace( '\\', '/', $upload_dir[ $path_type ] ) . '/ndf';
+		$response   = str_replace( '\\', '/', $upload_dir[ $path_type ] );
+		return $response;
 	}
 
 	/**
@@ -146,6 +147,48 @@ class Document_Class extends \eoxia\Post_Class {
 	}
 
 	/**
+	 * Récupération de la prochaine version pour un type de document
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param array   $types       Les catégories du document.
+	 * @param integer $element_id  L'ID de l'élément.
+	 *
+	 * @return int                 La version +1 du document actuellement en cours de création.
+	 */
+	public function get_document_type_next_revision( $types, $element_id ) {
+		global $wpdb;
+		// Récupération de la date courante.
+		$today = getdate();
+		// Définition des paramètres de la requête de récupération des documents du type donné pour la date actuelle.
+		$get_model_args = array(
+			'nopaging'    => true,
+			'post_parent' => $element_id,
+			'post_type'   => $this->post_type,
+			'post_status' => array( 'publish', 'inherit' ),
+			'tax_query'   => array(
+				array(
+					'taxonomy' => $this->attached_taxonomy_type,
+					'field'    => 'slug',
+					'terms'    => $types,
+					'operator' => 'AND',
+				),
+			),
+			'date_query'  => array(
+				array(
+					'year'  => $today['year'],
+					'month' => $today['mon'],
+					'day'   => $today['mday'],
+				),
+			),
+		);
+
+		$revision = new \WP_Query( $get_model_args );
+		return ( $revision->post_count + 1 );
+	}
+
+	/**
 	 * Création d'un fichier odt a partir d'un modèle de document donné et d'un modèle de donnée
 	 *
 	 * @since 1.0.0
@@ -172,9 +215,9 @@ class Document_Class extends \eoxia\Post_Class {
 
 		require_once PLUGIN_NOTE_DE_FRAIS_PATH . '/core/external/odtPhpLibrary/odf.php';
 
-		$path          = $this->get_dir_path();
+		$path          = $this->get_dir_path() . '/ndf';
 		$document_path = $path . '/' . $document_name;
-		$document_url  = $this->get_dir_path( 'baseurl' );
+		$document_url  = $this->get_dir_path( 'baseurl' ) . '/ndf';
 		$document_url .= '/' . $document_name;
 
 		$config = array(
@@ -211,9 +254,10 @@ class Document_Class extends \eoxia\Post_Class {
 
 		// Dans le cas ou le fichier a bien été généré, on met a jour les informations dans la base de données.
 		if ( is_file( $document_path ) ) {
-			$response['status'] = true;
-			$response['path']   = $document_path;
-			$response['url']    = $document_url;
+			$response['status']  = true;
+			$response['path']    = $document_path;
+			$response['url']     = $document_url;
+			$response['endpath'] = str_replace( $this->get_dir_path(), '', $response['path'] );
 		}
 
 		return $response;
@@ -278,38 +322,45 @@ class Document_Class extends \eoxia\Post_Class {
 	 * Création du document dans la base de données puis appel de la fonction de génération du fichier
 	 *
 	 * @since 1.0.0
-	 * @version 6.4.0
+	 * @version 1.4.0
 	 *
-	 * @param object $element      L'élément pour lequel il faut créer le document
-	 * @param array $document_type Les catégories auxquelles associer le document généré
-	 * @param array $document_meta Les données a écrire dans le modèle de document
+	 * @param object $element       L'élément pour lequel il faut créer le document
+	 * @param array  $types         Les catégories auxquelles associer le document généré
+	 * @param array  $document_meta Les données a écrire dans le modèle de document
 	 *
 	 * @return object              Le résultat de la création du document
 	 */
-	public function create_document( $element, $document_type, $document_meta ) {
-		$types = $document_type;
-
+	public function create_document( $element, $types, $document_meta ) {
 		$response = array(
 			'status'   => true,
 			'message'  => '',
 			'filename' => '',
 			'path'     => '',
+			'document' => null,
 		);
 
 		// Définition du modèle de document a utiliser pour l'impression.
 		$model_to_use   = null;
-		$model_response = $this->get_model_for_element( wp_parse_args( array( 'model', 'default_model' ), $document_type ) );
-		$model_to_use   = $model_response['model_path'];
+		$model_response = $this->get_model_for_element( wp_parse_args( array( 'model', 'default_model' ), $types ) );
+		$model_path     = $model_response['model_path'];
 
 		// Définition de la révision du document.
-		// $document_revision = $this->get_document_type_next_revision( $this->post_type, $element->id );
+		$revision = $this->get_document_type_next_revision( $types, $element->id );
 
 		// Définition de la partie principale du nom de fichier.
-		$main_title_part = $types[0] . '_' . $element->title;
-		$response['filename'] = mysql2date( 'Ymd', current_time( 'mysql', 0 ) ) . '_';
-		$response['filename'] .= sanitize_title( str_replace( ' ', '_', $main_title_part ) ) . '.odt';
+		$response['filename']  = strtolower( $element->title );
 
-		if ( null === $model_to_use ) {
+		if ( ! empty( $types[0] ) ) {
+			$response['filename'] .= '-' . $types[0];
+		}
+
+		if ( ! empty( $revision ) ) {
+			$response['filename'] .= '-v' . $revision;
+		}
+
+		$response['filename'] .= '.odt';
+
+		if ( null === $model_path ) {
 			$response['status'] = false;
 			$response['message'] = __( 'No model to use for generate odt file', 'frais-pro' );
 			return $response;
@@ -322,7 +373,7 @@ class Document_Class extends \eoxia\Post_Class {
 		}
 
 		// Génères le fichier ODT.
-		$document_creation = $this->generate_document( $model_to_use, $document_meta, $response['path'] );
+		$document_creation = $this->generate_document( $model_path, $document_meta, $response['path'] );
 
 		if ( ! $document_creation['status'] ) {
 			$response['status'] = false;
@@ -343,9 +394,9 @@ class Document_Class extends \eoxia\Post_Class {
 			'post_mime_type' => $filetype['type'],
 		);
 
-		$response['id'] = wp_insert_attachment( $document_args, $this->get_dir_path() . '/' . $response['path'], $element->id );
+		$response['id'] = wp_insert_attachment( $document_args, $document_creation['endpath'], $element->id );
 
-		$attach_data = wp_generate_attachment_metadata( $response['id'], $this->get_dir_path() . '/' . $response['path'] );
+		$attach_data = wp_generate_attachment_metadata( $response['id'], $document_creation['endpath'] );
 		wp_update_attachment_metadata( $response['id'], $attach_data );
 
 		wp_set_object_terms( $response['id'], wp_parse_args( $types, array( 'printed', ) ), $this->attached_taxonomy_type );
@@ -353,12 +404,11 @@ class Document_Class extends \eoxia\Post_Class {
 		//	On met à jour les informations concernant le document dans la base de données.
 		$document_args = array(
 			'id'            => $response['id'],
-			'model_id'      => $model_to_use,
-			// 'document_meta' => $document_meta,
+			'model_path'    => $model_path,
+			'document_meta' => $document_meta,
 		);
 
-		$this->update( $document_args, false );
-
+		$response['document'] = $this->update( $document_args, true );
 		return $response;
 	}
 

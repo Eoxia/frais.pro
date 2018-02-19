@@ -174,6 +174,16 @@ window.eoxiaJS.fraisPro.note.changeNoteStatus = function( event ) {
 	}, 'json' );
 };
 
+/**
+ * Lorsqu'on scroll, attaches le header en position fixe pour suivre la page.
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ *
+ * @param  {ScrollEvent} event Les données du curseur et de la page.
+ *
+ * @return {void}
+ */
 window.eoxiaJS.fraisPro.note.scrollSticky = function( event ) {
 	var offset = -20;
 	if ( jQuery( window ).scrollTop() >= jQuery( '.single-note .header' ).position().top + offset ) {
@@ -183,4 +193,18 @@ window.eoxiaJS.fraisPro.note.scrollSticky = function( event ) {
 	if ( jQuery( '.single-note .header' ).hasClass( 'sticky' ) && jQuery( window ).scrollTop() <= 0 ) {
 		jQuery( '.single-note .header' ).removeClass( 'sticky' );
 	}
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "export_ndf".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ */
+window.eoxiaJS.fraisPro.note.exportedfraisProSuccess = function( triggeredElement, response ) {
+	jQuery( 'table.wpeo-table.list-document' ).prepend( response.data.view );
 };
