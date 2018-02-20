@@ -1,6 +1,6 @@
 <?php
 /**
- * Classe principales gérant les documents ODT et CSV.
+ * Classe principales gérant les documents ODT.
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Classe principales gérant les documents ODT et CSV.
  */
-class Document_Class extends \eoxia\Post_Class {
+class Document_Class extends \eoxia\Attachment_Class {
 
 	/**
 	 * Le nom du modèle
@@ -39,7 +39,7 @@ class Document_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	public $attached_taxonomy_type = 'attachment_category';
+	protected $attached_taxonomy_type = 'attachment_category';
 
 	/**
 	 * La clé principale du modèle
@@ -49,11 +49,18 @@ class Document_Class extends \eoxia\Post_Class {
 	protected $meta_key = 'fp_document';
 
 	/**
-	 * Le préfixe de l'objet.
+	 * Le préfixe de la note
 	 *
 	 * @var string
 	 */
-	public $element_prefix = 'FN';
+	public $element_prefix = 'NP';
+
+	/**
+	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée
+	 *
+	 * @var array
+	 */
+	protected $before_post_function = array( '\frais_pro\construct_identifier' );
 
 	/**
 	 * Fonction de callback avant de modifier les données en mode PUT.
@@ -67,7 +74,7 @@ class Document_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array();
+	protected $after_get_function = array( '\frais_pro\construct_identifier' );
 
 	/**
 	 * Slug de base pour la route dans l'api rest
@@ -77,126 +84,71 @@ class Document_Class extends \eoxia\Post_Class {
 	protected $base = 'note-papier';
 
 	/**
-	 * Récupères le chemin vers le dossier frais-pro dans wp-content/uploads
+	 * Le chemin vers les modèles
 	 *
-	 * @param string $path_type (Optional) Le type de path.
-	 *
-	 * @return string Le chemin vers le document
+	 * @var string
 	 */
-	public function get_dir_path( $path_type = 'basedir' ) {
-		$upload_dir = wp_upload_dir();
-		$response   = str_replace( '\\', '/', $upload_dir[ $path_type ] );
-		return $response;
-	}
+	protected $model_path = PLUGIN_NOTE_DE_FRAIS_PATH;
 
 	/**
-	 * Récupération de la liste des modèles de fichiers disponible pour un type d'élément
+	 * [generate_file description]
 	 *
 	 * @since 1.4.0
 	 * @version 1.4.0
 	 *
-	 * @param array $current_element_type La liste des types pour lesquels il faut récupérer les modèles de documents.
-	 * @return array                      Un statut pour la réponse, un message si une erreur est survenue, le ou les identifiants des modèles si existants.
+	 * @param  [type] $document  [description]
+	 * @param  string $extension [description]
+	 * @return [type]            [description]
 	 */
-	public function get_model_for_element( $current_element_type ) {
+	public function generate_file( $document, $extension = 'odt' ) {
 		$response = array(
-			'status'     => true,
-			'model_id'   => null,
-			'model_path' => str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_PATH . 'core/assets/document_template/' . $current_element_type[0] . '.odt' ),
-			'model_url'  => str_replace( '\\', '/', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/document_template/' . $current_element_type[0] . '.odt' ),
-			// translators: Pour exemple: Le modèle utilisé est: C:\wamp\www\wordpress\wp-content\plugins\digirisk-alpha\core\assets\document_template\document_unique.odt.
-			'message'    => sprintf( __( 'Le modèle utilisé est: %1$score/assets/document_template/%2$s.odt', 'digirisk' ), PLUGIN_NOTE_DE_FRAIS_PATH, $current_element_type[0] ),
+			'status'  => false,
+			'message' => '',
+			'path'    => '',
+			'url'     => '',
 		);
 
-		$tax_query = array(
-			'relation' => 'AND',
-		);
+		$path          = $this->get_dir_path() . '/ndf';
+		$document_path = $path . '/' . $document->title;
+		$document_url  = $this->get_dir_path( 'baseurl' ) . '/ndf';
+		$document_url .= '/' . $document->title;
 
-		if ( ! empty( $current_element_type ) ) {
-			foreach ( $current_element_type as $element ) {
-				$tax_query[] = array(
-					'taxonomy' => $this->attached_taxonomy_type,
-					'field'    => 'slug',
-					'terms'    => $element,
-				);
-			}
+		// Vérification de l'existence du dossier de destination.
+		if ( ! is_dir( dirname( $document_path ) ) ) {
+			wp_mkdir_p( dirname( $document_path ) );
 		}
 
-		$query = new \WP_Query( array(
-			'fields'         => 'ids',
-			'post_status'    => 'inherit',
-			'posts_per_page' => 1,
-			'tax_query'      => $tax_query,
-			'post_type'      => 'attachment',
-		) );
+		if ( 'odt' === $extension ) {
+			$response['status'] = $this->generate_odt( $document, $document_path );
+		} elseif ( 'csv' === $extension ) {
+			$response['status'] = $this->generate_csv( $document, $document_path );
+		}
 
-		if ( $query->have_posts() ) {
-			$upload_dir = wp_upload_dir();
+		// Dans le cas ou le fichier a bien été généré, on met a jour les informations dans la base de données.
+		if ( is_file( $document_path ) ) {
+			$response['status']  = true;
+			$response['path']    = $document_path;
+			$response['url']     = $document_url;
+			$response['endpath'] = str_replace( $this->get_dir_path(), '', $response['path'] );
 
-			$model_id               = $query->posts[0];
-			$attachment_file_path   = str_replace( '\\', '/', get_attached_file( $model_id ) );
-			$response['model_id']   = $model_id;
-			$response['model_path'] = str_replace( '\\', '/', $attachment_file_path );
-			$response['model_url']  = str_replace( str_replace( '\\', '/', $upload_dir['basedir'] ), str_replace( '\\', '/', $upload_dir['baseurl'] ), $attachment_file_path );
+			// On rajoute la métadonnée "_wp_attached_file" de WordPress.
+			$document->_wp_attached_file = $response['endpath'];
 
-			// translators: Pour exemple: Le modèle utilisé est: C:\wamp\www\wordpress\wp-content\plugins\digirisk-alpha\core\assets\document_template\document_unique.odt.
-			$response['message'] = sprintf( __( 'Le modèle utilisé est: %1$s', 'frais-pro' ), $attachment_file_path );
+			$file_mime_type = wp_check_filetype( $document_path );
+			$document->mime_type = $file_mime_type['type'];
+			$this->update( $document, true );
 		}
 
 		return $response;
-	}
-
-	/**
-	 * Récupération de la prochaine version pour un type de document
-	 *
-	 * @since 1.4.0
-	 * @version 1.4.0
-	 *
-	 * @param array   $types       Les catégories du document.
-	 * @param integer $element_id  L'ID de l'élément.
-	 *
-	 * @return int                 La version +1 du document actuellement en cours de création.
-	 */
-	public function get_document_type_next_revision( $types, $element_id ) {
-		global $wpdb;
-		// Récupération de la date courante.
-		$today = getdate();
-		// Définition des paramètres de la requête de récupération des documents du type donné pour la date actuelle.
-		$get_model_args = array(
-			'nopaging'    => true,
-			'post_parent' => $element_id,
-			'post_type'   => $this->post_type,
-			'post_status' => array( 'publish', 'inherit' ),
-			'tax_query'   => array(
-				array(
-					'taxonomy' => $this->attached_taxonomy_type,
-					'field'    => 'slug',
-					'terms'    => $types,
-					'operator' => 'AND',
-				),
-			),
-			'date_query'  => array(
-				array(
-					'year'  => $today['year'],
-					'month' => $today['mon'],
-					'day'   => $today['mday'],
-				),
-			),
-		);
-
-		$revision = new \WP_Query( $get_model_args );
-		return ( $revision->post_count + 1 );
 	}
 
 	/**
 	 * Création d'un fichier odt a partir d'un modèle de document donné et d'un modèle de donnée
 	 *
 	 * @since 1.0.0
-	 * @version 6.4.0
+	 * @version 1.4.0
 	 *
-	 * @param string $model_path       Le chemin vers le fichier modèle a utiliser pour la génération.
-	 * @param array  $document_content Un tableau contenant le contenu du fichier à écrire selon l'élément en cours d'impression.
-	 * @param string $document_name    Le nom du document.
+	 * @param Document_Model $document Les données de l'ODT.
 	 *
 	 * array['status']   boolean True si tout s'est bien passé sinon false.
 	 * array['message']  string  Le message informatif de la méthode.
@@ -205,37 +157,25 @@ class Document_Class extends \eoxia\Post_Class {
 	 *
 	 * @return array                   (Voir au dessus).
 	 */
-	public function generate_document( $model_path, $document_content, $document_name ) {
-		$response = array(
-			'status'  => false,
-			'message' => '',
-			'path'    => '',
-			'url'     => '',
-		);
-
-		require_once PLUGIN_NOTE_DE_FRAIS_PATH . '/core/external/odtPhpLibrary/odf.php';
-
-		$path          = $this->get_dir_path() . '/ndf';
-		$document_path = $path . '/' . $document_name;
-		$document_url  = $this->get_dir_path( 'baseurl' ) . '/ndf';
-		$document_url .= '/' . $document_name;
+	public function generate_odt( $document, $document_path ) {
+		@ini_set( 'memory_limit', '256M' );
 
 		$config = array(
-			'PATH_TO_TMP' => $path . '/tmp',
+			'PATH_TO_TMP' => $this->get_dir_path() . '/ndf/tmp',
 		);
 
 		if ( ! is_dir( $config['PATH_TO_TMP'] ) ) {
 			wp_mkdir_p( $config['PATH_TO_TMP'] );
 		}
 
-		// On créé l'instance pour la génération du document odt.
-		@ini_set( 'memory_limit', '256M' );
-		$odf_php_lib = new \NdfOdf( $model_path, $config );
+		require_once PLUGIN_NOTE_DE_FRAIS_PATH . '/core/external/odtPhpLibrary/odf.php';
+
+		$odf_php_lib = new \NdfOdf( $document->model_path, $config );
 
 		// Vérification de l'existence d'un contenu a écrire dans le document.
-		if ( ! empty( $document_content ) ) {
+		if ( ! empty( $document->document_meta ) ) {
 			// Lecture du contenu à écrire dans le document.
-			foreach ( $document_content as $data_key => $data_value ) {
+			foreach ( $document->document_meta as $data_key => $data_value ) {
 				if ( is_array( $data_value ) && ! empty( $data_value['raw'] ) ) {
 					$data_value = $data_value['raw'];
 				}
@@ -244,23 +184,54 @@ class Document_Class extends \eoxia\Post_Class {
 			}
 		}
 
-		// Vérification de l'existence du dossier de destination.
-		if ( ! is_dir( dirname( $document_path ) ) ) {
-			wp_mkdir_p( dirname( $document_path ) );
-		}
 
 		// Enregistrement du document sur le disque.
+		// @todo: Vérifier le status ici
 		$odf_php_lib->saveToDisk( $document_path );
 
-		// Dans le cas ou le fichier a bien été généré, on met a jour les informations dans la base de données.
-		if ( is_file( $document_path ) ) {
-			$response['status']  = true;
-			$response['path']    = $document_path;
-			$response['url']     = $document_url;
-			$response['endpath'] = str_replace( $this->get_dir_path(), '', $response['path'] );
+		return true;
+	}
+
+	/**
+	 * Génères le fichier CSV.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param Document_Model $document Les données du CSV.
+	 *
+	 * array['status']   boolean True si tout s'est bien passé sinon false.
+	 * array['message']  string  Le message informatif de la méthode.
+	 * array['path']     string  Le chemin absolu vers le fichier.
+	 * array['url']      string  L'url vers le fichier.
+	 *
+	 * @return array                   (Voir au dessus).
+	 */
+	public function generate_csv( $document, $document_path ) {
+		ob_start();
+		require $document->model_path;
+		$csv_file_content = ob_get_clean();
+
+		foreach ( $document->document_meta as $key => $value ) {
+			if ( 'ndf' !== $key && 'ndf_medias' !== $key ) {
+				$csv_file_content = str_replace( '{' . $key . '}', $value, $csv_file_content );
+			} elseif ( 'ndf' === $key ) {
+				$file_lines = '';
+				foreach ( $value['value'] as $line ) {
+					unset( $line['id_media_attached'] );
+					unset( $line['attached_media'] );
+					$file_lines .= '"' . implode( '";"', $line ) . '"
+';
+				}
+				$csv_file_content = str_replace( '{LignesDeFrais}', $file_lines, $csv_file_content );
+			}
 		}
 
-		return $response;
+		$csv_file_handler = fopen( $document_path, 'w' );
+		fwrite( $csv_file_handler, $csv_file_content );
+		fclose( $csv_file_handler );
+
+		return true;
 	}
 
 	/**
@@ -319,104 +290,10 @@ class Document_Class extends \eoxia\Post_Class {
 
 
 	/**
-	 * Création du document dans la base de données puis appel de la fonction de génération du fichier
-	 *
-	 * @since 1.0.0
-	 * @version 1.4.0
-	 *
-	 * @param object $element       L'élément pour lequel il faut créer le document
-	 * @param array  $types         Les catégories auxquelles associer le document généré
-	 * @param array  $document_meta Les données a écrire dans le modèle de document
-	 *
-	 * @return object              Le résultat de la création du document
-	 */
-	public function create_document( $element, $types, $document_meta ) {
-		$response = array(
-			'status'   => true,
-			'message'  => '',
-			'filename' => '',
-			'path'     => '',
-			'document' => null,
-		);
-
-		// Définition du modèle de document a utiliser pour l'impression.
-		$model_to_use   = null;
-		$model_response = $this->get_model_for_element( wp_parse_args( array( 'model', 'default_model' ), $types ) );
-		$model_path     = $model_response['model_path'];
-
-		// Définition de la révision du document.
-		$revision = $this->get_document_type_next_revision( $types, $element->id );
-
-		// Définition de la partie principale du nom de fichier.
-		$response['filename']  = strtolower( $element->title );
-
-		if ( ! empty( $types[0] ) ) {
-			$response['filename'] .= '-' . $types[0];
-		}
-
-		if ( ! empty( $revision ) ) {
-			$response['filename'] .= '-v' . $revision;
-		}
-
-		$response['filename'] .= '.odt';
-
-		if ( null === $model_path ) {
-			$response['status'] = false;
-			$response['message'] = __( 'No model to use for generate odt file', 'frais-pro' );
-			return $response;
-		}
-
-		$response['path'] = $response['filename'];
-
-		if ( ! empty( $element ) ) {
-			$response['path'] = $element->type . '/' . $element->id . '/' . $response['filename'];
-		}
-
-		// Génères le fichier ODT.
-		$document_creation = $this->generate_document( $model_path, $document_meta, $response['path'] );
-
-		if ( ! $document_creation['status'] ) {
-			$response['status'] = false;
-			$response['message'] = __( 'Error when generated odt file', 'frais-pro' );
-			return $response;
-		}
-
-		$filetype = wp_check_filetype( $document_creation['path'], null );
-		$response['path'] = $document_creation['path'];
-
-		// Enregistre le fichier et ses métadonnées dans la base de donnée.
-		$document_args = array(
-			'post_status'    => 'inherit',
-			'post_title'     => basename( $response['filename'] ),
-			'post_parent'    => $element->id,
-			'post_type'      => $this->post_type,
-			'guid'           => $document_creation['url'],
-			'post_mime_type' => $filetype['type'],
-		);
-
-		$response['id'] = wp_insert_attachment( $document_args, $document_creation['endpath'], $element->id );
-
-		$attach_data = wp_generate_attachment_metadata( $response['id'], $document_creation['endpath'] );
-		wp_update_attachment_metadata( $response['id'], $attach_data );
-
-		wp_set_object_terms( $response['id'], wp_parse_args( $types, array( 'printed', ) ), $this->attached_taxonomy_type );
-
-		//	On met à jour les informations concernant le document dans la base de données.
-		$document_args = array(
-			'id'            => $response['id'],
-			'model_path'    => $model_path,
-			'document_meta' => $document_meta,
-		);
-
-		$response['document'] = $this->update( $document_args, true );
-		return $response;
-	}
-
-	/**
 	 * Récupère et affiche la liste des documents associés à une note.
 	 *
-	 * @since 1.4.0
-	 * @version 1.4.0
+	 * @since 1.0.0
+	 * @version 1.0.0
 	 *
 	 * @param array $args Arguments pour récupérer les documents.
 	 *
@@ -427,7 +304,6 @@ class Document_Class extends \eoxia\Post_Class {
 			'post_parent' => $args['id'],
 		) );
 
-
 		\eoxia\View_Util::exec( 'frais-pro', 'document', 'list', array(
 			'documents' => $document_list,
 		) );
@@ -436,8 +312,8 @@ class Document_Class extends \eoxia\Post_Class {
 	/**
 	 * Récupère et affiche la liste des documents associés à une note.
 	 *
-	 * @since 1.4.0
-	 * @version 1.4.0
+	 * @since 1.0.0
+	 * @version 1.0.0
 	 *
 	 * @param array $document Arguments pour récupérer les documents.
 	 *
@@ -451,51 +327,6 @@ class Document_Class extends \eoxia\Post_Class {
 			'document_checked' => $document_checked,
 		) );
 	}
-
-	/**
-	 * Vérification de l'existence d'un fichier à partir de la définition d'un document.
-	 *
-	 * 1- On remplace l'url du site "site_url( '/' )" par le chemin "ABSPATH" contenant les fichiers du site: on vérifie si le fichier existe.
-	 * 2- Si le fichier n'existe pas:
-	 *  2.a- On récupère la meta associée automatiqumeent par WordPress.
-	 *  2.b- Si la méta n'est pas vide, on vérifie que sa valeur concaténée au chemin absolu des uploads "wp_upload_dir()" de WordPress soit bien un fichier
-	 *
-	 * @param Document_Model $document La définition du document à vérifier.
-	 *
-	 * @return array                   Tableau avec le statuts d'existence du fichier (True/False) et le lien de téléchargement du fichier.
-	 */
-	public function check_file( $document ) {
-		// Définition des valeurs par défaut.
-		$file_check = array(
-			'exists'    => false,
-			'path'      => str_replace( site_url( '/' ), ABSPATH, $document['link'] ),
-			'mime_type' => '',
-			'link'      => $document['link'],
-		);
-		$upload_dir = wp_upload_dir();
-
-		// Vérification principale. cf 1 ci-dessus.
-		if ( is_file( $file_check['path'] ) ) {
-			$file_check['exists'] = true;
-		}
-
-		// La vérification principale n'a pas fonctionnée. cf 2 ci-dessus.
-		if ( ! $file_check['exists'] && ! empty( $document['_wp_attached_file'] ) ) {
-			$file_check['path'] = $upload_dir['basedir'] . '/' . $document['_wp_attached_file'];
-			$file_check['link'] = $upload_dir['baseurl'] . '/' . $document['_wp_attached_file'];
-			if ( is_file( $file_check['path'] ) ) {
-				$file_check['exists'] = true;
-			}
-		}
-
-		// Si le fichier existe on récupère le type mime.
-		if ( $file_check['exists'] ) {
-			$file_check['mime_type'] = wp_check_filetype( $file_check['path'] );
-		}
-
-		return $file_check;
-	}
-
 }
 
-document_class::g();
+Document_Class::g();

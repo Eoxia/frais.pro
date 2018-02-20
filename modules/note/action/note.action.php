@@ -32,8 +32,7 @@ class Note_Action {
 
 		add_action( 'wp_ajax_update_note', array( $this, 'callback_update_note' ) );
 		add_action( 'wp_ajax_archive_ndf', array( $this, 'callback_archive_ndf' ) );
-		add_action( 'wp_ajax_export_ndf', array( $this, 'callback_export_ndf' ) );
-		add_action( 'wp_ajax_export_csv', array( $this, 'callback_export_ndf_to_csv' ) );
+		add_action( 'wp_ajax_export_note', array( $this, 'callback_export_note' ) );
 
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 
@@ -134,23 +133,31 @@ class Note_Action {
 	 * @since 1.0.0
 	 * @version 1.4.0
 	 */
-	public function callback_export_ndf() {
-		check_ajax_referer( 'export_ndf' );
+	public function callback_export_note() {
+		check_ajax_referer( 'export_note' );
 
 		$note_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		$picture = ! empty( $_POST['picture'] ) ? (bool) $_POST['picture'] : false;
+		$type    = ! empty( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : '';
+
+		if ( empty( $type ) ) {
+			$type = 'odt';
+		}
 
 		if ( empty( $note_id ) ) {
 			wp_send_json_error();
 		}
 
-		$type = 'ndf';
+		$category = 'note';
 
 		if ( $picture ) {
-			$type = 'ndf-photo';
+			$category = 'note-photo';
 		}
 
-		$response = Note_Class::g()->generate_document( $note_id, $type );
+		$response = Note_Class::g()->generate_document( $note_id, $category, $type );
+		Document_Class::g()->generate_file( $response['document'], $type );
+
+		$response['document'] = Document_Class::g()->get( array( 'id' => $response['document']['id'] ), true );
 
 		ob_start();
 		Document_Class::g()->display_item( $response['document'] );
@@ -159,28 +166,6 @@ class Note_Action {
 			'module'           => 'note',
 			'filename'         => $response['filename'],
 			'view'             => ob_get_clean(),
-			'callback_success' => 'exportedfraisProSuccess',
-		) );
-	}
-
-	/**
-	 * Generate a csv file with the NDF content
-	 */
-	public function callback_export_ndf_to_csv() {
-		check_ajax_referer( 'export_csv' );
-
-		$ndf_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
-
-		if ( empty( $ndf_id ) ) {
-			wp_send_json_error();
-		}
-
-		$response = Note_Class::g()->generate_document( $ndf_id, false, 'csv' );
-
-		wp_send_json_success( array(
-			'namespace' => 'fraisPro',
-			'module' => 'NDF',
-			'filename' => $response['filename'],
 			'callback_success' => 'exportedfraisProSuccess',
 		) );
 	}
