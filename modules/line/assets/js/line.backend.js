@@ -74,6 +74,9 @@ window.eoxiaJS.fraisPro.line.lineSaved = function( element, response ) {
  * @version 1.4.0
  */
 window.eoxiaJS.fraisPro.line.displayLine = function( element, response ) {
+	if ( 1 === jQuery( 'div.list-line .table-row.line.notice-info' ).length ) {
+		jQuery( 'div.list-line .table-row.line.notice-info' ).remove();
+	}
 	jQuery( 'div.list-line' ).prepend( response.data.view );
 };
 
