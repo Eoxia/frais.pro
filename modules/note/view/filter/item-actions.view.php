@@ -20,21 +20,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<ul class="dropdown-content" >
 		<li class="dropdown-item action-attribute"
 			data-id="<?php echo esc_attr( $note->id ); ?>"
-			data-action="export_ndf"
-			data-type="odf"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"
+			data-action="export_note"
+			data-type="odt"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_note' ) ); ?>"
 			data-picture="1"><i class="icon fa-fw fas fa-file-image"></i>&nbsp;<?php esc_html_e( 'With picture', 'frais-pro' ); ?></li>
 		<li class="dropdown-item action-attribute"
 			data-id="<?php echo esc_attr( $note->id ); ?>"
-			data-action="export_ndf"
-			data-type="odf"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"
+			data-action="export_note"
+			data-type="odt"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_note' ) ); ?>"
 			data-picture="0"><i class="icon fa-fw fas fa-file"></i>&nbsp;<?php esc_html_e( 'Without picture', 'frais-pro' ); ?></li>
 		<li class="dropdown-item action-attribute"
 			data-id="<?php echo esc_attr( $note->id ); ?>"
-			data-action="export_ndf"
+			data-action="export_note"
 			data-type="csv"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_ndf' ) ); ?>"><i class="icon fa-fw fas fa-file-excel"></i>&nbsp;<?php esc_html_e( 'CSV export', 'frais-pro' ); ?></li>
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_note' ) ); ?>"><i class="icon fa-fw fas fa-file-excel"></i>&nbsp;<?php esc_html_e( 'CSV export', 'frais-pro' ); ?></li>
 	</ul>
 </div>
 <div class="wpeo-dropdown dropdown-right" >
