@@ -5,6 +5,7 @@
 	"description": "Le module boot de Note de frais",
 	"path": "core/",
 	"dependencies": {
+		"helper": {},
 		"action": {},
 		"class": {}
 	}
