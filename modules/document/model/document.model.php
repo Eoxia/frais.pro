@@ -1,6 +1,6 @@
 <?php
 /**
- * Définition du modèle des documents de note de frais.
+ * Définition du modèle des ODT de note de frais.
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
@@ -18,42 +18,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Définition du modèle des documents de note de frais.
  */
-class Document_Model extends \eoxia\Post_Model {
+class Document_Model extends \eoxia\Attachment_Model {
 
 	/**
-	 * Le constructeur définis le schéma.
+	 * Add custom field for fees sheet into default model.
 	 *
-	 * @param object $data       L'objet courant.
-	 * @param string $req_method La méthode HTTP actuelle.
-	 *
-	 * @since 1.0.0
+	 * @since 1.4.0
 	 * @version 1.4.0
+	 *
+	 * @param array|object $data       Les données à construire à partir du modèle.
+	 * @param string       $req_method La méthode HTTP actuellement utilisée.
 	 */
 	public function __construct( $data = null, $req_method = null ) {
-		$this->schema['mime_type'] = array(
-			'type'    => 'string',
-			'field'   => 'post_mime_type',
-			'context' => array( 'GET' ),
+
+		$this->schema['unique_key'] = array(
+			'type'      => 'integer',
+			'meta_type' => 'single',
+			'field'     => 'fp_unique_key',
 		);
 
-		$this->schema['_wp_attached_file'] = array(
+		$this->schema['unique_identifier'] = array(
 			'type'      => 'string',
 			'meta_type' => 'single',
-			'field'     => '_wp_attached_file',
-		);
-
-		$this->schema['model_path'] = array(
-			'type'      => 'string',
-			'meta_type' => 'single',
-			'field'     => 'fp_model_path',
-		);
-
-		$this->schema['document_meta'] = array(
-			'type'      => 'array',
-			'meta_type' => 'multiple',
+			'field'     => 'fp_unique_identifier',
 		);
 
 		parent::__construct( $data, $req_method );
 	}
-
 }

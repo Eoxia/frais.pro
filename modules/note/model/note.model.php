@@ -28,6 +28,18 @@ class Note_Model extends \eoxia\Post_Model {
 	 */
 	public function __construct( $data = null, $req_method = null ) {
 
+		$this->schema['unique_key'] = array(
+			'type'      => 'integer',
+			'meta_type' => 'single',
+			'field'     => 'fp_unique_key',
+		);
+
+		$this->schema['unique_identifier'] = array(
+			'type'      => 'string',
+			'meta_type' => 'single',
+			'field'     => 'fp_unique_identifier',
+		);
+
 		$this->schema['validation_status'] = array(
 			'type'       => 'string',
 			'meta_type'  => 'single',

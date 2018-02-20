@@ -31,6 +31,18 @@ class Line_Model extends \eoxia\Post_Model {
 	 * @version 1.4.0
 	 */
 	public function __construct( $data = null, $req_method = null ) {
+		$this->schema['unique_key'] = array(
+			'type'      => 'integer',
+			'meta_type' => 'single',
+			'field'     => 'fp_unique_key',
+		);
+
+		$this->schema['unique_identifier'] = array(
+			'type'      => 'string',
+			'meta_type' => 'single',
+			'field'     => 'fp_unique_identifier',
+		);
+
 		$this->schema['category_name'] = array(
 			'type'      => 'string',
 			'meta_type' => 'single',
