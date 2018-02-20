@@ -81,8 +81,7 @@ class Line_Model extends \eoxia\Post_Model {
 			'child'     => array(
 				Line_Type_Class::g()->get_type() => array(
 					'meta_type'  => 'multiple',
-					'array_type' => 'integer',
-					'type'       => 'array',
+					'type'       => 'integer',
 				),
 			),
 		);
