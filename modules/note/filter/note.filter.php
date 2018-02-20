@@ -69,6 +69,18 @@ class Note_Filter {
 
 		if ( $note->contains_unaffected ) {
 			$view = 'item-actions-unaffected';
+		} else {
+			if ( ! empty( $note->last_document ) ) {
+				foreach ( $note->last_document as &$document ) {
+					$document['file_informations'] = Document_Class::g()->check_file( $document );
+
+					$document['tooltip'] = __( 'File not generated', 'frais-pro' );
+
+					if ( $document['file_informations']['exists'] ) {
+						$document['tooltip'] = 'Generated on ' . $document->date['rendered']['date'];
+					}
+				}
+			}
 		}
 
 		\eoxia\View_Util::exec( 'frais-pro', 'note', 'filter/' . $view, array( 'note' => $note ) );
