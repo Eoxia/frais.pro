@@ -144,7 +144,6 @@ class Line_Class extends \eoxia\Post_Class {
 				if ( in_array( $field_key, \eoxia\Config_Util::$init['frais-pro']->line->amount_entries, true ) ) {
 					$special_treatment   = isset( $line_schema[ $field_key ]['special_treatment'] ) ? $line_schema[ $field_key ]['special_treatment'] : '';
 					$current_field_state = $this->check_amount_input_status( $line, $special_treatment );
-
 					if ( ! $current_field_state ) {
 						$line_state['status']   = false;
 						$line_state['errors'][] = $field_key;
