@@ -29,9 +29,8 @@ class Note_Action {
 	public function __construct() {
 		add_action( 'wp_ajax_create_note', array( $this, 'callback_create_note' ) );
 		add_action( 'wp_ajax_fp_note_archive', array( $this, 'callback_fp_note_archive' ) );
+		add_action( 'wp_ajax_fp_update_note', array( $this, 'callback_fp_update_note' ) );
 
-		add_action( 'wp_ajax_update_note', array( $this, 'callback_update_note' ) );
-		add_action( 'wp_ajax_archive_ndf', array( $this, 'callback_archive_ndf' ) );
 		add_action( 'wp_ajax_export_note', array( $this, 'callback_export_note' ) );
 
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
@@ -104,25 +103,29 @@ class Note_Action {
 	 * Action : modifier une note de frais.
 	 *
 	 * @since 1.0.0
-	 * @version 1.3.0
+	 * @version 1.4.0
 	 */
-	public function callback_update_note() {
-		check_ajax_referer( 'update_note' );
+	public function callback_fp_update_note() {
+		check_ajax_referer( 'fp_update_note' );
 
-		$display_mode = isset( $_POST['display_mode'] ) ? sanitize_text_field( $_POST['display_mode'] ) : 'list';
+		// Définition des arguments pour la mise à jour de la ligne.
+		$note_args                  = array();
+		$note_args['id']            = isset( $_POST['id'] ) ? intval( $_POST['id'] ) : 0;
+		$note_args['date_modified'] = current_time( 'mysql' );
 
-		$ndf = Note_Class::g()->update( $_POST );
+		// Ajout de la catégorie de la ligne.
+		$note_args['taxonomy'][ Note_Status_Class::g()->get_type() ] = isset( $_POST['selected_status_id'] ) ? intval( $_POST['selected_status_id'] ) : 0;
 
-		ob_start();
-		Line_Class::g()->display( $ndf->id );
-		$response = ob_get_clean();
+		// On lance la mise à jour de la note.
+		$note = Note_Class::g()->update( $note_args, true );
 
 		wp_send_json_success( array(
-			'namespace' => 'fraisPro',
-			'module' => 'NDF',
-			'callback_success' => 'refresh',
-			'ndf' => $ndf,
-			'view' => $response,
+			'namespace'        => 'fraisPro',
+			'module'           => 'note',
+			'callback_success' => 'noteUpdated',
+			'note'             => $note,
+			'status'           => $note[ Note_Status_Class::g()->get_type() ],
+			'link'             => admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['frais-pro']->slug, false ),
 		) );
 	}
 

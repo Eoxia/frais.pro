@@ -25,9 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</span>
 		<i class="button-icon fas fa-caret-down"></i>
 	</button>
-	<ul class="dropdown-content">
+	<ul class="dropdown-content" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_update_note' ) ); ?>" >
 		<?php foreach ( $status_list as $note_status ) : ?>
-			<li data-id="<?php echo esc_attr( $note_status->id ); ?>" class="dropdown-item pin-status">
+			<li data-id="<?php echo esc_attr( $note_status->id ); ?>" class="dropdown-item pin-status" data-special-treatment="<?php echo esc_attr( $note_status->special_treatment ); ?>" >
 				<span class="pin-dot" style="background:<?php echo esc_html( $note_status->color ); ?>;"></span>
 				<span class="pin-label"><?php echo esc_html( $note_status->name ); ?></span>
 			</li>

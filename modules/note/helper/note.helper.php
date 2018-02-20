@@ -65,8 +65,7 @@ function get_full_note( $data ) {
 		$args_note_status = array( 'include' => end( $data->taxonomy[ Note_Status_Class::g()->get_type() ] ) );
 	}
 	// Récupères la catégorie du danger.
-	$note_status        = Note_Status_Class::g()->get_type();
-	$data->$note_status = Note_Status_Class::g()->get( $args_note_status, true );
+	$data->current_status = Note_Status_Class::g()->get( $args_note_status, true );
 
 	// Récupères les documents générés.
 	$args_doc = array(

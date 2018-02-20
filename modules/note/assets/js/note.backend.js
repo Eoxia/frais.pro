@@ -43,8 +43,37 @@ window.eoxiaJS.fraisPro.note.init = function() {
 	jQuery( document ).on( 'click', '.list-note .note', window.eoxiaJS.fraisPro.note.goToLink );
 	jQuery( document ).on( 'click', '.display-method span.wpeo-button', window.eoxiaJS.fraisPro.note.changeDisplayMode );
 	jQuery( document ).on( 'click', '.wrap-frais-pro .fraispro-mass-line-creation', window.eoxiaJS.fraisPro.note.openMedia );
-	jQuery( document ).on( 'click', '.single-note .header .validation_status .wpeo-dropdown li', window.eoxiaJS.fraisPro.note.changeNoteStatus );
+	jQuery( document ).on( 'click', '.validation_status.wpeo-dropdown li', window.eoxiaJS.fraisPro.note.changeNoteStatus );
+
 	// jQuery( window ).on( 'scroll', window.eoxiaJS.fraisPro.note.scrollSticky );
+};
+
+/**
+ * [description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
+window.eoxiaJS.fraisPro.note.changeNoteStatus = function( event ) {
+	var parentElement = jQuery( this ).closest( 'div' );
+	var listInput = window.eoxiaJS.arrayForm.getInput( parentElement );
+	var data = {
+		'action': 'fp_update_note',
+		'_wpnonce': jQuery( this ).closest( '.dropdown-content' ).data( 'nonce' ),
+		'id': jQuery( this ).closest( '.single-note' ).attr( 'data-id' )
+	};
+
+	for ( i = 0; i < listInput.length; i++ ) {
+		if ( listInput[i].name ) {
+			data[listInput[i].name] = window.eoxiaJS.arrayForm.getInputValue( listInput[i] );
+		}
+	}
+
+	// D'abord on vérifier si l'utilisateur utilise un statut avec un traitement special.
+	if ( 'closed' === jQuery( this ).attr( 'data-special-treatment' ) && ! confirm( fraisPro.confirmMarkAsPayed ) ) {
+		return false;
+	}
+
+	window.eoxiaJS.request.send( parentElement, data );
 };
 
 /**
@@ -147,34 +176,6 @@ window.eoxiaJS.fraisPro.note.note_is_marked_as_archive = function( element, resp
 };
 
 /**
- * [description]
- * @param  {[type]} event [description]
- * @return {[type]}       [description]
- */
-window.eoxiaJS.fraisPro.note.changeNoteStatus = function( event ) {
-	var data = {
-		'action': jQuery( this ).data( 'action' ),
-		'_wpnonce': jQuery( this ).data( 'nonce' )
-	};
-
-	// D'abord on vérifier si l'utilisateur utilise un statut avec un traitement special.
-	if ( 'closed' === jQuery( this ).attr( 'data-special-treatment' ) && ! confirm( fraisPro.confirmMarkAsPayed ) ) {
-		return false;
-	}
-
-	// Envoi de la requete pour la modification du statut de la note.
-	jQuery.post( window.ajaxurl, data, function( response ) {
-		window.eoxiaJS.fraisPro.note.currentButton.removeClass( 'loading' );
-		window.eoxiaJS.fraisPro.note.currentButton = undefined;
-		window.eoxiaJS.fraisPro.note.selectedInfos = [];
-		window.eoxiaJS.fraisPro.note.mediaFrame = undefined;
-		if ( response.success ) {
-			jQuery( 'div.list-line' ).prepend( response.data.view );
-		}
-	}, 'json' );
-};
-
-/**
  * Lorsqu'on scroll, attaches le header en position fixe pour suivre la page.
  *
  * @since 1.4.0
@@ -187,7 +188,7 @@ window.eoxiaJS.fraisPro.note.changeNoteStatus = function( event ) {
 window.eoxiaJS.fraisPro.note.scrollSticky = function( event ) {
 	var offset = -20;
 	if ( jQuery( window ).scrollTop() >= jQuery( '.single-note .header' ).position().top + offset ) {
-		jQuery( '.single-note .header' ).addClass( 'sticky');
+		jQuery( '.single-note .header' ).addClass( 'sticky' );
 	}
 
 	if ( jQuery( '.single-note .header' ).hasClass( 'sticky' ) && jQuery( window ).scrollTop() <= 0 ) {
@@ -196,7 +197,7 @@ window.eoxiaJS.fraisPro.note.scrollSticky = function( event ) {
 };
 
 /**
- * Le callback en cas de réussite à la requête Ajax "export_ndf".
+ * Le callback en cas de réussite à la requête Ajax "export_note".
  *
  * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
@@ -207,4 +208,20 @@ window.eoxiaJS.fraisPro.note.scrollSticky = function( event ) {
  */
 window.eoxiaJS.fraisPro.note.exportedfraisProSuccess = function( triggeredElement, response ) {
 	jQuery( 'table.wpeo-table.list-document' ).prepend( response.data.view );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "update_note".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ */
+window.eoxiaJS.fraisPro.note.noteUpdated = function( triggeredElement, response ) {
+	if ( 'closed' === response.data.status.special_treatment ) {
+		window.location.href = response.data.link;
+	}
 };

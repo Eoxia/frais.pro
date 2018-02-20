@@ -14,11 +14,11 @@ namespace frais_pro;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<tr class="note" style="border-left-color:<?php echo esc_html( $note->fp_note_status->color ); ?>" data-link="<?php echo esc_url( admin_url( 'admin.php?page=frais-pro-edit' ) ); ?>&note=<?php echo esc_attr( $note->id ); ?>" data-id="<?php echo esc_attr( $note->id ); ?>" >
+<tr class="note" style="border-left-color:<?php echo esc_html( $note->current_status->color ); ?>" data-link="<?php echo esc_url( admin_url( 'admin.php?page=frais-pro-edit' ) ); ?>&note=<?php echo esc_attr( $note->id ); ?>" data-id="<?php echo esc_attr( $note->id ); ?>" >
 	<td class="note-status" >
 		<span class="status-label">
 		<?php if ( 'archive' !== $note->status ) : ?>
-			<?php echo esc_html( $note->fp_note_status->name ); ?>
+			<?php echo esc_html( $note->current_status->name ); ?>
 		<?php else : ?>
 			<i class="fas fa-archive wpeo-tooltip-event" data-direction="top" aria-label="<?php esc_html_e( 'This note is archived', 'frais-pro' ); ?>"></i>
 		<?php endif; ?>

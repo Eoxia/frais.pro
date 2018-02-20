@@ -151,7 +151,7 @@ class Note_Class extends \eoxia\Post_Class {
 		$current_note = $this->get( array( 'id' => $note_id ), true );
 		$status_list  = Note_Status_Class::g()->get();
 
-		$note_is_closed = ! empty( $current_note->fp_note_status->special_treatment ) && ( 'closed' === $current_note->fp_note_status->special_treatment ) ? true : false;
+		$note_is_closed = ! empty( $current_note->current_status->special_treatment ) && ( 'closed' === $current_note->current_status->special_treatment ) ? true : false;
 
 		$view = 'single';
 		if ( $current_note->contains_unaffected ) {
@@ -265,7 +265,7 @@ class Note_Class extends \eoxia\Post_Class {
 			$sheet_details['utilisateur_prenom_nom'] = $user->login;
 		}
 
-		$sheet_details['status']    = $note->fp_note_status['name'];
+		$sheet_details['status']    = $note->current_status['name'];
 		$sheet_details['miseajour'] = $note->date_modified['rendered']['date_human_readable'];
 
 		if ( ! empty( $lines ) ) {

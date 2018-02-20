@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<?php
-			Note_Status_Class::g()->display( $note->fp_note_status->id, array(
+			Note_Status_Class::g()->display( $note->current_status->id, array(
 				'class' => $note_is_closed ? 'button-disable' : '',
 			) );
 			?>
