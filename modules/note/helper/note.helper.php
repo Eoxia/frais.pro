@@ -68,5 +68,25 @@ function get_full_note( $data ) {
 	$note_status        = Note_Status_Class::g()->get_type();
 	$data->$note_status = Note_Status_Class::g()->get( $args_note_status, true );
 
+	// Récupères les documents générés.
+	$args_doc = array(
+		'posts_per_page' => 1,
+		'post_parent'    => $data->id,
+		'tax_query'      => array(
+			array(
+				'taxonomy' => Document_Class::g()->get_attached_taxonomy(),
+				'field'    => 'slug',
+			),
+		),
+	);
+
+	$data->last_document               = array();
+	$args_doc['tax_query'][0]['terms'] = 'note-photo';
+	$data->last_document['note-photo'] = Document_Class::g()->get( $args_doc, true );
+	$args_doc['tax_query'][0]['terms'] = 'note';
+	$data->last_document['note']       = Document_Class::g()->get( $args_doc, true );
+	$args_doc['tax_query'][0]['terms'] = 'note-csv';
+	$data->last_document['note-csv']   = Document_Class::g()->get( $args_doc, true );
+
 	return $data;
 }
