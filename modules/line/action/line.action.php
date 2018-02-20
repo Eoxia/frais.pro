@@ -112,11 +112,11 @@ class Line_Action {
 	public function callback_fp_dissociate_line_from_note() {
 		check_ajax_referer( 'fp_dissociate_line_from_note' );
 
-		$line_id        = isset( $_POST['id'] ) ? intval( $_POST['id'] ) : -1;
-		$parent_line_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
+		$line_id   = isset( $_POST['id'] ) ? intval( $_POST['id'] ) : -1;
+		$parent_id = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
 
 		// Translators: $1 connected user id. $2 the line to dissociate.
-		\eoxia\LOG_Util::log( sprintf( __( 'User %1$d try to dissociate the line %2$d from %3$d', 'digirisk' ), get_current_user_id(), $line_id, $parent_line_id ), 'frais-pro' );
+		\eoxia\LOG_Util::log( sprintf( __( 'User %1$d try to dissociate the line %2$d from %3$d', 'digirisk' ), get_current_user_id(), $line_id, $parent_id ), 'frais-pro' );
 
 		if ( 0 >= $line_id ) {
 			// Translators: $1 given line id.
@@ -124,17 +124,18 @@ class Line_Action {
 			wp_send_json_error( array( 'message' => __( 'You try to dissociate a line that does not exists', 'frais-pro' ) ) );
 		}
 
-		if ( 0 === $parent_line_id ) {
+		if ( 0 === $parent_id ) {
 			// Translators: $1 given note id.
-			\eoxia\LOG_Util::log( sprintf( __( 'The given note ID %1$d is invalid', 'digirisk' ), $parent_line_id ), 'frais-pro' );
+			\eoxia\LOG_Util::log( sprintf( __( 'The given note ID %1$d is invalid', 'digirisk' ), $parent_id ), 'frais-pro' );
 			wp_send_json_error( array( 'message' => __( 'You try to dissociate a line from a note that does not exists', 'frais-pro' ) ) );
 		}
 
-		$note = Note_Class::g()->create_unaffected_note();
+		$note            = Note_Class::g()->get( array( 'id' => $parent_id ), true );
+		$unaffected_note = Note_Class::g()->create_unaffected_note( $note->author_id );
 
 		$line = Line_Class::g()->update( array(
 			'id'        => $line_id,
-			'parent_id' => $note->id,
+			'parent_id' => $unaffected_note->id,
 		), true );
 
 		wp_send_json_success( array(
