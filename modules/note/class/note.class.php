@@ -173,20 +173,28 @@ class Note_Class extends \eoxia\Post_Class {
 	 * @since 1.4.0
 	 * @version 1.4.0
 	 *
+	 * @param integer $author_id L'ID du créateur de la note ou la ligne a été dissocié.
+	 *
 	 * @return Note_Model Les données de la note.
 	 */
-	public function create_unaffected_note() {
+	public function create_unaffected_note( $author_id ) {
 		$title = __( 'Unaffected lines', 'frais-pro' );
 		$name  = sanitize_title( $title );
 
+		$user = User_Class::g()->get( array(
+			'include' => $author_id,
+		), true );
+
 		$note = $this->get( array(
-			'name' => $name,
+			'author' => $author_id,
+			'name'   => $name . '-' . $user->displayname,
 		), true );
 
 		if ( empty( $note ) ) {
 			$note = $this->update( array(
-				'title'               => $title,
-				'slug'                => $name,
+				'title'               => $title . '-' . $user->displayname,
+				'author_id'           => $author_id,
+				'slug'                => $name . '-' . $user->displayname,
 				'status'              => 'publish',
 				'contains_unaffected' => true,
 			) );
