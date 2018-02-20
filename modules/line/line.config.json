@@ -11,14 +11,18 @@
 		"filter": {},
 		"helper": {}
 	},
-	"line_mandatory_values": {
-		"amount": [
+	"line_required_values": {
+		"description": "Si les champs libellé / date deviennent obligatoires rajouter les entrées dans le tableau ci-dessous: title, date",
+		"entries": [
 			"tax_inclusive_amount",
-			"tax_amount"
-		],
-		"category": [
-			"category_name",
+			"tax_amount",
+			"distance",
 			"current_category"
 		]
-	}
+	},
+	"amount_entries": [
+		"tax_inclusive_amount",
+		"tax_amount",
+		"distance"
+	]
 }

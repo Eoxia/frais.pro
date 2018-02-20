@@ -59,8 +59,10 @@ function build_line_datas( $data ) {
 	$data->current_category = null;
 
 	$data->taxonomy[ Line_Type_Class::g()->get_type() ] = wp_get_object_terms( $data->id, Line_Type_Class::g()->get_type() );
-	if ( ! empty( $data->taxonomy[ Line_Type_Class::g()->get_type() ] ) && ! empty( $data->taxonomy[ Line_Type_Class::g()->get_type() ][0] ) ) {
-		$data->current_category = Line_Type_Class::g()->get( array( 'id' => $data->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id ), true );
+
+	$current_taxonomy = end( $data->taxonomy[ Line_Type_Class::g()->get_type() ] );
+	if ( ! empty( $data->taxonomy[ Line_Type_Class::g()->get_type() ] ) && ! empty( $current_taxonomy ) ) {
+		$data->current_category = Line_Type_Class::g()->get( array( 'id' => $current_taxonomy->term_id ), true );
 	}
 
 	$data->line_status = Line_CLass::g()->check_line_status( $data );

@@ -29,6 +29,7 @@ window.eoxiaJS.fraisPro.lineType.init = function() {
  */
 window.eoxiaJS.fraisPro.lineType.event = function() {
 	jQuery( document ).on( 'click', '.type .wpeo-dropdown li', window.eoxiaJS.fraisPro.lineType.select );
+	jQuery( document ).on( 'click', '.type .wpeo-dropdown li', window.eoxiaJS.fraisPro.line.save );
 };
 
 /**
@@ -59,12 +60,12 @@ window.eoxiaJS.fraisPro.lineType.select = function( event ) {
 	}
 
 	// Check input value for displaying or not error on line.
-	window.eoxiaJS.fraisPro.line.setStatusField( jQuery( '.form-element.km' ), inputIsRequired );
-	window.eoxiaJS.fraisPro.line.setStatusField( jQuery( '.form-element.ttc' ), ! inputIsRequired );
-	window.eoxiaJS.fraisPro.line.setStatusField( jQuery( '.form-element.tva' ), ! inputIsRequired );
+	window.eoxiaJS.fraisPro.line.setStatusField( jQuery( this ).closest( 'div.line-content' ).find( '.distance' ), inputIsRequired );
+	window.eoxiaJS.fraisPro.line.setStatusField( jQuery( this ).closest( 'div.line-content' ).find( '.ttc' ), ! inputIsRequired );
+	window.eoxiaJS.fraisPro.line.setStatusField( jQuery( this ).closest( 'div.line-content' ).find( '.tva' ), ! inputIsRequired );
 
 	// Mark field as readonly for KM by default. And remove readonly on amounts.
-	window.eoxiaJS.fraisPro.line.setReadOnly( line, 'km', ! inputIsReadOnly );
+	window.eoxiaJS.fraisPro.line.setReadOnly( line, 'distance', ! inputIsReadOnly );
 	window.eoxiaJS.fraisPro.line.setReadOnly( line, 'ttc', inputIsReadOnly );
 	window.eoxiaJS.fraisPro.line.setReadOnly( line, 'tva', inputIsReadOnly );
 

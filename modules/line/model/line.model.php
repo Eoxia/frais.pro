@@ -44,10 +44,11 @@ class Line_Model extends \eoxia\Post_Model {
 		);
 
 		$this->schema['distance'] = array(
-			'type'      => 'integer',
-			'meta_type' => 'single',
-			'field'     => 'fp_line_distance',
-			'default'   => 0,
+			'type'              => 'integer',
+			'meta_type'         => 'single',
+			'field'             => 'fp_line_distance',
+			'default'           => 0,
+			'special_treatment' => 'km_calculation',
 		);
 
 		$this->schema['tax_inclusive_amount'] = array(

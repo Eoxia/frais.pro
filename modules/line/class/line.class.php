@@ -4,7 +4,7 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.3.0
+ * @version 1.4.0
  * @copyright 2017 Eoxia
  * @package Eoxia/NodeDeFrais
  * @subpackage LigneDeFrais
@@ -106,7 +106,7 @@ class Line_Class extends \eoxia\Post_Class {
 	public function display( $line, $args = array() ) {
 		$template_args = wp_parse_args( $args, array(
 			'line'           => $line,
-			'line_type_id'   => ( null !== $line && ! empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ][0] ) && ! empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id ) ? $line->taxonomy[ Line_Type_Class::g()->get_type() ][0]->term_id : 0 ),
+			'line_type_id'   => ( null !== $line && ! empty( $line->current_category ) && ! empty( $line->current_category->id ) ? $line->current_category->id : 0 ),
 			'mode'           => ( ( ! empty( $args ) && ! empty( $args['note_is_closed'] ) && $args['note_is_closed'] ) ? 'view' : 'edit' ),
 			'note_is_closed' => ( ! empty( $args ) && isset( $args['note_is_closed'] ) ? (bool) $args['note_is_closed'] : false ), // Voir Alex si c'est de la merde.
 		) );
@@ -116,6 +116,9 @@ class Line_Class extends \eoxia\Post_Class {
 
 	/**
 	 * Check if a line is correctly filled in or if there are missing fields.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
 	 *
 	 * @param  array|object $line Current line to check if all values are correctly setted.
 	 *
@@ -127,21 +130,19 @@ class Line_Class extends \eoxia\Post_Class {
 			'errors' => array(),
 		);
 
-		foreach ( \eoxia\Config_Util::$init['frais-pro']->line->line_mandatory_values as $field_key => $field_details ) {
-			if ( empty( $field_details ) ) {
-				if ( empty( $line->$field_key ) ) {
-					$line_state['status']   = false;
-					$line_state['errors'][] = $field_key;
-				}
-			} else {
-				$has_error = true;
-				foreach ( $field_details as $key ) {
-					if ( ! empty( $line->$key ) ) {
-						$has_error = false;
-					}
-				}
+		$line_schema = $this->get_schema();
 
-				if ( $has_error ) {
+		foreach ( \eoxia\Config_Util::$init['frais-pro']->line->line_required_values->entries as $field_key ) {
+			if ( empty( $line->$field_key ) ) {
+				if ( in_array( $field_key, \eoxia\Config_Util::$init['frais-pro']->line->amount_entries, true ) ) {
+					$special_treatment   = isset( $line_schema[ $field_key ]['special_treatment'] ) ? $line_schema[ $field_key ]['special_treatment'] : '';
+					$current_field_state = $this->check_amount_input_status( $line, $special_treatment );
+
+					if ( ! $current_field_state ) {
+						$line_state['status']   = false;
+						$line_state['errors'][] = $field_key;
+					}
+				} else {
 					$line_state['status']   = false;
 					$line_state['errors'][] = $field_key;
 				}
@@ -150,6 +151,79 @@ class Line_Class extends \eoxia\Post_Class {
 
 		return $line_state;
 	}
+
+	/**
+	 * Vérifie si un chmaps est obligatoire pour que la ligne soit valide ou non.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param Line_Model $line La ligne sur laquelle il faut vérifier le statut du champs.
+	 * @param string     $field  Le nom du champs à vérifier.
+	 *
+	 * @return boolean        Le statut obligatoire ou non du champs.
+	 */
+	public function check_field_status( $line, $field ) {
+		$line_custom_class = array();
+
+		$line_schema = $this->get_schema();
+
+		foreach ( \eoxia\Config_Util::$init['frais-pro']->line->line_required_values->entries as $field_key ) {
+			if ( $field === $field_key ) {
+				$current_field_state = false;
+				if ( in_array( $field_key, \eoxia\Config_Util::$init['frais-pro']->line->amount_entries, true ) ) {
+					$special_treatment   = isset( $line_schema[ $field_key ]['special_treatment'] ) ? $line_schema[ $field_key ]['special_treatment'] : '';
+					$current_field_state = $this->check_amount_input_status( $line, $special_treatment );
+				}
+
+				$line_custom_class[] = 'input_is_required';
+				if ( empty( $line->$field_key ) && ! $current_field_state ) {
+					$line_custom_class[] = 'input-error';
+				}
+			}
+		}
+
+		return implode( ' ', $line_custom_class );
+	}
+
+	/**
+	 * Vérifie si un chmaps est obligatoire pour que la ligne soit valide ou non.
+	 *
+	 * Fonctionnement:
+	 * 1- A la création tous les champs sont en lecture seul. On change leur état au moment du choix de la catégorie
+	 * 2- Si la catégorie a déjà était choisie:
+	 *  2.a- Si la catégorie choisie nécessite un traitement special et que le paramètre $special_treatment est égal à cette valeur alors ce champs n'est pas en lecture seule.
+	 *  2.b- Si la catégorie choisie nécessite un traitement special et que le paramètre $special_treatment est différent de cette valeur, alors le champs est en lecture seule.
+	 *  2.c- Si la catégorie choisie ne nécessite pas de traitement special et que le paramètre $special_treatment est défini alors le champs est en lecture seule.
+	 *  2.d- Si la catégorie choisie ne nécessite pas de traitement special et que le paramètre $special_treatment est vide alors le champs n'est pas en lecture seule.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param Line_Model $line              La ligne sur laquelle il faut vérifier le statut du champs.
+	 * @param string     $special_treatment Le traitement a appliquer sur le champs si il en nécessite.
+	 *
+	 * @return boolean        Le statut obligatoire ou non du champs.
+	 */
+	public function check_amount_input_status( $line, $special_treatment = '' ) {
+		$is_read_only = true;
+
+		// Si aucune catégorie alors les champs restent en lecture seule. Sinon va vérifier la ligne.
+		if ( ! empty( $line->current_category ) ) {
+			// Le champs actuel ne nécessite pas de traitement spécial et la catégorie choisie n'a pas de traitement special.
+			if ( empty( $special_treatment ) && empty( $line->current_category->special_treatment ) ) {
+				$is_read_only = false;
+			}
+
+			// Le champs actuel nécessite un traitement spécial, la catégorie nécessite un traitement spécial et il s'agit du même alors le champs n'est plus en lecture seule.
+			if ( ! empty( $special_treatment ) && ! empty( $line->current_category->special_treatment ) && ( $special_treatment === $line->current_category->special_treatment ) ) {
+				$is_read_only = false;
+			}
+		}
+
+		return $is_read_only;
+	}
+
 }
 
 Line_Class::g();

@@ -4,9 +4,14 @@
  * @since 1.0.0
  * @version 1.4.0
  */
-
 window.eoxiaJS.fraisPro.line = {};
 
+/**
+ * Initialise l'objet.
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ */
 window.eoxiaJS.fraisPro.line.init = function() {
 	window.eoxiaJS.fraisPro.line.event();
 };
@@ -20,8 +25,21 @@ window.eoxiaJS.fraisPro.line.init = function() {
  * @return {void}
  */
 window.eoxiaJS.fraisPro.line.event = function() {
+	jQuery( document ).on( 'click', '.list-line input[type=text]', window.eoxiaJS.fraisPro.line.selectInputValue );
 	jQuery( document ).on( 'keyup', '.list-line input[type=text]', window.eoxiaJS.fraisPro.line.checkInputStatus );
 	jQuery( document ).on( 'blur', '.list-line input[type=text]', window.eoxiaJS.fraisPro.line.save );
+};
+
+/**
+ * Sélection automatique de la valeur du champs sélectionnée.
+ *
+ * @param  {[type]} element  [description]
+ * @param  {[type]} response [description]
+ *
+ * @return {void}          [description]
+ */
+window.eoxiaJS.fraisPro.line.selectInputValue = function( element, response ) {
+	jQuery( this ).select();
 };
 
 /**
@@ -148,17 +166,21 @@ window.eoxiaJS.fraisPro.line.checkLineStatus = function( element ) {
  * @version 1.4.0
  *
  * @param  {HTMLULListElement} element L'élément contenant les champs 'contenteditable'.
- * @param  {string} nameField         Le champ contenteditable en question.
  * @param  {boolean} action           Action a effectuer: ajouter/supprimer.
  *
  * @return {void}
  */
-window.eoxiaJS.fraisPro.line.setStatusField = function( inputContainer, action ) {
-	var input = inputContainer.find( 'input' ).val();
-	if ( action && ( ( '' === input ) || ( 0 == input ) ) ) {
-		inputContainer.addClass( 'input-error' );
+window.eoxiaJS.fraisPro.line.setStatusField = function( element, action ) {
+	var input = element.find( 'input' ).val();
+	var isRequired = false;
+	if ( element.hasClass( 'input_is_required' ) ) {
+		isRequired = true;
+	}
+
+	if ( isRequired && action && ( ( '' === input ) || ( 0 == input ) ) ) {
+		element.addClass( 'input-error' );
 	} else {
-		inputContainer.removeClass( 'input-error' );
+		element.removeClass( 'input-error' );
 	}
 };
 

@@ -24,14 +24,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 	<div class="table-cell line-content wpeo-form">
 		<!-- Libelle -->
-		<div class="libelle form-element <?php echo esc_attr( ! empty( $line->line_status ) && ( false === $line->line_status['status'] ) && in_array( 'title', $line->line_status['errors'], true ) ? 'input-error' : '' ); ?>">
+		<div class="libelle form-element <?php echo esc_attr( Line_Class::g()->check_field_status( $line, 'libelle' ) ); ?>" >
 			<span class="form-label"><?php esc_attr_e( 'Label', 'frais-pro' ); ?></span>
 			<label class="form-field-container">
-				<input type="text" class="form-field" name="title" placeholder="<?php esc_attr_e( 'Label', 'frais-pro' ); ?>" value="<?php echo esc_html( $line->title ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?>/>
+				<input type="text" class="form-field" name="title" value="<?php echo esc_html( ! empty( $line->title ) ? $line->title : __( 'Label', 'frais-pro' ) ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?>/>
 			</label>
 		</div>
 		<!-- Date -->
-		<div class="form-element date group-date">
+		<div class="form-element date group-date <?php echo esc_attr( Line_Class::g()->check_field_status( $line, 'date' ) ); ?>" >
 			<span class="form-label"><?php esc_attr_e( 'Date', 'frais-pro' ); ?></span>
 			<label class="form-field-container">
 				<span class="form-icon"><i class="fal fa-calendar-alt"></i></span>
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</label>
 		</div>
 		<!-- Type de ligne - Dropdown -->
-		<div class="type form-element <?php echo esc_attr( ! empty( $line->line_status ) && ( false === $line->line_status['status'] ) && in_array( 'category', $line->line_status['errors'], true ) ? 'input-error' : '' ); ?>">
+		<div class="type form-element <?php echo esc_attr( Line_Class::g()->check_field_status( $line, 'current_category' ) ); ?>" >
 			<span class="form-label"><?php esc_attr_e( 'Line type', 'frais-pro' ); ?></span>
 			<label class="form-field-container">
 				<?php
@@ -53,24 +53,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</label>
 		</div>
 		<!-- Km -->
-		<div class="km form-element">
+		<div class="km distance form-element <?php echo esc_attr( Line_Class::g()->check_field_status( $line, 'distance' ) ); ?>" >
 			<span class="form-label"><?php esc_attr_e( 'Km', 'frais-pro' ); ?></span>
 			<label class="form-field-container">
-				<input type="text" name="distance" class="form-field" value="<?php echo esc_html( $line->distance ); ?>" <?php echo ( $note_is_closed || ( ! empty( $line->taxonomy ) && ! empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ] ) && ! empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ][0] ) && empty( $line->taxonomy[ Line_Type_Class::g()->get_type() ][0]->special_treatment ) ) ? 'readonly="readonly"' : '' ); ?>/>
+				<input type="text" name="distance" class="form-field" value="<?php echo esc_html( $line->distance ); ?>" <?php echo ( $note_is_closed || Line_Class::g()->check_amount_input_status( $line, 'km_calculation' ) ? 'readonly="readonly"' : '' ); ?>/>
 			</label>
 		</div>
 		<!-- TTC -->
-		<div class="ttc form-element <?php echo esc_attr( ! empty( $line->line_status ) && ( false === $line->line_status['status'] ) && in_array( 'amount', $line->line_status['errors'], true ) ? 'input-error' : '' ); ?>">
+		<div class="ttc form-element <?php echo esc_attr( Line_Class::g()->check_field_status( $line, 'tax_inclusive_amount' ) ); ?>" >
 			<span class="form-label"><?php esc_attr_e( 'ATI(€)', 'frais-pro' ); ?></span>
 			<label class="form-field-container">
-				<input type="text" class="form-field" name="tax_inclusive_amount" value="<?php echo esc_html( $line->tax_inclusive_amount ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?>/>
+				<input type="text" class="form-field" name="tax_inclusive_amount" value="<?php echo esc_html( $line->tax_inclusive_amount ); ?>" <?php echo ( $note_is_closed || Line_Class::g()->check_amount_input_status( $line ) ? 'readonly="readonly"' : '' ); ?>/>
 			</label>
 		</div>
 		<!-- TVA -->
-		<div class="tva form-element <?php echo esc_attr( ! empty( $line->line_status ) && ( false === $line->line_status['status'] ) && in_array( 'amount', $line->line_status['errors'], true ) ? 'input-error' : '' ); ?>">
+		<div class="tva form-element <?php echo esc_attr( Line_Class::g()->check_field_status( $line, 'tax_amount' ) ); ?>" >
 			<span class="form-label"><?php esc_attr_e( 'VAT', 'frais-pro' ); ?></span>
 			<label class="form-field-container">
-				<input type="text" class="form-field" name="tax_amount" value="<?php echo esc_html( $line->tax_amount ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?> />
+				<input type="text" class="form-field" name="tax_amount" value="<?php echo esc_html( $line->tax_amount ); ?>" <?php echo ( $note_is_closed || Line_Class::g()->check_amount_input_status( $line ) ? 'readonly="readonly"' : '' ); ?> />
 			</label>
 		</div>
 		<!-- Status -->
