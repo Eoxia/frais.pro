@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return Object L'objet avec tous les éléments ajoutés par cette méthode.
  */
 function set_note_name( $data ) {
-	if ( $data['contains_unaffected'] ) {
+	if ( isset( $data['contains_unaffected'] ) && $data['contains_unaffected'] ) {
 			return $data;
 	}
 
@@ -65,7 +65,7 @@ function get_full_note( $data ) {
 		$args_note_status = array( 'include' => end( $data->taxonomy[ Note_Status_Class::g()->get_type() ] ) );
 	}
 	// Récupères la catégorie du danger.
-	$note_status = Note_Status_Class::g()->get_type();
+	$note_status        = Note_Status_Class::g()->get_type();
 	$data->$note_status = Note_Status_Class::g()->get( $args_note_status, true );
 
 	return $data;
