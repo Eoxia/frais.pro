@@ -35,12 +35,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			) );
 			?>
 
-			<span class="export toggle list" data-parent="toggle" data-target="content" >
-				<?php
-				\eoxia\View_Util::exec( 'frais-pro', 'note', 'filter/item-actions', array(
-					'note' => $note,
-				) );
-				?>
+			<span class="export toggle list" data-parent="toggle" data-target="content">
+				<?php echo apply_filters( 'fp_filter_note_item_actions', $note ); // WPCS XSS ok. ?>
 			</span>
 		</div>
 
