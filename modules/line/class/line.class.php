@@ -50,11 +50,18 @@ class Line_Class extends \eoxia\Post_Class {
 	protected $base = 'line';
 
 	/**
+	 * Le préfixe de la note
+	 *
+	 * @var string
+	 */
+	public $element_prefix = 'L';
+
+	/**
 	 * Fonction de callback avant d'insérer les données en mode POST.
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\frais_pro\before_update_line' );
+	protected $before_post_function = array( '\frais_pro\construct_identifier', '\frais_pro\before_update_line' );
 
 
 	/**
