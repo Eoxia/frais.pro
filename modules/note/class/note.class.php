@@ -49,11 +49,18 @@ class Note_Class extends \eoxia\Post_Class {
 	protected $meta_key = 'fp_note';
 
 	/**
+	 * Le préfixe de la note
+	 *
+	 * @var string
+	 */
+	public $element_prefix = 'N';
+
+	/**
 	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\frais_pro\set_note_name' );
+	protected $before_post_function = array( '\frais_pro\construct_identifier', '\frais_pro\set_note_name' );
 
 	/**
 	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée
@@ -194,8 +201,9 @@ class Note_Class extends \eoxia\Post_Class {
 	 * @since 1.2.0
 	 * @version 1.2.0
 	 *
-	 * @param  integer $note_id L'ID de la note de frais.
-	 * @param  string  $type    Type de fichier a exporter.
+	 * @param  integer $note_id   L'ID de la note de frais.
+	 * @param  string  $type      Type de fichier a exporter.
+	 * @param  string  $extension L'extension du fichier.
 	 *
 	 * @return array {
 	 *         Les propriétés du tableau.
@@ -203,7 +211,7 @@ class Note_Class extends \eoxia\Post_Class {
 	 *         @type string ....
 	 * }.
 	 */
-	public function generate_document( $note_id, $type = '' ) {
+	public function generate_document( $note_id, $type = '', $extension = '' ) {
 		$total_tax_inclusive_amount = 0;
 		$total_tax_amount           = 0;
 
@@ -254,7 +262,7 @@ class Note_Class extends \eoxia\Post_Class {
 
 		if ( ! empty( $lines ) ) {
 			foreach ( $lines as $line ) {
-				if ( 'photo' === $type ) {
+				if ( 'note-photo' === $type ) {
 					$picture = '-';
 					if ( ! empty( $line->thumbnail_id ) ) {
 						$picture_definition = wp_get_attachment_image_src( $line->thumbnail_id, 'large' );
@@ -294,7 +302,7 @@ class Note_Class extends \eoxia\Post_Class {
 					'ttc'               => $line->tax_inclusive_amount . '€',
 					'tva'               => $line->tax_amount . '€',
 					'id_media_attached' => ! empty( $line->thumbnail_id ) ? $line->thumbnail_id : '',
-					'attached_media'    => ( 'photo' === $type ) ? $picture : '',
+					'attached_media'    => ( 'note-photo' === $type ) ? $picture : '',
 				);
 
 				$total_tax_inclusive_amount += $line->tax_inclusive_amount;
@@ -308,7 +316,21 @@ class Note_Class extends \eoxia\Post_Class {
 		$sheet_details['chevaux']  = $user->chevaux;
 		$sheet_details['prixkm']   = $user->prixkm;
 
-		$response = Document_Class::g()->create_document( $note, array( $type ), $sheet_details );
+		$document            = Document_Class::g()->get( array( 'id' => 0 ), true );
+		$document->parent_id = $note->id;
+
+		$args_title = array(
+			current_time( 'Ymd' ),
+			strtolower( str_replace( '-', '_', sanitize_title( $note->title ) ) ),
+			$note->unique_identifier,
+			$document->unique_identifier,
+			strtolower( str_replace( '-', '_', sanitize_title( $type ) ) ),
+		);
+
+		$document->title  = implode( '_', $args_title );
+		$document->title .= '.' . $extension;
+
+		$response = Document_Class::g()->create_document( $document, array( $type ), $sheet_details, $extension );
 
 		return $response;
 	}
