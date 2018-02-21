@@ -67,7 +67,7 @@ class Note_Action {
 			'namespace'        => 'fraisPro',
 			'module'           => 'note',
 			'callback_success' => 'goToNote',
-			'link'             => admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['frais-pro']->slug, false ) . '&note=' . $note->id,
+			'link'             => admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['frais-pro']->slug . '-edit', false ) . '&note=' . $note->id,
 		) );
 	}
 
@@ -84,7 +84,7 @@ class Note_Action {
 		}
 
 		$note = Note_Class::g()->get( array(
-			'post__in' => array( $id ),
+			'id' => $id,
 		), true );
 
 		$note->status = 'archive';
