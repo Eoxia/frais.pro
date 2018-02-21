@@ -48,7 +48,7 @@ function set_note_name( $data ) {
 	}
 	update_user_meta( get_current_user_id(), 'ndf_' . $date . '_identifier', $identifier );
 
-	$data['title'] = str_replace( '-', '', $date ) . $identifier . '-' . strtoupper( $user->displayname );
+	$data['title'] = str_replace( '-', '', $date ) . $identifier . '-' . strtoupper( $user->data['displayname'] );
 
 	return $data;
 }
@@ -62,8 +62,7 @@ function set_note_name( $data ) {
 function get_full_note( $object ) {
 	$args_note_status = array( 'schema' => true );
 
-
-	if ( ! empty( $object->data['id'] ) && ! empty( end( $object->data['taxonomy'][ Note_Status_Class::g()->get_type() ] ) ) ) {
+	if ( ! empty( $object->data['id'] ) && ! empty( $object->data['taxonomy'] ) && ! empty( end( $object->data['taxonomy'][ Note_Status_Class::g()->get_type() ] ) ) ) {
 		$args_note_status = array( 'include' => end( $object->data['taxonomy'][ Note_Status_Class::g()->get_type() ] ) );
 	}
 	// Récupères la catégorie du danger.

@@ -56,9 +56,11 @@ class Note_Action {
 			),
 		), true );
 
-		if ( ! empty( $default_status ) && ! empty( $default_status->id ) ) {
+		if ( ! empty( $default_status ) && ! empty( $default_status->data['id'] ) ) {
 			$note_args['taxonomy'] = array(
-				Note_Status_Class::g()->get_type() => $default_status->id,
+				Note_Status_Class::g()->get_type() => array(
+					$default_status->data['id'],
+				),
 			);
 		}
 		$note = Note_Class::g()->create( $note_args );
