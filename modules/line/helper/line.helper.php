@@ -58,7 +58,7 @@ function before_update_line( $data ) {
 function build_line_datas( $data ) {
 	$data->current_category = null;
 
-	$current_taxonomy = end( $data->taxonomy[ Line_Type_Class::g()->get_type() ] );
+	$current_taxonomy =  $data->taxonomy[ Line_Type_Class::g()->get_type() ];
 	if ( ! empty( $data->taxonomy[ Line_Type_Class::g()->get_type() ] ) && ! empty( $current_taxonomy ) ) {
 		$data->current_category = Line_Type_Class::g()->get( array( 'id' => $current_taxonomy ), true );
 	}
