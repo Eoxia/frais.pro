@@ -21,14 +21,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</span>
 <?php else : ?>
 	<div class="wpeo-dropdown dropdown-large">
-		<input name="type" type="hidden" value="<?php echo ( ! empty( $line->id ) && ! empty( $line_type_note_id ) ? esc_attr( $line_type_note_id ) : '' ); ?>" />
+		<input name="type" type="hidden" value="<?php echo ( ! empty( $line->data['id'] ) && ! empty( $line_type_note_id ) ? esc_attr( $line_type_note_id ) : '' ); ?>" />
 		<span class="dropdown-toggle form-field <?php echo esc_attr( ! empty( $args ) && ! empty( $args['class'] ) ? ' ' . implode( ' ', $args['class'] ) : '' ); ?>">
 			<span><?php echo esc_html( $selected_type_note_name ); ?></span> <i class="button-icon fas fa-caret-down"></i>
 		</span>
 		<ul class="dropdown-content">
 	<?php if ( ! empty( $line_types ) ) : ?>
 		<?php foreach ( $line_types as $line_type ) : ?>
-			<li class="dropdown-item" data-id="<?php echo esc_attr( $line_type->id ); ?>" data-special-treatment="<?php echo esc_attr( $line_type->special_treatment ); ?>" ><?php echo esc_html( $line_type->category_id . ' : ' . $line_type->name ); ?></li>
+			<li class="dropdown-item" data-id="<?php echo esc_attr( $line_type->data['id'] ); ?>" data-special-treatment="<?php echo esc_attr( $line_type->data['special_treatment'] ); ?>" ><?php echo esc_html( $line_type->data['category_id'] . ' : ' . $line_type->data['name'] ); ?></li>
 		<?php endforeach; ?>
 	<?php endif; ?>
 			</ul>

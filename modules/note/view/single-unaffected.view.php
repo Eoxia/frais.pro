@@ -15,8 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="single-note<?php echo esc_attr( $note_is_closed ? ' is_closed' : '' ); ?> <?php echo esc_attr( $display_mode ); ?>" data-id="<?php echo esc_attr( $note->id ); ?>" >
-	<input type="hidden" name="id" value="<?php echo esc_attr( $note->id ); ?>" >
+<div class="single-note<?php echo esc_attr( $note_is_closed ? ' is_closed' : '' ); ?> <?php echo esc_attr( $display_mode ); ?>" data-id="<?php echo esc_attr( $note->data['id'] ); ?>" >
+	<input type="hidden" name="id" value="<?php echo esc_attr( $note->data['id'] ); ?>" >
 	<input type="hidden" name="action" value="update_note" >
 	<input type="hidden" name="display_mode" value="<?php echo esc_attr( $display_mode ); ?>" >
 	<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'update_note' ) ); ?>" >
@@ -25,8 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="header">
 			<a href="<?php echo esc_url( menu_page_url( \eoxia\Config_Util::$init['frais-pro']->slug, false ) ); ?>" class="close"><i class="icon far fa-chevron-left"></i></a>
 			<div class="title">
-				<h2><?php echo esc_html( $note->title ); ?></h2>
-				<div class="note-last-update" ><?php esc_html_e( 'Last update', 'frais-pro' ); ?> : <?php echo esc_html( $note->date_modified['rendered']['date_human_readable'] ); ?></div>
+				<h2><?php echo esc_html( $note->data['title'] ); ?></h2>
+				<div class="note-last-update" ><?php esc_html_e( 'Last update', 'frais-pro' ); ?> : <?php echo esc_html( $note->data['date_modified']['rendered']['date_human_readable'] ); ?></div>
 			</div>
 		</div>
 

@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?><li class="dropdown-item action-delete"
 	data-message-delete="<?php esc_html_e( 'Are you sure you want to dissociate this line', 'frais-pro' ); ?>"
-	data-id="<?php echo esc_attr( $line->id ); ?>"
-	data-parent-id="<?php echo esc_attr( $line->parent_id ); ?>"
+	data-id="<?php echo esc_attr( $line->data['id'] ); ?>"
+	data-parent-id="<?php echo esc_attr( $line->data['parent_id'] ); ?>"
 	data-action="<?php echo esc_attr( 'fp_dissociate_line_from_note' ); ?>"
 	data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_dissociate_line_from_note' ) ); ?>" ><i class="dropdown-icon far fa-unlink fa-fw"></i> <?php esc_html_e( 'Dissociate from note', 'frais-pro' ); ?></li>
