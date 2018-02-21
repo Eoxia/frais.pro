@@ -32,9 +32,6 @@
   /**
  * Import des différents tableaux
  */
-  /**
- * Tailles - a supprimer si le nospace fonctionne
- */
   /** Read Only */
   /** Input Error */
   /* Archive ancien module formulaire */
@@ -534,7 +531,10 @@
   -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
-.wrap-frais-pro .bloc-search .form-element:hover {
+.wrap-frais-pro .bloc-search .form-element.form-align-horizontal {
+  padding: 1em 0; }
+
+.wrap-frais-pro .bloc-search .form-element:not(.form-align-horizontal):hover {
   -webkit-box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
           box-shadow: 0 0 14px rgba(0, 0, 0, 0.2); }
 
@@ -552,16 +552,32 @@
 .wrap-frais-pro .single-note .content .document-list-container {
   margin-top: 50px; }
 
-.wrap-frais-pro .single-note .content .document-list-container .document-title .document-generation-date {
+.wrap-frais-pro .single-note .content .document-list-container .document-title {
+  white-space: normal;
   font-size: 14px;
-  font-style: italic; }
+  text-transform: uppercase; }
 
-.wrap-frais-pro .single-note .content .document-list-container td.document-summary {
+.wrap-frais-pro .single-note .content .document-list-container .document-generation-date {
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.4);
+  text-transform: none; }
+
+.wrap-frais-pro .single-note .content .document-list-container .document-summary {
   text-align: right; }
 
-.wrap-frais-pro .single-note .content .document-list-container td.document-action {
+.wrap-frais-pro .single-note .content .document-list-container .document-summary .document-icon {
+  color: rgba(0, 0, 0, 0.4); }
+
+.wrap-frais-pro .single-note .content .document-list-container .document-action {
   width: 120px;
   text-align: right; }
+
+.wrap-frais-pro .single-note .content .document-list-container .document-action .dropdown-content {
+  text-align: left; }
+
+.wrap-frais-pro .single-note .content .document-list-container .document-action .button-disable {
+  cursor: auto; }
 
 .wrap-frais-pro .clear:before,
 .wrap-frais-pro .clear:after,

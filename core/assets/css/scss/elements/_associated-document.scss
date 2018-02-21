@@ -3,18 +3,34 @@
 	margin-top: 50px;
 
 	.document-title {
-		.document-generation-date {
-			font-size: 14px;
-			font-style: italic;
+		white-space: normal;
+		font-size: 14px;
+		text-transform: uppercase;
+	}
+	.document-generation-date {
+		font-size: 12px;
+		font-style: italic;
+		color: rgba(0,0,0,0.4);
+		text-transform: none;
+	}
+
+	.document-summary {
+		text-align: right;
+
+		.document-icon {
+			color: rgba(0,0,0,0.4);
 		}
 	}
 
-	td.document-summary {
-		text-align: right;
-	}
-
-	td.document-action {
+	.document-action {
 		width: 120px;
 		text-align: right;
+
+		.dropdown-content {
+			text-align: left;
+		}
+		.button-disable {
+			cursor: auto;
+		}
 	}
 }
