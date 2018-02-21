@@ -59,7 +59,7 @@ class Search_Action {
 		$users = $user_query->results;
 
 		ob_start();
-		\eoxia\View_Util::exec( 'frais-pro', 'note', 'search/results-users', array(
+		\eoxia\View_Util::exec( 'frais-pro', 'search', 'results-users', array(
 			'users' => $users,
 		) );
 		wp_send_json_success( array(
