@@ -62,7 +62,7 @@ function set_note_name( $data ) {
 function get_full_note( $data ) {
 	$args_note_status = array( 'schema' => true );
 	if ( ! empty( $data->id ) && ! empty( $data->taxonomy[ Note_Status_Class::g()->get_type() ] ) ) {
-		$args_note_status = array( 'include' => end( $data->taxonomy[ Note_Status_Class::g()->get_type() ] ) );
+		$args_note_status = array( 'include' => $data->taxonomy[ Note_Status_Class::g()->get_type() ] );
 	}
 	// Récupères la catégorie du danger.
 	$data->current_status = Note_Status_Class::g()->get( $args_note_status, true );
