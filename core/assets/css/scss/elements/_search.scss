@@ -3,8 +3,12 @@
 
 	.form-element {
 		transition: all 0.2s ease-out;
+
+		&.form-align-horizontal {
+			padding: 1em 0;
+		}
 	}
-	.form-element:hover {
+	.form-element:not(.form-align-horizontal):hover {
 		box-shadow: 0 0 14px rgba(0,0,0,0.2);
 	}
 	.form-field-container {
