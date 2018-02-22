@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</span>
 <?php else : ?>
 	<div class="wpeo-dropdown dropdown-large">
-		<input name="type" type="hidden" value="<?php echo ( ! empty( $line->data['id'] ) && ! empty( $line_type_note_id ) ? esc_attr( $line_type_note_id ) : '' ); ?>" />
+		<input name="type" type="hidden" value="<?php echo ( ! empty( $line_type_note_id ) ? esc_attr( $line_type_note_id ) : '' ); ?>" />
 		<span class="dropdown-toggle form-field <?php echo esc_attr( ! empty( $args ) && ! empty( $args['class'] ) ? ' ' . implode( ' ', $args['class'] ) : '' ); ?>">
 			<span><?php echo esc_html( $selected_type_note_name ); ?></span> <i class="button-icon fas fa-caret-down"></i>
 		</span>
