@@ -76,8 +76,8 @@ class Line_Type_Class extends \eoxia\Term_Class {
 		$selected_type_note_name = __( 'Line type', 'frais-pro' );
 		if ( ! empty( $line_types ) && ! empty( $type_id ) ) {
 			foreach ( $line_types as $element ) {
-				if ( $element->id === (int) $type_id ) {
-					$selected_type_note_name = $element->category_id . ' : ' . $element->name;
+				if ( $element->data['id'] === (int) $type_id ) {
+					$selected_type_note_name = $element->data['category_id'] . ' : ' . $element->data['name'];
 					break;
 				}
 			}

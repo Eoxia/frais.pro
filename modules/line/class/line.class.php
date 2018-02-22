@@ -113,7 +113,7 @@ class Line_Class extends \eoxia\Post_Class {
 	public function display( $line, $args = array() ) {
 		$template_args = wp_parse_args( $args, array(
 			'line'           => $line,
-			'line_type_id'   => ( null !== $line && ! empty( $line['current_category'] ) && ! empty( $line['current_category']->data['id'] ) ? $line['current_category']->data['id'] : 0 ),
+			'line_type_id'   => ( null !== $line && ! empty( $line->data['current_category'] ) && ! empty( $line->data['current_category']->data['id'] ) ? $line->data['current_category']->data['id'] : 0 ),
 			'mode'           => ( ( ! empty( $args ) && ! empty( $args['note_is_closed'] ) && $args['note_is_closed'] ) ? 'view' : 'edit' ),
 			'note_is_closed' => ( ! empty( $args ) && isset( $args['note_is_closed'] ) ? (bool) $args['note_is_closed'] : false ), // Voir Alex si c'est de la merde.
 		) );

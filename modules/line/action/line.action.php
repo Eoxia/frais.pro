@@ -225,15 +225,15 @@ class Line_Action {
 		$line_args                         = array();
 		$line_args['id']                   = isset( $_POST['id'] ) ? intval( $_POST['id'] ) : 0;
 		$line_args['title']                = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : __( 'Label', 'frais-pro' );
-		$line_args['date_modified']        = isset( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : current_time( 'mysql' );
-		$line_args['date_modified_gmt']    = isset( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : current_time( 'mysql' );
+		// $line_args['date_modified']        = isset( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : current_time( 'mysql' );
+		// $line_args['date_modified_gmt']    = isset( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : current_time( 'mysql' );
 		$line_args['parent_id']            = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : 0;
 		$line_args['distance']             = isset( $_POST['distance'] ) ? intval( $_POST['distance'] ) : 0;
 		$line_args['tax_amount']           = isset( $_POST['tax_amount'] ) ? floatval( $_POST['tax_amount'] ) : 0;
 		$line_args['tax_inclusive_amount'] = isset( $_POST['tax_inclusive_amount'] ) ? floatval( $_POST['tax_inclusive_amount'] ) : 0;
 
 		// Ajout de la catégorie de la ligne.
-		$line_args['taxonomy'][ Line_Type_Class::g()->get_type() ] = isset( $_POST['type'] ) ? intval( $_POST['type'] ) : 0;
+		$line_args['taxonomy'][ Line_Type_Class::g()->get_type() ][] = isset( $_POST['type'] ) ? intval( $_POST['type'] ) : 0;
 
 		// Enregistrement de la ligne.
 		$line = Line_Class::g()->update( $line_args, true );
@@ -244,8 +244,8 @@ class Line_Action {
 			'module'           => 'line',
 			'callback_success' => 'lineSaved',
 			'note'             => $note,
-			'note_last_update' => __( 'Last Update', 'frais-pro' ) . ' ' . $note->date_modified['rendered']['date_human_readable'],
-			'line'             => $line,
+			'note_last_update' => __( 'Last Update', 'frais-pro' ) . ' ' . $note->data['date_modified']['rendered']['date_human_readable'],
+			'line'             => $line->data,
 		) );
 	}
 

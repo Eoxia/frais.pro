@@ -55,17 +55,16 @@ function before_update_line( $data ) {
  *
  * @return Line_Model       The line with new informations.
  */
-function build_line_datas( $data ) {
-	$data->current_category = null;
+function build_line_datas( $object ) {
+	$object->data['current_category'] = null;
 
-	$current_taxonomy =  $data->taxonomy[ Line_Type_Class::g()->get_type() ];
-	if ( ! empty( $data->taxonomy[ Line_Type_Class::g()->get_type() ] ) && ! empty( $current_taxonomy ) ) {
-		$data->current_category = Line_Type_Class::g()->get( array( 'id' => $current_taxonomy ), true );
+	if ( ! empty( $object->data['taxonomy'][ Line_Type_Class::g()->get_type() ] ) && ! empty( end( $object->data['taxonomy'][ Line_Type_Class::g()->get_type() ] ) ) ) {
+		$object->data['current_category'] = Line_Type_Class::g()->get( array( 'id' => end( $object->data['taxonomy'][ Line_Type_Class::g()->get_type() ] ) ), true );
 	}
 
-	$data->line_status = Line_CLass::g()->check_line_status( $data );
+	$object->data['line_status'] = Line_CLass::g()->check_line_status( $object );
 
-	return $data;
+	return $object;
 }
 
 /**
@@ -74,25 +73,26 @@ function build_line_datas( $data ) {
  * @param  Object $data L'objet.
  * @return Object       L'objet non modifié.
  */
-function after_update_line( $data ) {
+function after_update_line( $object ) {
 	$compilated_tax_amount           = 0;
 	$compilated_tax_inclusive_amount = 0;
 
 	$note = Note_Class::g()->get( array(
-		'id' => $data->parent_id,
+		'id' => $object->data['parent_id'],
 	), true );
 
 	$lines = Line_Class::g()->get( array(
-		'post_parent' => $note->id,
+		'post_parent' => $note->data['id'],
 	) );
 	foreach ( $lines as $line ) {
-		$compilated_tax_inclusive_amount += $line->tax_inclusive_amount;
-		$compilated_tax_amount           += $line->tax_amount;
+		$compilated_tax_inclusive_amount += $line->data['tax_inclusive_amount'];
+		$compilated_tax_amount           += $line->data['tax_amount'];
 	}
-	$note->date                 = current_time( 'mysql' );
-	$note->tax_inclusive_amount = $compilated_tax_inclusive_amount;
-	$note->tax_amount           = $compilated_tax_amount;
+
+	$note->data['date']                 = current_time( 'mysql' );
+	$note->data['tax_inclusive_amount'] = $compilated_tax_inclusive_amount;
+	$note->data['tax_amount']           = $compilated_tax_amount;
 	Note_Class::g()->update( $note );
 
-	return $data;
+	return $object;
 }
