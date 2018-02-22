@@ -164,7 +164,7 @@ class Note_Status_Class extends \eoxia\Term_Class {
 	 * @since 1.4.0
 	 * @version 1.4.0
 	 *
-	 * @param  integer $status_id ID du status par défaut.
+	 * @param integer $status_id ID du status par défaut.
 	 *
 	 * array['class']          string Classe supplémentaire pour personnalisé le dropdown. (optional)
 	 * array['current_screen'] string Page courante. (optional)
@@ -182,6 +182,10 @@ class Note_Status_Class extends \eoxia\Term_Class {
 
 		if ( ! empty( $status_list ) ) {
 			foreach ( $status_list as $status ) {
+				if ( $status->data['is_default'] && empty( $default_status ) ) {
+					$default_status = $status;
+				}
+
 				if ( $status->data['id'] === $status_id ) {
 					$default_status = $status;
 				}
