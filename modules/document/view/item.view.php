@@ -41,15 +41,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<i class="far fa-file-times fa-lg button-icon" aria-hidden="true"></i>
 		</span>
 	<?php endif; ?>
-
-		<div class="wpeo-dropdown dropdown-right" >
-			<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>" ><i class="button-icon far fa-ellipsis-v"></i></button>
-			<ul class="dropdown-content" >
-				<li class="dropdown-item action-attribute"
-					data-id="<?php echo esc_attr( $document->data['id'] ); ?>"
-					data-action="fp_note_archive"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_note_archive' ) ); ?>"><i class="icon fa-fw fas fa-trash"></i>&nbsp;<?php esc_html_e( 'Delete', 'frais-pro' ); ?></li>
-			</ul>
-		</div>
 	</td>
 </tr>

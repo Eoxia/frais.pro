@@ -78,7 +78,7 @@ class Note_Unaffected_Action {
 		}
 
 		ob_start();
-		\eoxia\View_Util::exec( 'frais-pro', 'note', 'search/results-notes', array(
+		\eoxia\View_Util::exec( 'frais-pro', 'search', 'results-notes', array(
 			'notes' => $notes,
 		) );
 		wp_send_json_success( array(
@@ -118,7 +118,7 @@ class Note_Unaffected_Action {
 					), true );
 
 					if ( empty( $line->wp_errors ) ) {
-						$updated_lines_id[] = $line->id;
+						$updated_lines_id[] = $line->data['id'];
 					}
 				}
 			}
