@@ -199,5 +199,6 @@ window.eoxiaJS.fraisPro.line.setStatusField = function( element, action ) {
  * @return {void}
  */
 window.eoxiaJS.fraisPro.line.setReadOnly = function( element, nameField, enabled ) {
+	element.find( '.' + nameField ).removeClass( 'form-element-disable' );
 	element.find( '.' + nameField + ' input[type=text]' ).attr( 'readonly', enabled );
 };
