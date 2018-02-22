@@ -55,14 +55,15 @@ function before_update_line( $data ) {
  *
  * @return Line_Model       The line with new informations.
  */
-function build_line_datas( $data ) {
+function after_get_line( $data ) {
+	// Récupération de la catégorie actuelle pour la ligne.
 	$data->current_category = null;
-
-	$current_taxonomy =  $data->taxonomy[ Line_Type_Class::g()->get_type() ];
+	$current_taxonomy       = $data->taxonomy[ Line_Type_Class::g()->get_type() ];
 	if ( ! empty( $data->taxonomy[ Line_Type_Class::g()->get_type() ] ) && ! empty( $current_taxonomy ) ) {
 		$data->current_category = Line_Type_Class::g()->get( array( 'id' => $current_taxonomy ), true );
 	}
 
+	// Récupération du statut de la ligne.
 	$data->line_status = Line_CLass::g()->check_line_status( $data );
 
 	return $data;

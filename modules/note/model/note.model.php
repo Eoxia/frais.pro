@@ -71,8 +71,8 @@ class Note_Model extends \eoxia\Post_Model {
 			'meta_type' => 'multiple',
 			'child'     => array(
 				Note_Status_Class::g()->get_type() => array(
-					'meta_type' => 'multiple',
-					'type'      => 'integer',
+					'type'       => 'array',
+					'array_type' => 'integer',
 				),
 			),
 		);

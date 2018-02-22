@@ -90,7 +90,7 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array( '\frais_pro\build_line_datas' );
+	protected $after_get_function = array( '\frais_pro\after_get_line' );
 
 	/**
 	 * Le nom pour le resgister post type
@@ -187,13 +187,14 @@ class Line_Class extends \eoxia\Post_Class {
 					$line_custom_class[] = 'input-error';
 				}
 			}
+			$line_custom_class[] = 'form-element-disable'; // sur form-element quand input en readonly
 		}
 
 		return implode( ' ', $line_custom_class );
 	}
 
 	/**
-	 * Vérifie si un chmaps est obligatoire pour que la ligne soit valide ou non.
+	 * Vérifie si un champs est obligatoire pour que la ligne soit valide ou non.
 	 *
 	 * Fonctionnement:
 	 * 1- A la création tous les champs sont en lecture seul. On change leur état au moment du choix de la catégorie
