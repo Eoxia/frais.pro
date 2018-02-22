@@ -70,6 +70,13 @@ class Note_Class extends \eoxia\Post_Class {
 	protected $before_put_function = array();
 
 	/**
+	 * La fonction appelée automatiquement après la modification de l'objet dans la base de donnée
+	 *
+	 * @var array
+	 */
+	protected $after_put_function = array( '\frais_pro\get_full_note' );
+
+	/**
 	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée
 	 *
 	 * @var array

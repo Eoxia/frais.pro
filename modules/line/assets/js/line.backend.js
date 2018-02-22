@@ -50,8 +50,9 @@ window.eoxiaJS.fraisPro.line.selectInputValue = function( element, response ) {
  *
  * @return {void}
  */
-window.eoxiaJS.fraisPro.line.save = function( element, response ) {
-	var parentElement = jQuery( this ).closest( 'div.line-content' );
+window.eoxiaJS.fraisPro.line.save = function( event, element ) {
+	element = element ? element : jQuery( this );
+	var parentElement = element.closest( 'div.line-content' );
 	var listInput = window.eoxiaJS.arrayForm.getInput( parentElement );
 	var data = {
 		'action': 'fp_update_line',

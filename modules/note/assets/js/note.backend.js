@@ -43,7 +43,7 @@ window.eoxiaJS.fraisPro.note.init = function() {
 	jQuery( document ).on( 'click', '.list-note .note', window.eoxiaJS.fraisPro.note.goToLink );
 	jQuery( document ).on( 'click', '.display-method span.wpeo-button', window.eoxiaJS.fraisPro.note.changeDisplayMode );
 	jQuery( document ).on( 'click', '.wrap-frais-pro .fraispro-mass-line-creation', window.eoxiaJS.fraisPro.note.openMedia );
-	jQuery( document ).on( 'click', '.single-note.validation_status.wpeo-dropdown li', window.eoxiaJS.fraisPro.note.changeNoteStatus );
+	jQuery( document ).on( 'click', '.single-note .validation_status.wpeo-dropdown li', window.eoxiaJS.fraisPro.note.changeNoteStatus );
 
 	// jQuery( window ).on( 'scroll', window.eoxiaJS.fraisPro.note.scrollSticky );
 };
@@ -62,15 +62,18 @@ window.eoxiaJS.fraisPro.note.changeNoteStatus = function( event ) {
 		'id': jQuery( this ).closest( '.single-note' ).attr( 'data-id' )
 	};
 
+	// D'abord on vérifier si l'utilisateur utilise un statut avec un traitement special.
+	if ( 'closed' === jQuery( this ).attr( 'data-special-treatment' ) && ! confirm( fraisPro.confirmMarkAsPayed ) ) {
+		return false;
+	}
+
+	parentElement.find( 'input' ).val( jQuery( this ).data( 'id' ) );
+	parentElement.find( '.dropdown-toggle > span' ).html( jQuery( this ).html() );
+
 	for ( i = 0; i < listInput.length; i++ ) {
 		if ( listInput[i].name ) {
 			data[listInput[i].name] = window.eoxiaJS.arrayForm.getInputValue( listInput[i] );
 		}
-	}
-
-	// D'abord on vérifier si l'utilisateur utilise un statut avec un traitement special.
-	if ( 'closed' === jQuery( this ).attr( 'data-special-treatment' ) && ! confirm( fraisPro.confirmMarkAsPayed ) ) {
-		return false;
 	}
 
 	window.eoxiaJS.request.send( parentElement, data );
