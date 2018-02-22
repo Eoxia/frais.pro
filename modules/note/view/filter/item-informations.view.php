@@ -16,13 +16,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <td class="note-ttc">
-	<span class="value"><?php echo esc_html( $note['tax_inclusive_amount'] ); ?></span>
+	<span class="value"><?php echo esc_html( $note->data['tax_inclusive_amount'] ); ?></span>
 	<span class="currency"><?php esc_html_e( '€', 'frais-pro' ); ?></span>
 	<span class="taxe"><?php esc_html_e( 'ATI', 'frais-pro' ); ?></span>
 </td>
 
 <td class="note-tva">
-	<span class="value"><?php echo esc_html( $note['tax_amount'] ); ?></span>
+	<span class="value"><?php echo esc_html( $note->data['tax_amount'] ); ?></span>
 	<span class="currency"><?php esc_html_e( '€', 'frais-pro' ); ?></span>
 	<span class="taxe"><?php esc_html_e( 'VAT', 'frais-pro' ); ?></span>
 </td>

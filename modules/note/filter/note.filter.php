@@ -44,7 +44,7 @@ class Note_Filter {
 	 * @return void
 	 */
 	public function callback_note_item_informations( $note ) {
-		if ( $note->contains_unaffected ) {
+		if ( $note->data['contains_unaffected'] ) {
 			return;
 		}
 
@@ -67,11 +67,11 @@ class Note_Filter {
 	public function callback_note_item_actions( $note ) {
 		$view = 'item-actions';
 
-		if ( $note->contains_unaffected ) {
+		if ( $note->data['contains_unaffected'] ) {
 			$view = 'item-actions-unaffected';
 		} else {
-			if ( ! empty( $note->last_document ) ) {
-				foreach ( $note->last_document as &$document ) {
+			if ( ! empty( $note->data['last_document'] ) ) {
+				foreach ( $note->data['last_document'] as &$document ) {
 					$document['file_informations'] = Document_Class::g()->check_file( $document );
 
 					$document['tooltip'] = __( 'File not generated', 'frais-pro' );

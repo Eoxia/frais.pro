@@ -221,7 +221,7 @@ window.eoxiaJS.fraisPro.note.exportedfraisProSuccess = function( triggeredElemen
  * @version 1.4.0
  */
 window.eoxiaJS.fraisPro.note.noteUpdated = function( triggeredElement, response ) {
-	if ( 'closed' === response.data.status.special_treatment ) {
+	if ( 'closed' === response.data.status.data.special_treatment ) {
 		window.location.href = response.data.link;
 	}
 };

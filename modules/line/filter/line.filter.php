@@ -43,7 +43,7 @@ class Line_Filter {
 	 * @return void
 	 */
 	public function callback_fp_filter_line_item_before( $content, $line ) {
-		$contains_unaffected = get_post_meta( $line->parent_id, 'fp_contains_unaffected', true );
+		$contains_unaffected = get_post_meta( $line->data['parent_id'], 'fp_contains_unaffected', true );
 
 		if ( $contains_unaffected ) {
 			ob_start();
@@ -69,7 +69,7 @@ class Line_Filter {
 	 */
 	public function callback_fp_filter_line_item_action_before( $content, $line ) {
 
-		$contains_unaffected = get_post_meta( $line->parent_id, 'fp_contains_unaffected', true );
+		$contains_unaffected = get_post_meta( $line->data['parent_id'], 'fp_contains_unaffected', true );
 
 		if ( ! $contains_unaffected ) {
 			ob_start();

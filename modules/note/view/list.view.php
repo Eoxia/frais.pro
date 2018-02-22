@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	if ( ! empty( $note_list ) ) :
 		foreach ( $note_list as $note ) :
 			\eoxia\View_Util::exec( 'frais-pro', 'note', 'item', array(
-				'note' => $note->data,
+				'note' => $note,
 			) );
 		endforeach;
 	else :

@@ -127,7 +127,7 @@ class Note_Action {
 			'module'           => 'note',
 			'callback_success' => 'noteUpdated',
 			'note'             => $note,
-			'status'           => $note[ Note_Status_Class::g()->get_type() ],
+			'status'           => $note->data['current_status'],
 			'link'             => admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['frais-pro']->slug, false ),
 		) );
 	}
