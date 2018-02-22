@@ -26,19 +26,49 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return array       Les données du modèle avec l'identifiant
  */
-function construct_identifier( $data, $args ) {
+function before_get_identifier( $data, $args ) {
 	$model_name      = $args['model_name'];
 	$controller_name = str_replace( 'model', 'class', $model_name );
 	$controller_name = str_replace( 'Model', 'Class', $controller_name );
 	$next_identifier = get_last_unique_key( $controller_name );
 	$next_identifier++;
-	if ( empty( $data['unique_key'] ) ) {
+
+	if ( ! isset( $data['unique_key'] ) ) {
 		$data['unique_key'] = $next_identifier;
 	}
-	if ( empty( $data['unique_identifier'] ) ) {
+	if ( ! isset( $data['unique_identifier'] ) ) {
 		$data['unique_identifier'] = $controller_name::g()->element_prefix . $next_identifier;
 	}
+
 	return $data;
+}
+
+/**
+ * Construit l'identifiant unique d'un modèle
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ *
+ * @param  array $data Les données du modèle.
+ * @param  array $args Les arguments supplémentaires.
+ *
+ * @return array       Les données du modèle avec l'identifiant
+ */
+function after_get_identifier( $object, $args ) {
+	$model_name      = $args['model_name'];
+	$controller_name = str_replace( 'model', 'class', $model_name );
+	$controller_name = str_replace( 'Model', 'Class', $controller_name );
+	$next_identifier = get_last_unique_key( $controller_name );
+	$next_identifier++;
+
+	if ( empty( $object->data['unique_key'] ) ) {
+		$object->data['unique_key'] = $next_identifier;
+	}
+	if ( empty( $object->data['unique_identifier'] ) ) {
+		$object->data['unique_identifier'] = $controller_name::g()->element_prefix . $next_identifier;
+	}
+
+	return $object;
 }
 
 /**

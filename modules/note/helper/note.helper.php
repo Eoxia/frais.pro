@@ -81,11 +81,11 @@ function get_full_note( $object ) {
 	);
 
 	$object->data['last_document']               = array();
-	$args_doc['tax_query'][0]['terms'] = 'note-photo';
+	$args_doc['tax_query'][0]['terms']           = 'note-photo';
 	$object->data['last_document']['note-photo'] = Document_Class::g()->get( $args_doc, true );
-	$args_doc['tax_query'][0]['terms'] = 'note';
+	$args_doc['tax_query'][0]['terms']           = 'note';
 	$object->data['last_document']['note']       = Document_Class::g()->get( $args_doc, true );
-	$args_doc['tax_query'][0]['terms'] = 'note-csv';
+	$args_doc['tax_query'][0]['terms']           = 'note-csv';
 	$object->data['last_document']['note-csv']   = Document_Class::g()->get( $args_doc, true );
 
 	return $object;

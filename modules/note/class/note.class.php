@@ -60,7 +60,7 @@ class Note_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\frais_pro\construct_identifier', '\frais_pro\set_note_name' );
+	protected $before_post_function = array( '\frais_pro\before_get_identifier', '\frais_pro\set_note_name' );
 
 	/**
 	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée
@@ -192,9 +192,9 @@ class Note_Class extends \eoxia\Post_Class {
 
 		if ( empty( $note ) ) {
 			$note = $this->update( array(
-				'title'               => $title . '-' . $user->displayname,
+				'title'               => $title . '-' . $user->data['displayname'],
 				'author_id'           => $author_id,
-				'slug'                => $name . '-' . $user->displayname,
+				'slug'                => $name . '-' . $user->data['displayname'],
 				'status'              => 'publish',
 				'contains_unaffected' => true,
 			) );
@@ -223,23 +223,24 @@ class Note_Class extends \eoxia\Post_Class {
 		$total_tax_inclusive_amount = 0;
 		$total_tax_amount           = 0;
 
+
 		$note = $this->get( array(
 			'id' => $note_id,
 		), true );
 
 		$lines = Line_Class::g()->get( array(
-			'post_parent' => $note->id,
+			'post_parent' => $note->data['id'],
 		) );
 
 		$user = User_Class::g()->get( array(
-			'include' => array( $note->author_id ),
+			'include' => array( $note->data['author_id'] ),
 		), true );
 
 		$types_de_note     = Line_Type_Class::g()->get();
 		$list_type_de_note = array();
 		foreach ( $types_de_note as $type_de_note ) {
-			$list_type_de_note[ $type_de_note->id ]['id']   = $type_de_note->category_id;
-			$list_type_de_note[ $type_de_note->id ]['name'] = $type_de_note->name;
+			$list_type_de_note[ $type_de_note->data['id'] ]['id']   = $type_de_note->data['category_id'];
+			$list_type_de_note[ $type_de_note->data['id'] ]['name'] = $type_de_note->data['name'];
 		}
 
 		$sheet_details = array(
@@ -253,27 +254,27 @@ class Note_Class extends \eoxia\Post_Class {
 			),
 		);
 
-		$periode = substr( $note->title, 0, 4 ) . '/' . substr( $note->title, 4, 2 );
+		$periode = substr( $note->data['title'], 0, 4 ) . '/' . substr( $note->data['title'], 4, 2 );
 
-		if ( ! empty( $user->firstname ) && ! empty( $user->lastname ) ) {
-			$sheet_details['utilisateur_prenom_nom'] = $user->firstname . ' ' . $user->lastname;
+		if ( ! empty( $user->firstname ) && ! empty( $user->data['lastname'] ) ) {
+			$sheet_details['utilisateur_prenom_nom'] = $user->data['firstname'] . ' ' . $user->data['lastname'];
 		}
-		$sheet_details['utilisateur_email'] = $user->email;
+		$sheet_details['utilisateur_email'] = $user->data['email'];
 		$sheet_details['periode']           = $periode;
 
 		if ( empty( $sheet_details['utilisateur_prenom_nom'] ) ) {
-			$sheet_details['utilisateur_prenom_nom'] = $user->login;
+			$sheet_details['utilisateur_prenom_nom'] = $user->data['login'];
 		}
 
-		$sheet_details['status']    = $note->current_status['name'];
-		$sheet_details['miseajour'] = $note->date_modified['rendered']['date_human_readable'];
+		$sheet_details['status']    = $note->data['current_status']['name'];
+		$sheet_details['miseajour'] = $note->data['date_modified']['rendered']['date_human_readable'];
 
 		if ( ! empty( $lines ) ) {
 			foreach ( $lines as $line ) {
 				if ( 'note-photo' === $type ) {
 					$picture = '-';
-					if ( ! empty( $line->thumbnail_id ) ) {
-						$picture_definition = wp_get_attachment_image_src( $line->thumbnail_id, 'large' );
+					if ( ! empty( $line->data['thumbnail_id'] ) ) {
+						$picture_definition = wp_get_attachment_image_src( $line->data['thumbnail_id'], 'large' );
 						$picture_final_path = str_replace( '\\', '/', str_replace( site_url( '/' ), ABSPATH, $picture_definition[0] ) );
 						if ( is_file( $picture_final_path ) ) {
 							$picture = array(
@@ -286,57 +287,57 @@ class Note_Class extends \eoxia\Post_Class {
 						}
 
 						$sheet_details['ndf_medias']['value'][] = array(
-							'id_media' => $line->thumbnail_id,
+							'id_media' => $line->data['thumbnail_id'],
 							'media'    => $picture,
 						);
 					}
 				}
 
 				$categorie_id    = '-';
-				$categorie_label = $line->category_name;
+				$categorie_label = $line->data['category_name'];
 
-				if ( ! empty( $line->current_category ) ) {
-					$categorie_id    = $line->current_category->category_id;
-					$categorie_label = $line->current_category->name;
+				if ( ! empty( $line->data['current_category'] ) ) {
+					$categorie_id    = $line->data['current_category']->data['category_id'];
+					$categorie_label = $line->data['current_category']->data['name'];
 				}
 
 				$sheet_details['ndf']['value'][] = array(
-					'id_ligne'          => $line->id,
-					'date'              => $line->date['rendered']['date_time'],
-					'libelle'           => ! empty( $line->title ) ? $line->title : '-',
+					'id_ligne'          => $line->data['id'],
+					'date'              => $line->data['date']['rendered']['date_time'],
+					'libelle'           => ! empty( $line->data['title'] ) ? $line->data['title'] : '-',
 					'num_categorie'     => $categorie_id,
 					'nom_categorie'     => $categorie_label,
-					'km'                => $line->distance,
-					'ttc'               => $line->tax_inclusive_amount . '€',
-					'tva'               => $line->tax_amount . '€',
-					'id_media_attached' => ! empty( $line->thumbnail_id ) ? $line->thumbnail_id : '',
+					'km'                => $line->data['distance'],
+					'ttc'               => $line->data['tax_inclusive_amount'] . '€',
+					'tva'               => $line->data['tax_amount'] . '€',
+					'id_media_attached' => ! empty( $line->data['thumbnail_id'] ) ? $line->data['thumbnail_id'] : '',
 					'attached_media'    => ( 'note-photo' === $type ) ? $picture : '',
 				);
 
-				$total_tax_inclusive_amount += $line->tax_inclusive_amount;
-				$total_tax_amount           += $line->tax_amount;
+				$total_tax_inclusive_amount += $line->data['tax_inclusive_amount'];
+				$total_tax_amount           += $line->data['tax_amount'];
 			}
 		}
 
 		$sheet_details['totaltva'] = $total_tax_amount . '€';
 		$sheet_details['totalttc'] = $total_tax_inclusive_amount . '€';
-		$sheet_details['marque']   = $user->marque;
-		$sheet_details['chevaux']  = $user->chevaux;
-		$sheet_details['prixkm']   = $user->prixkm;
+		$sheet_details['marque']   = $user->data['marque'];
+		$sheet_details['chevaux']  = $user->data['chevaux'];
+		$sheet_details['prixkm']   = $user->data['prixkm'];
 
-		$document            = Document_Class::g()->get( array( 'id' => 0 ), true );
-		$document->parent_id = $note->id;
+		$document                    = Document_Class::g()->get( array( 'id' => 0 ), true );
+		$document->data['parent_id'] = $note->data['id'];
 
 		$args_title = array(
 			current_time( 'Ymd' ),
-			strtolower( str_replace( '-', '_', sanitize_title( $note->title ) ) ),
-			$note->unique_identifier,
-			$document->unique_identifier,
+			strtolower( str_replace( '-', '_', sanitize_title( $note->data['title'] ) ) ),
+			$note->data['unique_identifier'],
+			$document->data['unique_identifier'],
 			strtolower( str_replace( '-', '_', sanitize_title( $type ) ) ),
 		);
 
-		$document->title  = implode( '_', $args_title );
-		$document->title .= '.' . $extension;
+		$document->data['title']  = implode( '_', $args_title );
+		$document->data['title'] .= '.' . $extension;
 
 		$response = Document_Class::g()->create_document( $document, array( $type ), $sheet_details, $extension );
 

@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<td class="eox-note-frais"><?php echo do_shortcode( '[wpeo_upload id="' . $user['id'] . '" model_name="/frais_pro/User_Class"]' ); ?></td>
 		</tr>
 
-		<?php if ( ( get_current_user_id() !== $user->id ) || ( 1 === get_current_user_id() ) ) : ?>
+		<?php if ( ( get_current_user_id() !== $user['id'] ) || ( 1 === get_current_user_id() ) ) : ?>
 		<tr class="user-marque-wrap">
 			<th><label for="ndf_admin"><?php esc_html_e( 'User is allowed to view all fees sheet', 'frais-pro' ); ?></label></th>
 			<td><input type="checkbox" name="ndf_admin" id="ndf_admin" value="true" <?php checked( $user['ndf_admin'], true, true ); ?>></td>

@@ -61,7 +61,7 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\frais_pro\construct_identifier', '\frais_pro\before_update_line' );
+	protected $before_post_function = array( '\frais_pro\before_get_identifier', '\frais_pro\before_update_line' );
 
 
 	/**

@@ -80,7 +80,7 @@ class User_Action {
 		// On affecte le droit de voir toutes les notes à l'utilisateur si la case est cochée.
 		if ( ! empty( $user_update ) && ! is_wp_error( $user_update ) ) {
 			$the_user = new \WP_User( $user_id );
-			if ( true === $user_update->data->ndf_admin ) {
+			if ( true === $user_update->data['ndf_admin'] ) {
 				$the_user->add_cap( 'frais_pro_view_all_user_sheets' );
 			} else {
 				$the_user->remove_cap( 'frais_pro_view_all_user_sheets' );

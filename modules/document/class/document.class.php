@@ -60,7 +60,7 @@ class Document_Class extends \eoxia\Attachment_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\frais_pro\construct_identifier' );
+	protected $before_post_function = array( '\frais_pro\before_get_identifier' );
 
 	/**
 	 * Fonction de callback avant de modifier les données en mode PUT.
@@ -74,7 +74,7 @@ class Document_Class extends \eoxia\Attachment_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array( '\frais_pro\construct_identifier' );
+	protected $after_get_function = array( '\frais_pro\after_get_identifier' );
 
 	/**
 	 * Slug de base pour la route dans l'api rest
@@ -109,9 +109,9 @@ class Document_Class extends \eoxia\Attachment_Class {
 		);
 
 		$path          = $this->get_dir_path() . '/ndf';
-		$document_path = $path . '/' . $document->title;
+		$document_path = $path . '/' . $document->data['title'];
 		$document_url  = $this->get_dir_path( 'baseurl' ) . '/ndf';
-		$document_url .= '/' . $document->title;
+		$document_url .= '/' . $document->data['title'];
 
 		// Vérification de l'existence du dossier de destination.
 		if ( ! is_dir( dirname( $document_path ) ) ) {
@@ -132,11 +132,11 @@ class Document_Class extends \eoxia\Attachment_Class {
 			$response['endpath'] = str_replace( $this->get_dir_path(), '', $response['path'] );
 
 			// On rajoute la métadonnée "_wp_attached_file" de WordPress.
-			$document->_wp_attached_file = $response['endpath'];
+			$document->data['_wp_attached_file'] = $response['endpath'];
 
-			$file_mime_type = wp_check_filetype( $document_path );
-			$document->mime_type = $file_mime_type['type'];
-			$this->update( $document, true );
+			$file_mime_type              = wp_check_filetype( $document_path );
+			$document->data['mime_type'] = $file_mime_type['type'];
+			$this->update( $document->data, true );
 		}
 
 		return $response;
@@ -170,12 +170,12 @@ class Document_Class extends \eoxia\Attachment_Class {
 
 		require_once PLUGIN_NOTE_DE_FRAIS_PATH . '/core/external/odtPhpLibrary/odf.php';
 
-		$odf_php_lib = new \NdfOdf( $document->model_path, $config );
+		$odf_php_lib = new \NdfOdf( $document->data['model_path'], $config );
 
 		// Vérification de l'existence d'un contenu a écrire dans le document.
-		if ( ! empty( $document->document_meta ) ) {
+		if ( ! empty( $document->data['document_meta'] ) ) {
 			// Lecture du contenu à écrire dans le document.
-			foreach ( $document->document_meta as $data_key => $data_value ) {
+			foreach ( $document->data['document_meta'] as $data_key => $data_value ) {
 				if ( is_array( $data_value ) && ! empty( $data_value['raw'] ) ) {
 					$data_value = $data_value['raw'];
 				}
@@ -209,10 +209,10 @@ class Document_Class extends \eoxia\Attachment_Class {
 	 */
 	public function generate_csv( $document, $document_path ) {
 		ob_start();
-		require $document->model_path;
+		require $document->data['model_path'];
 		$csv_file_content = ob_get_clean();
 
-		foreach ( $document->document_meta as $key => $value ) {
+		foreach ( $document->data['document_meta'] as $key => $value ) {
 			if ( 'ndf' !== $key && 'ndf_medias' !== $key ) {
 				$csv_file_content = str_replace( '{' . $key . '}', $value, $csv_file_content );
 			} elseif ( 'ndf' === $key ) {

@@ -77,7 +77,7 @@ class Note_Filter {
 					$document['tooltip'] = __( 'File not generated', 'frais-pro' );
 
 					if ( $document['file_informations']['exists'] ) {
-						$document['tooltip'] = 'Generated on ' . $document->date['rendered']['date'];
+						$document['tooltip'] = 'Generated on ' . $document->data['date']['rendered']['date'];
 					}
 				}
 			}

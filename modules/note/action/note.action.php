@@ -142,36 +142,35 @@ class Note_Action {
 	public function callback_export_note() {
 		check_ajax_referer( 'export_note' );
 
-		$note_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
-		$picture = ! empty( $_POST['picture'] ) ? (bool) $_POST['picture'] : false;
-		$type    = ! empty( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : '';
-
-		if ( empty( $type ) ) {
-			$type = 'odt';
-		}
+		$note_id   = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$picture   = ! empty( $_POST['picture'] ) ? (bool) $_POST['picture'] : false;
+		$extension = ! empty( $_POST['extension'] ) ? sanitize_text_field( $_POST['extension'] ) : '';
+		$category  = ! empty( $_POST['category'] ) ? sanitize_text_field( $_POST['category'] ) : '';
 
 		if ( empty( $note_id ) ) {
 			wp_send_json_error();
 		}
 
-		$category = 'note';
+		$response = Note_Class::g()->generate_document( $note_id, $category, $extension );
+		Document_Class::g()->generate_file( $response['document'], $extension );
 
-		if ( $picture ) {
-			$category = 'note-photo';
-		}
-
-		$response = Note_Class::g()->generate_document( $note_id, $category, $type );
-		Document_Class::g()->generate_file( $response['document'], $type );
-
-		$response['document'] = Document_Class::g()->get( array( 'id' => $response['document']['id'] ), true );
-
+		$response['document'] = Document_Class::g()->get( array( 'id' => $response['document']->data['id'] ), true );
 		ob_start();
 		Document_Class::g()->display_item( $response['document'] );
+		$item_view = ob_get_clean();
+
+		$note = Note_Class::g()->get( array( 'id' => $note_id ), true );
+
+		ob_start();
+		echo apply_filters( 'fp_filter_note_item_actions', $note );
+		$actions_view = ob_get_clean();
+
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',
 			'module'           => 'note',
 			'filename'         => $response['filename'],
-			'view'             => ob_get_clean(),
+			'item_view'        => $item_view,
+			'actions_view'     => $actions_view,
 			'callback_success' => 'exportedfraisProSuccess',
 		) );
 	}

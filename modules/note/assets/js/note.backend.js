@@ -207,7 +207,11 @@ window.eoxiaJS.fraisPro.note.scrollSticky = function( event ) {
  * @version 1.4.0
  */
 window.eoxiaJS.fraisPro.note.exportedfraisProSuccess = function( triggeredElement, response ) {
-	jQuery( 'table.wpeo-table.list-document' ).prepend( response.data.view );
+	jQuery( '.document-list-container .notice.notice-info' ).remove();
+	jQuery( '.document-list-container table.wpeo-table tbody' ).prepend( response.data.item_view );
+
+	triggeredElement.closest( '.note' ).find( '.note-action' ).html( response.data.actions_view );
+	triggeredElement.closest( '.single-note' ).find( '.export.toggle' ).html( response.data.actions_view );
 };
 
 /**
