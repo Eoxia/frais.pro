@@ -168,10 +168,14 @@ class Line_Action {
 
 		if ( ! empty( $files_id ) ) {
 			foreach ( $files_id as $file_id ) {
-				$line = Line_Class::g()->update( array( 'parent_id' => $note_id ) );
+				$line_args              = array();
+				$line_args['parent_id'] = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
+				$line_args['status']    = 'inherit';
+
+				$line = Line_Class::g()->create( $line_args, true );
 
 				\eoxia\WPEO_Upload_Class::g()->set_thumbnail( array(
-					'id'         => $line->id,
+					'id'         => $line->data['id'],
 					'file_id'    => (int) $file_id,
 					'model_name' => '\frais_pro\Line_Class',
 				) );
