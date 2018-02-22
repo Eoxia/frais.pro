@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="libelle form-element <?php echo esc_attr( Line_Class::g()->check_field_status( $line, 'libelle', $note_is_closed ) ); ?>" >
 			<span class="form-label"><?php esc_attr_e( 'Label', 'frais-pro' ); ?></span>
 			<label class="form-field-container">
-				<input type="text" class="form-field" name="title" value="<?php echo esc_html( ! empty( $line->data['title'] ) ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?>/>
+				<input type="text" class="form-field" name="title" value="<?php echo esc_html( $line->data['title'] ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?>/>
 			</label>
 		</div>
 		<!-- Date -->
