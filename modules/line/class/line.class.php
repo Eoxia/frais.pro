@@ -164,12 +164,13 @@ class Line_Class extends \eoxia\Post_Class {
 	 * @since 1.4.0
 	 * @version 1.4.0
 	 *
-	 * @param Line_Model $line La ligne sur laquelle il faut vérifier le statut du champs.
-	 * @param string     $field  Le nom du champs à vérifier.
+	 * @param Line_Model $line        La ligne sur laquelle il faut vérifier le statut du champs.
+	 * @param string     $field       Le nom du champs à vérifier.
+	 * @param boolen     $note_status Le statut de la note: note fermée si true, note ouverte si false.
 	 *
-	 * @return boolean        Le statut obligatoire ou non du champs.
+	 * @return boolean                Les classes a appliquer sur le conteneur du champs.
 	 */
-	public function check_field_status( $line, $field ) {
+	public function check_field_status( $line, $field, $note_status = false ) {
 		$line_custom_class = array();
 
 		$line_schema = $this->get_schema();
@@ -182,12 +183,17 @@ class Line_Class extends \eoxia\Post_Class {
 					$current_field_state = $this->check_amount_input_status( $line, $special_treatment );
 				}
 
-				$line_custom_class[] = 'input_is_required';
+				$line_custom_class[] = 'input-is-required';
 				if ( empty( $line->data[ $field_key ] ) && ! $current_field_state ) {
 					$line_custom_class[] = 'input-error';
+				} elseif ( $current_field_state || $note_status ) {
+					$line_custom_class[] = 'form-element-disable';
 				}
 			}
-			// $line_custom_class[] = 'form-element-disable'; // sur form-element quand input en readonly
+		}
+
+		if ( ! in_array( $field, \eoxia\Config_Util::$init['frais-pro']->line->line_required_values->entries, true ) && $note_status ) {
+			$line_custom_class[] = 'form-element-disable';
 		}
 
 		return implode( ' ', $line_custom_class );

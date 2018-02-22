@@ -51,18 +51,22 @@ function before_update_line( $data ) {
  * @since 1.2.0
  * @version 1.4.0
  *
- * @param  Line_Model $data Current line informations.
+ * @param  Line_Model $object Current line informations.
  *
- * @return Line_Model       The line with new informations.
+ * @return Line_Model         The line with new informations.
  */
 function after_get_line( $object ) {
+	// Définition d'une entrée contenant le type de la ligne.
 	$object->data['current_category'] = null;
-
 	if ( ! empty( $object->data['taxonomy'][ Line_Type_Class::g()->get_type() ] ) && ! empty( end( $object->data['taxonomy'][ Line_Type_Class::g()->get_type() ] ) ) ) {
 		$object->data['current_category'] = Line_Type_Class::g()->get( array( 'id' => end( $object->data['taxonomy'][ Line_Type_Class::g()->get_type() ] ) ), true );
 	}
 
+	// Ajout du statut de la ligne selon la définition des champs obligatoire pour une ligne et des données de la ligne.
 	$object->data['line_status'] = Line_CLass::g()->check_line_status( $object );
+
+	// Vérification que le libellé est défini, si il est vide alors il reprend la valeur par défaut ci-dessous.
+	$object->data['title'] = ! empty( $object->data['title'] ) ? $object->data['title'] : __( 'Label', 'frais-pro' );
 
 	return $object;
 }

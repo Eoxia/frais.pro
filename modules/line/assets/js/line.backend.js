@@ -173,7 +173,7 @@ window.eoxiaJS.fraisPro.line.checkLineStatus = function( element ) {
 window.eoxiaJS.fraisPro.line.setStatusField = function( element, action ) {
 	var input = element.find( 'input' ).val();
 	var isRequired = false;
-	if ( element.hasClass( 'input_is_required' ) ) {
+	if ( element.hasClass( 'input-is-required' ) ) {
 		isRequired = true;
 	}
 
