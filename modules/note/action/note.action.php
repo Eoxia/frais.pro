@@ -90,13 +90,13 @@ class Note_Action {
 			'id' => $id,
 		), true );
 
-		$note->status = 'archive';
+		$note->data['status'] = 'archive';
 
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',
 			'module'           => 'note',
-			'callback_success' => 'note_is_marked_as_archive',
-			'note'             => Note_Class::g()->update( $note ),
+			'callback_success' => 'noteArchived',
+			'note'             => Note_Class::g()->update( $note->data ),
 			'link'             => admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['frais-pro']->slug, false ),
 		) );
 	}

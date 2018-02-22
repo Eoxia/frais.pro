@@ -109,7 +109,7 @@ window.eoxiaJS.fraisPro.line.displayLine = function( element, response ) {
  * @version 1.4.0
  */
 window.eoxiaJS.fraisPro.line.deleteLineFromDisplay = function( element, response ) {
-	jQuery( 'div.line[data-id=' + response.data.line.id + ']' ).fadeOut();
+	jQuery( element ).closest( '.line' ).fadeOut();
 };
 
 /**

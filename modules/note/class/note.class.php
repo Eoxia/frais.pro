@@ -187,7 +187,7 @@ class Note_Class extends \eoxia\Post_Class {
 
 		$note = $this->get( array(
 			'author' => $author_id,
-			'name'   => $name . '-' . $user->displayname,
+			'name'   => $name . '-' . $user->data['displayname'],
 		), true );
 
 		if ( empty( $note ) ) {

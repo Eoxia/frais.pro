@@ -166,10 +166,10 @@ window.eoxiaJS.fraisPro.note.selectedFile = function( element ) {
  * @since 1.4.0
  * @version 1.4.0
  */
-window.eoxiaJS.fraisPro.note.note_is_marked_as_archive = function( element, response ) {
+window.eoxiaJS.fraisPro.note.noteArchived = function( element, response ) {
 	// Check if the user is on list or in a single note
 	if ( 1 === jQuery( '.list-note' ).length ) {
-		jQuery( 'tr.note[data-id=' + response.data.note.id + ']' ).fadeOut();
+		jQuery( 'tr.note[data-id=' + response.data.note.data.id + ']' ).fadeOut();
 	} else {
 		window.location.href = response.data.link;
 	}

@@ -132,11 +132,11 @@ class Line_Action {
 		}
 
 		$note            = Note_Class::g()->get( array( 'id' => $parent_id ), true );
-		$unaffected_note = Note_Class::g()->create_unaffected_note( $note->author_id );
+		$unaffected_note = Note_Class::g()->create_unaffected_note( $note->data['author_id'] );
 
 		$line = Line_Class::g()->update( array(
 			'id'        => $line_id,
-			'parent_id' => $unaffected_note->id,
+			'parent_id' => $unaffected_note->data['id'],
 		), true );
 
 		wp_send_json_success( array(
