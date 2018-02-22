@@ -70,28 +70,29 @@ function after_get_line( $object ) {
 /**
  * Met à jour la note de frais parente.
  *
- * @param  Object $data L'objet.
- * @return Object       L'objet non modifié.
+ * @param  Object $object L'objet.
+ * @return Object         L'objet non modifié.
  */
-function after_update_line( $data ) {
+function after_update_line( $object ) {
 	$compilated_tax_amount           = 0;
 	$compilated_tax_inclusive_amount = 0;
 
 	$note = Note_Class::g()->get( array(
-		'id' => $data->parent_id,
+		'id' => $object->data['parent_id'],
 	), true );
 
 	$lines = Line_Class::g()->get( array(
-		'post_parent' => $note->id,
+		'post_parent' => $note->data['id'],
 	) );
 	foreach ( $lines as $line ) {
-		$compilated_tax_inclusive_amount += $line->tax_inclusive_amount;
-		$compilated_tax_amount           += $line->tax_amount;
+		$compilated_tax_inclusive_amount += $line->data['tax_inclusive_amount'];
+		$compilated_tax_amount           += $line->data['tax_amount'];
 	}
-	$note->date                 = current_time( 'mysql' );
-	$note->tax_inclusive_amount = $compilated_tax_inclusive_amount;
-	$note->tax_amount           = $compilated_tax_amount;
+	$note->data['date']                 = current_time( 'mysql' );
+	$note->data['tax_inclusive_amount'] = $compilated_tax_inclusive_amount;
+	$note->data['tax_amount']           = $compilated_tax_amount;
+
 	Note_Class::g()->update( $note );
 
-	return $data;
+	return $object;
 }

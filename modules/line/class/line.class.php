@@ -140,7 +140,7 @@ class Line_Class extends \eoxia\Post_Class {
 		$line_schema = $this->get_schema();
 
 		foreach ( \eoxia\Config_Util::$init['frais-pro']->line->line_required_values->entries as $field_key ) {
-			if ( empty( $line['$field_key'] ) ) {
+			if ( empty( $line->data[ $field_key ] ) ) {
 				if ( in_array( $field_key, \eoxia\Config_Util::$init['frais-pro']->line->amount_entries, true ) ) {
 					$special_treatment   = isset( $line_schema[ $field_key ]['special_treatment'] ) ? $line_schema[ $field_key ]['special_treatment'] : '';
 					$current_field_state = $this->check_amount_input_status( $line, $special_treatment );
@@ -183,11 +183,11 @@ class Line_Class extends \eoxia\Post_Class {
 				}
 
 				$line_custom_class[] = 'input_is_required';
-				if ( empty( $line['$field_key'] ) && ! $current_field_state ) {
+				if ( empty( $line->data[ $field_key ] ) && ! $current_field_state ) {
 					$line_custom_class[] = 'input-error';
 				}
 			}
-			$line_custom_class[] = 'form-element-disable'; // sur form-element quand input en readonly
+			// $line_custom_class[] = 'form-element-disable'; // sur form-element quand input en readonly
 		}
 
 		return implode( ' ', $line_custom_class );
@@ -216,14 +216,14 @@ class Line_Class extends \eoxia\Post_Class {
 		$is_read_only = true;
 
 		// Si aucune catégorie alors les champs restent en lecture seule. Sinon va vérifier la ligne.
-		if ( ! empty( $line['current_category'] ) ) {
+		if ( ! empty( $line->data['current_category'] ) ) {
 			// Le champs actuel ne nécessite pas de traitement spécial et la catégorie choisie n'a pas de traitement special.
-			if ( empty( $special_treatment ) && empty( $line['current_category']->data['special_treatment'] ) ) {
+			if ( empty( $special_treatment ) && empty( $line->data['current_category']->data['special_treatment'] ) ) {
 				$is_read_only = false;
 			}
 
 			// Le champs actuel nécessite un traitement spécial, la catégorie nécessite un traitement spécial et il s'agit du même alors le champs n'est plus en lecture seule.
-			if ( ! empty( $special_treatment ) && ! empty( $line['current_category']->data['special_treatment'] ) && ( $special_treatment === $line['current_category']->data['special_treatment'] ) ) {
+			if ( ! empty( $special_treatment ) && ! empty( $line->data['current_category']->data['special_treatment'] ) && ( $special_treatment === $line->data['current_category']->data['special_treatment'] ) ) {
 				$is_read_only = false;
 			}
 		}

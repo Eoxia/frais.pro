@@ -63,13 +63,14 @@ class Note_Action {
 				),
 			);
 		}
+
 		$note = Note_Class::g()->create( $note_args );
 
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',
 			'module'           => 'note',
 			'callback_success' => 'goToNote',
-			'link'             => admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['frais-pro']->slug . '-edit', false ) . '&note=' . $note->id,
+			'link'             => admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['frais-pro']->slug . '-edit', false ) . '&note=' . $note->data['id'],
 		) );
 	}
 
