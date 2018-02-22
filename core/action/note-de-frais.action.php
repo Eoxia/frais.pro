@@ -128,7 +128,6 @@ class Note_De_Frais_Action {
 		add_menu_page( __( 'Frais.pro', 'frais-pro' ), __( 'Frais.pro', 'frais-pro' ), 'manage_options', \eoxia\Config_Util::$init['frais-pro']->slug, array( Note_De_Frais_Class::g(), 'display' ), 'dashicons-format-aside' );
 		add_submenu_page( \eoxia\Config_Util::$init['frais-pro']->slug, __( 'Frais.pro - Notes', 'frais-pro' ), __( 'Notes', 'frais-pro' ), 'manage_options', \eoxia\Config_Util::$init['frais-pro']->slug, array( Note_De_Frais_Class::g(), 'display' ) );
 		add_submenu_page( \eoxia\Config_Util::$init['frais-pro']->menu_edit_parent_slug, __( 'Frais.pro', 'frais-pro' ), __( 'Frais.pro', 'frais-pro' ), 'manage_options', \eoxia\Config_Util::$init['frais-pro']->slug . '-edit', array( Note_De_Frais_Class::g(), 'display' ) );
-
 	}
 
 }

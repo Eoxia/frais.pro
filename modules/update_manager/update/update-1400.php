@@ -187,7 +187,7 @@ class Update_140 {
 		$old_posts_id = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type=%s", $this->old_line_type ) );
 
 		// translators: %s is list of old posts id.
-		\eoxia\LOG_Util::log( sprintf( __( 'List of existing note to be upgrading to new type: %s ', 'frais-pro' ), implode( ',', $old_posts_id ) ), 'frais-pro' );
+		\eoxia\LOG_Util::log( sprintf( __( 'List of existing line to be upgrading to new type: %s ', 'frais-pro' ), implode( ',', $old_posts_id ) ), 'frais-pro' );
 
 		if ( ! empty( $old_posts_id ) ) {
 			foreach ( $old_posts_id as $post_id ) {
@@ -235,7 +235,7 @@ class Update_140 {
 		}
 
 		// translators: %s is list of old posts id.
-		\eoxia\LOG_Util::log( sprintf( __( 'List of existing note updated to the new type: %s ', 'frais-pro' ), implode( ',', $old_posts_id ) ), 'frais-pro' );
+		\eoxia\LOG_Util::log( sprintf( __( 'List of existing line updated to the new type: %s ', 'frais-pro' ), implode( ',', $old_posts_id ) ), 'frais-pro' );
 		\eoxia\LOG_Util::log( __( 'End update 1400 update_line method.', 'frais-pro' ), 'frais-pro' );
 
 		wp_send_json_success( array(
@@ -330,7 +330,7 @@ class Update_140 {
 								$document            = Document_Class::g()->update( $document );
 
 								// translators: 1. <link_to_path> 2. <mime_type> 3. <i>.
-								\eoxia\LOG_Util::log( sprintf( __( 'Updated GUID %1$s, mime_type %2$s and slug = %3$s for the document %3$d', 'frais-pro' ), $document->link, $document->mime_type, $document->slug, $document->id ), 'frais-pro' );
+								\eoxia\LOG_Util::log( sprintf( __( 'Updated GUID %1$s, mime_type %2$s and slug = %3$s for the document %4$d', 'frais-pro' ), $document->link, $document->mime_type, $document->slug, $document->id ), 'frais-pro' );
 							}
 						}
 					}
