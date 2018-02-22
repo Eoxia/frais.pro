@@ -60,6 +60,8 @@ window.eoxiaJS.fraisPro.line.save = function( element, response ) {
 		'parent_id': parentElement.closest( 'div.single-note' ).data( 'id' )
 	};
 
+	jQuery( parentElement.closest( 'div.single-note' ).find( '.note-last-update' ) ).html( fraisPro.updateInProgress );
+
 	for ( i = 0; i < listInput.length; i++ ) {
 		if ( listInput[i].name ) {
 			data[listInput[i].name] = window.eoxiaJS.arrayForm.getInputValue( listInput[i] );
