@@ -203,3 +203,12 @@ window.eoxiaJS.fraisPro.line.setReadOnly = function( element, nameField, enabled
 	element.find( '.' + nameField ).removeClass( 'form-element-disable' );
 	element.find( '.' + nameField + ' input[type=text]' ).attr( 'readonly', enabled );
 };
+
+window.eoxiaJS.fraisPro.line.eoUploadAssociatedFile = function( args ) {
+	if ( window.eoxiaJS.upload.currentButton.hasClass( 'media-grid' ) ) {
+		window.eoxiaJS.upload.currentButton = args.element.closest( '.line' ).find( '.media.media-list' );
+	} else {
+		window.eoxiaJS.upload.currentButton = args.element.closest( '.line' ).find( '.media.media-grid' );
+	}
+	window.eoxiaJS.upload.refreshButton( args.response.data );
+}
