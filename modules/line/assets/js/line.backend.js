@@ -81,8 +81,8 @@ window.eoxiaJS.fraisPro.line.save = function( event, element ) {
  * @return {void}
  */
 window.eoxiaJS.fraisPro.line.lineSaved = function( element, response ) {
-	jQuery( '.note-recap .note-ttc span.value' ).html( response.data.note.tax_inclusive_amount );
-	jQuery( '.note-recap .note-tva span.value' ).html( response.data.note.tax_amount );
+	jQuery( '.note-recap .note-ttc span.value' ).html( response.data.note.data.tax_inclusive_amount );
+	jQuery( '.note-recap .note-tva span.value' ).html( response.data.note.data.tax_amount );
 	jQuery( '.title .note-last-update' ).html( response.data.note_last_update );
 };
 

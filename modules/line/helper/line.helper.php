@@ -96,7 +96,7 @@ function after_update_line( $object ) {
 	$note->data['tax_inclusive_amount'] = $compilated_tax_inclusive_amount;
 	$note->data['tax_amount']           = $compilated_tax_amount;
 
-	Note_Class::g()->update( $note );
+	Note_Class::g()->update( $note->data );
 
 	return $object;
 }
