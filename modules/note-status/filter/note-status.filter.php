@@ -49,8 +49,8 @@ class Note_Status_Filter {
 		if ( isset( $args['current_screen'] ) ) {
 			if ( 'search' === $args['current_screen'] ) {
 				$tmp_status_note        = Note_Status_Class::g()->get( array( 'schema' => true ), true );
-				$tmp_status_note->name  = __( 'All status', 'frais-pro' );
-				$tmp_status_note->color = '#000000';
+				$tmp_status_note->data['name']  = __( 'All status', 'frais-pro' );
+				$tmp_status_note->data['color'] = '#000000';
 				array_unshift( $status_list, $tmp_status_note );
 			}
 		}

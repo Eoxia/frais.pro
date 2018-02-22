@@ -20,16 +20,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<button class="dropdown-toggle wpeo-button button-main <?php echo esc_attr( $args['class'] ); ?>">
 		<span class="pin-status">
-			<span class="pin-dot" style="background:<?php echo esc_html( $default_status->color ); ?>;"></span>
-			<span class="pin-label"><?php echo esc_html( $default_status->name ); ?></span>
+			<span class="pin-dot" style="background:<?php echo esc_html( $default_status->data['color'] ); ?>;"></span>
+			<span class="pin-label"><?php echo esc_html( $default_status->data['name'] ); ?></span>
 		</span>
 		<i class="button-icon fas fa-caret-down"></i>
 	</button>
 	<ul class="dropdown-content" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_update_note' ) ); ?>" >
 		<?php foreach ( $status_list as $note_status ) : ?>
-			<li data-id="<?php echo esc_attr( $note_status->id ); ?>" class="dropdown-item pin-status" data-special-treatment="<?php echo esc_attr( $note_status->special_treatment ); ?>" >
-				<span class="pin-dot" style="background:<?php echo esc_html( $note_status->color ); ?>;"></span>
-				<span class="pin-label"><?php echo esc_html( $note_status->name ); ?></span>
+			<li data-id="<?php echo esc_attr( $note_status->data['id'] ); ?>" class="dropdown-item pin-status" data-special-treatment="<?php echo esc_attr( $note_status->data['special_treatment'] ); ?>" >
+				<span class="pin-dot" style="background:<?php echo esc_html( $note_status->data['color'] ); ?>;"></span>
+				<span class="pin-label"><?php echo esc_html( $note_status->data['name'] ); ?></span>
 			</li>
 		<?php endforeach; ?>
 	</ul>

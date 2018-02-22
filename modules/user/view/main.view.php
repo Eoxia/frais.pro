@@ -6,7 +6,7 @@
  * @subpackage Views
  *
  * @since 1.0.0
- * @version 1.3.0
+ * @version 1.4.0
  */
 
 namespace frais_pro;
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				if ( ! empty( \eoxia\Config_Util::$init['frais-pro']->chevaux ) ) :
 					foreach ( \eoxia\Config_Util::$init['frais-pro']->chevaux as $chevaux ) :
 						?>
-						<option value="<?php echo esc_attr( $chevaux ); ?>" <?php selected( $chevaux, $user->chevaux, true ); ?>><?php echo esc_html( $chevaux ); ?></option>
+						<option value="<?php echo esc_attr( $chevaux ); ?>" <?php selected( $chevaux, $user['chevaux'], true ); ?>><?php echo esc_html( $chevaux ); ?></option>
 						<?php
 					endforeach;
 				endif;
@@ -44,18 +44,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<tr class="user-marque-wrap">
 			<th><label for="prixkm"><?php esc_html_e( 'Price per Kilometer', 'frais-pro' ); ?></label></th>
-			<td><input type="text" name="prixkm" id="prixkm" value="<?php echo esc_attr( $user->prixkm ); ?>" class="regular-text ltr"></td>
+			<td><input type="text" name="prixkm" id="prixkm" value="<?php echo esc_attr( $user['prixkm'] ); ?>" class="regular-text ltr"></td>
 		</tr>
 
 		<tr class="user-marque-wrap">
 			<th><label for="marque"><?php esc_html_e( 'Registration document scan', 'frais-pro' ); ?></label></th>
-			<td class="eox-note-frais"><?php echo do_shortcode( '[wpeo_upload id="' . $user->id . '" model_name="/frais_pro/User_Class"]' ); ?></td>
+			<td class="eox-note-frais"><?php echo do_shortcode( '[wpeo_upload id="' . $user['id'] . '" model_name="/frais_pro/User_Class"]' ); ?></td>
 		</tr>
 
 		<?php if ( ( get_current_user_id() !== $user->id ) || ( 1 === get_current_user_id() ) ) : ?>
 		<tr class="user-marque-wrap">
 			<th><label for="ndf_admin"><?php esc_html_e( 'User is allowed to view all fees sheet', 'frais-pro' ); ?></label></th>
-			<td><input type="checkbox" name="ndf_admin" id="ndf_admin" value="true" <?php checked( $user->ndf_admin, true, true ); ?>></td>
+			<td><input type="checkbox" name="ndf_admin" id="ndf_admin" value="true" <?php checked( $user['ndf_admin'], true, true ); ?>></td>
 		</tr>
 	<?php endif; ?>
 	</tbody>

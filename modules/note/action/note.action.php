@@ -56,9 +56,11 @@ class Note_Action {
 			),
 		), true );
 
-		if ( ! empty( $default_status ) && ! empty( $default_status->id ) ) {
+		if ( ! empty( $default_status ) && ! empty( $default_status->data['id'] ) ) {
 			$note_args['taxonomy'] = array(
-				Note_Status_Class::g()->get_type() => $default_status->id,
+				Note_Status_Class::g()->get_type() => array(
+					$default_status->data['id'],
+				),
 			);
 		}
 		$note = Note_Class::g()->create( $note_args );
@@ -114,7 +116,7 @@ class Note_Action {
 		$note_args['date_modified'] = current_time( 'mysql' );
 
 		// Ajout de la catégorie de la ligne.
-		$note_args['taxonomy'][ Note_Status_Class::g()->get_type() ] = isset( $_POST['selected_status_id'] ) ? intval( $_POST['selected_status_id'] ) : 0;
+		$note_args['taxonomy'][ Note_Status_Class::g()->get_type() ][] = isset( $_POST['selected_status_id'] ) ? intval( $_POST['selected_status_id'] ) : 0;
 
 		// On lance la mise à jour de la note.
 		$note = Note_Class::g()->update( $note_args, true );

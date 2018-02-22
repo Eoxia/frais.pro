@@ -18,9 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! empty( $notes ) ) :
 	foreach ( $notes as $note ) :
 		?>
-		<li data-id="<?php echo esc_attr( $note->id ); ?>" data-result="<?php echo esc_html( apply_filters( 'fp_filter_note_item_title', $note->title, $note ) ); ?>" class="autocomplete-result-text">
+		<li data-id="<?php echo esc_attr( $note->data['id'] ); ?>" data-result="<?php echo esc_html( apply_filters( 'fp_filter_note_item_title', $note->data['title'], $note ) ); ?>" class="autocomplete-result-text">
 			<div class="autocomplete-result-container">
-				<span class="autocomplete-result-title"><?php echo esc_html( apply_filters( 'fp_filter_note_item_title', $note->title, $note ) ); ?></span>
+				<span class="autocomplete-result-title"><?php echo esc_html( apply_filters( 'fp_filter_note_item_title', $note->data['title'], $note ) ); ?></span>
 			</div>
 		</li>
 		<?php

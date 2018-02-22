@@ -95,7 +95,7 @@ class Note_Class extends \eoxia\Post_Class {
 		$user = User_Class::g()->get( array( 'id' => get_current_user_id() ), true );
 
 		\eoxia\View_Util::exec( 'frais-pro', 'note', 'main', array(
-			'user' => $user,
+			'user' => $user->data,
 		) );
 	}
 

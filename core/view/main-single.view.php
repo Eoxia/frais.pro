@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php \eoxia\View_Util::exec( 'frais-pro', 'update_manager', 'say-to-update' ); ?>
 	<?php else : ?>
 		<?php Note_Class::g()->display_single(); ?>
-		<?php if ( empty( $user->prixkm ) ) : ?>
+		<?php if ( empty( $user['prixkm'] ) ) : ?>
 			<?php \eoxia\View_Util::exec( 'frais-pro', 'user', 'say-to-set-profil' ); ?>
 		<?php endif; ?>
 	<?php endif; ?>

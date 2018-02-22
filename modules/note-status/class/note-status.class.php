@@ -182,7 +182,7 @@ class Note_Status_Class extends \eoxia\Term_Class {
 
 		if ( ! empty( $status_list ) ) {
 			foreach ( $status_list as $status ) {
-				if ( $status->id === $status_id ) {
+				if ( $status->data['id'] === $status_id ) {
 					$default_status = $status;
 				}
 			}

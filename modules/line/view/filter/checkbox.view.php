@@ -16,5 +16,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?><div class="table-cell line-association-selection">
-	<input type="checkbox" value="<?php echo esc_attr( $line->id ); ?>" name="line_to_affect[]" />
+	<input type="checkbox" value="<?php echo esc_attr( $line->data['id'] ); ?>" name="line_to_affect[]" />
 </div>

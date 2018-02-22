@@ -4,15 +4,17 @@
  *
  * @author eoxia
  * @since 1.0.0
- * @version 1.3.0
- * @copyright 2017 Eoxia
+ * @version 1.4.0
+ * @copyright 2017-2018 Eoxia
  * @package user
  * @subpackage action
  */
 
 namespace frais_pro;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Classe gérant les actions des utilisateurs
@@ -22,8 +24,8 @@ class User_Action {
 	/**
 	 * Le cosntructeur
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.0.0.0
+	 * @since 1.0.0
+	 * @version 1.0.0
 	 */
 	public function __construct() {
 		add_action( 'show_user_profile', array( $this, 'callback_edit_user_profile' ) );
@@ -36,6 +38,9 @@ class User_Action {
 	/**
 	 * Ajoute les champs spécifiques à note de frais dans le compte utilisateur.
 	 *
+	 * @since 1.0.0
+	 * @version 1.4.0
+	 *
 	 * @param  WP_User $user L'objet contenant la définition complète de l'utilisateur.
 	 */
 	public function callback_edit_user_profile( $user  ) {
@@ -44,12 +49,15 @@ class User_Action {
 		), true );
 
 		\eoxia\View_Util::exec( 'frais-pro', 'user', 'main', array(
-			'user' => $user,
+			'user' => $user->data,
 		) );
 	}
 
 	/**
 	 * Enregistre les informations spécifiques de Note de Frais
+	 *
+	 * @since 1.0.0
+	 * @version 1.4.0
 	 *
 	 * @param  integer $user_id L'identifiant de l'utilisateur pour qui il faut sauvegarder les informations.
 	 */
@@ -59,10 +67,10 @@ class User_Action {
 			return false;
 		}
 
-		$user = array( 'id' => $user_id );
-		$user['marque'] = ! empty( $_POST ) && ! empty( $_POST['marque'] ) ? sanitize_text_field( $_POST['marque'] ) : '';
+		$user            = array( 'id' => $user_id );
+		$user['marque']  = ! empty( $_POST ) && ! empty( $_POST['marque'] ) ? sanitize_text_field( $_POST['marque'] ) : '';
 		$user['chevaux'] = ! empty( $_POST ) && ! empty( $_POST['chevaux'] ) && in_array( $_POST['chevaux'], \eoxia\Config_Util::$init['frais-pro']->chevaux, true ) ? sanitize_text_field( $_POST['chevaux'] ) : '';
-		$user['prixkm'] = ! empty( $_POST ) && ! empty( $_POST['prixkm'] ) ? sanitize_text_field( str_replace( ',', '.', $_POST['prixkm'] ) ) : '';
+		$user['prixkm']  = ! empty( $_POST ) && ! empty( $_POST['prixkm'] ) ? sanitize_text_field( str_replace( ',', '.', $_POST['prixkm'] ) ) : '';
 
 		if ( get_current_user_id() !== $user_id || ( 1 === get_current_user_id() ) ) {
 			$user['ndf_admin'] = ! empty( $_POST ) && ! empty( $_POST['ndf_admin'] ) && ( 'true' === sanitize_text_field( $_POST['ndf_admin'] ) ) ? true : false;
@@ -72,7 +80,7 @@ class User_Action {
 		// On affecte le droit de voir toutes les notes à l'utilisateur si la case est cochée.
 		if ( ! empty( $user_update ) && ! is_wp_error( $user_update ) ) {
 			$the_user = new \WP_User( $user_id );
-			if ( true === $user_update->ndf_admin ) {
+			if ( true === $user_update->data->ndf_admin ) {
 				$the_user->add_cap( 'frais_pro_view_all_user_sheets' );
 			} else {
 				$the_user->remove_cap( 'frais_pro_view_all_user_sheets' );
