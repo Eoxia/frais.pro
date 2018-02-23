@@ -9,6 +9,9 @@
 
 .wrap-frais-pro {
 
+	@import "mixins/mixins-master";
+	@import "variables-site/variables-site";
+
 	box-sizing: border-box;
 	padding-right: 20px;
 	*,
@@ -16,9 +19,10 @@
 	*:after { /* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
 		box-sizing: inherit;
 	}
+	@media ( max-width: $media__small ) {
+		padding-right: 0;
+	}
 
-	@import "variables-site/variables-site";
-	@import "mixins/mixins-master";
 
 	/*--------------------------------------------------------------
 	# Normalize

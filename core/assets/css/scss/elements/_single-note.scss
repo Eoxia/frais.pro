@@ -10,6 +10,11 @@
 	@include flexbox();
 	flex-wrap: nowrap;
 
+	@media ( max-width: $media__small ) {
+		flex-wrap: wrap;
+		padding-bottom: 1em;
+	}
+
 	> * {
 		margin: auto 0;
 	}
@@ -91,6 +96,24 @@
 			text-align: left;
 		}
 	}
+
+	@media ( max-width: $media__small ) {
+		.close {
+			width: 20%;
+		}
+		.title {
+			width: 80%;
+		}
+		.validation_status, .export {
+			width: 50%;
+		}
+		.validation_status {
+			text-align: right;
+		}
+		.export {
+			text-align: left;
+		}
+	}
 }
 
 // Content
@@ -105,8 +128,16 @@
 	margin-left: -0.4em;
 	margin-right: -0.4em;
 
+	@media ( max-width: $media__small ) {
+		flex-direction: column;
+	}
+
 	> * {
 		margin: auto 0.4em;
+
+		@media ( max-width: $media__small ) {
+			margin: 0.2em 0;
+		}
 	}
 	.note-ttc, .note-tva {
 		display: inline-block;
@@ -131,6 +162,10 @@
 	}
 	.note-recap {
 		margin-left: auto;
+
+		@media ( max-width: $media__small ) {
+			margin-left: 0;
+		}
 	}
 	.display-method {
 		.wpeo-button.active {
