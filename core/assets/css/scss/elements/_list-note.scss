@@ -60,6 +60,20 @@
 	}
 }
 
+/** Responsive */
+@media ( max-width: $media__small ) {
+	.list-note .note {
+		display: block;
+
+		td::before {
+			display: none;
+		}
+		td {
+			text-align: left;
+		}
+	}
+}
+
 
 /**
  * Import des différents tableaux

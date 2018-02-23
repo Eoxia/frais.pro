@@ -32,3 +32,21 @@
 		}
 	}
 }
+
+/** Responsive */
+@media ( max-width: $media__small ) {
+	.single-note .content .document-list-container {
+		display: block;
+
+		td::before {
+			display: none;
+		}
+		td {
+			text-align: left !important;
+		}
+		.document-title span {
+			word-wrap: break-word;
+			hyphens: auto;
+		}
+	}
+}

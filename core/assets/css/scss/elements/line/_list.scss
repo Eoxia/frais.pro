@@ -7,6 +7,13 @@
 	}
 }
 
+@media ( max-width: $media__small ) {
+	.single-note.list .list-line-header {
+		display: none;
+	}
+}
+
+
 // tailles header pour list
 .single-note.list .list-line-header .table-header {
 	> .image {
@@ -51,5 +58,54 @@
 	> .status, > .action {
 		max-width: 30px;
 		min-width: 30px;
+	}
+
+	@media ( max-width: $media__small ) {
+		flex-wrap: wrap;
+
+
+		> .date, > .type {
+			min-width: 100%;
+			max-width: 100%;
+		}
+		> .km, > .ttc, > .tva {
+			min-width: 33.333333%;
+			max-width: 33.333333%;
+		}
+		> .status {
+			margin-left: auto !important;
+		}
+	}
+}
+.single-note.list .list-line .line {
+	@media ( max-width: $media__small ) {
+		&:not(:first-child) {
+			margin-top: 1em;
+			border-top: 1px solid rgba(0,0,0,0.1);
+			padding-top: 1em;
+		}
+		.media-list {
+			display: none;
+		}
+		.media-grid {
+			display: block;
+		}
+		.line-image {
+			min-width: 100%;
+			max-width: 100%;
+			padding-right: 0 !important;
+
+			.media:not(.no-file), .wpeo-media:not(.no-file) {
+				width: 100%;
+				height: auto;
+			}
+		}
+		.form-element .form-label {
+			display: block;
+			color: $color__primary;
+			text-transform: none;
+			font-size: 14px;
+			font-weight: 700;
+		}
 	}
 }
