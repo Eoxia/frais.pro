@@ -27,8 +27,32 @@ class Note_Filter {
 	 * @version 1.4.0
 	 */
 	public function __construct() {
+		add_filter( 'fp_filter_note_item_title', array( $this, 'callback_note_item_title' ), 10, 2 );
 		add_filter( 'fp_filter_note_item_informations', array( $this, 'callback_note_item_informations' ) );
 		add_filter( 'fp_filter_note_item_actions', array( $this, 'callback_note_item_actions' ) );
+	}
+
+	/**
+	 * Modifie le titre de la note
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param string     $title Le titre de la note.
+	 * @param Note_Model $note   Les données de la note.
+	 *
+	 * @return string Titre modifié de la note.
+	 */
+	public function callback_note_item_title( $title, $note ) {
+		if ( ! $note->data['contains_unaffected'] ) {
+			return $title;
+		}
+
+		ob_start();
+		\eoxia\View_Util::exec( 'frais-pro', 'note', 'filter/item-title', array( 'note' => $note ) );
+		$title .= ob_get_clean();
+
+		return $title;
 	}
 
 	/**

@@ -32,9 +32,6 @@ class Line_Action {
 		add_action( 'wp_ajax_fp_dissociate_line_from_note', array( $this, 'callback_fp_dissociate_line_from_note' ) );
 
 		add_action( 'wp_ajax_fp_create_line_from_picture', array( $this, 'callback_fp_create_line_from_picture' ) );
-
-		add_action( 'wp_ajax_fp_delete_orphelan_lines', array( $this, 'callback_fp_delete_orphelan_lines' ) );
-
 	}
 
 	/**
@@ -139,6 +136,9 @@ class Line_Action {
 			'parent_id' => $unaffected_note->data['id'],
 		), true );
 
+		$unaffected_note->data['count_line']++;
+		Note_Class::g()->update( $unaffected_note->data );
+
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',
 			'module'           => 'line',
@@ -189,29 +189,6 @@ class Line_Action {
 		wp_send_json_success( array(
 			'view' => $line_view,
 		) );
-	}
-
-	/**
-	 * Delete all lines that do not have a parent id in database.
-	 *
-	 * @since 1.4.0
-	 * @version 1.4.0
-	 *
-	 * @return void
-	 */
-	public function callback_fp_delete_orphelan_lines() {
-		check_ajax_referer( 'fp_delete_orphelan_lines' );
-
-		// Mark all unaffected lines as trashed. Can not use wpeo_model in this case because of a mass action on update.
-		$GLOBALS['wpdb']->update( $GLOBALS['wpdb']->posts,
-			array(
-				'post_status' => 'trash',
-			),
-			array(
-				'parent_id' => 0,
-				'post_type' => Line_Class::g()->get_type(),
-			)
-		);
 	}
 
 	/**

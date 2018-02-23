@@ -82,6 +82,7 @@ window.eoxiaJS.fraisPro.note.changeNoteStatus = function( event ) {
 
 		window.eoxiaJS.request.send( parentElement, data );
 	}
+
 };
 
 /**
@@ -236,4 +237,19 @@ window.eoxiaJS.fraisPro.note.noteUpdated = function( triggeredElement, response 
 	if ( 'closed' === response.data.status.data.special_treatment ) {
 		window.location.href = response.data.link;
 	}
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "delete_all_lines".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ */
+window.eoxiaJS.fraisPro.note.deletedAllLine = function( triggeredElement, response ) {
+	triggeredElement.closest( '.note' ).find( '.note-title .count-line' ).text( '(' + response.data.countLine + ')' );
+	window.eoxiaJS.dropdown.close();
 };

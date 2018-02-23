@@ -66,6 +66,13 @@ class Note_Model extends \eoxia\Post_Model {
 			'default'   => false,
 		);
 
+		$this->schema['count_line'] = array(
+			'type'      => 'integer',
+			'meta_type' => 'single',
+			'field'     => 'fp_count_line',
+			'default'   => 0,
+		);
+
 		$this->schema['taxonomy'] = array(
 			'type'      => 'array',
 			'meta_type' => 'multiple',

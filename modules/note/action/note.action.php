@@ -30,6 +30,7 @@ class Note_Action {
 		add_action( 'wp_ajax_create_note', array( $this, 'callback_create_note' ) );
 		add_action( 'wp_ajax_fp_note_archive', array( $this, 'callback_fp_note_archive' ) );
 		add_action( 'wp_ajax_fp_update_note', array( $this, 'callback_fp_update_note' ) );
+		add_action( 'wp_ajax_fp_delete_all_lines', array( $this, 'callback_fp_delete_all_lines' ) );
 
 		add_action( 'wp_ajax_export_note', array( $this, 'callback_export_note' ) );
 
@@ -101,7 +102,6 @@ class Note_Action {
 		) );
 	}
 
-
 	/**
 	 * Action : modifier une note de frais.
 	 *
@@ -132,6 +132,49 @@ class Note_Action {
 		) );
 	}
 
+	/**
+	 * Supprimes toutes les lignes d'une note
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @return void
+	 */
+	public function callback_fp_delete_all_lines() {
+		check_ajax_referer( 'fp_delete_all_lines' );
+
+		$note_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		if ( empty( $note_id ) ) {
+			wp_send_json_error();
+		}
+
+		$note = Note_Class::g()->get( array( 'id' => $note_id ), true );
+
+		$lines = Line_Class::g()->get( array(
+			'post_parent' => $note_id,
+		) );
+
+		if ( ! empty( $lines ) ) {
+			foreach ( $lines as $line ) {
+				Line_Class::g()->update( array(
+					'id'     => $line->data['id'],
+					'status' => 'trash',
+				), true );
+
+				$note->data['count_line']--;
+			}
+		}
+
+		Note_Class::g()->update( $note->data, true );
+
+		wp_send_json_success( array(
+			'namespace'        => 'fraisPro',
+			'module'           => 'note',
+			'callback_success' => 'deletedAllLine',
+			'countLine'        => $note->data['count_line'],
+		) );
+	}
 
 	/**
 	 * Génère un document .odt avec les données qui vont bien.

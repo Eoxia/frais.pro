@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</span>
 	</td>
 	<td class="note-title">
-		<span><?php echo esc_html( apply_filters( 'fp_filter_note_item_title', $note->data['title'], $note ) ); ?></span>
+		<span><?php echo apply_filters( 'fp_filter_note_item_title', $note->data['title'], $note ); ?></span>
 		<div class="note-last-update" ><?php esc_html_e( 'Last update', 'frais-pro' ); ?> : <?php echo esc_html( $note->data['date_modified']['rendered']['date_human_readable'] ); ?></div>
 	</td>
 

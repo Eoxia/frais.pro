@@ -40,9 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<!-- Note status -->
 	<div>
 		<div class="form-element">
-			<label class="form-field-container">
-				<?php Note_Status_Class::g()->display( 0, array( 'current_screen' => 'search' ) ); ?>
-			</label>
+			<?php Note_Status_Class::g()->display( 0, array( 'current_screen' => 'search' ) ); ?>
 		</div>
 	</div>
 	<!-- User search -->
