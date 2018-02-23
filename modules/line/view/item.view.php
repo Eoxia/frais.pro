@@ -35,8 +35,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<span class="form-label"><?php esc_attr_e( 'Date', 'frais-pro' ); ?></span>
 			<label class="form-field-container">
 				<span class="form-icon"><i class="fal fa-calendar-alt"></i></span>
-				<input type="hidden" class="mysql-date" name="date" value="<?php echo esc_attr( $line->data['date']['raw'] ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?>/>
-				<input type="text" class="date form-field" value="<?php echo esc_html( $line->data['date']['rendered']['date'] ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?> />
+				<input type="hidden" class="mysql-date" name="date" value="<?php echo esc_attr( $line->data['date_modified']['raw'] ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?>/>
+				<input type="text" class="date form-field" value="<?php echo esc_html( $line->data['date_modified']['rendered']['date'] ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?> />
 			</label>
 		</div>
 		<!-- Type de ligne - Dropdown -->
