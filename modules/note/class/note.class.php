@@ -310,7 +310,7 @@ class Note_Class extends \eoxia\Post_Class {
 
 				$sheet_details['ndf']['value'][] = array(
 					'id_ligne'          => $line->data['id'],
-					'date'              => $line->data['date']['rendered']['date_time'],
+					'date'              => $line->data['date_modified']['rendered']['date_time'],
 					'libelle'           => ! empty( $line->data['title'] ) ? $line->data['title'] : '-',
 					'num_categorie'     => $categorie_id,
 					'nom_categorie'     => $categorie_label,
