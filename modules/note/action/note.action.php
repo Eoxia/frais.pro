@@ -161,11 +161,10 @@ class Note_Action {
 					'id'     => $line->data['id'],
 					'status' => 'trash',
 				), true );
-
-				$note->data['count_line']--;
 			}
 		}
 
+		$note->data['count_line'] = 0;
 		Note_Class::g()->update( $note->data, true );
 
 		wp_send_json_success( array(
