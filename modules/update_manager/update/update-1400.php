@@ -320,17 +320,17 @@ class Update_140 {
 							$document_info = Document_Class::g()->check_file( $document );
 
 							// Suppression de l'ancienne meta contenant le type mime du fichier.
-							delete_post_meta( $document->id, 'mime_type' );
+							delete_post_meta( $document->data['id'], 'mime_type' );
 
 							// Appliques le bon GUID et le bon mime type si le fichier existe.
 							if ( $document_info['exists'] ) {
-								$document->mime_type = $document_info['mime_type']['type'];
-								$document->link      = $document_info['link'];
-								$document->slug      = $document->title;
-								$document            = Document_Class::g()->update( $document );
+								$document->data['mime_type'] = $document_info['mime_type']['type'];
+								$document->data['link']      = $document_info['link'];
+								$document->data['slug']      = $document->data['title'];
+								$document                    = Document_Class::g()->update( $document->data, true );
 
 								// translators: 1. <link_to_path> 2. <mime_type> 3. <i>.
-								\eoxia\LOG_Util::log( sprintf( __( 'Updated GUID %1$s, mime_type %2$s and slug = %3$s for the document %4$d', 'frais-pro' ), $document->link, $document->mime_type, $document->slug, $document->id ), 'frais-pro' );
+								\eoxia\LOG_Util::log( sprintf( __( 'Updated GUID %1$s, mime_type %2$s and slug = %3$s for the document %4$d', 'frais-pro' ), $document->data['link'], $document->data['mime_type'], $document->data['slug'], $document->data['id'] ), 'frais-pro' );
 							}
 						}
 					}
