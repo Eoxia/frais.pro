@@ -35,7 +35,7 @@ class Note_De_Frais_Action {
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts_css' ), 11 );
 		}
 
-		if ( in_array( $page, \eoxia\Config_Util::$init['frais-pro']->insert_scripts_pages_js, true ) && empty( $post ) ) {
+		if ( empty( $page ) || ( in_array( $page, \eoxia\Config_Util::$init['frais-pro']->insert_scripts_pages_js, true ) && empty( $post ) ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts_js' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts_js' ), 11 );
 		}
