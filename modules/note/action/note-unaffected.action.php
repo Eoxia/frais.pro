@@ -98,11 +98,14 @@ class Note_Unaffected_Action {
 	public function callback_reassign_lines() {
 		check_ajax_referer( 'reassign_lines' );
 
-		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+		$parent_id       = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+		$current_note_id = ! empty( $_POST['current_note_id'] ) ? (int) $_POST['current_note_id'] : 0;
 
-		if ( empty( $parent_id ) ) {
+		if ( empty( $parent_id ) || empty( $current_note_id ) ) {
 			wp_send_json_error();
 		}
+
+		$current_note = Note_Class::g()->get( array( 'id' => $current_note_id ), true );
 
 		$lines_id         = ! empty( $_POST['lines_id'] ) ? (array) $_POST['lines_id'] : array();
 		$updated_lines_id = array();
@@ -118,10 +121,13 @@ class Note_Unaffected_Action {
 					), true );
 
 					if ( empty( $line->wp_errors ) ) {
+						$current_note->data['count_line']--;
 						$updated_lines_id[] = $line->data['id'];
 					}
 				}
 			}
+
+			Note_Class::g()->update( $current_note->data, true );
 		}
 
 		wp_send_json_success( array(

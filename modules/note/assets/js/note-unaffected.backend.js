@@ -55,7 +55,8 @@ window.eoxiaJS.fraisPro.noteUnaffected.reassignLineUnaffected = function( event 
 		linesToReassignId.push( jQuery( this ).val() );
 	} );
 
-	data.lines_id = linesToReassignId;
+	data.lines_id        = linesToReassignId;
+	data.current_note_id = jQuery( '.single-note input[name="id"]' ).val();
 
 	window.eoxiaJS.loader.display( jQuery( this ) );
 	window.eoxiaJS.request.send( jQuery( this ), data );
