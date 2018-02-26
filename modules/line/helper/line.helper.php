@@ -92,7 +92,7 @@ function after_update_line( $object ) {
 		$compilated_tax_inclusive_amount += $line->data['tax_inclusive_amount'];
 		$compilated_tax_amount           += $line->data['tax_amount'];
 	}
-	$note->data['date']                 = current_time( 'mysql' );
+	$note->data['date_modified']        = current_time( 'mysql' );
 	$note->data['tax_inclusive_amount'] = $compilated_tax_inclusive_amount;
 	$note->data['tax_amount']           = $compilated_tax_amount;
 
