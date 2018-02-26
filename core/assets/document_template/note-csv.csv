@@ -1,7 +1,7 @@
 ID ligne;Date;Libellé;ID catégorie;Nom catégorie;Km;TTC;TVA
 {LignesDeFrais}
-;;;;{totalttc};{totaltva}
+;;;;;;{totalttc};{totaltva}
 
 Véhicule associé;{marque};;;Période;{periode}
 Puissance;{chevaux};;;Emetteur;{utilisateur_prenom_nom}, {utilisateur_email}
-Prix du Km;{prixkm};;;Statut;{status}
+Prix du Km;{prixkm};;;Statut;{statut}

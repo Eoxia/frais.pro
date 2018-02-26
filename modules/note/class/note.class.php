@@ -273,7 +273,7 @@ class Note_Class extends \eoxia\Post_Class {
 			$sheet_details['utilisateur_prenom_nom'] = $user->data['login'];
 		}
 
-		$sheet_details['status']    = $note->data['current_status']['name'];
+		$sheet_details['statut']    = $note->data['current_status']->data['name'];
 		$sheet_details['miseajour'] = $note->data['date_modified']['rendered']['date_human_readable'];
 
 		if ( ! empty( $lines ) ) {
