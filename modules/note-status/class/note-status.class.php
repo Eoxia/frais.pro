@@ -39,7 +39,7 @@ class Note_Status_Class extends \eoxia\Term_Class {
 	 *
 	 * @var string
 	 */
-	protected $taxonomy = 'fp_note_status';
+	protected $type = 'fp_note_status';
 
 	/**
 	 * Base de l'url pour la REST API.

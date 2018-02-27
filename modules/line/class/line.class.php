@@ -33,7 +33,7 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $post_type = 'fp_line';
+	protected $type = 'fp_line';
 
 	/**
 	 * La clé principale du modèle

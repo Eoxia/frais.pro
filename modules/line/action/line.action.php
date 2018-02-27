@@ -128,7 +128,7 @@ class Line_Action {
 			wp_send_json_error( array( 'message' => __( 'You try to dissociate a line from a note that does not exists', 'frais-pro' ) ) );
 		}
 
-		$note            = Note_Class::g()->get( array( 'id' => $parent_id ), true );
+		$note            = Note_Class::g()->get( array( 'p' => $parent_id ), true );
 		$unaffected_note = Note_Class::g()->create_unaffected_note( $note->data['author_id'] );
 
 		$line = Line_Class::g()->update( array(
@@ -217,7 +217,7 @@ class Line_Action {
 
 		// Enregistrement de la ligne.
 		$line = Line_Class::g()->update( $line_args, true );
-		$note = Note_Class::g()->get( array( 'id' => $line_args['parent_id'] ), true );
+		$note = Note_Class::g()->get( array( 'p' => $line_args['parent_id'] ), true );
 
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',

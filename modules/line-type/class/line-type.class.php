@@ -39,7 +39,7 @@ class Line_Type_Class extends \eoxia\Term_Class {
 	 *
 	 * @var string
 	 */
-	protected $taxonomy = 'fp_line_type';
+	protected $type = 'fp_line_type';
 
 	/**
 	 * Base de l'url pour la REST API.

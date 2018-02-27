@@ -32,7 +32,7 @@ class Document_Class extends \eoxia\Attachment_Class {
 	 *
 	 * @var string
 	 */
-	protected $post_type = 'attachment';
+	protected $type = 'attachment';
 
 	/**
 	 * Nom de la taxonomy

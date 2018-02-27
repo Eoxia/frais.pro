@@ -32,7 +32,7 @@ class Note_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $post_type = 'fp_note';
+	protected $type = 'fp_note';
 
 	/**
 	 * Slug de base pour la route dans l'api rest
@@ -155,7 +155,7 @@ class Note_Class extends \eoxia\Post_Class {
 			$note_id = ! empty( $_GET['note'] ) ? (int) $_GET['note'] : 0; // WPCS: CSRF is ok.
 		}
 
-		$current_note = $this->get( array( 'id' => $note_id ), true );
+		$current_note = $this->get( array( 'p' => $note_id ), true );
 		$status_list  = Note_Status_Class::g()->get();
 
 		$note_is_closed = ! empty( $current_note->data['current_status']->data['special_treatment'] ) && ( 'closed' === $current_note->data['current_status']->data['special_treatment'] ) ? true : false;
@@ -332,7 +332,7 @@ class Note_Class extends \eoxia\Post_Class {
 		$sheet_details['chevaux']  = $user->data['chevaux'];
 		$sheet_details['prixkm']   = $user->data['prixkm'];
 
-		$document                    = Document_Class::g()->get( array( 'id' => 0 ), true );
+		$document                    = Document_Class::g()->get( array( 'p' => 0 ), true );
 		$document->data['parent_id'] = $note->data['id'];
 
 		$args_title = array(

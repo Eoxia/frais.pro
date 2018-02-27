@@ -82,7 +82,7 @@ function after_update_line( $object ) {
 	$compilated_tax_inclusive_amount = 0;
 
 	$note = Note_Class::g()->get( array(
-		'id' => $object->data['parent_id'],
+		'p' => $object->data['parent_id'],
 	), true );
 
 	$lines = Line_Class::g()->get( array(
