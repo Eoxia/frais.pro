@@ -55,33 +55,14 @@ class Note_Class extends \eoxia\Post_Class {
 	 */
 	public $element_prefix = 'N';
 
-	/**
-	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée
-	 *
-	 * @var array
-	 */
-	protected $before_post_function = array( '\frais_pro\before_get_identifier', '\frais_pro\set_note_name' );
-
-	/**
-	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée
-	 *
-	 * @var array
-	 */
-	protected $before_put_function = array();
-
-	/**
-	 * La fonction appelée automatiquement après la modification de l'objet dans la base de donnée
-	 *
-	 * @var array
-	 */
-	protected $after_put_function = array( '\eoxia\after_put_posts', '\frais_pro\get_full_note' );
-
-	/**
-	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée
-	 *
-	 * @var array
-	 */
-	protected $after_get_function = array( '\frais_pro\get_full_note' );
+	protected $callback_func = array(
+		'before_get'  => array(),
+		'before_put'  => array(),
+		'before_post' => array( '\frais_pro\before_get_identifier', '\frais_pro\set_note_name' ),
+		'after_get'   => array( '\frais_pro\get_full_note' ),
+		'after_put'   => array( '\frais_pro\get_full_note' ),
+		'after_post'  => array(),
+	);
 
 	/**
 	 * Le nom pour le resgister post type

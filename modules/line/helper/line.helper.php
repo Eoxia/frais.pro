@@ -30,17 +30,14 @@ function before_update_line( $data ) {
 
 		$data['tax_inclusive_amount'] = $data['distance'] * $user->data['prixkm'];
 		$data['tax_amount']           = 0;
-	} else {
-		if ( ! isset( $data['tax_amount'] ) ) {
-			$data['tax_amount'] = 0;
-		}
-		if ( ! isset( $data['tax_inclusive_amount'] ) ) {
-			$data['tax_inclusive_amount'] = 0;
-		}
 	}
 
-	$data['tax_inclusive_amount'] = round( $data['tax_inclusive_amount'], 2 );
-	$data['tax_amount']           = round( $data['tax_amount'], 2 );
+	if ( isset( $data['tax_inclusive_amount'] ) ) {
+		$data['tax_inclusive_amount'] = round( $data['tax_inclusive_amount'], 2 );
+	}
+	if ( isset( $data['tax_amount'] ) ) {
+		$data['tax_amount'] = round( $data['tax_amount'], 2 );
+	}
 
 	return $data;
 }
