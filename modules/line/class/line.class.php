@@ -76,14 +76,14 @@ class Line_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_post_function = array();
+	protected $after_post_function = array( '\eoxia\after_put_posts' );
 
 	/**
 	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée
 	 *
 	 * @var array
 	 */
-	protected $after_put_function = array( '\frais_pro\after_update_line' );
+	protected $after_put_function = array( '\eoxia\after_put_posts', '\frais_pro\after_update_line' );
 
 	/**
 	 * La fonction appelée automatiquement avant la modification de l'objet dans la base de donnée

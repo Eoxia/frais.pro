@@ -310,7 +310,7 @@ class Update_140 {
 				if ( ! empty( $attachments_id ) ) {
 					$documents = Document_Class::g()->get( array(
 						'post_type'      => 'attachment',
-						'include'        => $attachments_id,
+						'post__in'       => $attachments_id,
 						'posts_per_page' => -1,
 						'post_status'    => array( 'publish', 'inherit' ),
 					) );

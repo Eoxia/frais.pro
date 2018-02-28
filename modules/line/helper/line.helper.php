@@ -25,10 +25,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 function before_update_line( $data ) {
 	if ( ! empty( $data['distance'] ) ) {
 		$user = User_Class::g()->get( array(
-			'include' => array( get_current_user_id() ),
+			'id' => get_current_user_id(),
 		), true );
 
-		$data['tax_inclusive_amount'] = $data['distance'] * $user->prixkm;
+		$data['tax_inclusive_amount'] = $data['distance'] * $user->data['prixkm'];
 		$data['tax_amount']           = 0;
 	} else {
 		if ( ! isset( $data['tax_amount'] ) ) {
@@ -75,28 +75,26 @@ function after_get_line( $object ) {
  * Met à jour la note de frais parente.
  *
  * @param  Object $object L'objet.
- * @return Object         L'objet non modifié.
+ *
+ * @return Object         L'objet modifié.
  */
 function after_update_line( $object ) {
 	$compilated_tax_amount           = 0;
 	$compilated_tax_inclusive_amount = 0;
 
-	$note = Note_Class::g()->get( array(
-		'p' => $object->data['parent_id'],
-	), true );
-
 	$lines = Line_Class::g()->get( array(
-		'post_parent' => $note->data['id'],
+		'post_parent' => $object->data['parent_id'],
 	) );
 	foreach ( $lines as $line ) {
 		$compilated_tax_inclusive_amount += $line->data['tax_inclusive_amount'];
 		$compilated_tax_amount           += $line->data['tax_amount'];
 	}
-	$note->data['date_modified']        = current_time( 'mysql' );
-	$note->data['tax_inclusive_amount'] = $compilated_tax_inclusive_amount;
-	$note->data['tax_amount']           = $compilated_tax_amount;
 
-	Note_Class::g()->update( $note->data );
+	$note['id']                   = $object->data['parent_id'];
+	$note['date_modified']        = current_time( 'mysql' );
+	$note['tax_inclusive_amount'] = $compilated_tax_inclusive_amount;
+	$note['tax_amount']           = $compilated_tax_amount;
+	Note_Class::g()->update( $note, true );
 
 	return $object;
 }

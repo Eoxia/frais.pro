@@ -73,7 +73,7 @@ class Note_Unaffected_Action {
 
 		if ( ! empty( $note_ids ) ) {
 			$notes = Note_Class::g()->get( array(
-				'include' => $note_ids,
+				'post__in' => $note_ids,
 			) );
 		}
 
@@ -105,7 +105,7 @@ class Note_Unaffected_Action {
 			wp_send_json_error();
 		}
 
-		$current_note = Note_Class::g()->get( array( 'p' => $current_note_id ), true );
+		$current_note = Note_Class::g()->get( array( 'id' => $current_note_id ), true );
 
 		$lines_id         = ! empty( $_POST['lines_id'] ) ? (array) $_POST['lines_id'] : array();
 		$updated_lines_id = array();

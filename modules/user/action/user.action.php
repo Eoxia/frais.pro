@@ -43,9 +43,9 @@ class User_Action {
 	 *
 	 * @param  WP_User $user L'objet contenant la définition complète de l'utilisateur.
 	 */
-	public function callback_edit_user_profile( $user  ) {
+	public function callback_edit_user_profile( $user ) {
 		$user = User_Class::g()->get( array(
-			'include' => array( $user->ID ),
+			'id' => $user->ID,
 		), true );
 
 		\eoxia\View_Util::exec( 'frais-pro', 'user', 'main', array(
@@ -76,7 +76,7 @@ class User_Action {
 			$user['ndf_admin'] = ! empty( $_POST ) && ! empty( $_POST['ndf_admin'] ) && ( 'true' === sanitize_text_field( $_POST['ndf_admin'] ) ) ? true : false;
 		}
 
-		$user_update = User_Class::g()->update( $user );
+		$user_update = User_Class::g()->update( $user, true );
 		// On affecte le droit de voir toutes les notes à l'utilisateur si la case est cochée.
 		if ( ! empty( $user_update ) && ! is_wp_error( $user_update ) ) {
 			$the_user = new \WP_User( $user_id );

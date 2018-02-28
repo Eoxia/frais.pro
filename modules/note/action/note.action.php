@@ -65,7 +65,7 @@ class Note_Action {
 			);
 		}
 
-		$note = Note_Class::g()->create( $note_args );
+		$note = Note_Class::g()->create( $note_args, true );
 
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',
@@ -88,7 +88,7 @@ class Note_Action {
 		}
 
 		$note = Note_Class::g()->get( array(
-			'p' => $id,
+			'id' => $id,
 		), true );
 
 		$note->data['status'] = 'archive';
@@ -149,7 +149,7 @@ class Note_Action {
 			wp_send_json_error();
 		}
 
-		$note = Note_Class::g()->get( array( 'p' => $note_id ), true );
+		$note = Note_Class::g()->get( array( 'id' => $note_id ), true );
 
 		$lines = Line_Class::g()->get( array(
 			'post_parent' => $note_id,
@@ -196,12 +196,12 @@ class Note_Action {
 		$response = Note_Class::g()->generate_document( $note_id, $category, $extension );
 		Document_Class::g()->generate_file( $response['document'], $extension );
 
-		$response['document'] = Document_Class::g()->get( array( 'p' => $response['document']->data['id'] ), true );
+		$response['document'] = Document_Class::g()->get( array( 'id' => $response['document']->data['id'] ), true );
 		ob_start();
 		Document_Class::g()->display_item( $response['document'] );
 		$item_view = ob_get_clean();
 
-		$note = Note_Class::g()->get( array( 'p' => $note_id ), true );
+		$note = Note_Class::g()->get( array( 'id' => $note_id ), true );
 
 		ob_start();
 		echo apply_filters( 'fp_filter_note_item_actions', $note );
@@ -224,13 +224,16 @@ class Note_Action {
 	 * @version 1.3.1
 	 */
 	public function register_routes() {
-		register_rest_route( __NAMESPACE__ . '/v' . \eoxia\Config_Util::$init['eo-framework']->wpeo_model->api_version , '/' . Note_Class::g()->get_rest_base() . '/(?P<id>[\d]+)/details', array(
+		register_rest_route( __NAMESPACE__ . '/v' . \eoxia\Config_Util::$init['eo-framework']->wpeo_model->api_version, '/' . Note_Class::g()->get_rest_base() . '/(?P<id>[\d]+)/details', array(
 			array(
-				'method' => \WP_REST_Server::READABLE,
-				'callback'	=> function( $request ) {
-					$full_note = Note_Class::g()->get( array( 'p' => $request['id'] ), true );
+				'method'              => \WP_REST_Server::READABLE,
+				'callback'            => function( $request ) {
+					$full_note = Note_Class::g()->get( array( 'id' => $request['id'] ), true );
 
-					$full_note->children = Line_Class::g()->get( array( 'post_parent' => $request['id'] ) );
+					$children = Line_Class::g()->get( array( 'post_parent' => $request['id'] ) );
+					foreach ( $children as $child ) {
+						$full_note->children[] = $child->data;
+					}
 
 					return $full_note;
 				},

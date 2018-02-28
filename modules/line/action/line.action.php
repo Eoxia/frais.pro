@@ -49,7 +49,7 @@ class Line_Action {
 		$line_args['parent_id'] = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
 		$line_args['status']    = 'inherit';
 
-		$line = Line_Class::g()->create( $line_args, true );
+		$line = Line_Class::g()->create( $line_args );
 
 		ob_start();
 		Line_Class::g()->display( $line );
@@ -128,7 +128,7 @@ class Line_Action {
 			wp_send_json_error( array( 'message' => __( 'You try to dissociate a line from a note that does not exists', 'frais-pro' ) ) );
 		}
 
-		$note            = Note_Class::g()->get( array( 'p' => $parent_id ), true );
+		$note            = Note_Class::g()->get( array( 'id' => $parent_id ), true );
 		$unaffected_note = Note_Class::g()->create_unaffected_note( $note->data['author_id'] );
 
 		$line = Line_Class::g()->update( array(
@@ -161,6 +161,7 @@ class Line_Action {
 		$files_id  = ! empty( $_POST['files_id'] ) ? (array) $_POST['files_id'] : array();
 		$note_id   = ! empty( $_POST['note_id'] ) ? (integer) $_POST['note_id'] : array();
 		$line_view = '';
+		$lines     = null;
 
 		if ( empty( $files_id ) || ! is_int( $note_id ) ) {
 			wp_send_json_error( array( 'message' => __( 'There is a missing parameter', 'frais-pro' ) ) );
@@ -169,10 +170,11 @@ class Line_Action {
 		if ( ! empty( $files_id ) ) {
 			foreach ( $files_id as $file_id ) {
 				$line_args              = array();
-				$line_args['parent_id'] = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : -1;
+				$line_args['parent_id'] = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : -1;
 				$line_args['status']    = 'inherit';
 
-				$line = Line_Class::g()->create( $line_args, true );
+				$line    = Line_Class::g()->create( $line_args );
+				$lines[] = $line;
 
 				\eoxia\WPEO_Upload_Class::g()->set_thumbnail( array(
 					'id'         => $line->data['id'],
@@ -187,7 +189,8 @@ class Line_Action {
 		}
 
 		wp_send_json_success( array(
-			'view' => $line_view,
+			'view'  => $line_view,
+			'lines' => $lines,
 		) );
 	}
 
@@ -217,7 +220,7 @@ class Line_Action {
 
 		// Enregistrement de la ligne.
 		$line = Line_Class::g()->update( $line_args, true );
-		$note = Note_Class::g()->get( array( 'p' => $line_args['parent_id'] ), true );
+		$note = Note_Class::g()->get( array( 'id' => $line_args['parent_id'] ), true );
 
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',
@@ -225,7 +228,7 @@ class Line_Action {
 			'callback_success' => 'lineSaved',
 			'note'             => $note,
 			'note_last_update' => __( 'Last Update', 'frais-pro' ) . ' ' . $note->data['date_modified']['rendered']['date_human_readable'],
-			'line'             => $line->data,
+			'line'             => $line,
 		) );
 	}
 
