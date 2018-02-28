@@ -50,6 +50,9 @@
 			background: url('images/disabled-pattern.png') #ececec;
 		}
 	}
+	> .date {
+		overflow: hidden; /** fix Firefox */
+	}
 	// Date
 	.date {
 		// .date-label {
@@ -125,7 +128,7 @@
 	// Actions
 	.action {
 		.dropdown-toggle {
-			padding-right: 0;
+			padding: 1em;
 		}
 	}
 }

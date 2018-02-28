@@ -19,8 +19,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?><div class="wpeo-table table-flex list-line-header">
 	<div class="table-row table-header">
 		<div class="table-cell image"><?php esc_html_e( 'Picture', 'frais-pro' ); ?></div>
-		<div class="table-cell date"><?php esc_html_e( 'Date', 'frais-pro' ); ?></div>
 		<div class="table-cell libelle"><?php esc_html_e( 'Label', 'frais-pro' ); ?></div>
+		<div class="table-cell date"><?php esc_html_e( 'Date', 'frais-pro' ); ?></div>
 		<div class="table-cell type"><?php esc_html_e( 'Type', 'frais-pro' ); ?></div>
 		<div class="table-cell km"><?php esc_html_e( 'Km', 'frais-pro' ); ?></div>
 		<div class="table-cell ttc"><?php esc_html_e( 'ATI(€)', 'frais-pro' ); ?></div>

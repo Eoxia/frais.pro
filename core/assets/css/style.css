@@ -423,6 +423,10 @@
 .wrap-frais-pro .list-line .line .line-content input[disabled] {
   background: url("images/disabled-pattern.png") #ececec; }
 
+.wrap-frais-pro .list-line .line .line-content > .date {
+  overflow: hidden;
+  /** fix Firefox */ }
+
 .wrap-frais-pro .list-line .line .line-content .group-date .mysql-date {
   width: 0; }
 
@@ -469,7 +473,7 @@
   background: #47e58e; }
 
 .wrap-frais-pro .list-line .line .line-content .action .dropdown-toggle {
-  padding-right: 0; }
+  padding: 1em; }
 
 .wrap-frais-pro .list-line .line input[readonly] {
   background: url("images/disabled-pattern.png") #ececec;
