@@ -76,7 +76,7 @@ class User_Action {
 			$user['ndf_admin'] = ! empty( $_POST ) && ! empty( $_POST['ndf_admin'] ) && ( 'true' === sanitize_text_field( $_POST['ndf_admin'] ) ) ? true : false;
 		}
 
-		$user_update = User_Class::g()->update( $user, true );
+		$user_update = User_Class::g()->update( $user );
 		// On affecte le droit de voir toutes les notes à l'utilisateur si la case est cochée.
 		if ( ! empty( $user_update ) && ! is_wp_error( $user_update ) ) {
 			$the_user = new \WP_User( $user_id );

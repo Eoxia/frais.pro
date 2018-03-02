@@ -56,7 +56,8 @@ function set_note_name( $data ) {
 /**
  * Récupères tous les éléments nécessaires pour le fonctionnement d'une note
  *
- * @param  Note_Model $data L'objet.
+ * @param  Note_Model $object L'objet.
+ *
  * @return Note_Model L'objet avec tous les éléments ajoutés par cette méthode.
  */
 function get_full_note( $object ) {

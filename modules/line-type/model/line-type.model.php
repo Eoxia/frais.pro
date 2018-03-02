@@ -42,7 +42,7 @@ class Line_Type_Model extends \eoxia\Term_Model {
 			'field'     => '_type_note_special_treatment',
 		);
 
-		parent::__construct( $data );
+		parent::__construct( $data, $req_method );
 	}
 
 }
