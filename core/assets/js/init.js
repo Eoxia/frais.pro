@@ -1,1 +1,1 @@
-window.eoxiaJS.noteDeFrais = {};
+window.eoxiaJS.fraisPro = {};

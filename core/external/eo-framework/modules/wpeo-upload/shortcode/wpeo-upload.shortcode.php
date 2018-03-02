@@ -71,7 +71,7 @@ if ( ! class_exists( '\eoxia\WPEO_Upload_Shortcode' ) ) {
 				'id' => $atts['id'],
 			), true );
 
-			$main_picture_id = $element->thumbnail_id;
+			$main_picture_id = $element->data['thumbnail_id'];
 
 			if ( empty( $main_picture_id ) ) {
 				$nonce_name = 'associate_file';
@@ -82,13 +82,13 @@ if ( ! class_exists( '\eoxia\WPEO_Upload_Shortcode' ) ) {
 			$field_name = $atts['field_name'];
 
 			$no_file_class = '';
-			if ( empty( $main_picture_id ) && empty( $element->associated_document_id[ $atts['field_name'] ] ) ) {
+			if ( empty( $main_picture_id ) && empty( $element->data['associated_document_id'][ $atts['field_name'] ] ) ) {
 				$no_file_class = 'no-file';
 			} else {
 				$nonce_name = 'load_gallery';
 			}
 
-			require( \eoxia\Config_Util::$init['eo-framework']->wpeo_upload->path . '/view/' . $atts['display_type'] . '/button.view.php' );
+			require \eoxia\Config_Util::$init['eo-framework']->wpeo_upload->path . '/view/' . $atts['display_type'] . '/button.view.php';
 		}
 	}
 

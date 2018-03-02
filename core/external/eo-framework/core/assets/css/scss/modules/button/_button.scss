@@ -11,11 +11,13 @@
  * 		.yellow
  * 		.blue
  * 		.green
+ * 		.transparent
  * .bordered -> Change l'affichage du bouton. Fonctionne avec les même couleurs
  * .strong -> texte en gras
  * .uppercase -> texte en majuscule
  * .float-right -> float right
  * .float-left -> float left
+ * .square-30 -> bouton carré 30px
  * .square-40 -> bouton carré 40px
  * .square-50 -> bouton carré 50px
  * .square-60 -> bouton carré 60px
@@ -39,6 +41,7 @@
 	box-shadow: none;
 	background: none;
 	padding: 6px 14px;
+	line-height: 1.4;
 	vertical-align: middle;
 	height: auto;
 	border-radius: 0;
@@ -114,6 +117,15 @@
 	&.button-green {
 		background: $color__green;
 		border-color: $color__green;
+	}
+	&.button-transparent {
+		background: transparent;
+		border-color: transparent;
+		color: rgba($color__text-main, 0.4);
+		&:hover {
+			color: $color__text-main;
+			box-shadow: inset 0 -2.6em rgba(255,255,255,0);
+		}
 	}
 }
 
@@ -192,11 +204,7 @@
 
 // Icon
 .wpeo-button {
-	.button-icon.dashicons {
-		line-height: 1.3;
-	}
 	.button-icon, span {
-		@include transition();
 		position: relative;
 	}
 	.button-icon ~ span {
@@ -227,6 +235,14 @@
 	text-align: center;
 	overflow: hidden;
 	padding: 0;
+}
+.wpeo-button.button-square-30 {
+	width: 30px;
+	height: 30px;
+	line-height: 24px; // ne pas oublier les bordures : 6px
+	.button-icon {
+		font-size: 12px;
+	}
 }
 .wpeo-button.button-square-40 {
 	width: 40px;
@@ -309,12 +325,12 @@
 	position: relative;
 
 	&:before {
-		content: '';
-		display: inline-block;
+		display: none;
+	}
+	.svg-inline--fa {
 		opacity: 0;
 		transform: translate(-50%, -90%);
 		transition: all 0.2s ease-out;
-		font-family: 'FontAwesome';
 		font-size: 16px;
 		animation-duration: 1s;
 		animation-fill-mode: both;
@@ -328,7 +344,7 @@
 	}
 	&.button-success, &.button-load, &.button-error {
 		pointer-events: none;
-		&:before {
+		.svg-inline--fa {
 			opacity: 1;
 		}
 		.button-icon, span {
@@ -342,7 +358,10 @@
 		border-color: $color__green;
 		color: #fff;
 		&:before {
+			font-family: "Font Awesome 5 Regular";
 			content: "\f00c";
+		}
+		.svg-inline--fa {
 			animation-name: progressSuccess;
 		}
 	}
@@ -352,7 +371,10 @@
 		border-color: $color__red;
 		color: #fff;
 		&:before {
+			font-family: "Font Awesome 5 Regular";
 			content: "\f00d";
+		}
+		.svg-inline--fa {
 			animation-name: progressError;
 		}
 	}
@@ -360,6 +382,11 @@
 		background: $color__grey;
 		&:before {
 			display: inline-block;
+			transform: translate(-50%, -90%);
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			z-index: 99;
 			content: '';
 			border: 3px solid #fff;
 			border-top: 3px solid $color__primary;

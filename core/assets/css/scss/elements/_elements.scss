@@ -1,5 +1,7 @@
-@import "contenteditable.scss";
-@import "note.scss";
-@import "liste-note.scss";
-@import "single-note.scss";
-@import "structure.scss";
+@import "general";
+@import "list-note";
+@import "single-note";
+@import "list-line";
+@import "dropdown-status";
+@import "search";
+@import "associated-document";

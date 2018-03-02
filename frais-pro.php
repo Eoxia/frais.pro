@@ -14,12 +14,12 @@
  * @package Note De Frais
  */
 
-namespace note_de_frais;
+namespace frais_pro;
 
 DEFINE( 'PLUGIN_NOTE_DE_FRAIS_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
 DEFINE( 'PLUGIN_NOTE_DE_FRAIS_URL', plugins_url( basename( __DIR__ ) ) . '/' );
 DEFINE( 'PLUGIN_NOTE_DE_FRAIS_DIR', basename( __DIR__ ) );
 
-require_once( 'core/external/eo-framework/eo-framework.php' );
+require_once 'core/external/eo-framework/eo-framework.php';
 
 \eoxia\Init_Util::g()->exec( PLUGIN_NOTE_DE_FRAIS_PATH, basename( __FILE__, '.php' ) );

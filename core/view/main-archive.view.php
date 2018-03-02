@@ -8,8 +8,8 @@
  * @version 1.0.0.0
  */
 
-namespace note_de_frais;
+namespace frais_pro;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-NDF_Class::g()->display( 'archive' );
+Note_Class::g()->display( 'archive' );

@@ -10,7 +10,7 @@
  * @subpackage class
  */
 
-namespace note_de_frais;
+namespace frais_pro;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -24,7 +24,7 @@ class User_Class extends \eoxia\User_Class {
 	 *
 	 * @var string
 	 */
-	protected $model_name = '\note_de_frais\User_Model';
+	protected $model_name = '\frais_pro\User_Model';
 
 	/**
 	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée

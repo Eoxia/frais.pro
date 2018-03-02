@@ -1,24 +1,48 @@
-<?php namespace note_de_frais;
+<?php
+/**
+ * Définition du modèle des ODT de note de frais.
+ *
+ * @author Eoxia <dev@eoxia.com>
+ * @since 1.0.0
+ * @version 1.4.0
+ * @copyright 2017-2018 Eoxia
+ * @package Frais.pro
+ */
 
-if ( !defined( 'ABSPATH' ) ) exit;
+namespace frais_pro;
 
-class document_model extends \eoxia\Post_Model {
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Définition du modèle des documents de note de frais.
+ */
+class Document_Model extends \eoxia\Attachment_Model {
 
 	/**
-	 * Construit le modèle / Fill the model
+	 * Add custom field for fees sheet into default model.
 	 *
-	 * @param array|WP_Object $object La définition de l'objet dans l'instance actuelle / Object currently present into model instance
-	 * @param string $meta_key Le nom de la metakey utilisée pour le rangement des données associées à l'élément / The main metakey used to store data associated to current object
-	 * @param boolean $cropped Permet de ne récupèrer que les données principales de l'objet demandé / If true, return only main informations about object
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param array|object $data       Les données à construire à partir du modèle.
+	 * @param string       $req_method La méthode HTTP actuellement utilisée.
 	 */
-	public function __construct( $object ) {
-			$this->model['mime_type'] = array(
-			'type' 				=> 'string',
-			'meta_type'		=> 'single',
-			'field'				=> 'post_mime_type'
+	public function __construct( $data = null, $req_method = null ) {
+
+		$this->schema['unique_key'] = array(
+			'type'      => 'integer',
+			'meta_type' => 'single',
+			'field'     => 'fp_unique_key',
 		);
 
-		parent::__construct( $object );
-	}
+		$this->schema['unique_identifier'] = array(
+			'type'      => 'string',
+			'meta_type' => 'single',
+			'field'     => 'fp_unique_identifier',
+		);
 
+		parent::__construct( $data, $req_method );
+	}
 }

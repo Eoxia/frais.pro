@@ -66,7 +66,15 @@ window.eoxiaJS.upload.event = function() {
  * @version 1.0.0
  */
 window.eoxiaJS.upload.openPopup = function( event ) {
+	if ( window.eoxiaJS.upload.currentButton ) {
+		var tmp = window.eoxiaJS.upload.currentButton;
+	}
 	window.eoxiaJS.upload.currentButton = jQuery( this );
+
+	if ( tmp ) {
+		window.eoxiaJS.upload.currentButton[0].initialButton = tmp;
+	}
+
 	event.preventDefault();
 
 	if ( jQuery( this ).hasClass( 'no-file' ) || jQuery( this ).is( "a" ) ) {
@@ -133,11 +141,19 @@ window.eoxiaJS.upload.associateFile = function() {
 	window.eoxiaJS.loader.display( window.eoxiaJS.upload.currentButton  );
 
 	jQuery.post( window.ajaxurl, data, function( response ) {
+		window.eoxiaJS.upload.currentButton.removeClass( 'loading' );
+
 		window.eoxiaJS.upload.refreshButton( response.data );
 
 		if ( 'box' === response.data.display_type && 0 !== response.data.id ) {
 			window.eoxiaJS.gallery.open( false );
 		}
+
+		window.eoxiaJS.cb( 'eoUploadAssociatedFile', {
+			element: window.eoxiaJS.upload.currentButton,
+			data: data,
+			response: response
+		} );
 	} );
 };
 
@@ -153,7 +169,7 @@ window.eoxiaJS.upload.associateFile = function() {
 window.eoxiaJS.upload.refreshButton = function( data ) {
 	jQuery( window.eoxiaJS.upload.currentButton ).removeClass( 'no-file loading wpeo-loader' );
 	if( window.eoxiaJS.upload.currentButton.is( 'a' ) ) {
-		window.eoxiaJS.loader.remove( window.eoxiaJS.upload.currentButton  );
+		window.eoxiaJS.loader.remove( window.eoxiaJS.upload.currentButton );
 
 		if ( ! data.id ) {
 			window.eoxiaJS.upload.currentButton.closest( 'div' ).find( 'ul' ).append( data.view );
@@ -170,8 +186,11 @@ window.eoxiaJS.upload.refreshButton = function( data ) {
 			window.eoxiaJS.upload.currentButton.find( 'input[type="hidden"]' ).val( window.eoxiaJS.upload.selectedInfos.JSON.id );
 		} else {
 			if ( data.media ) {
+				if ( window.eoxiaJS.upload.currentButton[0] && window.eoxiaJS.upload.currentButton[0].initialButton ) {
+					window.eoxiaJS.upload.currentButton[0].initialButton.find( 'img' ).replaceWith( data.media );
+				}
 				window.eoxiaJS.upload.currentButton.find( 'img' ).replaceWith( data.media );
-				window.eoxiaJS.upload.currentButton.find( 'i' ).hide();
+				window.eoxiaJS.upload.currentButton.find( 'svg.fa-image' ).hide();
 
 				window.eoxiaJS.upload.currentButton.find( 'input[type="hidden"]' ).val( window.eoxiaJS.upload.selectedInfos.JSON.id );
 			}
@@ -217,21 +236,23 @@ window.eoxiaJS.gallery.event = function() {
  * @version 1.0.0
  */
 window.eoxiaJS.gallery.open = function( append = true ) {
+	var currentButton = window.eoxiaJS.upload.currentButton;
 	var data = {
 		action: 'eo_upload_load_gallery'
 	};
 	var key = '';
-	window.eoxiaJS.upload.currentButton.get_data( function( attrData ) {
+	currentButton.get_data( function( attrData ) {
 		for ( key in attrData ) {
 			data[key] = attrData[key];
 		}
 	} );
-	window.eoxiaJS.upload.currentButton.addClass( 'loading' );
+
+	currentButton.addClass( 'loading' );
 
 	if ( append ) {
 		jQuery( '.wpeo-gallery' ).remove();
 	} else {
-		data['_wpnonce'] = window.eoxiaJS.upload.currentButton.closest( '.wpeo-gallery' ).data( 'nonce' );
+		data['_wpnonce'] = currentButton.closest( '.wpeo-gallery' ).data( 'nonce' );
 	}
 
 	jQuery.post( ajaxurl, data, function( response ) {
@@ -240,7 +261,7 @@ window.eoxiaJS.gallery.open = function( append = true ) {
 		} else {
 			jQuery( '.wpeo-gallery' ).replaceWith( response.data.view );
 		}
-		window.eoxiaJS.upload.currentButton.removeClass( 'loading' );
+		currentButton.removeClass( 'loading' );
 	});
 };
 

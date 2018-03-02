@@ -5,10 +5,10 @@
  * @package Eoxia\Plugin
  *
  * @since 1.0.0
- * @version 1.3.0
+ * @version 1.4.0
  */
 
-namespace note_de_frais;
+namespace frais_pro;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -35,13 +35,13 @@ class Note_De_Frais_Action {
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts_css' ), 11 );
 		}
 
-		if ( in_array( $page, \eoxia\Config_Util::$init['frais-pro']->insert_scripts_pages_js, true ) && empty( $post ) ) {
+		if ( empty( $page ) || ( in_array( $page, \eoxia\Config_Util::$init['frais-pro']->insert_scripts_pages_js, true ) && empty( $post ) ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts_js' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts_js' ), 11 );
 		}
 
 		add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
-		add_action( 'admin_init', array( $this, 'callback_admin_init' ) );
+		add_action( 'init', array( $this, 'callback_init' ), 11 );
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
 	}
 
@@ -50,8 +50,8 @@ class Note_De_Frais_Action {
 	 *
 	 * @return void nothing
 	 *
-	 * @since 1.0
-	 * @version 6.2.5.0
+	 * @since 1.0.0
+	 * @version 1.3.0
 	 */
 	public function callback_before_admin_enqueue_scripts_js() {
 		wp_enqueue_media();
@@ -59,99 +59,75 @@ class Note_De_Frais_Action {
 	}
 
 	/**
-	 * Initialise le fichier style.min.css et backend.min.js du plugin DigiRisk.
+	 * Initialise le fichier style.min.css et backend.min.js du plugin Frais Pro.
 	 *
 	 * @return void nothing
 	 *
-	 * @since 1.0
-	 * @version 1.3.0
+	 * @since 1.0.0
+	 * @version 1.4.0
 	 */
 	public function callback_admin_enqueue_scripts_js() {
 		wp_enqueue_script( 'frais-pro-script', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/js/backend.min.js', array( 'jquery' ), \eoxia\Config_Util::$init['frais-pro']->version, false );
-		wp_localize_script( 'frais-pro-script', 'noteDeFrais', array(
-			'confirmMarkAsPayed' => __( 'Are you sur you want to mark as payed? You won\'t be able to change anything after this action.', 'frais-pro' ),
+		wp_localize_script( 'frais-pro-script', 'fraisPro', array(
+			'updateDataUrlPage'        => 'admin_page_' . \eoxia\Config_Util::$init['frais-pro']->update_page_url,
+			'confirmMarkAsPayed'       => __( 'Are you sur you want to mark as payed? You won\'t be able to change anything after this action.', 'frais-pro' ),
+			'confirmUpdateManagerExit' => __( 'Your data are being updated. If you confirm that you want to leave this page, your data could be corrupted', 'frais-pro' ),
+			'noteStatusInProgress'     => __( 'In progress', 'frais-pro' ),
+			'noteStatusInValidated'    => __( 'Validated', 'frais-pro' ),
+			'noteStatusInPayed'        => __( 'Payed', 'frais-pro' ),
+			'noteStatusInRefused'      => __( 'Refused', 'frais-pro' ),
+			'lineStatusInvalid'        => __( 'Invalid line', 'frais-pro' ),
+			'lineStatusValid'          => __( 'Valid line', 'frais-pro' ),
+			'loader'                   => '<img src=' . admin_url( '/images/loading.gif' ) . ' />',
+			'updateInProgress'         => __( 'Update in progress...', 'frais-pro' ),
 		) );
-		wp_enqueue_script( 'frais-pro-script-datetimepicker-script', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/js/jquery.datetimepicker.full.js', array(), \eoxia\Config_Util::$init['frais-pro']->version );
 	}
 
 	/**
-	 * Initialise le fichier style.min.css et backend.min.js du plugin DigiRisk.
+	 * Initialise le fichier style.min.css et backend.min.js du plugin Frais Pro.
 	 *
 	 * @return void nothing
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 * @version 1.3.0
 	 */
 	public function callback_admin_enqueue_scripts_css() {
 		wp_register_style( 'frais-pro-style', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/css/style.css', array(), \eoxia\Config_Util::$init['frais-pro']->version );
 		wp_enqueue_style( 'frais-pro-style' );
-
-		wp_enqueue_style( 'frais-pro-datepicker', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/css/jquery.datetimepicker.css', array(), \eoxia\Config_Util::$init['frais-pro']->version );
 	}
 
 	/**
 	 * Initialise le fichier MO
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 * @version 1.2.0
 	 */
 	public function callback_plugins_loaded() {
-		register_post_status( 'archive', array(
-			'label'                     => 'Archive',
-			'public'                    => true,
-			'exclude_from_search'       => false,
-			'show_in_admin_all_list'    => true,
-			'show_in_admin_status_list' => true,
-		) );
 		load_plugin_textdomain( 'frais-pro', false, PLUGIN_NOTE_DE_FRAIS_DIR . '/core/assets/languages/' );
 	}
 
 	/**
-	 * Installes les données par défaut.
+	 * Appel la méthode pour initialiser les données par défaut.
 	 *
-	 * @since 1.2.0
-	 * @version 1.2.0
+	 * @since 1.4.0
+	 * @version 1.4.0
 	 *
 	 * @return void
 	 */
-	public function callback_admin_init() {
-		$core_option = get_option( \eoxia\Config_Util::$init['frais-pro']->core_option, array(
-			'db_version' => '',
-		) );
-
-		if ( empty( $core_option['db_version'] ) ) {
-			$file_content = file_get_contents( \eoxia\Config_Util::$init['frais-pro']->core->path . 'assets/json/default.json' );
-			$data = json_decode( $file_content, true );
-
-			if ( ! empty( $data ) ) {
-				foreach ( $data as $category ) {
-					$category_slug = sanitize_title( $category['category_id'] . ' : ' . $category['name'] );
-					$tax = get_term_by( 'slug', $category_slug, Type_Note_Class::g()->get_taxonomy(), ARRAY_A );
-
-					if ( ! empty( $tax['term_id'] ) && is_int( $tax['term_id'] ) ) {
-						$category['id'] = $tax['term_id'];
-					}
-					$category['slug'] = $category_slug;
-
-					Type_Note_Class::g()->update( $category );
-				}
-			}
-
-			$core_option['db_version'] = str_replace( '.', '', \eoxia\Config_Util::$init['frais-pro']->version );
-			update_option( \eoxia\Config_Util::$init['frais-pro']->core_option, $core_option );
-		}
-
+	public function callback_init() {
+		Note_De_Frais_Class::g()->init_default_data();
 	}
 
 	/**
-	 * Définition du menu dans l'administration de wordpress pour Digirisk / Define the menu for wordpress administration
+	 * Définition du menu dans l'administration de WordPress pour Frais Pro.
 	 *
 	 * @since 1.0.0
-	 * @version 1.3.0
+	 * @version 1.4.0
 	 */
 	public function callback_admin_menu() {
-		add_menu_page( __( 'Frais.pro', 'frais-pro' ), __( 'Frais.pro', 'frais-pro' ), 'manage_options', 'frais-pro', array( Note_De_Frais_Class::g(), 'display' ), 'dashicons-format-aside' );
-		add_submenu_page( 'frais-pro', __( 'Archives', 'frais-pro' ), __( 'Archives', 'frais-pro' ), 'manage_options', 'frais-pro-archive', array( Note_De_Frais_Class::g(), 'display_archive' ) );
+		add_menu_page( __( 'Frais.pro', 'frais-pro' ), __( 'Frais.pro', 'frais-pro' ), 'manage_options', \eoxia\Config_Util::$init['frais-pro']->slug, array( Note_De_Frais_Class::g(), 'display' ), 'dashicons-format-aside' );
+		add_submenu_page( \eoxia\Config_Util::$init['frais-pro']->slug, __( 'Frais.pro - Notes', 'frais-pro' ), __( 'Notes', 'frais-pro' ), 'manage_options', \eoxia\Config_Util::$init['frais-pro']->slug, array( Note_De_Frais_Class::g(), 'display' ) );
+		add_submenu_page( \eoxia\Config_Util::$init['frais-pro']->menu_edit_parent_slug, __( 'Frais.pro', 'frais-pro' ), __( 'Frais.pro', 'frais-pro' ), 'manage_options', \eoxia\Config_Util::$init['frais-pro']->slug . '-edit', array( Note_De_Frais_Class::g(), 'display' ) );
 	}
 
 }

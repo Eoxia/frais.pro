@@ -3,8 +3,8 @@
  * Classe helper pour les modèles.
  *
  * @author Jimmy Latour <dev@eoxia.com>
- * @since 1.0.0.0
- * @version 1.3.0.0
+ * @since 1.0.0
+ * @version 1.0.0
  * @copyright 2015-2017
  * @package wpeo_model
  * @subpackage class
@@ -19,18 +19,18 @@ if ( ! class_exists( '\eoxia\Helper_Class' ) ) {
 	/**
 	 * Classe helper pour les modèles.
 	 */
-	class Helper_Class {
+	class Helper_Class implements \ArrayAccess {
 
 		/**
 		 * Récupères le modèle.
 		 *
-		 * @since 1.0.0.0
-		 * @version 1.3.0.0
+		 * @since 1.0.0
+		 * @version 1.0.0
 		 *
 		 * @return Object le modèle.
 		 */
 		public function get_model() {
-			return $this->model;
+			return $this->schema;
 		}
 
 		public function get_class() {
@@ -58,8 +58,8 @@ if ( ! class_exists( '\eoxia\Helper_Class' ) ) {
 		/**
 		 * Supprime le modèle.
 		 *
-		 * @since 1.0.0.0
-		 * @version 1.3.0.0
+		 * @since 1.0.0
+		 * @version 1.0.0
 		 *
 		 * @param  object $current L'objet complet.
 		 */
@@ -79,5 +79,54 @@ if ( ! class_exists( '\eoxia\Helper_Class' ) ) {
 				}
 			}
 		}
+
+		/**
+		 * Checks if a parameter is set.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $offset Parameter name.
+		 * @return bool Whether the parameter is set.
+		 */
+		public function offsetExists( $offset ) {
+			return isset( $this->$offset );
+		}
+
+		/**
+		 * Retrieves a parameter from the request.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $offset Parameter name.
+		 * @return mixed|null Value if set, null otherwise.
+		 */
+		public function offsetGet( $offset ) {
+			return isset( $this->$offset ) ? $this->$offset : null;
+		}
+
+		/**
+		 * Sets a parameter on the request.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $offset Parameter name.
+		 * @param mixed  $value  Parameter value.
+		 */
+		public function offsetSet( $offset, $value ) {
+			$this->$offset = $value;
+		}
+
+		/**
+		 * Removes a parameter from the request.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $offset Parameter name.
+		 */
+		public function offsetUnset( $offset ) {
+			unset( $this->$offset );
+		}
+
 	}
+
 } // End if().
