@@ -57,12 +57,10 @@ class Line_Class extends \eoxia\Post_Class {
 	public $element_prefix = 'L';
 
 	protected $callback_func = array(
-		'before_get'  => array(),
 		'before_put'  => array( '\frais_pro\before_update_line' ),
 		'before_post' => array( '\frais_pro\before_get_identifier', '\frais_pro\before_update_line' ),
 		'after_get'   => array( '\frais_pro\after_get_line' ),
 		'after_put'   => array( '\frais_pro\after_update_line' ),
-		'after_post'  => array(),
 	);
 
 	/**
