@@ -8,8 +8,7 @@
 		"model": {},
 		"class": {},
 		"action": {},
-		"filter": {},
-		"helper": {}
+		"filter": {}
 	},
 	"line_required_values": {
 		"description": "Si les champs libellé / date deviennent obligatoires rajouter les entrées dans le tableau ci-dessous: title, date",

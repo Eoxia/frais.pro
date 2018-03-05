@@ -98,6 +98,7 @@ class Document_Class extends \eoxia\Attachment_Class {
 	 *
 	 * @param  [type] $document  [description]
 	 * @param  string $extension [description]
+	 *
 	 * @return [type]            [description]
 	 */
 	public function generate_file( $document, $extension = 'odt' ) {

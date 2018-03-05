@@ -6,7 +6,7 @@
  * @since 1.4.0
  * @version 1.4.0
  * @copyright 2017 Eoxia
- * @package NDF
+ * @package Frais.Pro
  */
 
 namespace frais_pro;

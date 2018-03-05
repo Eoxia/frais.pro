@@ -56,17 +56,6 @@ class Note_Class extends \eoxia\Post_Class {
 	public $element_prefix = 'N';
 
 	/**
-	 * Définition des fonctions de callback pour l'élément.
-	 *
-	 * @var  array
-	 */
-	protected $callback_func = array(
-		'before_post' => array( '\frais_pro\before_get_identifier', '\frais_pro\set_note_name' ),
-		'after_get'   => array( '\frais_pro\get_full_note' ),
-		'after_put'   => array( '\frais_pro\get_full_note' ),
-	);
-
-	/**
 	 * Le nom pour le resgister post type
 	 *
 	 * @var string
