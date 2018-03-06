@@ -202,7 +202,6 @@ class Note_Class extends \eoxia\Post_Class {
 		$total_tax_inclusive_amount = 0;
 		$total_tax_amount           = 0;
 
-
 		$note = $this->get( array(
 			'id' => $note_id,
 		), true );
@@ -304,7 +303,7 @@ class Note_Class extends \eoxia\Post_Class {
 		$sheet_details['chevaux']  = $user->data['chevaux'];
 		$sheet_details['prixkm']   = $user->data['prixkm'];
 
-		$document                    = Document_Class::g()->get( array( 'schema' => true ), true );
+		$document                    = Document_Class::g()->get( array( 'schema' => true ) );
 		$document->data['parent_id'] = $note->data['id'];
 
 		$args_title = array(

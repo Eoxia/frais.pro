@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Frais.pro V1.X.X\n"
-"POT-Creation-Date: 2018-02-22 15:02+0100\n"
-"PO-Revision-Date: 2018-02-22 15:03+0100\n"
+"POT-Creation-Date: 2018-03-06 10:59+0100\n"
+"PO-Revision-Date: 2018-03-06 10:59+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia dev@eoxia.com\n"
 "Language: fr_FR\n"
@@ -52,7 +52,7 @@ msgstr "Payée"
 #: core/action/note-de-frais.action.php:78
 #: modules/note-status/class/note-status.class.php:109
 msgid "Refused"
-msgstr "Réfusée"
+msgstr "Refusée"
 
 #: core/action/note-de-frais.action.php:79 modules/line/view/item.view.php:77
 msgid "Invalid line"
@@ -104,16 +104,6 @@ msgstr "Télécharger le fichier %s"
 msgid "File does not exists"
 msgstr "Le fichier n'existe pas"
 
-#: modules/document/view/item.view.php:46 modules/line/view/item.view.php:84
-#: modules/note/view/filter/item-actions-unaffected.view.php:19
-#: modules/note/view/filter/item-actions.view.php:65
-msgid "Options"
-msgstr "Options"
-
-#: modules/document/view/item.view.php:51 modules/line/view/item.view.php:91
-msgid "Delete"
-msgstr "Supprimer"
-
 #: modules/document/view/list.view.php:17
 msgid "Export history"
 msgstr "Historique des exports"
@@ -135,56 +125,56 @@ msgstr "Type de ligne"
 msgid "Create type notes"
 msgstr "Créer un type de note"
 
-#: modules/line/action/line.action.php:84
+#: modules/line/action/line.action.php:81
 #, php-format
 msgid "User %1$d try to delete the line %2$d"
 msgstr "L'utilisateur %1$d a essayé de supprimer la ligne %2$d"
 
-#: modules/line/action/line.action.php:88
+#: modules/line/action/line.action.php:85
 #, php-format
 msgid "The given ID %1$d is invalid"
 msgstr "L'identifiant %1$d n'est pas un identifiant valide"
 
-#: modules/line/action/line.action.php:89
+#: modules/line/action/line.action.php:86
 msgid "You try to delete a line that does not exists"
 msgstr "Vous avez essayé de supprimer une ligne qui n'existe pas"
 
-#: modules/line/action/line.action.php:120
+#: modules/line/action/line.action.php:117
 #, php-format
 msgid "User %1$d try to dissociate the line %2$d from %3$d"
 msgstr ""
 "L'utilisateur %1$d a initialisé la dissociation de la ligne %2$d de %3$d"
 
-#: modules/line/action/line.action.php:124
+#: modules/line/action/line.action.php:121
 #, php-format
 msgid "The given line ID %1$d is invalid"
 msgstr "L'identifiant %1$d n'est pas un identifiant de ligne valide"
 
-#: modules/line/action/line.action.php:125
+#: modules/line/action/line.action.php:122
 msgid "You try to dissociate a line that does not exists"
 msgstr "Vous avez essayé de dissocier une ligne qui n'existe pas"
 
-#: modules/line/action/line.action.php:130
+#: modules/line/action/line.action.php:127
 #, php-format
 msgid "The given note ID %1$d is invalid"
 msgstr "L'identifiant %1$d n'est pas un identifiant de note valide"
 
-#: modules/line/action/line.action.php:131
+#: modules/line/action/line.action.php:128
 msgid "You try to dissociate a line from a note that does not exists"
 msgstr ""
 "Vous avez lancé la dissociation d'une ligne n'existant pas dans cette note"
 
-#: modules/line/action/line.action.php:166
+#: modules/line/action/line.action.php:167
 msgid "There is a missing parameter"
 msgstr "Un paramètre est manquant"
 
-#: modules/line/action/line.action.php:227
-#: modules/line/helper/line.helper.php:69 modules/line/view/item.view.php:28
-#: modules/line/view/main.view.php:23
+#: modules/line/action/line.action.php:211
+#: modules/line/filter/line.filter.php:139 modules/line/view/item.view.php:28
+#: modules/line/view/main.view.php:22
 msgid "Label"
 msgstr "Libellé"
 
-#: modules/line/action/line.action.php:247
+#: modules/line/action/line.action.php:230
 msgid "Last Update"
 msgstr "Dernière mise à jour"
 
@@ -196,7 +186,7 @@ msgstr "Etes vous sûr de vouloir dissocier cette ligne ?"
 msgid "Dissociate from note"
 msgstr "Dissocier de la note"
 
-#: modules/line/view/item.view.php:35 modules/line/view/main.view.php:22
+#: modules/line/view/item.view.php:35 modules/line/view/main.view.php:23
 msgid "Date"
 msgstr "Date"
 
@@ -214,9 +204,19 @@ msgstr "TTC(€)"
 msgid "VAT"
 msgstr "TVA"
 
+#: modules/line/view/item.view.php:84
+#: modules/note/view/filter/item-actions-unaffected.view.php:19
+#: modules/note/view/filter/item-actions.view.php:68
+msgid "Options"
+msgstr "Options"
+
 #: modules/line/view/item.view.php:88
 msgid "Are you sure you want to delete this line"
 msgstr "Etes vous sûr de vouloir supprimer cette ligne ?"
+
+#: modules/line/view/item.view.php:91
+msgid "Delete"
+msgstr "Supprimer"
 
 #: modules/line/view/main.view.php:21
 msgid "Picture"
@@ -238,20 +238,20 @@ msgstr "Statut de la note"
 msgid "All status"
 msgstr "Tous les statuts"
 
-#: modules/note/action/note.action.php:86
+#: modules/note/action/note.action.php:87
 msgid "You did not choose a note to mark as archive"
 msgstr "Vous n'avez pas sélectionné de note a archiver"
 
-#: modules/note/action/note.action.php:216
-#: modules/note/view/filter/item-actions.view.php:70
+#: modules/note/action/note.action.php:260
+#: modules/note/view/filter/item-actions.view.php:73
 msgid "Archive"
 msgstr "Archive"
 
-#: modules/note/class/note.class.php:181
+#: modules/note/class/note.class.php:160
 msgid "Unaffected lines"
 msgstr "Lignes non affectées"
 
-#: modules/note/filter/note.filter.php:77
+#: modules/note/filter/class-note-filter.php:107
 msgid "File not generated"
 msgstr "Fichier non généré"
 
@@ -263,22 +263,22 @@ msgstr "Supprimer toutes les lignes"
 msgid "Generate file"
 msgstr "Générer le fichier"
 
-#: modules/note/view/filter/item-actions.view.php:26
-#: modules/note/view/filter/item-actions.view.php:47
+#: modules/note/view/filter/item-actions.view.php:27
+#: modules/note/view/filter/item-actions.view.php:50
 msgid "With picture"
 msgstr "Avec photos"
 
-#: modules/note/view/filter/item-actions.view.php:32
-#: modules/note/view/filter/item-actions.view.php:53
+#: modules/note/view/filter/item-actions.view.php:34
+#: modules/note/view/filter/item-actions.view.php:56
 msgid "Without picture"
 msgstr "Sans photo"
 
-#: modules/note/view/filter/item-actions.view.php:37
-#: modules/note/view/filter/item-actions.view.php:59
+#: modules/note/view/filter/item-actions.view.php:40
+#: modules/note/view/filter/item-actions.view.php:62
 msgid "CSV export"
 msgstr "Export CSV"
 
-#: modules/note/view/filter/item-actions.view.php:41
+#: modules/note/view/filter/item-actions.view.php:44
 msgid "Download file"
 msgstr "Télécharger le fichier"
 
@@ -341,7 +341,7 @@ msgstr "Date de début"
 msgid "End date"
 msgstr "Date de fin"
 
-#: modules/search/view/main.view.php:70
+#: modules/search/view/main.view.php:68
 msgid "View also archives"
 msgstr "Inclure les archives"
 

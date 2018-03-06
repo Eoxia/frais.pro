@@ -32,7 +32,7 @@ class Line_Filter {
 
 		$current_type = Line_Class::g()->get_type();
 		add_filter( "eo_model_{$current_type}_before_put", array( $this, 'before_update_line' ), 10, 2 );
-		add_filter( "eo_model_{$current_type}_before_post", '\frais_pro\before_get_identifier', 10, 2 );
+		add_filter( "eo_model_{$current_type}_before_post", '\frais_pro\before_post_identifier', 10, 2 );
 		add_filter( "eo_model_{$current_type}_before_post", array( $this, 'before_update_line' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_get", array( $this, 'after_get_line' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_put", array( $this, 'after_update_line' ), 10, 2 );

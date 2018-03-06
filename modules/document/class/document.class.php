@@ -32,7 +32,7 @@ class Document_Class extends \eoxia\Attachment_Class {
 	 *
 	 * @var string
 	 */
-	protected $type = 'attachment';
+	protected $type = 'note-papier';
 
 	/**
 	 * Nom de la taxonomy
@@ -54,27 +54,6 @@ class Document_Class extends \eoxia\Attachment_Class {
 	 * @var string
 	 */
 	public $element_prefix = 'NP';
-
-	/**
-	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée
-	 *
-	 * @var array
-	 */
-	protected $before_post_function = array( '\frais_pro\before_get_identifier' );
-
-	/**
-	 * Fonction de callback avant de modifier les données en mode PUT.
-	 *
-	 * @var array
-	 */
-	protected $before_put_function = array();
-
-	/**
-	 * Fonction de callback après la modification des données.
-	 *
-	 * @var array
-	 */
-	protected $after_get_function = array( '\frais_pro\after_get_identifier' );
 
 	/**
 	 * Slug de base pour la route dans l'api rest

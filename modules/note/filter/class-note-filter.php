@@ -32,7 +32,7 @@ class Note_Filter {
 		add_filter( 'fp_filter_note_item_actions', array( $this, 'callback_note_item_actions' ) );
 
 		$current_type = Note_Class::g()->get_type();
-		add_filter( "eo_model_{$current_type}_before_post", '\frais_pro\before_get_identifier', 10, 2 );
+		add_filter( "eo_model_{$current_type}_before_post", '\frais_pro\before_post_identifier', 10, 2 );
 		add_filter( "eo_model_{$current_type}_before_post", array( $this, 'set_note_name' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_get", array( $this, 'get_full_note' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_put", array( $this, 'get_full_note' ), 10, 2 );
@@ -182,13 +182,13 @@ class Note_Filter {
 			),
 		);
 
-		$object->data['last_document']               = array();
-		$args_doc['tax_query'][0]['terms']           = 'note-photo';
-		$object->data['last_document']['note-photo'] = Document_Class::g()->get( $args_doc, true );
-		$args_doc['tax_query'][0]['terms']           = 'note';
-		$object->data['last_document']['note']       = Document_Class::g()->get( $args_doc, true );
-		$args_doc['tax_query'][0]['terms']           = 'note-csv';
-		$object->data['last_document']['note-csv']   = Document_Class::g()->get( $args_doc, true );
+		// $object->data['last_document']               = array();
+		// $args_doc['tax_query'][0]['terms']           = 'note-photo';
+		// $object->data['last_document']['note-photo'] = Document_Class::g()->get( $args_doc, true );
+		// $args_doc['tax_query'][0]['terms']           = 'note';
+		// $object->data['last_document']['note']       = Document_Class::g()->get( $args_doc, true );
+		// $args_doc['tax_query'][0]['terms']           = 'note-csv';
+		// $object->data['last_document']['note-csv']   = Document_Class::g()->get( $args_doc, true );
 
 		return $object;
 	}
