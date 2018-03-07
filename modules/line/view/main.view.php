@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?><div class="wpeo-table table-flex list-line-header">
 	<div class="table-row table-header">
+		<?php echo apply_filters( 'fp_filter_note_list_line_header_before', '', $note );  // WPCS: XSS ok. ?>
 		<div class="table-cell image"><?php esc_html_e( 'Picture', 'frais-pro' ); ?></div>
 		<div class="table-cell libelle"><?php esc_html_e( 'Label', 'frais-pro' ); ?></div>
 		<div class="table-cell date"><?php esc_html_e( 'Date', 'frais-pro' ); ?></div>

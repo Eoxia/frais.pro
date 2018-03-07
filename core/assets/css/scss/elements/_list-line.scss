@@ -24,6 +24,9 @@
 	.table-cell {
 		color: $color__primary !important;
 		padding: .8em 0;
+		&.line-association-selection {
+			max-width: 30px;
+		}
 	}
 }
 

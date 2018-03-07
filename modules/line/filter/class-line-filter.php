@@ -28,6 +28,7 @@ class Line_Filter {
 	 */
 	public function __construct() {
 		add_filter( 'fp_filter_line_item_before', array( $this, 'callback_fp_filter_line_item_before' ), 10, 2 );
+		add_filter( 'fp_filter_note_list_line_header_before', array( $this, 'callback_fp_filter_note_list_line_header_before' ), 10, 2 );
 		add_filter( 'fp_filter_line_item_action_before', array( $this, 'callback_fp_filter_line_item_action_before' ), 10, 2 );
 
 		$current_type = Line_Class::g()->get_type();
@@ -47,7 +48,7 @@ class Line_Filter {
 	 * @param string     $content Current content before calling this filter.
 	 * @param Line_Model $line    Current line definition.
 	 *
-	 * @return void
+	 * @return HTML Le contenu HTML a retourner.
 	 */
 	public function callback_fp_filter_line_item_before( $content, $line ) {
 		$contains_unaffected = get_post_meta( $line->data['parent_id'], 'fp_contains_unaffected', true );
@@ -56,6 +57,30 @@ class Line_Filter {
 			ob_start();
 			\eoxia\View_Util::exec( 'frais-pro', 'line', 'filter/checkbox', array(
 				'line' => $line,
+			) );
+			$content = ob_get_clean();
+		}
+
+		return $content;
+	}
+	/**
+	 * Callback pour le filtre permettant d'ajouter un item au début de la légende du tableau des lignes en mode liste dans une note.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param string     $content Current content before calling this filter.
+	 * @param Line_Model $note    Current line definition.
+	 *
+	 * @return HTML Le contenu HTML a retourner.
+	 */
+	public function callback_fp_filter_note_list_line_header_before( $content, $note ) {
+		$contains_unaffected = get_post_meta( $note->data['id'], 'fp_contains_unaffected', true );
+
+		if ( $contains_unaffected ) {
+			ob_start();
+			\eoxia\View_Util::exec( 'frais-pro', 'note', 'filter/note-line-list-header', array(
+				'note' => $note,
 			) );
 			$content = ob_get_clean();
 		}
