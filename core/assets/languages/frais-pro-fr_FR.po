@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Frais.pro V1.X.X\n"
-"POT-Creation-Date: 2018-03-06 10:59+0100\n"
-"PO-Revision-Date: 2018-03-06 10:59+0100\n"
+"POT-Creation-Date: 2018-03-07 09:52+0100\n"
+"PO-Revision-Date: 2018-03-07 09:55+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia dev@eoxia.com\n"
 "Language: fr_FR\n"
@@ -110,11 +110,11 @@ msgstr "Historique des exports"
 
 #: modules/document/view/list.view.php:28
 msgid "Actually you do not have any file generated"
-msgstr "Vous n'avez pas de notes pour le moment."
+msgstr "Vous n'avez pas de notes pour le moment"
 
-#: modules/line-type/action/line-type.action.php:42
-msgid "Note types"
-msgstr "Types de note"
+#: modules/line-type/action/class-line-type-action.php:42
+msgid "Line types"
+msgstr "Catégorie de la ligne"
 
 #: modules/line-type/class/line-type.class.php:76
 #: modules/line/view/item.view.php:44
@@ -125,56 +125,56 @@ msgstr "Type de ligne"
 msgid "Create type notes"
 msgstr "Créer un type de note"
 
-#: modules/line/action/line.action.php:81
+#: modules/line/action/class-line-action.php:81
 #, php-format
 msgid "User %1$d try to delete the line %2$d"
 msgstr "L'utilisateur %1$d a essayé de supprimer la ligne %2$d"
 
-#: modules/line/action/line.action.php:85
+#: modules/line/action/class-line-action.php:85
 #, php-format
 msgid "The given ID %1$d is invalid"
 msgstr "L'identifiant %1$d n'est pas un identifiant valide"
 
-#: modules/line/action/line.action.php:86
+#: modules/line/action/class-line-action.php:86
 msgid "You try to delete a line that does not exists"
 msgstr "Vous avez essayé de supprimer une ligne qui n'existe pas"
 
-#: modules/line/action/line.action.php:117
+#: modules/line/action/class-line-action.php:117
 #, php-format
 msgid "User %1$d try to dissociate the line %2$d from %3$d"
 msgstr ""
 "L'utilisateur %1$d a initialisé la dissociation de la ligne %2$d de %3$d"
 
-#: modules/line/action/line.action.php:121
+#: modules/line/action/class-line-action.php:121
 #, php-format
 msgid "The given line ID %1$d is invalid"
 msgstr "L'identifiant %1$d n'est pas un identifiant de ligne valide"
 
-#: modules/line/action/line.action.php:122
+#: modules/line/action/class-line-action.php:122
 msgid "You try to dissociate a line that does not exists"
 msgstr "Vous avez essayé de dissocier une ligne qui n'existe pas"
 
-#: modules/line/action/line.action.php:127
+#: modules/line/action/class-line-action.php:127
 #, php-format
 msgid "The given note ID %1$d is invalid"
 msgstr "L'identifiant %1$d n'est pas un identifiant de note valide"
 
-#: modules/line/action/line.action.php:128
+#: modules/line/action/class-line-action.php:128
 msgid "You try to dissociate a line from a note that does not exists"
 msgstr ""
 "Vous avez lancé la dissociation d'une ligne n'existant pas dans cette note"
 
-#: modules/line/action/line.action.php:167
+#: modules/line/action/class-line-action.php:167
 msgid "There is a missing parameter"
 msgstr "Un paramètre est manquant"
 
-#: modules/line/action/line.action.php:211
-#: modules/line/filter/line.filter.php:139 modules/line/view/item.view.php:28
-#: modules/line/view/main.view.php:22
+#: modules/line/action/class-line-action.php:211
+#: modules/line/filter/class-line-filter.php:139
+#: modules/line/view/item.view.php:28 modules/line/view/main.view.php:22
 msgid "Label"
 msgstr "Libellé"
 
-#: modules/line/action/line.action.php:230
+#: modules/line/action/class-line-action.php:230
 msgid "Last Update"
 msgstr "Dernière mise à jour"
 
@@ -230,19 +230,19 @@ msgstr "Type"
 msgid "Actually you do not have any line in this note"
 msgstr "Actuellement il n'y a aucune ligne dans cette note"
 
-#: modules/note-status/action/note-status.action.php:55
+#: modules/note-status/action/class-note-status-action.php:55
 msgid "Note status"
 msgstr "Statut de la note"
 
-#: modules/note-status/filter/note-status.filter.php:52
+#: modules/note-status/filter/class-note-status-filter.php:52
 msgid "All status"
 msgstr "Tous les statuts"
 
-#: modules/note/action/note.action.php:87
+#: modules/note/action/class-note-action.php:87
 msgid "You did not choose a note to mark as archive"
 msgstr "Vous n'avez pas sélectionné de note a archiver"
 
-#: modules/note/action/note.action.php:260
+#: modules/note/action/class-note-action.php:260
 #: modules/note/view/filter/item-actions.view.php:73
 msgid "Archive"
 msgstr "Archive"
@@ -261,7 +261,7 @@ msgstr "Supprimer toutes les lignes"
 
 #: modules/note/view/filter/item-actions.view.php:19
 msgid "Generate file"
-msgstr "Générer le fichier"
+msgstr "Générer les fichiers"
 
 #: modules/note/view/filter/item-actions.view.php:27
 #: modules/note/view/filter/item-actions.view.php:50
@@ -280,7 +280,7 @@ msgstr "Export CSV"
 
 #: modules/note/view/filter/item-actions.view.php:44
 msgid "Download file"
-msgstr "Télécharger le fichier"
+msgstr "Téléchargement du dernier fichier généré"
 
 #: modules/note/view/filter/item-informations.view.php:20
 #: modules/note/view/filter/item-informations.view.php:26
@@ -370,7 +370,7 @@ msgstr ""
 msgid "Update line type and categorie. Also update metadata"
 msgstr ""
 "Mise à jour du type interne des lignes, des types de lignes ainsi que des "
-"données des lignes."
+"données des lignes"
 
 #: modules/update_manager/data/update-1400-data.php:27
 msgid ""
@@ -384,14 +384,14 @@ msgstr "Mise à jour du lien et du type mime des fichiers générés"
 
 #: modules/update_manager/update/update-1400.php:108
 msgid "Start update 1400 update_note method."
-msgstr "Mise à jour 1400: début de la mise à jour des notes"
+msgstr "Mise à jour 1400: début de la mise à jour des notes."
 
 #: modules/update_manager/update/update-1400.php:117
 #, php-format
 msgid "List of existing note to be upgrading to new type: %s "
 msgstr ""
 "Liste des note existante qui vont être mise à jour vers le nouveau type "
-"interne: %s"
+"interne: %s "
 
 #: modules/update_manager/update/update-1400.php:131
 #: modules/update_manager/update/update-1400.php:203
@@ -422,22 +422,22 @@ msgstr "Aucun term n'a été trouvé pour le post %1$d"
 #: modules/update_manager/update/update-1400.php:157
 #, php-format
 msgid "List of existing note updated to the new type: %s "
-msgstr "Liste des notes mise à jour vers le nouveau type: %s"
+msgstr "Liste des notes mise à jour vers le nouveau type: %s "
 
 #: modules/update_manager/update/update-1400.php:159
 msgid "End update 1400 update_note method."
-msgstr "Mise à jour 1400: fin de la mise à jour des notes"
+msgstr "Mise à jour 1400: fin de la mise à jour des notes."
 
 #: modules/update_manager/update/update-1400.php:178
 msgid "Start update 1400 update_line method."
-msgstr "Mise à jour 1400: début de la mise à jour des lignes"
+msgstr "Mise à jour 1400: début de la mise à jour des lignes."
 
 #: modules/update_manager/update/update-1400.php:190
 #, php-format
 msgid "List of existing line to be upgrading to new type: %s "
 msgstr ""
 "Liste des lignes existantes qui vont être mise à jour vers le nouveau type "
-"interne: %s"
+"interne: %s "
 
 #: modules/update_manager/update/update-1400.php:228
 #: modules/update_manager/update/update-1400.php:232
@@ -450,15 +450,15 @@ msgstr "Aucun term trouvé pour la ligne %1$d"
 msgid "List of existing line updated to the new type: %s "
 msgstr ""
 "Liste des lignes existantes qui ont été mise à jour vers le nouveau type "
-"interne: %s"
+"interne: %s "
 
 #: modules/update_manager/update/update-1400.php:239
 msgid "End update 1400 update_line method."
-msgstr "Mise à jour 1400: fin de la mise à jour des lignes"
+msgstr "Mise à jour 1400: fin de la mise à jour des lignes."
 
 #: modules/update_manager/update/update-1400.php:258
 msgid "Start update 1400 update_user_capabilities method."
-msgstr "Mise à jour 1400: début de la mise à jour des droits des utilisateurs"
+msgstr "Mise à jour 1400: début de la mise à jour des droits des utilisateurs."
 
 #: modules/update_manager/update/update-1400.php:266
 #, php-format
@@ -482,11 +482,11 @@ msgstr "Liste des utilisateurs ayant le nouveau droit: %s => %s"
 
 #: modules/update_manager/update/update-1400.php:280
 msgid "End update 1400 update_user_capabilities method."
-msgstr "Mise à jour 1400: fin de la mise à jour des droits utilisateurs"
+msgstr "Mise à jour 1400: fin de la mise à jour des droits utilisateurs."
 
 #: modules/update_manager/update/update-1400.php:299
 msgid "Start update 1400 update_attachment_guid_mime_type."
-msgstr "Mise à jour 1400: début de la mise à jour des documents"
+msgstr "Mise à jour 1400: début de la mise à jour des documents."
 
 #: modules/update_manager/update/update-1400.php:333
 #, php-format
@@ -497,7 +497,7 @@ msgstr ""
 
 #: modules/update_manager/update/update-1400.php:341
 msgid "End update 1400 update_attachment_guid_mime_type."
-msgstr "Mise à jour 1400: fin de la mise à jour des documents"
+msgstr "Mise à jour 1400: fin de la mise à jour des documents."
 
 #: modules/update_manager/update/update-1400.php:371
 #: modules/update_manager/update/update-1400.php:403
@@ -588,6 +588,9 @@ msgstr ""
 #: modules/user/view/say-to-set-profil.view.php:28
 msgid "Go to my profile"
 msgstr "Aller à mon profil"
+
+#~ msgid "Note types"
+#~ msgstr "Types de note"
 
 #~ msgid "Grid mode"
 #~ msgstr "Mode grille"

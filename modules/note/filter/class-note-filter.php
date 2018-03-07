@@ -157,7 +157,8 @@ class Note_Filter {
 	/**
 	 * Récupères tous les éléments nécessaires pour le fonctionnement d'une note
 	 *
-	 * @param  Note_Model $object L'objet.
+	 * @param Note_Model $object L'objet.
+	 * @param array      $args   Des paramètres complémentaire pour permettre d'agir sur l'élément.
 	 *
 	 * @return Note_Model L'objet avec tous les éléments ajoutés par cette méthode.
 	 */
@@ -182,13 +183,13 @@ class Note_Filter {
 			),
 		);
 
-		// $object->data['last_document']               = array();
-		// $args_doc['tax_query'][0]['terms']           = 'note-photo';
-		// $object->data['last_document']['note-photo'] = Document_Class::g()->get( $args_doc, true );
-		// $args_doc['tax_query'][0]['terms']           = 'note';
-		// $object->data['last_document']['note']       = Document_Class::g()->get( $args_doc, true );
-		// $args_doc['tax_query'][0]['terms']           = 'note-csv';
-		// $object->data['last_document']['note-csv']   = Document_Class::g()->get( $args_doc, true );
+		$object->data['last_document']               = array();
+		$args_doc['tax_query'][0]['terms']           = 'note-photo';
+		$object->data['last_document']['note-photo'] = Document_Class::g()->get( $args_doc, true );
+		$args_doc['tax_query'][0]['terms']           = 'note';
+		$object->data['last_document']['note']       = Document_Class::g()->get( $args_doc, true );
+		$args_doc['tax_query'][0]['terms']           = 'note-csv';
+		$object->data['last_document']['note-csv']   = Document_Class::g()->get( $args_doc, true );
 
 		return $object;
 	}

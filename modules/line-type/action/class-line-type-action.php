@@ -27,7 +27,7 @@ class Line_Type_Action {
 	 * @version 1.2.0
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 99 );
+		// add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 99 );
 	}
 
 	/**
@@ -39,7 +39,7 @@ class Line_Type_Action {
 	 * @return void
 	 */
 	public function callback_admin_menu() {
-		add_submenu_page( 'frais-pro', __( 'Note types', 'frais-pro' ), __( 'Note types', 'frais-pro' ), 'manage_options', 'edit-tags.php?taxonomy=' . Line_Type_Class::g()->get_type() );
+		add_submenu_page( 'frais-pro', __( 'Line types', 'frais-pro' ), __( 'Line types', 'frais-pro' ), 'manage_options', 'edit-tags.php?taxonomy=' . Line_Type_Class::g()->get_type() );
 	}
 
 }
