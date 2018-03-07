@@ -306,7 +306,7 @@ class Note_Class extends \eoxia\Post_Class {
 		$sheet_details['chevaux']  = $user->data['chevaux'];
 		$sheet_details['prixkm']   = $user->data['prixkm'];
 
-		$document                    = Document_Class::g()->get( array( 'schema' => true ) );
+		$document                    = Document_Class::g()->get( array( 'schema' => true ), true );
 		$document->data['parent_id'] = $note->data['id'];
 
 		$args_title = array(

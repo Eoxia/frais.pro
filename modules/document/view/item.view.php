@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <tr class="document-item">
 	<td class="document-title" >
 		<span><?php echo esc_html( $document->data['title'] ); ?></span>
-		<div class="document-generation-date" ><?php esc_html_e( 'Generated on', 'frais-pro' ); ?> : <?php echo esc_html( $document->data['date_modified']['rendered']['date'] ); ?></div>
+		<div class="document-generation-date" ><?php esc_html_e( 'Generated on', 'frais-pro' ); ?> : <?php echo esc_html( $document->data['date_modified']['rendered']['date_time'] ); ?></div>
 	</td>
 	<td class="document-summary">
 		<?php
