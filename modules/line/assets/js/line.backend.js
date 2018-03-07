@@ -83,8 +83,8 @@ window.eoxiaJS.fraisPro.line.save = function( event, element ) {
 window.eoxiaJS.fraisPro.line.lineSaved = function( element, response ) {
 	jQuery( '.note-recap .note-ttc span.value' ).html( response.data.note.data.tax_inclusive_amount );
 	jQuery( '.note-recap .note-tva span.value' ).html( response.data.note.data.tax_amount );
-	jQuery( 'div[data-id=' + response.data.line.data.id + '] input[name=tax_inclusive_amount]' ).val( response.data.line.data.tax_inclusive_amount);
-	jQuery( 'div[data-id=' + response.data.line.data.id + '] input[tax_amount]' ).val( response.data.line.data.tax_amount);
+	jQuery( 'div[data-id=' + response.data.line.data.id + '] input[name=tax_inclusive_amount]' ).val( response.data.line.data.tax_inclusive_amount );
+	jQuery( 'div[data-id=' + response.data.line.data.id + '] input[tax_amount]' ).val( response.data.line.data.tax_amount );
 	jQuery( '.title .note-last-update' ).html( response.data.note_last_update );
 };
 
@@ -217,4 +217,4 @@ window.eoxiaJS.fraisPro.line.eoUploadAssociatedFile = function( args ) {
 		window.eoxiaJS.upload.currentButton = args.element.closest( '.line' ).find( '.media.media-grid' );
 	}
 	window.eoxiaJS.upload.refreshButton( args.response.data );
-}
+};

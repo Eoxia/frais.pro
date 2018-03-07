@@ -31,8 +31,8 @@ else :
 	?>
 	<li class="autocomplete-result-text">
 		<div class="autocomplete-result-container">
-			<span class="autocomplete-result-title">Pas de résultats</span>
-			<span class="autocomplete-result-subtitle">Essayez en changeant les mots clés</span>
+			<span class="autocomplete-result-title"><?php esc_html_e( 'No notes founded', 'frais-pro' ); ?></span>
+			<span class="autocomplete-result-subtitle"><?php esc_html_e( 'Try again by changing keywords', 'frais-pro' ); ?></span>
 		</div>
 	</li>
 	<?php

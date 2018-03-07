@@ -21,15 +21,7 @@ window.eoxiaJS.fraisPro.noteUnaffected.init = function() {
 };
 
 window.eoxiaJS.fraisPro.noteUnaffected.checkLine = function( event ) {
-	var haveCheckedLine = jQuery( '.list-line input[type="checkbox"]:checked' ).length > 0 ? true : false;
-
-	if ( haveCheckedLine ) {
-		jQuery( '.bloc-reassign-message' ).hide();
-		jQuery( '.bloc-reassign' ).show();
-	} else {
-		jQuery( '.bloc-reassign-message' ).show();
-		jQuery( '.bloc-reassign' ).hide();
-	}
+	window.eoxiaJS.fraisPro.noteUnaffected.buttonState();
 };
 
 /**
@@ -46,9 +38,9 @@ window.eoxiaJS.fraisPro.noteUnaffected.reassignLineUnaffected = function( event 
 	var data = {};
 	var linesToReassignId = [];
 
-	data.action           = jQuery( this ).closest( '.bloc-reassign ').find( 'input[name="action"]' ).val();
-	data._wpnonce         = jQuery( this ).closest( '.bloc-reassign ').find( 'input[name="_wpnonce"]' ).val();
-	data._wp_http_referer = jQuery( this ).closest( '.bloc-reassign ').find( 'input[name="_wp_http_referer"]' ).val();
+	data.action           = jQuery( this ).closest( '.bloc-reassign' ).find( 'input[name="action"]' ).val();
+	data._wpnonce         = jQuery( this ).closest( '.bloc-reassign' ).find( 'input[name="_wpnonce"]' ).val();
+	data._wp_http_referer = jQuery( this ).closest( '.bloc-reassign' ).find( 'input[name="_wp_http_referer"]' ).val();
 	data.parent_id        = jQuery( 'input[name="selected_note_id"]' ).val();
 
 	jQuery( '.list-line input[type="checkbox"]:checked' ).each( function( key, element ) {
@@ -79,7 +71,24 @@ window.eoxiaJS.fraisPro.noteUnaffected.reassignedLineUnaffectedSuccess = functio
 
 	jQuery( '.bloc-reassign .autocomplete-icon-after' ).click();
 
-	for (var key in response.data.updated_lines_id) {
+	for ( var key in response.data.updated_lines_id ) {
 		jQuery( '.list-line .line[data-id="' + response.data.updated_lines_id[key] + '"]' ).fadeOut();
+	}
+};
+
+/**
+ * Permet de définir l'état du bouton d'assignation des lignes a une note.
+ *
+ * @return {void}
+ */
+window.eoxiaJS.fraisPro.noteUnaffected.buttonState = function() {
+	var haveCheckedLine = jQuery( '.list-line input[type="checkbox"]:checked' ).length > 0 ? true : false;
+	var selectedNote = jQuery( 'input[name=selected_note_id]' ).val();
+	var associationButton = jQuery( '.bloc-reassign' ).find( '.wpeo-button' );
+console.log(selectedNote.length);
+	if ( haveCheckedLine && selectedNote.length ) {
+		associationButton.removeClass( 'button-disable' );
+	} else {
+		associationButton.addClass( 'button-disable' );
 	}
 };

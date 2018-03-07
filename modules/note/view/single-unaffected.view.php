@@ -32,8 +32,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="content">
 			<div class="note-action">
+				<div class="bloc-reassign wpeo-form wpeo-grid grid-2">
+					<input type="hidden" name="action" value="reassign_lines" />
+					<?php wp_nonce_field( 'reassign_lines' ); ?>
 
-				<div class="note-recap"></div> <!-- Sans cette div, la div.display-method est placé à gauche au lieu d'être à droite. -->
+					<div>
+						<div class="wpeo-autocomplete" data-action="fp_search_notes_reassign" data-nonce="<?php echo esc_attr( wp_create_nonce( 'search_notes_reassign' ) ); ?>">
+							<input type="hidden" name="selected_note_id" value="" />
+							<label class="autocomplete-label" for="mon-autocomplete">
+								<i class="autocomplete-icon-before far fa-search"></i>
+								<input id="mon-autocomplete" placeholder="<?php esc_attr_e( 'Note name', 'frais-pro' ); ?>" class="autocomplete-search-input" type="text" />
+								<span class="autocomplete-icon-after"><i class="far fa-times"></i></span>
+							</label>
+							<ul class="autocomplete-search-list"></ul>
+						</div>
+					</div>
+					<!-- Search icon -->
+					<div>
+						<div class="wpeo-button button-blue button-disable"><?php esc_html_e( 'Reassign', 'frais-pro' ); ?></div>
+					</div>
+				</div>
+
+				<div class="note-recap">
+
+				</div> <!-- Sans cette div, la div.display-method est placé à gauche au lieu d'être à droite. -->
 
 				<div class="display-method">
 					<span class="wpeo-button button-square-50 button-grey <?php echo esc_attr( 'grid' === $display_mode ? 'active' : '' ); ?>" data-display-type="grid" ><i class="icon fas fa-th-large"></i></span>
@@ -53,40 +75,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	</div> <!-- .container -->
 </div> <!-- .single-note -->
-
-<h3><?php esc_html_e( 'Reassign lines', 'frais-pro' ); ?></h3>
-
-
-<p class="bloc-reassign-message"><?php esc_html_e( 'Check line for reassign it', 'frais-pro' ); ?></p>
-
-<div class="bloc-reassign wpeo-form wpeo-grid grid-2" style="display: none;">
-	<input type="hidden" name="action" value="reassign_lines" />
-	<?php wp_nonce_field( 'reassign_lines' ); ?>
-
-	<div>
-		<div class="wpeo-autocomplete autocomplete-light" data-action="fp_search_notes_reassign" data-nonce="<?php echo esc_attr( wp_create_nonce( 'search_notes_reassign' ) ); ?>">
-			<input type="hidden" name="selected_note_id" value="" />
-			<label class="autocomplete-label" for="mon-autocomplete">
-				<i class="autocomplete-icon-before far fa-search"></i>
-				<input id="mon-autocomplete" placeholder="<?php esc_attr_e( 'Note name', 'frais-pro' ); ?>" class="autocomplete-search-input" type="text" />
-				<span class="autocomplete-icon-after"><i class="far fa-times"></i></span>
-			</label>
-			<ul class="autocomplete-search-list">
-				<li class="autocomplete-result">
-					<div class="autocomplete-result-container">
-						<span class="autocomplete-result-title">Résultat 1</span>
-					</div>
-				</li>
-				<li class="autocomplete-result">
-					<div class="autocomplete-result-container">
-						<span class="autocomplete-result-title">Résultat 1</span>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<!-- Search icon -->
-	<div>
-		<div class="wpeo-button button-blue button-disable"><?php esc_html_e( 'Reassign', 'frais-pro' ); ?></div>
-	</div>
-</div>

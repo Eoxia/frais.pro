@@ -316,6 +316,9 @@
   margin-left: -0.4em;
   margin-right: -0.4em; }
 
+.wrap-frais-pro .single-note .note-action .bloc-reassign {
+  width: 40%; }
+
 @media (max-width: 480px) {
   .wrap-frais-pro .single-note .note-action {
     -webkit-box-orient: vertical;
