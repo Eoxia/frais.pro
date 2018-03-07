@@ -136,7 +136,7 @@ class Note_Class extends \eoxia\Post_Class {
 
 		$view = 'single';
 		if ( $current_note->data['contains_unaffected'] ) {
-			$view = 'single-unaffected';
+			$view         = 'single-unaffected';
 			$display_mode = 'list';
 		}
 
