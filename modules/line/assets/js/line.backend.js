@@ -61,7 +61,12 @@ window.eoxiaJS.fraisPro.line.save = function( event, element ) {
 		'parent_id': parentElement.closest( 'div.single-note' ).data( 'id' )
 	};
 
-	jQuery( parentElement.closest( 'div.single-note' ).find( '.note-last-update' ) ).html( fraisPro.updateInProgress );
+	if ( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut ) {
+		clearTimeout( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut );
+	}
+	parentElement.closest( 'div.single-note' ).find( '.wpeo-notification' ).addClass( 'notification-active' );
+	parentElement.closest( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.updateInProgress );
+	parentElement.closest( 'div.single-note' ).find( '.note-last-update' ).html( fraisPro.updateInProgress );
 
 	for ( i = 0; i < listInput.length; i++ ) {
 		if ( listInput[i].name ) {
@@ -86,6 +91,12 @@ window.eoxiaJS.fraisPro.line.lineSaved = function( element, response ) {
 	jQuery( 'div[data-id=' + response.data.line.data.id + '] input[name=tax_inclusive_amount]' ).val( response.data.line.data.tax_inclusive_amount );
 	jQuery( 'div[data-id=' + response.data.line.data.id + '] input[tax_amount]' ).val( response.data.line.data.tax_amount );
 	jQuery( '.title .note-last-update' ).html( response.data.note_last_update );
+
+	jQuery( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.updateDone );
+	jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut = setTimeout( function() {
+		jQuery( 'div.single-note' ).find( '.wpeo-notification' ).removeClass( 'notification-active' );
+		jQuery( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( '' );
+	}, 3000 );
 };
 
 /**

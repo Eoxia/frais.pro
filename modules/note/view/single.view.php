@@ -14,12 +14,16 @@ namespace frais_pro;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-
 <div class="single-note<?php echo esc_attr( $note_is_closed ? ' is_closed' : '' ); ?> <?php echo esc_attr( $display_mode ); ?>" data-id="<?php echo esc_attr( $note->data['id'] ); ?>" >
 	<input type="hidden" name="id" value="<?php echo esc_attr( $note->data['id'] ); ?>" >
 	<input type="hidden" name="action" value="update_note" >
 	<input type="hidden" name="display_mode" value="<?php echo esc_attr( $display_mode ); ?>" >
 	<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'update_note' ) ); ?>" >
+
+	<div class="wpeo-notification">
+		<div class="notification-title"></div>
+		<div class="notification-close"><i class="far fa-times"></i></div>
+	</div>
 
 	<div class="container">
 		<div class="header">

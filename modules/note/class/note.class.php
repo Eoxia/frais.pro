@@ -132,7 +132,7 @@ class Note_Class extends \eoxia\Post_Class {
 
 		$note_is_closed = ! empty( $current_note->data['current_status']->data['special_treatment'] ) && ( 'closed' === $current_note->data['current_status']->data['special_treatment'] ) ? true : false;
 
-		$display_mode = ! $note_is_closed ? 'grid' : 'list';
+		$display_mode = ! $note_is_closed ? 'list' : 'list';
 
 		$view = 'single';
 		if ( $current_note->data['contains_unaffected'] ) {
