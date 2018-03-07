@@ -119,6 +119,9 @@ class Note_Filter {
 	/**
 	 * Formate le nom de la note de frais automatiquement selon le template défini. AAAAMMXXX-LOGIN
 	 *
+	 * @since 1.0.0
+	 * @version 1.4.0
+	 *
 	 * @param  Object $data L'objet.
 	 * @return Object L'objet avec tous les éléments ajoutés par cette méthode.
 	 */
@@ -156,6 +159,9 @@ class Note_Filter {
 
 	/**
 	 * Récupères tous les éléments nécessaires pour le fonctionnement d'une note
+	 *
+	 * @since 1.0.0
+	 * @version 1.4.0
 	 *
 	 * @param Note_Model $object L'objet.
 	 * @param array      $args   Des paramètres complémentaire pour permettre d'agir sur l'élément.

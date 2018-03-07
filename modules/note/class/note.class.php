@@ -132,14 +132,17 @@ class Note_Class extends \eoxia\Post_Class {
 
 		$note_is_closed = ! empty( $current_note->data['current_status']->data['special_treatment'] ) && ( 'closed' === $current_note->data['current_status']->data['special_treatment'] ) ? true : false;
 
+		$display_mode = ! $note_is_closed ? 'grid' : 'list';
+
 		$view = 'single';
 		if ( $current_note->data['contains_unaffected'] ) {
 			$view = 'single-unaffected';
+			$display_mode = 'list';
 		}
 
 		\eoxia\View_Util::exec( 'frais-pro', 'note', $view, array(
 			'note_is_closed' => $note_is_closed,
-			'display_mode'   => ! $note_is_closed ? 'grid' : 'list',
+			'display_mode'   => $display_mode,
 			'note'           => $current_note,
 			'lines'          => Line_Class::g()->get( array( 'post_parent' => $note_id ) ),
 			'status_list'    => $status_list,
