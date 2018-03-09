@@ -130,6 +130,10 @@
 
 	.bloc-reassign {
 		width: 40%;
+
+		.wpeo-button {
+			padding: 8px 14px;
+		}
 	}
 
 	@media ( max-width: $media__small ) {
