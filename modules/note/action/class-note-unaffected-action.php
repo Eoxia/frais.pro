@@ -118,7 +118,7 @@ class Note_Unaffected_Action {
 					$line = Line_Class::g()->update( array(
 						'id'        => $line_id,
 						'parent_id' => $parent_id,
-					), true );
+					) );
 
 					if ( empty( $line->wp_errors ) ) {
 						$current_note->data['count_line']--;
@@ -127,7 +127,7 @@ class Note_Unaffected_Action {
 				}
 			}
 
-			Note_Class::g()->update( $current_note->data, true );
+			Note_Class::g()->update( $current_note->data );
 		}
 
 		wp_send_json_success( array(

@@ -150,7 +150,8 @@ class Line_Class extends \eoxia\Post_Class {
 				$line_custom_class[] = 'input-is-required';
 				if ( empty( $line->data[ $field_key ] ) && ! $current_field_state ) {
 					$line_custom_class[] = 'input-error';
-				} elseif ( $current_field_state || $note_status ) {
+				}
+				if ( $current_field_state || $note_status ) {
 					$line_custom_class[] = 'form-element-disable';
 				}
 			}
