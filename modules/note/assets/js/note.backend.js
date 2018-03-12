@@ -266,3 +266,20 @@ window.eoxiaJS.fraisPro.note.deletedAllLine = function( triggeredElement, respon
 	triggeredElement.closest( '.note' ).find( '.note-title .count-line' ).text( '(' + response.data.countLine + ')' );
 	window.eoxiaJS.dropdown.close();
 };
+
+
+/**
+ * Vérifie si la note ne contient plus de ligne, si c'est le cas, on réaffiche le message "Actually you do not have any line in this note".
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ *
+ * @param  {HTMLElement} element La note en elle même.
+ *
+ * @return {void}
+ */
+window.eoxiaJS.fraisPro.note.checkGotLine = function( element ) {
+	if ( 0 == jQuery( element ).find( '.wpeo-table.list-line .table-row:visible' ).length ) {
+		jQuery( element ).find( '.table-row.notice-info' ).show();
+	}
+};

@@ -95,6 +95,8 @@ window.eoxiaJS.fraisPro.noteUnaffected.reassignedLineUnaffectedSuccess = functio
 		jQuery( 'div.single-note' ).find( '.wpeo-notification' ).removeClass( 'notification-active' );
 		jQuery( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( '' );
 	}, 3000 );
+
+	window.eoxiaJS.fraisPro.note.checkGotLine( jQuery( 'div.single-note' ) );
 };
 
 /**

@@ -189,7 +189,7 @@ class Line_Filter {
 		$note['date_modified']        = current_time( 'mysql' );
 		$note['tax_inclusive_amount'] = $compilated_tax_inclusive_amount;
 		$note['tax_amount']           = $compilated_tax_amount;
-		Note_Class::g()->update( $note, true );
+		Note_Class::g()->update( $note );
 
 		return $object;
 	}
