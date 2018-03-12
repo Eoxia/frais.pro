@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Frais.pro V1.X.X\n"
-"POT-Creation-Date: 2018-03-12 10:18+0100\n"
-"PO-Revision-Date: 2018-03-12 11:28+0100\n"
+"POT-Creation-Date: 2018-03-12 14:48+0100\n"
+"PO-Revision-Date: 2018-03-12 14:49+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia dev@eoxia.com\n"
 "Language: fr_FR\n"
@@ -70,16 +70,20 @@ msgstr "Enregistrement en cours..."
 msgid "Note saved"
 msgstr "La note a été enregistrée avec succès"
 
-#: core/action/note-de-frais.action.php:129
-#: core/action/note-de-frais.action.php:131
+#: core/action/note-de-frais.action.php:84
+msgid "Lines have been successfully assigned"
+msgstr "Le(s) ligne(s) ont bien été réaffectées"
+
+#: core/action/note-de-frais.action.php:130
+#: core/action/note-de-frais.action.php:132
 msgid "Frais.pro"
 msgstr "Frais.pro"
 
-#: core/action/note-de-frais.action.php:130
+#: core/action/note-de-frais.action.php:131
 msgid "Frais.pro - Notes"
 msgstr "Frais.pro - Notes"
 
-#: core/action/note-de-frais.action.php:130
+#: core/action/note-de-frais.action.php:131
 msgid "Notes"
 msgstr "Notes"
 
@@ -302,7 +306,7 @@ msgid "This note is archived"
 msgstr "Cette note est archivée"
 
 #: modules/note/view/item.view.php:29
-#: modules/note/view/single-unaffected.view.php:29
+#: modules/note/view/single-unaffected.view.php:34
 #: modules/note/view/single.view.php:33
 msgid "Last update"
 msgstr "MAJ"
@@ -313,11 +317,11 @@ msgstr ""
 "Vous n'avez pas de notes de frais pour le moment. Vous pouvez utiliser le "
 "bouton d'ajout pour en débuter une nouvelle"
 
-#: modules/note/view/single-unaffected.view.php:44
+#: modules/note/view/single-unaffected.view.php:49
 msgid "Note name"
 msgstr "Nom de la note"
 
-#: modules/note/view/single-unaffected.view.php:51
+#: modules/note/view/single-unaffected.view.php:56
 #, php-format
 msgid "Reassign %s lines"
 msgstr "Associer %s ligne(s)"

@@ -57,6 +57,12 @@ window.eoxiaJS.fraisPro.note.changeNoteStatus = function( event ) {
 	var parentElement = jQuery( this ).closest( 'div' );
 
 	if ( jQuery( this ).closest( '.single-note' ).length ) {
+		if ( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut ) {
+			clearTimeout( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut );
+		}
+		jQuery( this ).closest( 'div.single-note' ).find( '.note-last-update' ).html( fraisPro.updateInProgress );
+		jQuery( this ).closest( 'div.single-note' ).find( '.wpeo-notification' ).addClass( 'notification-active' );
+		jQuery( this ).closest( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.updateInProgress );
 		var listInput = window.eoxiaJS.arrayForm.getInput( parentElement );
 		var data = {
 			'action': 'fp_update_note',
@@ -234,6 +240,13 @@ window.eoxiaJS.fraisPro.note.exportedfraisProSuccess = function( triggeredElemen
  * @version 1.4.0
  */
 window.eoxiaJS.fraisPro.note.noteUpdated = function( triggeredElement, response ) {
+	jQuery( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.updateDone );
+	jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut = setTimeout( function() {
+		jQuery( 'div.single-note' ).find( '.wpeo-notification' ).removeClass( 'notification-active' );
+		jQuery( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( '' );
+	}, 3000 );
+	jQuery( 'div.single-note' ).find( '.note-last-update' ).html( response.data.note.data.date_modified.rendered.date_human_readable );
+
 	if ( 'closed' === response.data.status.data.special_treatment ) {
 		window.location.href = response.data.link;
 	}
