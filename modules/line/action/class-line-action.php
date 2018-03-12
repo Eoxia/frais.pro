@@ -78,18 +78,18 @@ class Line_Action {
 		$line_id = isset( $_POST['id'] ) ? intval( $_POST['id'] ) : -1;
 
 		// Translators: $1 connected user id. $2 the line to delete.
-		\eoxia\LOG_Util::log( sprintf( __( 'User %1$d try to delete the line %2$d', 'digirisk' ), get_current_user_id(), $line_id ), 'frais-pro' );
+		\eoxia\LOG_Util::log( sprintf( __( 'User %1$d try to delete the line %2$d', 'frais-pro' ), get_current_user_id(), $line_id ), 'frais-pro' );
 
 		if ( 0 >= $line_id ) {
 			// Translators: $1 given id.
-			\eoxia\LOG_Util::log( sprintf( __( 'The given ID %1$d is invalid', 'digirisk' ), $line_id ), 'frais-pro' );
+			\eoxia\LOG_Util::log( sprintf( __( 'The given ID %1$d is invalid', 'frais-pro' ), $line_id ), 'frais-pro' );
 			wp_send_json_error( array( 'message' => __( 'You try to delete a line that does not exists', 'frais-pro' ) ) );
 		}
 
 		$line = Line_Class::g()->update( array(
 			'id'     => $line_id,
 			'status' => 'trash',
-		), true );
+		) );
 
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',
