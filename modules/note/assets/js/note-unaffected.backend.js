@@ -45,13 +45,13 @@ window.eoxiaJS.fraisPro.noteUnaffected.checkLine = function( event ) {
 window.eoxiaJS.fraisPro.noteUnaffected.reassignLineUnaffected = function( event ) {
 	var data = {};
 	var linesToReassignId = [];
-	var parentElement = jQuery( this ).closest( 'div.line-content' );
 
 	if ( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut ) {
 		clearTimeout( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut );
 	}
-	parentElement.closest( 'div.single-note' ).find( '.wpeo-notification' ).addClass( 'notification-active' );
-	parentElement.closest( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.updateInProgress );
+
+	jQuery( this ).closest( 'div.single-note' ).find( '.wpeo-notification' ).addClass( 'notification-active' );
+	jQuery( this ).closest( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.updateInProgress );
 
 	data.action           = jQuery( this ).closest( '.bloc-reassign' ).find( 'input[name="action"]' ).val();
 	data._wpnonce         = jQuery( this ).closest( '.bloc-reassign' ).find( 'input[name="_wpnonce"]' ).val();
