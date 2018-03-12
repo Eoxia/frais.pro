@@ -221,6 +221,16 @@ window.eoxiaJS.fraisPro.line.setReadOnly = function( element, nameField, enabled
 	element.find( '.' + nameField + ' input[type=text]' ).attr( 'readonly', enabled );
 };
 
+/**
+ * Rafraichit le bouton permettant d'associer une image a une ligne.
+ *
+ * @since 1.2.0
+ * @version 1.4.0
+ *
+ * @param  {HTMLULListElement} args
+ *
+ * @return {void}
+ */
 window.eoxiaJS.fraisPro.line.eoUploadAssociatedFile = function( args ) {
 	if ( window.eoxiaJS.upload.currentButton.hasClass( 'media-grid' ) ) {
 		window.eoxiaJS.upload.currentButton = args.element.closest( '.line' ).find( '.media.media-list' );

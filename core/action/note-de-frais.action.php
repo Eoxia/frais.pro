@@ -81,6 +81,7 @@ class Note_De_Frais_Action {
 			'loader'                   => '<img src=' . admin_url( '/images/loading.gif' ) . ' />',
 			'updateInProgress'         => __( 'Update in progress...', 'frais-pro' ),
 			'updateDone'               => __( 'Note saved', 'frais-pro' ),
+			'lineAffectedSuccessfully' => __( 'Lines have been successfully assigned', 'frais-pro' ),
 		) );
 	}
 

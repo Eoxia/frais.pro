@@ -21,6 +21,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<input type="hidden" name="display_mode" value="<?php echo esc_attr( $display_mode ); ?>" >
 	<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'update_note' ) ); ?>" >
 
+	<div class="wpeo-notification">
+		<div class="notification-title"></div>
+		<div class="notification-close"><i class="far fa-times"></i></div>
+	</div>
+
 	<div class="container">
 		<div class="header">
 			<a href="<?php echo esc_url( menu_page_url( \eoxia\Config_Util::$init['frais-pro']->slug, false ) ); ?>" class="close"><i class="icon far fa-chevron-left"></i></a>
@@ -48,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</div>
 					</div>
 					<div>
-						<div class="wpeo-button button-blue button-disable"><?php echo wp_kses( sprintf( __( 'Reassign %s lines', 'frais-pro' ), '<span class="fp_lines_to_reassign" >0</span>' ), array( 'span' => array( 'class' => array() ) ) ); ?></div>
+						<div class="wpeo-button button-blue button-disable" ><?php echo wp_kses( sprintf( __( 'Reassign %s lines', 'frais-pro' ), '<span class="fp_lines_to_reassign" >0</span>' ), array( 'span' => array( 'class' => array() ) ) ); ?></div>
 					</div>
 				</div>
 

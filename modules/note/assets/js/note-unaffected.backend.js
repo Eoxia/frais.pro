@@ -27,8 +27,8 @@ window.eoxiaJS.fraisPro.noteUnaffected.checkLine = function( event ) {
 			lineNb++;
 		}
 	});
-
 	jQuery( 'span.fp_lines_to_reassign' ).html( lineNb );
+
 	window.eoxiaJS.fraisPro.noteUnaffected.buttonState();
 };
 
@@ -45,6 +45,13 @@ window.eoxiaJS.fraisPro.noteUnaffected.checkLine = function( event ) {
 window.eoxiaJS.fraisPro.noteUnaffected.reassignLineUnaffected = function( event ) {
 	var data = {};
 	var linesToReassignId = [];
+	var parentElement = jQuery( this ).closest( 'div.line-content' );
+
+	if ( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut ) {
+		clearTimeout( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut );
+	}
+	parentElement.closest( 'div.single-note' ).find( '.wpeo-notification' ).addClass( 'notification-active' );
+	parentElement.closest( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.updateInProgress );
 
 	data.action           = jQuery( this ).closest( '.bloc-reassign' ).find( 'input[name="action"]' ).val();
 	data._wpnonce         = jQuery( this ).closest( '.bloc-reassign' ).find( 'input[name="_wpnonce"]' ).val();
@@ -78,10 +85,17 @@ window.eoxiaJS.fraisPro.noteUnaffected.reassignedLineUnaffectedSuccess = functio
 	element.addClass( 'button-disable' );
 
 	jQuery( '.bloc-reassign .autocomplete-icon-after' ).click();
+	jQuery( 'span.fp_lines_to_reassign' ).html( 0 );
 
 	for ( var key in response.data.updated_lines_id ) {
 		jQuery( '.list-line .line[data-id="' + response.data.updated_lines_id[key] + '"]' ).fadeOut();
 	}
+
+	jQuery( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.lineAffectedSuccessfully );
+	jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut = setTimeout( function() {
+		jQuery( 'div.single-note' ).find( '.wpeo-notification' ).removeClass( 'notification-active' );
+		jQuery( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( '' );
+	}, 3000 );
 };
 
 /**
@@ -93,7 +107,7 @@ window.eoxiaJS.fraisPro.noteUnaffected.buttonState = function() {
 	var haveCheckedLine = jQuery( '.list-line input[type="checkbox"]:checked' ).length > 0 ? true : false;
 	var selectedNote = jQuery( 'input[name=selected_note_id]' ).val();
 	var associationButton = jQuery( '.bloc-reassign' ).find( '.wpeo-button' );
-console.log(selectedNote.length);
+
 	if ( haveCheckedLine && selectedNote.length ) {
 		associationButton.removeClass( 'button-disable' );
 	} else {

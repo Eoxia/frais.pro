@@ -37,12 +37,9 @@ if ( ! empty( $lines ) ) :
 	foreach ( $lines as $line ) :
 		Line_Class::g()->display( $line, array( 'note_is_closed' => $note_is_closed ) );
 	endforeach;
-else :
-?>
-<div class="table-row line notice-info">
-	<?php esc_html_e( 'Actually you do not have any line in this note', 'frais-pro' ); ?>
-</div>
-<?php
 endif;
 ?>
+<div class="table-row line notice-info" style="<?php echo esc_attr( ! empty( $lines ) ? 'display: none;' : '' ); ?>" >
+	<?php esc_html_e( 'Actually you do not have any line in this note', 'frais-pro' ); ?>
+</div>
 </div>

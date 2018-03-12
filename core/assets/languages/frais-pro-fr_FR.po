@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frais.pro V1.X.X\n"
 "POT-Creation-Date: 2018-03-12 10:18+0100\n"
-"PO-Revision-Date: 2018-03-12 10:19+0100\n"
+"PO-Revision-Date: 2018-03-12 11:28+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia dev@eoxia.com\n"
 "Language: fr_FR\n"
@@ -114,7 +114,7 @@ msgstr "Historique des exports"
 
 #: modules/document/view/list.view.php:28
 msgid "Actually you do not have any file generated"
-msgstr "Vous n'avez pas de notes pour le moment"
+msgstr "Aucun document n'a été généré pour le moment"
 
 #: modules/line-type/action/class-line-type-action.php:42
 msgid "Line types"
