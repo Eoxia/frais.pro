@@ -98,10 +98,13 @@ class Document_Class extends \eoxia\Attachment_Class {
 			wp_mkdir_p( dirname( $document_path ) );
 		}
 
+		$mime_types = array();
 		if ( 'odt' === $extension ) {
 			$response['status'] = $this->generate_odt( $document, $document_path );
+			$mime_types = array( 'odt' => 'application/vnd.oasis.opendocument.text' );
 		} elseif ( 'csv' === $extension ) {
 			$response['status'] = $this->generate_csv( $document, $document_path );
+			$mime_types = array( 'csv' => 'text/csv' );
 		}
 
 		// Dans le cas ou le fichier a bien été généré, on met a jour les informations dans la base de données.
@@ -114,7 +117,7 @@ class Document_Class extends \eoxia\Attachment_Class {
 			// On rajoute la métadonnée "_wp_attached_file" de WordPress.
 			$document->data['_wp_attached_file'] = $response['endpath'];
 
-			$file_mime_type              = wp_check_filetype( $document_path );
+			$file_mime_type              = wp_check_filetype( $document_path, $mime_types );
 			$document->data['mime_type'] = $file_mime_type['type'];
 			$this->update( $document->data, true );
 		}
