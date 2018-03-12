@@ -88,7 +88,7 @@ window.eoxiaJS.fraisPro.noteUnaffected.reassignedLineUnaffectedSuccess = functio
 	jQuery( 'span.fp_lines_to_reassign' ).html( 0 );
 
 	for ( var key in response.data.updated_lines_id ) {
-		jQuery( '.list-line .line[data-id="' + response.data.updated_lines_id[key] + '"]' ).fadeOut();
+		jQuery( '.list-line .line[data-id="' + response.data.updated_lines_id[key] + '"]' ).remove();
 	}
 
 	jQuery( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.lineAffectedSuccessfully );
