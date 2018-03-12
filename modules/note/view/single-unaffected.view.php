@@ -47,9 +47,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<ul class="autocomplete-search-list"></ul>
 						</div>
 					</div>
-					<!-- Search icon -->
 					<div>
-						<div class="wpeo-button button-blue button-disable"><?php esc_html_e( 'Reassign', 'frais-pro' ); ?></div>
+						<div class="wpeo-button button-blue button-disable"><?php echo wp_kses( sprintf( __( 'Reassign %s lines', 'frais-pro' ), '<span class="fp_lines_to_reassign" >0</span>' ), array( 'span' => array( 'class' => array() ) ) ); ?></div>
 					</div>
 				</div>
 

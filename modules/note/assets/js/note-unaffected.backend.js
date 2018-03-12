@@ -21,6 +21,14 @@ window.eoxiaJS.fraisPro.noteUnaffected.init = function() {
 };
 
 window.eoxiaJS.fraisPro.noteUnaffected.checkLine = function( event ) {
+	var lineNb = 0;
+	jQuery( this ).closest( '.list-line' ).find( 'input[type="checkbox"]' ).each( function() {
+		if ( jQuery( this ).is( ':checked' ) ) {
+			lineNb++;
+		}
+	});
+
+	jQuery( 'span.fp_lines_to_reassign' ).html( lineNb );
 	window.eoxiaJS.fraisPro.noteUnaffected.buttonState();
 };
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Frais.pro V1.X.X\n"
-"POT-Creation-Date: 2018-03-07 09:52+0100\n"
-"PO-Revision-Date: 2018-03-07 09:55+0100\n"
+"POT-Creation-Date: 2018-03-12 10:18+0100\n"
+"PO-Revision-Date: 2018-03-12 10:19+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia dev@eoxia.com\n"
 "Language: fr_FR\n"
@@ -66,16 +66,20 @@ msgstr "Ligne valide"
 msgid "Update in progress..."
 msgstr "Enregistrement en cours..."
 
-#: core/action/note-de-frais.action.php:128
-#: core/action/note-de-frais.action.php:130
+#: core/action/note-de-frais.action.php:83
+msgid "Note saved"
+msgstr "La note a été enregistrée avec succès"
+
+#: core/action/note-de-frais.action.php:129
+#: core/action/note-de-frais.action.php:131
 msgid "Frais.pro"
 msgstr "Frais.pro"
 
-#: core/action/note-de-frais.action.php:129
+#: core/action/note-de-frais.action.php:130
 msgid "Frais.pro - Notes"
 msgstr "Frais.pro - Notes"
 
-#: core/action/note-de-frais.action.php:129
+#: core/action/note-de-frais.action.php:130
 msgid "Notes"
 msgstr "Notes"
 
@@ -169,8 +173,8 @@ msgid "There is a missing parameter"
 msgstr "Un paramètre est manquant"
 
 #: modules/line/action/class-line-action.php:211
-#: modules/line/filter/class-line-filter.php:139
-#: modules/line/view/item.view.php:28 modules/line/view/main.view.php:22
+#: modules/line/filter/class-line-filter.php:164
+#: modules/line/view/item.view.php:28 modules/line/view/main.view.php:23
 msgid "Label"
 msgstr "Libellé"
 
@@ -186,21 +190,21 @@ msgstr "Etes vous sûr de vouloir dissocier cette ligne ?"
 msgid "Dissociate from note"
 msgstr "Dissocier de la note"
 
-#: modules/line/view/item.view.php:35 modules/line/view/main.view.php:23
+#: modules/line/view/item.view.php:35 modules/line/view/main.view.php:24
 msgid "Date"
 msgstr "Date"
 
-#: modules/line/view/item.view.php:57 modules/line/view/main.view.php:25
+#: modules/line/view/item.view.php:57 modules/line/view/main.view.php:26
 msgid "Km"
 msgstr "Km"
 
-#: modules/line/view/item.view.php:64 modules/line/view/main.view.php:26
+#: modules/line/view/item.view.php:64 modules/line/view/main.view.php:27
 msgid "ATI(€)"
 msgstr "TTC(€)"
 
-#: modules/line/view/item.view.php:71 modules/line/view/main.view.php:27
+#: modules/line/view/item.view.php:71 modules/line/view/main.view.php:28
 #: modules/note/view/filter/item-informations.view.php:27
-#: modules/note/view/single.view.php:65
+#: modules/note/view/single.view.php:69
 msgid "VAT"
 msgstr "TVA"
 
@@ -218,15 +222,15 @@ msgstr "Etes vous sûr de vouloir supprimer cette ligne ?"
 msgid "Delete"
 msgstr "Supprimer"
 
-#: modules/line/view/main.view.php:21
+#: modules/line/view/main.view.php:22
 msgid "Picture"
 msgstr "Photo"
 
-#: modules/line/view/main.view.php:24
+#: modules/line/view/main.view.php:25
 msgid "Type"
 msgstr "Type"
 
-#: modules/line/view/main.view.php:42
+#: modules/line/view/main.view.php:43
 msgid "Actually you do not have any line in this note"
 msgstr "Actuellement il n'y a aucune ligne dans cette note"
 
@@ -247,7 +251,7 @@ msgstr "Vous n'avez pas sélectionné de note a archiver"
 msgid "Archive"
 msgstr "Archive"
 
-#: modules/note/class/note.class.php:160
+#: modules/note/class/note.class.php:164
 msgid "Unaffected lines"
 msgstr "Lignes non affectées"
 
@@ -284,12 +288,12 @@ msgstr "Téléchargement du dernier fichier généré"
 
 #: modules/note/view/filter/item-informations.view.php:20
 #: modules/note/view/filter/item-informations.view.php:26
-#: modules/note/view/single.view.php:58 modules/note/view/single.view.php:64
+#: modules/note/view/single.view.php:62 modules/note/view/single.view.php:68
 msgid "€"
 msgstr "€"
 
 #: modules/note/view/filter/item-informations.view.php:21
-#: modules/note/view/single.view.php:59
+#: modules/note/view/single.view.php:63
 msgid "ATI"
 msgstr "TTC"
 
@@ -299,7 +303,7 @@ msgstr "Cette note est archivée"
 
 #: modules/note/view/item.view.php:29
 #: modules/note/view/single-unaffected.view.php:29
-#: modules/note/view/single.view.php:29
+#: modules/note/view/single.view.php:33
 msgid "Last update"
 msgstr "MAJ"
 
@@ -309,27 +313,20 @@ msgstr ""
 "Vous n'avez pas de notes de frais pour le moment. Vous pouvez utiliser le "
 "bouton d'ajout pour en débuter une nouvelle"
 
-#: modules/note/view/single-unaffected.view.php:57
-msgid "Reassign lines"
-msgstr "Assigner ces lignes"
-
-#: modules/note/view/single-unaffected.view.php:60
-msgid "Check line for reassign it"
-msgstr "Sélectionnez les lignes à associer"
-
-#: modules/note/view/single-unaffected.view.php:71
+#: modules/note/view/single-unaffected.view.php:44
 msgid "Note name"
 msgstr "Nom de la note"
 
-#: modules/note/view/single-unaffected.view.php:90
-msgid "Reassign"
-msgstr "Associer"
+#: modules/note/view/single-unaffected.view.php:51
+#, php-format
+msgid "Reassign %s lines"
+msgstr "Associer %s ligne(s)"
 
-#: modules/note/view/single.view.php:47
+#: modules/note/view/single.view.php:51
 msgid "Multiple add from pictures"
 msgstr "Ajout multiple à partir d'images"
 
-#: modules/note/view/single.view.php:50
+#: modules/note/view/single.view.php:54
 msgid "New line"
 msgstr "Ajouter une ligne"
 
@@ -344,6 +341,16 @@ msgstr "Date de fin"
 #: modules/search/view/main.view.php:68
 msgid "View also archives"
 msgstr "Inclure les archives"
+
+#: modules/search/view/results-notes.view.php:32
+#: modules/search/view/results-users.view.php:34
+msgid "No notes founded"
+msgstr "Aucune note trouvée"
+
+#: modules/search/view/results-notes.view.php:33
+#: modules/search/view/results-users.view.php:35
+msgid "Try again by changing keywords"
+msgstr "Veuillez changer les paramètres de recherche"
 
 #: modules/update_manager/action/class-update-manager-action.php:90
 #, php-format
@@ -561,7 +568,19 @@ msgstr "Prix par Km"
 msgid "Registration document scan"
 msgstr "Scan de la carte grise"
 
-#: modules/user/view/main.view.php:57
+#: modules/user/view/main.view.php:56
+msgid "Default display mode"
+msgstr "Mode d'affichage par défaut"
+
+#: modules/user/view/main.view.php:58
+msgid "Grid mode"
+msgstr "Mode grille"
+
+#: modules/user/view/main.view.php:59
+msgid "List mode"
+msgstr "Mode liste"
+
+#: modules/user/view/main.view.php:65
 msgid "User is allowed to view all fees sheet"
 msgstr "L'utilisateur peut voir les notes des autres"
 
@@ -589,14 +608,17 @@ msgstr ""
 msgid "Go to my profile"
 msgstr "Aller à mon profil"
 
+#~ msgid "Reassign lines"
+#~ msgstr "Assigner ces lignes"
+
+#~ msgid "Check line for reassign it"
+#~ msgstr "Sélectionnez les lignes à associer"
+
+#~ msgid "Reassign"
+#~ msgstr "Associer"
+
 #~ msgid "Note types"
 #~ msgstr "Types de note"
-
-#~ msgid "Grid mode"
-#~ msgstr "Mode grille"
-
-#~ msgid "List mode"
-#~ msgstr "Mode liste"
 
 #~ msgid ""
 #~ "Change notes statuses management. Use WordPress taxonomy utilities "
