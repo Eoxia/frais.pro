@@ -129,10 +129,11 @@ class Note_Class extends \eoxia\Post_Class {
 
 		$current_note = $this->get( array( 'id' => $note_id ), true );
 		$status_list  = Note_Status_Class::g()->get();
+		$user = User_Class::g()->get( array( 'id' => get_current_user_id() ), true );
 
 		$note_is_closed = ! empty( $current_note->data['current_status']->data['special_treatment'] ) && ( 'closed' === $current_note->data['current_status']->data['special_treatment'] ) ? true : false;
 
-		$display_mode = ! $note_is_closed ? 'list' : 'list';
+		$display_mode = ! $note_is_closed ? $user->data['default_display_mode'] : 'list';
 
 		$view = 'single';
 		if ( $current_note->data['contains_unaffected'] ) {

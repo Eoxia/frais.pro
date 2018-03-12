@@ -5,7 +5,7 @@
  * @author eoxia
  * @since 1.0.0
  * @version 1.4.0
- * @copyright 2017 Eoxia
+ * @copyright 2017-2018 Eoxia
  * @package user
  * @subpackage model
  */
@@ -24,49 +24,58 @@ class User_Model extends \eoxia\User_Model {
 	/**
 	 * Le constructeur définis le schéma
 	 *
-	 * @param object $object L'objet courant.
+	 * @param array  $data       Les données à construire.
+	 * @param string $req_method La méthode HTTP actuellement utilisée.
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.0.0.0
+	 * @since 1.0.0
+	 * @version 1.4.0
 	 */
 	public function __construct( $data = null, $req_method = null ) {
-		$this->schema['marque'] = array(
-			'type'			=> 'string',
+		$this->schema['default_display_mode'] = array(
+			'type'      => 'string',
 			'meta_type' => 'single',
-			'field' 		=> '_ndf_marque',
+			'field'     => '_ndf_default_display_mode',
+			'default'   => 'grid',
+		);
+
+		$this->schema['marque'] = array(
+			'type'      => 'string',
+			'meta_type' => 'single',
+			'field'     => '_ndf_marque',
 		);
 
 		$this->schema['chevaux'] = array(
-			'type'			=> 'string',
+			'type'      => 'string',
 			'meta_type' => 'single',
-			'field' 		=> '_ndf_chevaux',
+			'field'     => '_ndf_chevaux',
 		);
 
 		$this->schema['prixkm'] = array(
-			'type'			=> 'float',
+			'type'      => 'float',
 			'meta_type' => 'single',
-			'field' 		=> '_ndf_prixkm',
+			'field'     => '_ndf_prixkm',
 		);
 
 		$this->schema['ndf_admin'] = array(
-			'type'			=> 'boolean',
+			'type'      => 'boolean',
 			'meta_type' => 'single',
-			'field' 		=> '_ndf_user_is_admin',
+			'field'     => '_ndf_user_is_admin',
 		);
 
 		// Ajout des champs image dans le compte utilisateur.
 		$this->schema['thumbnail_id'] = array(
-			'type'			=> 'integer',
+			'type'      => 'integer',
 			'meta_type' => 'single',
-			'field' 		=> '_ndf_thumbnail_id',
+			'field'     => '_ndf_thumbnail_id',
 		);
+
 		$this->schema['associated_document_id'] = array(
-			'type'				=> 'array',
-			'meta_type'	=> 'multiple',
-			'child' => array(
+			'type'      => 'array',
+			'meta_type' => 'multiple',
+			'child'     => array(
 				'image' => array(
-					'type'				=> 'array',
-					'meta_type'	=> 'multiple',
+					'type'      => 'array',
+					'meta_type' => 'multiple',
 				),
 			),
 		);

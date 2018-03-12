@@ -72,6 +72,8 @@ class User_Action {
 		$user['chevaux'] = ! empty( $_POST ) && ! empty( $_POST['chevaux'] ) && in_array( $_POST['chevaux'], \eoxia\Config_Util::$init['frais-pro']->chevaux, true ) ? sanitize_text_field( $_POST['chevaux'] ) : '';
 		$user['prixkm']  = ! empty( $_POST ) && ! empty( $_POST['prixkm'] ) ? sanitize_text_field( str_replace( ',', '.', $_POST['prixkm'] ) ) : '';
 
+		$user['default_display_mode'] = ! empty( $_POST ) && ! empty( $_POST['default_display_mode'] ) && in_array( $_POST['default_display_mode'], array( 'grid', 'list' ), true ) ? sanitize_text_field( $_POST['default_display_mode'] ) : 'grid';
+
 		if ( get_current_user_id() !== $user_id || ( 1 === get_current_user_id() ) ) {
 			$user['ndf_admin'] = ! empty( $_POST ) && ! empty( $_POST['ndf_admin'] ) && ( 'true' === sanitize_text_field( $_POST['ndf_admin'] ) ) ? true : false;
 		}

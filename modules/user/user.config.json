@@ -7,8 +7,8 @@
 	"path": "modules/user/",
 	"dependencies": {
 		"model": {},
-		"action": {},
-		"class": {}
+		"class": {},
+		"action": {}
 	},
 	"capability_view_all_user_sheets": "frais_pro_view_all_user_sheets"
 }
