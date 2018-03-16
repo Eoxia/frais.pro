@@ -41,7 +41,7 @@ class Update_Manager_Action {
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
 
 		// Appel de l'action permettant de rediriger l'utilisateur vers l'application principale une fois la mise à jour terminée.
-		add_action( 'wp_ajax_tm_redirect_to_dashboard', array( $this, 'callback_redirect_to_main_application' ) );
+		add_action( 'wp_ajax_fp_redirect_to_dashboard', array( $this, 'callback_redirect_to_main_application' ) );
 	}
 
 	/**

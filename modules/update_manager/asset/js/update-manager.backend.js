@@ -66,7 +66,7 @@ window.eoxiaJS.fraisPro.updateManager.requestUpdate = function( args ) {
 					if ( 0 == jQuery( 'input[name="version_available[]"]:first' ).length ) {
 						delete response.data.args;
 
-						jQuery.post( ajaxurl, { action: 'tm_redirect_to_dashboard', key: key }, function( response ) {
+						jQuery.post( ajaxurl, { action: 'fp_redirect_to_dashboard', key: key }, function( response ) {
 							jQuery( '.log' ).append( '<li>' + response.data.message + '</li>' );
 							window.removeEventListener( 'beforeunload', window.eoxiaJS.fraisPro.updateManager.safeExit );
 							window.location = response.data.url;
@@ -85,7 +85,7 @@ window.eoxiaJS.fraisPro.updateManager.requestUpdate = function( args ) {
 			.fail( function( error, t, r ) {
 				// @todo Gérer ce cas dans une action personnalisée.
 				jQuery( '.log' ).append( '<li>Erreur: veuillez consulter les logs de la version: ' + versionToUpdate + '</li>' );
-				jQuery.post( ajaxurl, { action: 'tm_redirect_to_dashboard', key: key, error_version: versionToUpdate, error_status: error.status, error_text: error.responseText }, function( response ) {
+				jQuery.post( ajaxurl, { action: 'fp_redirect_to_dashboard', key: key, error_version: versionToUpdate, error_status: error.status, error_text: error.responseText }, function( response ) {
 					window.removeEventListener( 'beforeunload', window.eoxiaJS.fraisPro.updateManager.safeExit );
 					window.location = response.data.url;
 				});
@@ -94,7 +94,7 @@ window.eoxiaJS.fraisPro.updateManager.requestUpdate = function( args ) {
 	}
 
 	if ( jQuery( '.no-update' ).length ) {
-		jQuery.post( ajaxurl, { action: 'tm_redirect_to_dashboard', key: key }, function( response ) {
+		jQuery.post( ajaxurl, { action: 'fp_redirect_to_dashboard', key: key }, function( response ) {
 			jQuery( '.log' ).append( '<li>' + response.data.message + '</li>' );
 			window.removeEventListener( 'beforeunload', window.eoxiaJS.fraisPro.updateManager.safeExit );
 			window.location = response.data.url;

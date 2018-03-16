@@ -327,7 +327,8 @@ class Update_140 {
 								$document->data['mime_type'] = $document_info['mime_type']['type'];
 								$document->data['link']      = $document_info['link'];
 								$document->data['slug']      = $document->data['title'];
-								$document                    = Document_Class::g()->update( $document->data, true );
+								$document->data['type']      = Document_Class::g()->get_type();
+								$document                    = Document_Class::g()->update( $document->data );
 
 								// translators: 1. <link_to_path> 2. <mime_type> 3. <i>.
 								\eoxia\LOG_Util::log( sprintf( __( 'Updated GUID %1$s, mime_type %2$s and slug = %3$s for the document %4$d', 'frais-pro' ), $document->data['link'], $document->data['mime_type'], $document->data['slug'], $document->data['id'] ), 'frais-pro' );

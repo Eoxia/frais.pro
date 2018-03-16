@@ -57,12 +57,6 @@ window.eoxiaJS.fraisPro.note.changeNoteStatus = function( event ) {
 	var parentElement = jQuery( this ).closest( 'div' );
 
 	if ( jQuery( this ).closest( '.single-note' ).length ) {
-		if ( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut ) {
-			clearTimeout( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut );
-		}
-		jQuery( this ).closest( 'div.single-note' ).find( '.note-last-update' ).html( fraisPro.updateInProgress );
-		jQuery( this ).closest( 'div.single-note' ).find( '.wpeo-notification' ).addClass( 'notification-active' );
-		jQuery( this ).closest( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.updateInProgress );
 		var listInput = window.eoxiaJS.arrayForm.getInput( parentElement );
 		var data = {
 			'action': 'fp_update_note',
@@ -73,6 +67,13 @@ window.eoxiaJS.fraisPro.note.changeNoteStatus = function( event ) {
 		// D'abord on vérifier si l'utilisateur utilise un statut avec un traitement special.
 		if ( 'closed' === jQuery( this ).attr( 'data-special-treatment' ) && ! confirm( fraisPro.confirmMarkAsPayed ) ) {
 			return false;
+		} else {
+			if ( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut ) {
+				clearTimeout( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut );
+			}
+			jQuery( this ).closest( 'div.single-note' ).find( '.note-last-update' ).html( fraisPro.updateInProgress );
+			jQuery( this ).closest( 'div.single-note' ).find( '.wpeo-notification' ).addClass( 'notification-active' );
+			jQuery( this ).closest( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.updateInProgress );
 		}
 	}
 
