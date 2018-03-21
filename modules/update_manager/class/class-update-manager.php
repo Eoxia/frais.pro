@@ -6,7 +6,7 @@
  * @since 1.4.0
  * @version 1.4.0
  * @copyright 2015-2018 Eoxia
- * @package Task_Manager
+ * @package Frais.pro
  */
 
 namespace frais_pro;
@@ -16,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Classe gérant les mises à jour de Task Manager.
+ * Classe gérant les mises à jour.
  */
-class Update_Manager extends \eoxia\Singleton_Util {
+class Update_Manager extends \Eoxia\Singleton_Util {
 
 	/**
 	 * Constructeur obligatoire pour Singleton_Util
@@ -39,12 +39,9 @@ class Update_Manager extends \eoxia\Singleton_Util {
 	 * @return void
 	 */
 	public function display() {
-		$waiting_updates = get_option( \eoxia\Config_Util::$init['frais-pro']->key_waited_updates, array() );
-		\eoxia\View_Util::exec( 'frais-pro', 'update_manager', 'main', array(
-			'waiting_updates' => $waiting_updates,
+		\eoxia\View_Util::exec( 'eo-framework', 'wpeo_update_manager', 'main', array(
+			'waiting_updates' => get_option( \eoxia\Config_Util::$init['frais-pro']->key_waiting_updates, array() ),
 		) );
 	}
 
 }
-
-new Update_Manager();

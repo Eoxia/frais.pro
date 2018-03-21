@@ -342,7 +342,12 @@ class Update_140 {
 		\eoxia\LOG_Util::log( __( 'End update 1400 update_attachment_guid_mime_type.', 'frais-pro' ), 'frais-pro' );
 
 		wp_send_json_success( array(
-			'done' => true,
+			'done'               => true,
+			'progression'        => $done_history_time . '/' . $history_time_todo,
+			'progressionPerCent' => 100,
+			'doneDescription'    => sprintf( __( '%1$s points, %2$s comments, %3$s history_time have been treated', 'task-manager' ), $point_updated, $comment_updated, $history_time_updated ),
+			'doneElementNumber'  => $done_history_time,
+			'errors'             => null,
 		) );
 	}
 
