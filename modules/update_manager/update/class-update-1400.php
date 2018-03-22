@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Mise à jour des données pour la version 1.4.0
  */
-class Update_140 {
+class Update_1400 {
 	/**
 	 * Limite de mise à jour des éléments par requêtes.
 	 *
@@ -144,7 +144,7 @@ class Update_140 {
 						\eoxia\LOG_Util::log( sprintf( __( 'Error for set term to the post %1$d : %2$s', 'frais-pro' ), $post_id, wp_json_encode( $status ) ), 'frais-pro' );
 					} else {
 						// translators: %s is list of old posts id.
-						\eoxia\LOG_Util::log( sprintf( __( 'Set the term #%1$s for the post %2$d with the status %3%s', 'frais-pro' ), wp_json_encode( $term ), $post_id, wp_json_encode( $status ) ), 'frais-pro' );
+						\eoxia\LOG_Util::log( sprintf( __( 'Set the term #%1$s for the post %2$d with the status %3$s', 'frais-pro' ), wp_json_encode( $term ), $post_id, wp_json_encode( $status ) ), 'frais-pro' );
 					}
 				} else {
 					// translators: %s is list of old posts id.
@@ -159,10 +159,12 @@ class Update_140 {
 		\eoxia\LOG_Util::log( __( 'End update 1400 update_note method.', 'frais-pro' ), 'frais-pro' );
 
 		wp_send_json_success( array(
-			'done' => true,
-			'args' => array(
-				'more' => true,
-			),
+			'updateComplete'    => false,
+			'done'              => true,
+			'progression'       => '',
+			'doneDescription'   => '',
+			'doneElementNumber' => 0,
+			'errors'            => null,
 		) );
 	}
 
@@ -221,7 +223,7 @@ class Update_140 {
 							\eoxia\LOG_Util::log( sprintf( __( 'Error for set term to the post %1$d : %2$s', 'frais-pro' ), $post_id, wp_json_encode( $status ) ), 'frais-pro' );
 						} else {
 							// translators: %s is list of old posts id.
-							\eoxia\LOG_Util::log( sprintf( __( 'Set the term #%1$s for the post %2$d with the status %3%s', 'frais-pro' ), wp_json_encode( $term ), $post_id, wp_json_encode( $status ) ), 'frais-pro' );
+							\eoxia\LOG_Util::log( sprintf( __( 'Set the term #%1$s for the post %2$d with the status %3$s', 'frais-pro' ), wp_json_encode( $term ), $post_id, wp_json_encode( $status ) ), 'frais-pro' );
 						}
 					} else {
 						// translators: %s is list of old posts id.
@@ -239,10 +241,12 @@ class Update_140 {
 		\eoxia\LOG_Util::log( __( 'End update 1400 update_line method.', 'frais-pro' ), 'frais-pro' );
 
 		wp_send_json_success( array(
-			'done' => true,
-			'args' => array(
-				'more' => true,
-			),
+			'updateComplete'    => false,
+			'done'              => true,
+			'progression'       => '',
+			'doneDescription'   => '',
+			'doneElementNumber' => 0,
+			'errors'            => null,
 		) );
 	}
 
@@ -263,27 +267,31 @@ class Update_140 {
 
 		if ( ! empty( $users ) ) {
 			foreach ( $users as $user ) {
-				\eoxia\LOG_Util::log( sprintf( __( 'Key in user role %s of user : %s', 'frais-pro' ), implode( ',', $user->caps ), $user->user_login ), 'frais-pro' );
+				// Translators: 1. Current caps for the user 2. User login currently treated.
+				\eoxia\LOG_Util::log( sprintf( __( 'Key in user role %1$s of user : %2$s', 'frais-pro' ), implode( ',', $user->caps ), $user->user_login ), 'frais-pro' );
 				if ( array_key_exists( $this->old_capability_name, $user->caps ) ) {
 					$list_users_login[] = $user->user_login;
 
-					// translators: test.
-					\eoxia\LOG_Util::log( sprintf( __( 'The user %s get the old capability: %s', 'frais-pro' ), $user->user_login, $this->old_capability_name ), 'frais-pro' );
+					// Translators: 1. User login currently treated. 2. Current capability for the user.
+					\eoxia\LOG_Util::log( sprintf( __( 'The user %1$s get the old capability: %2$s', 'frais-pro' ), $user->user_login, $this->old_capability_name ), 'frais-pro' );
 					$user->add_cap( $new_capability_name );
-					\eoxia\LOG_Util::log( sprintf( __( 'New capability: %s added to user %s', 'frais-pro' ), $new_capability_name, $user->user_login ), 'frais-pro' );
+					// Translators: 1. New capability name for the user. 2. User login currently treated.
+					\eoxia\LOG_Util::log( sprintf( __( 'New capability: %1$s added to user %2$s', 'frais-pro' ), $new_capability_name, $user->user_login ), 'frais-pro' );
 				}
 			}
 		}
 
 		// translators: %s is the new capability name.
-		\eoxia\LOG_Util::log( sprintf( __( 'List of existing users updated to the new role: %s => %s', 'frais-pro' ), $new_capability_name, implode( ',', $list_users_login ) ), 'frais-pro' );
+		\eoxia\LOG_Util::log( sprintf( __( 'List of existing users updated to the new role: %1$s => %2$s', 'frais-pro' ), $new_capability_name, implode( ',', $list_users_login ) ), 'frais-pro' );
 		\eoxia\LOG_Util::log( __( 'End update 1400 update_user_capabilities method.', 'frais-pro' ), 'frais-pro' );
 
 		wp_send_json_success( array(
-			'done' => true,
-			'args' => array(
-				'more' => true,
-			),
+			'updateComplete'    => false,
+			'done'              => true,
+			'progression'       => '',
+			'doneDescription'   => '',
+			'doneElementNumber' => 0,
+			'errors'            => null,
 		) );
 	}
 
@@ -342,12 +350,12 @@ class Update_140 {
 		\eoxia\LOG_Util::log( __( 'End update 1400 update_attachment_guid_mime_type.', 'frais-pro' ), 'frais-pro' );
 
 		wp_send_json_success( array(
-			'done'               => true,
-			'progression'        => $done_history_time . '/' . $history_time_todo,
-			'progressionPerCent' => 100,
-			'doneDescription'    => sprintf( __( '%1$s points, %2$s comments, %3$s history_time have been treated', 'task-manager' ), $point_updated, $comment_updated, $history_time_updated ),
-			'doneElementNumber'  => $done_history_time,
-			'errors'             => null,
+			'updateComplete'    => false,
+			'done'              => true,
+			'progression'       => '',
+			'doneDescription'   => '',
+			'doneElementNumber' => 0,
+			'errors'            => null,
 		) );
 	}
 
@@ -419,4 +427,4 @@ class Update_140 {
 	}
 }
 
-new Update_140();
+new Update_1400();

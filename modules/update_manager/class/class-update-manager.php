@@ -6,7 +6,7 @@
  * @since 1.4.0
  * @version 1.4.0
  * @copyright 2015-2018 Eoxia
- * @package Frais.pro
+ * @package Task_Manager
  */
 
 namespace frais_pro;
@@ -41,6 +41,8 @@ class Update_Manager extends \Eoxia\Singleton_Util {
 	public function display() {
 		\eoxia\View_Util::exec( 'eo-framework', 'wpeo_update_manager', 'main', array(
 			'waiting_updates' => get_option( \eoxia\Config_Util::$init['frais-pro']->key_waiting_updates, array() ),
+			'redirect_action' => 'fp_redirect_to_dashboard',
+			'dashboard_url'   => \eoxia\Config_Util::$init['frais-pro']->dashboard_page_url,
 		) );
 	}
 
