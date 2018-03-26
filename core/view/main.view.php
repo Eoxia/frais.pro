@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="wrap wpeo-wrap wrap-frais-pro" >
 	<?php if ( ! empty( $waiting_updates ) && strpos( $_SERVER['REQUEST_URI'], 'admin.php' ) && ! strpos( $_SERVER['REQUEST_URI'], 'admin.php?page=' . \eoxia\Config_Util::$init['frais-pro']->update_page_url ) ) : ?>
-		<?php \eoxia\View_Util::exec( 'frais-pro', 'update_manager', 'say-to-update' ); ?>
+		<?php \eoxia\Update_Manager_Class::g()->display_say_to_update( 'frais-pro', __( 'Need to update Frais.pro data', 'frais-pro' ) ); ?>
 	<?php else : ?>
 		<?php Note_Class::g()->display(); ?>
 		<?php if ( empty( $user['prixkm'] ) ) : ?>
