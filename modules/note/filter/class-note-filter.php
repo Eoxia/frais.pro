@@ -152,7 +152,7 @@ class Note_Filter {
 		}
 		update_user_meta( get_current_user_id(), 'ndf_' . $date . '_identifier', $identifier );
 
-		$data['title'] = str_replace( '-', '', $date ) . $identifier . '-' . strtoupper( $user->data['displayname'] );
+		$data['title'] = str_replace( '_', '', $date ) . $identifier . '_' . $user->data['firstname'] . '_' . $user->data['lastname'];
 
 		return $data;
 	}
