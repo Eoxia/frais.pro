@@ -19,8 +19,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php echo apply_filters( 'fp_filter_line_item_before', '', $line );  // WPCS: XSS ok. ?>
 
 	<div class="table-cell line-image">
-		<?php do_shortcode( '[wpeo_upload id="' . $line->data['id'] . '" model_name="/frais_pro/Line_Class" single="true" size="full" custom_class="media-grid" mode="' . $mode . '"]' ); ?>
-		<?php do_shortcode( '[wpeo_upload id="' . $line->data['id'] . '" model_name="/frais_pro/Line_Class" single="true" custom_class="media-list" mode="' . $mode . '"]' ); ?>
+		<?php echo do_shortcode( '[wpeo_upload id="' . $line->data['id'] . '" model_name="/frais_pro/Line_Class" single="true" size="full" custom_class="media-grid" mode="' . $mode . '"]' ); ?>
+		<?php echo do_shortcode( '[wpeo_upload id="' . $line->data['id'] . '" model_name="/frais_pro/Line_Class" single="true" custom_class="media-list" mode="' . $mode . '"]' ); ?>
 	</div>
 	<div class="table-cell line-content wpeo-form">
 		<!-- Libelle -->

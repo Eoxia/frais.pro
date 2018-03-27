@@ -6,6 +6,7 @@
 	"path": "modules/document/",
 	"dependencies": {
 		"model": {},
+		"action": {},
 		"class": {},
 		"filter": {}
 	}

@@ -310,6 +310,31 @@ class Document_Class extends \eoxia\Attachment_Class {
 			'document_checked' => $document_checked,
 		) );
 	}
+
+	/**
+	 * Création des types de documents (taxonomies)
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @return void
+	 */
+	public function init_document_type() {
+		$document_types = array(
+			'note'       => __( 'Note under odt format without picture', 'frais-pro' ),
+			'note-photo' => __( 'Note under odt format with picture', 'frais-pro' ),
+			'note-csv'   => __( 'Note under csv format', 'frais-pro' ),
+			'printed'    => __( 'Printed/Generated document', 'frais-pro' ),
+		);
+
+		foreach ( $document_types as $type_slug => $type_name ) {
+			$term_check = term_exists( $type_slug, $this->attached_taxonomy_type );
+			if ( 0 === $term_check || null === $term_check ) {
+				wp_insert_term( $type_name, $this->attached_taxonomy_type, array( 'slug' => $type_slug ) );
+			}
+		}
+	}
+
 }
 
 Document_Class::g();
