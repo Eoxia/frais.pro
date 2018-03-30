@@ -30,8 +30,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php \eoxia\Update_Manager_Class::g()->display_say_to_update( 'frais-pro', __( 'Need to update Frais.pro data', 'frais-pro' ) ); ?>
 	<?php else : ?>
 		<?php Note_Class::g()->display(); ?>
-		<?php if ( empty( $user['prixkm'] ) ) : ?>
-			<?php \eoxia\View_Util::exec( 'frais-pro', 'user', 'say-to-set-profil' ); ?>
+		<?php if ( ! User_Class::g()->check_required_fields( $user ) ) : ?>
+			<?php User_Class::g()->display_update_modal_message(); ?>
 		<?php endif; ?>
 	<?php endif; ?>
 </div>

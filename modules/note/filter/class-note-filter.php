@@ -134,7 +134,7 @@ class Note_Filter {
 			'include' => get_current_user_id(),
 		), true );
 
-		$date = current_time( 'Y-m' );
+		$date = current_time( 'Ym' );
 
 		$identifier = get_user_meta( get_current_user_id(), 'ndf_' . $date . '_identifier', true );
 		if ( empty( $identifier ) ) {
@@ -152,7 +152,12 @@ class Note_Filter {
 		}
 		update_user_meta( get_current_user_id(), 'ndf_' . $date . '_identifier', $identifier );
 
-		$data['title'] = str_replace( '_', '', $date ) . $identifier . '_' . $user->data['firstname'] . '_' . $user->data['lastname'];
+		$name = $user->data['firstname'] . '_' . $user->data['lastname'];
+		if ( '_' === $name ) {
+			$name = $user->data['displayname'];
+		}
+
+		$data['title'] = str_replace( '_', '', $date ) . $identifier . '_' . $name;
 
 		return $data;
 	}

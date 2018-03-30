@@ -161,7 +161,7 @@ class Update_1400 {
 		wp_send_json_success( array(
 			'updateComplete'    => false,
 			'done'              => true,
-			'progression'       => '',
+			'progression'       => '100',
 			'doneDescription'   => '',
 			'doneElementNumber' => 0,
 			'errors'            => null,
@@ -243,7 +243,7 @@ class Update_1400 {
 		wp_send_json_success( array(
 			'updateComplete'    => false,
 			'done'              => true,
-			'progression'       => '',
+			'progression'       => '100',
 			'doneDescription'   => '',
 			'doneElementNumber' => 0,
 			'errors'            => null,
@@ -288,7 +288,7 @@ class Update_1400 {
 		wp_send_json_success( array(
 			'updateComplete'    => false,
 			'done'              => true,
-			'progression'       => '',
+			'progression'       => '100',
 			'doneDescription'   => '',
 			'doneElementNumber' => 0,
 			'errors'            => null,
@@ -352,7 +352,7 @@ class Update_1400 {
 		wp_send_json_success( array(
 			'updateComplete'    => false,
 			'done'              => true,
-			'progression'       => '',
+			'progression'       => '100',
 			'doneDescription'   => '',
 			'doneElementNumber' => 0,
 			'errors'            => null,

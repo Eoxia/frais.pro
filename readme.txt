@@ -47,7 +47,11 @@ The installation of the plugin can be done in two ways:
 
 = Version 1.4.0 =
 
-Eo Framework version 1.0.0
+= Improvment =
+
+* Update EO-FrameWork
+* Add user settings allowing to choose default display mode for notes
+* Filter interface
 
 = Version 1.3.0 =
 

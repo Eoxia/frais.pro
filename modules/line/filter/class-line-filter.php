@@ -153,8 +153,9 @@ class Line_Filter {
 	public function after_get_line( $object ) {
 		// Définition d'une entrée contenant le type de la ligne.
 		$object->data['current_category'] = null;
-		if ( ! empty( $object->data['taxonomy'][ Line_Type_Class::g()->get_type() ] ) && ! empty( end( $object->data['taxonomy'][ Line_Type_Class::g()->get_type() ] ) ) ) {
-			$object->data['current_category'] = Line_Type_Class::g()->get( array( 'id' => end( $object->data['taxonomy'][ Line_Type_Class::g()->get_type() ] ) ), true );
+		$last_taxonomy = end( $object->data['taxonomy'][ Line_Type_Class::g()->get_type() ] );
+		if ( ! empty( $object->data['taxonomy'][ Line_Type_Class::g()->get_type() ] ) && ! empty( $last_taxonomy ) ) {
+			$object->data['current_category'] = Line_Type_Class::g()->get( array( 'id' => $last_taxonomy ), true );
 		}
 
 		// Ajout du statut de la ligne selon la définition des champs obligatoire pour une ligne et des données de la ligne.

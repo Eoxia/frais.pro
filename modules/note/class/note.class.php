@@ -311,11 +311,11 @@ class Note_Class extends \eoxia\Post_Class {
 		$document->data['parent_id'] = $note->data['id'];
 
 		$args_title = array(
-			// current_time( 'Ymd' ),
+			// current_time( 'Ymd' ),  Vu le 20180330 pas pour le moment!
 			strtolower( str_replace( '-', '_', sanitize_title( $note->data['title'] ) ) ),
-			// $note->data['unique_identifier'],
-			// $document->data['unique_identifier'],
-			// strtolower( str_replace( '-', '_', sanitize_title( $type ) ) ),
+			// $note->data['unique_identifier'], Vu le 20180330 pas pour le moment!
+			// $document->data['unique_identifier'],  Vu le 20180330 pas pour le moment!
+			strtolower( str_replace( '-', '_', sanitize_title( $type ) ) ),
 		);
 
 		$document->data['title']  = implode( '_', $args_title );
