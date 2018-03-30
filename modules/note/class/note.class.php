@@ -230,10 +230,10 @@ class Note_Class extends \eoxia\Post_Class {
 				'type'  => 'segment',
 				'value' => array(),
 			),
-			'ndf_medias' => array(
-				'type'  => 'segment',
-				'value' => array(),
-			),
+			// 'ndf_medias' => array(
+			// 	'type'  => 'segment',
+			// 	'value' => array(),
+			// ),
 		);
 
 		$periode = substr( $note->data['title'], 0, 4 ) . '/' . substr( $note->data['title'], 4, 2 );
@@ -268,10 +268,10 @@ class Note_Class extends \eoxia\Post_Class {
 							);
 						}
 
-						$sheet_details['ndf_medias']['value'][] = array(
-							'id_media' => $line->data['thumbnail_id'],
-							'media'    => $picture,
-						);
+						// $sheet_details['ndf_medias']['value'][] = array(
+						// 	'id_media' => $line->data['thumbnail_id'],
+						// 	'media'    => $picture,
+						// );
 					}
 				}
 
@@ -314,8 +314,8 @@ class Note_Class extends \eoxia\Post_Class {
 			// current_time( 'Ymd' ),  Vu le 20180330 pas pour le moment!
 			strtolower( str_replace( '-', '_', sanitize_title( $note->data['title'] ) ) ),
 			// $note->data['unique_identifier'], Vu le 20180330 pas pour le moment!
-			// $document->data['unique_identifier'],  Vu le 20180330 pas pour le moment!
 			strtolower( str_replace( '-', '_', sanitize_title( $type ) ) ),
+			$document->data['unique_identifier'],
 		);
 
 		$document->data['title']  = implode( '_', $args_title );
