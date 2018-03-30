@@ -52,6 +52,8 @@ The installation of the plugin can be done in two ways:
 * Update EO-FrameWork
 * Add user settings allowing to choose default display mode for notes
 * Filter interface
+* Un-Affect lines form notes
+* Re-Affect lines to notes
 
 = Version 1.3.0 =
 
