@@ -226,8 +226,8 @@ window.eoxiaJS.fraisPro.note.exportedfraisProSuccess = function( triggeredElemen
 	jQuery( '.document-list-container .notice.notice-info' ).remove();
 	jQuery( '.document-list-container table.wpeo-table tbody' ).prepend( response.data.item_view );
 
-	triggeredElement.closest( '.note' ).find( '.note-action' ).html( response.data.actions_view );
-	triggeredElement.closest( '.single-note' ).find( '.export.toggle' ).html( response.data.actions_view );
+	triggeredElement.closest( '.note' ).find( '.note-action' ).html( response.data.actions_view ).find( '.wpeo-dropdown.fp-note-export-dropdown' ).addClass( 'dropdown-active' );
+	triggeredElement.closest( '.single-note' ).find( '.export.toggle' ).html( response.data.actions_view ).find( '.wpeo-dropdown.fp-note-export-dropdown' ).addClass( 'dropdown-active' );
 };
 
 /**
@@ -267,7 +267,6 @@ window.eoxiaJS.fraisPro.note.deletedAllLine = function( triggeredElement, respon
 	triggeredElement.closest( '.note' ).find( '.note-title .count-line' ).text( '(' + response.data.countLine + ')' );
 	window.eoxiaJS.dropdown.close();
 };
-
 
 /**
  * Vérifie si la note ne contient plus de ligne, si c'est le cas, on réaffiche le message "Actually you do not have any line in this note".
