@@ -52,8 +52,9 @@ The installation of the plugin can be done in two ways:
 * Update EO-FrameWork
 * Add user settings allowing to choose default display mode for notes
 * Filter interface
-* Un-Affect lines form notes
+* Un-Affect lines from notes
 * Re-Affect lines to notes
+* Generation button improvment
 
 = Version 1.3.0 =
 
