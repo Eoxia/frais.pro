@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?><div class="wpeo-table table-flex list-line-header">
 	<div class="table-row table-header">
+		<?php echo apply_filters( 'fp_filter_note_list_line_header_before', '', $note );  // WPCS: XSS ok. ?>
 		<div class="table-cell image"><?php esc_html_e( 'Picture', 'frais-pro' ); ?></div>
 		<div class="table-cell libelle"><?php esc_html_e( 'Label', 'frais-pro' ); ?></div>
 		<div class="table-cell date"><?php esc_html_e( 'Date', 'frais-pro' ); ?></div>
@@ -36,12 +37,9 @@ if ( ! empty( $lines ) ) :
 	foreach ( $lines as $line ) :
 		Line_Class::g()->display( $line, array( 'note_is_closed' => $note_is_closed ) );
 	endforeach;
-else :
-?>
-<div class="table-row line notice-info">
-	<?php esc_html_e( 'Actually you do not have any line in this note', 'frais-pro' ); ?>
-</div>
-<?php
 endif;
 ?>
+<div class="table-row line notice-info" style="<?php echo esc_attr( ! empty( $lines ) ? 'display: none;' : '' ); ?>" >
+	<?php esc_html_e( 'Actually you do not have any line in this note', 'frais-pro' ); ?>
+</div>
 </div>

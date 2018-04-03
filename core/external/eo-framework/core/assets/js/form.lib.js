@@ -51,6 +51,7 @@ if ( ! window.eoxiaJS.form ) {
 					jQuery( this ).val( jQuery( this )[0].defaultValue );
 					break;
 				case 'SELECT':
+					// 08/03/2018: En dur pour TheEPI il faut absolument le changer
 					jQuery( this ).val( 'OK' );
 					break;
 				default:

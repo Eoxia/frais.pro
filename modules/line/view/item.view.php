@@ -19,8 +19,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php echo apply_filters( 'fp_filter_line_item_before', '', $line );  // WPCS: XSS ok. ?>
 
 	<div class="table-cell line-image">
-		<?php do_shortcode( '[wpeo_upload id="' . $line->data['id'] . '" model_name="/frais_pro/Line_Class" single="true" size="full" custom_class="media-grid" mode="' . $mode . '"]' ); ?>
-		<?php do_shortcode( '[wpeo_upload id="' . $line->data['id'] . '" model_name="/frais_pro/Line_Class" single="true" custom_class="media-list" mode="' . $mode . '"]' ); ?>
+		<?php echo do_shortcode( '[wpeo_upload id="' . $line->data['id'] . '" model_name="/frais_pro/Line_Class" single="true" size="full" custom_class="media-grid" mode="' . $mode . '"]' ); ?>
+		<?php echo do_shortcode( '[wpeo_upload id="' . $line->data['id'] . '" model_name="/frais_pro/Line_Class" single="true" custom_class="media-list" mode="' . $mode . '"]' ); ?>
 	</div>
 	<div class="table-cell line-content wpeo-form">
 		<!-- Libelle -->
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="form-element date group-date <?php echo esc_attr( Line_Class::g()->check_field_status( $line, 'date', $note_is_closed ) ); ?>" >
 			<span class="form-label"><?php esc_attr_e( 'Date', 'frais-pro' ); ?></span>
 			<label class="form-field-container">
-				<span class="form-icon"><i class="fal fa-calendar-alt"></i></span>
+				<span class="form-field-icon-prev"><i class="fal fa-calendar-alt"></i></span>
 				<input type="hidden" class="mysql-date" name="date" value="<?php echo esc_attr( $line->data['date_modified']['raw'] ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?>/>
 				<input type="text" class="date form-field" value="<?php echo esc_html( $line->data['date_modified']['rendered']['date'] ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?> />
 			</label>

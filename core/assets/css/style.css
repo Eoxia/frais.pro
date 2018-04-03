@@ -316,6 +316,12 @@
   margin-left: -0.4em;
   margin-right: -0.4em; }
 
+.wrap-frais-pro .single-note .note-action .bloc-reassign {
+  width: 40%; }
+
+.wrap-frais-pro .single-note .note-action .bloc-reassign .wpeo-button {
+  padding: 8px 14px; }
+
 @media (max-width: 480px) {
   .wrap-frais-pro .single-note .note-action {
     -webkit-box-orient: vertical;
@@ -406,6 +412,9 @@
 .wrap-frais-pro .list-line-header .table-cell {
   color: #898de5 !important;
   padding: .8em 0; }
+
+.wrap-frais-pro .list-line-header .table-cell.line-association-selection {
+  max-width: 30px; }
 
 .wrap-frais-pro .list-line .line-association-selection {
   max-width: 30px; }
@@ -663,7 +672,7 @@
   -webkit-box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
           box-shadow: 0 0 14px rgba(0, 0, 0, 0.2); }
 
-.wrap-frais-pro .bloc-search .form-field-container:hover .form-field, .wrap-frais-pro .bloc-search .form-field-container:hover .form-icon, .wrap-frais-pro .bloc-search .form-field-container:hover .wpeo-button, .wrap-frais-pro .bloc-search .form-field-container:hover .autocomplete-label {
+.wrap-frais-pro .bloc-search .form-field-container:hover .form-field, .wrap-frais-pro .bloc-search .form-field-container:hover [class*="form-field-icon"], .wrap-frais-pro .bloc-search .form-field-container:hover .wpeo-button, .wrap-frais-pro .bloc-search .form-field-container:hover .autocomplete-label {
   background: #fff !important; }
 
 .wrap-frais-pro .bloc-search .wpeo-dropdown .wpeo-button {

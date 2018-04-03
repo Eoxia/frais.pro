@@ -32,7 +32,7 @@ class Document_Class extends \eoxia\Attachment_Class {
 	 *
 	 * @var string
 	 */
-	protected $type = 'attachment';
+	protected $type = 'note-papier';
 
 	/**
 	 * Nom de la taxonomy
@@ -56,27 +56,6 @@ class Document_Class extends \eoxia\Attachment_Class {
 	public $element_prefix = 'NP';
 
 	/**
-	 * La fonction appelée automatiquement avant la création de l'objet dans la base de donnée
-	 *
-	 * @var array
-	 */
-	protected $before_post_function = array( '\frais_pro\before_get_identifier' );
-
-	/**
-	 * Fonction de callback avant de modifier les données en mode PUT.
-	 *
-	 * @var array
-	 */
-	protected $before_put_function = array();
-
-	/**
-	 * Fonction de callback après la modification des données.
-	 *
-	 * @var array
-	 */
-	protected $after_get_function = array( '\frais_pro\after_get_identifier' );
-
-	/**
 	 * Slug de base pour la route dans l'api rest
 	 *
 	 * @var string
@@ -98,6 +77,7 @@ class Document_Class extends \eoxia\Attachment_Class {
 	 *
 	 * @param  [type] $document  [description]
 	 * @param  string $extension [description]
+	 *
 	 * @return [type]            [description]
 	 */
 	public function generate_file( $document, $extension = 'odt' ) {
@@ -118,10 +98,13 @@ class Document_Class extends \eoxia\Attachment_Class {
 			wp_mkdir_p( dirname( $document_path ) );
 		}
 
+		$mime_types = array();
 		if ( 'odt' === $extension ) {
 			$response['status'] = $this->generate_odt( $document, $document_path );
+			$mime_types = array( 'odt' => 'application/vnd.oasis.opendocument.text' );
 		} elseif ( 'csv' === $extension ) {
 			$response['status'] = $this->generate_csv( $document, $document_path );
+			$mime_types = array( 'csv' => 'text/csv' );
 		}
 
 		// Dans le cas ou le fichier a bien été généré, on met a jour les informations dans la base de données.
@@ -134,7 +117,7 @@ class Document_Class extends \eoxia\Attachment_Class {
 			// On rajoute la métadonnée "_wp_attached_file" de WordPress.
 			$document->data['_wp_attached_file'] = $response['endpath'];
 
-			$file_mime_type              = wp_check_filetype( $document_path );
+			$file_mime_type              = wp_check_filetype( $document_path, $mime_types );
 			$document->data['mime_type'] = $file_mime_type['type'];
 			$this->update( $document->data, true );
 		}
@@ -327,6 +310,31 @@ class Document_Class extends \eoxia\Attachment_Class {
 			'document_checked' => $document_checked,
 		) );
 	}
+
+	/**
+	 * Création des types de documents (taxonomies)
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @return void
+	 */
+	public function init_document_type() {
+		$document_types = array(
+			'note'       => __( 'Note under odt format without picture', 'frais-pro' ),
+			'note-photo' => __( 'Note under odt format with picture', 'frais-pro' ),
+			'note-csv'   => __( 'Note under csv format', 'frais-pro' ),
+			'printed'    => __( 'Printed/Generated document', 'frais-pro' ),
+		);
+
+		foreach ( $document_types as $type_slug => $type_name ) {
+			$term_check = term_exists( $type_slug, $this->attached_taxonomy_type );
+			if ( 0 === $term_check || null === $term_check ) {
+				wp_insert_term( $type_name, $this->attached_taxonomy_type, array( 'slug' => $type_slug ) );
+			}
+		}
+	}
+
 }
 
 Document_Class::g();

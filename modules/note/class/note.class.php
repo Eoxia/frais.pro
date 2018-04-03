@@ -56,20 +56,6 @@ class Note_Class extends \eoxia\Post_Class {
 	public $element_prefix = 'N';
 
 	/**
-	 * Définition des fonctions de callback pour l'élément.
-	 *
-	 * @var  array
-	 */
-	protected $callback_func = array(
-		'before_get'  => array(),
-		'before_put'  => array(),
-		'before_post' => array( '\frais_pro\before_get_identifier', '\frais_pro\set_note_name' ),
-		'after_get'   => array( '\frais_pro\get_full_note' ),
-		'after_put'   => array( '\frais_pro\get_full_note' ),
-		'after_post'  => array(),
-	);
-
-	/**
 	 * Le nom pour le resgister post type
 	 *
 	 * @var string
@@ -143,17 +129,21 @@ class Note_Class extends \eoxia\Post_Class {
 
 		$current_note = $this->get( array( 'id' => $note_id ), true );
 		$status_list  = Note_Status_Class::g()->get();
+		$user = User_Class::g()->get( array( 'id' => get_current_user_id() ), true );
 
 		$note_is_closed = ! empty( $current_note->data['current_status']->data['special_treatment'] ) && ( 'closed' === $current_note->data['current_status']->data['special_treatment'] ) ? true : false;
 
+		$display_mode = ! $note_is_closed ? $user->data['default_display_mode'] : 'list';
+
 		$view = 'single';
 		if ( $current_note->data['contains_unaffected'] ) {
-			$view = 'single-unaffected';
+			$view         = 'single-unaffected';
+			$display_mode = 'list';
 		}
 
 		\eoxia\View_Util::exec( 'frais-pro', 'note', $view, array(
 			'note_is_closed' => $note_is_closed,
-			'display_mode'   => ! $note_is_closed ? 'grid' : 'list',
+			'display_mode'   => $display_mode,
 			'note'           => $current_note,
 			'lines'          => Line_Class::g()->get( array( 'post_parent' => $note_id ) ),
 			'status_list'    => $status_list,
@@ -216,7 +206,6 @@ class Note_Class extends \eoxia\Post_Class {
 		$total_tax_inclusive_amount = 0;
 		$total_tax_amount           = 0;
 
-
 		$note = $this->get( array(
 			'id' => $note_id,
 		), true );
@@ -241,10 +230,10 @@ class Note_Class extends \eoxia\Post_Class {
 				'type'  => 'segment',
 				'value' => array(),
 			),
-			'ndf_medias' => array(
-				'type'  => 'segment',
-				'value' => array(),
-			),
+			// 'ndf_medias' => array(
+			// 	'type'  => 'segment',
+			// 	'value' => array(),
+			// ),
 		);
 
 		$periode = substr( $note->data['title'], 0, 4 ) . '/' . substr( $note->data['title'], 4, 2 );
@@ -279,10 +268,10 @@ class Note_Class extends \eoxia\Post_Class {
 							);
 						}
 
-						$sheet_details['ndf_medias']['value'][] = array(
-							'id_media' => $line->data['thumbnail_id'],
-							'media'    => $picture,
-						);
+						// $sheet_details['ndf_medias']['value'][] = array(
+						// 	'id_media' => $line->data['thumbnail_id'],
+						// 	'media'    => $picture,
+						// );
 					}
 				}
 
@@ -322,11 +311,11 @@ class Note_Class extends \eoxia\Post_Class {
 		$document->data['parent_id'] = $note->data['id'];
 
 		$args_title = array(
-			current_time( 'Ymd' ),
+			// current_time( 'Ymd' ),  Vu le 20180330 pas pour le moment!
 			strtolower( str_replace( '-', '_', sanitize_title( $note->data['title'] ) ) ),
-			$note->data['unique_identifier'],
-			$document->data['unique_identifier'],
+			// $note->data['unique_identifier'], Vu le 20180330 pas pour le moment!
 			strtolower( str_replace( '-', '_', sanitize_title( $type ) ) ),
+			$document->data['unique_identifier'],
 		);
 
 		$document->data['title']  = implode( '_', $args_title );

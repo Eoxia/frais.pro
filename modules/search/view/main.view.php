@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div>
 		<div class="form-element group-date">
 			<label class="form-field-container">
-				<span class="form-icon"><i class="fal fa-calendar-alt"></i></span>
+				<span class="form-field-icon-prev"><i class="fal fa-calendar-alt"></i></span>
 				<input type="hidden" class="mysql-date" name="start_date" value="" />
 				<input type="text" class="form-field date" placeholder="<?php esc_html_e( 'Start date', 'frais-pro' ); ?>" value="" />
 			</label>
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div>
 		<div class="form-element group-date">
 			<label class="form-field-container">
-				<span class="form-icon"><i class="fal fa-calendar-alt"></i></span>
+				<span class="form-field-icon-prev"><i class="fal fa-calendar-alt"></i></span>
 				<input type="hidden" class="mysql-date" name="end_date" value="" />
 				<input type="text" class="form-field date" placeholder="<?php esc_html_e( 'End date', 'frais-pro' ); ?>" value="" />
 			</label>

@@ -34,8 +34,8 @@ if ( ! class_exists( '\eoxia\Rest_Class' ) ) {
 		 *
 		 * @param string $cap The capability name to check.
 		 *
-		 * @since 1.5.1
-		 * @version 1.5.1
+		 * @since 1.0.0
+		 * @version 1.0.0
 		 *
 		 * @return string The rest api base for current element
 		 */
@@ -46,8 +46,8 @@ if ( ! class_exists( '\eoxia\Rest_Class' ) ) {
 		/**
 		 * Return the base for rest api.
 		 *
-		 * @since 1.5.1
-		 * @version 1.5.1
+		 * @since 1.0.0
+		 * @version 1.0.0
 		 *
 		 * @return string The rest api base for current element
 		 */
@@ -134,8 +134,8 @@ if ( ! class_exists( '\eoxia\Rest_Class' ) ) {
 		/**
 		 * Get element(s) from parent object type
 		 *
-		 * @since 1.5.1
-		 * @version 1.5.1
+		 * @since 1.0.0
+		 * @version 1.0.0
 		 *
 		 * @param  WP_Http::request $request The current Rest API request.
 		 *
@@ -168,8 +168,8 @@ if ( ! class_exists( '\eoxia\Rest_Class' ) ) {
 		/**
 		 * Get element(s) from parent object type
 		 *
-		 * @since 1.5.1
-		 * @version 1.5.1
+		 * @since 1.0.0
+		 * @version 1.0.0
 		 *
 		 * @param  WP_Http::request $request The current Rest API request.
 		 *
@@ -181,7 +181,7 @@ if ( ! class_exists( '\eoxia\Rest_Class' ) ) {
 
 			if ( ! empty( $request ) && ( ! empty( $request['id'] ) ) ) {
 				$args['post_id'] = $request['id'];
-				$args['status']  = '-34070';
+				$args['status']  = '1';
 				$single          = true;
 			}
 

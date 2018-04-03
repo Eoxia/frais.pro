@@ -29,6 +29,7 @@ window.eoxiaJS.fraisPro.search.init = function() {
 window.eoxiaJS.fraisPro.search.event = function() {
 	jQuery( document ).on( 'click', '.autocomplete-search-list li', window.eoxiaJS.fraisPro.search.select );
 	jQuery( document ).on( 'click', '.bloc-reassign .autocomplete-search-list li', window.eoxiaJS.fraisPro.search.selectNote );
+	jQuery( document ).on( 'change', 'input[name=selected_note_id]', window.eoxiaJS.fraisPro.noteUnaffected.buttonState );
 };
 
 /**
@@ -45,6 +46,7 @@ window.eoxiaJS.fraisPro.search.select = function( event ) {
 	var parent = jQuery( this ).closest( '.wpeo-autocomplete' );
 
 	parent.find( 'input[type="hidden"]' ).val( jQuery( this ).data( 'id' ) );
+	parent.find( 'input[type="hidden"]' ).change();
 	parent.find( 'input.autocomplete-search-input' ).val( jQuery( this ).data( 'result' ) );
 };
 
@@ -59,7 +61,7 @@ window.eoxiaJS.fraisPro.search.select = function( event ) {
  * @return {void}
  */
 window.eoxiaJS.fraisPro.search.selectNote = function( event ) {
-	jQuery( this ).closest( '.bloc-reassign' ).find( '.button-disable' ).removeClass( 'button-disable' );
+	window.eoxiaJS.fraisPro.noteUnaffected.buttonState();
 };
 
 /**

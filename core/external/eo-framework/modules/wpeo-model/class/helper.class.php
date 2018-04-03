@@ -33,16 +33,22 @@ if ( ! class_exists( '\eoxia\Helper_Class' ) ) {
 			return $this->schema;
 		}
 
-		public function get_class() {
-			$called_class = \get_called_class();
-			$called_class = explode( '\\', $called_class );
+		/**
+		 * Récupères le nom de la classe selon le model.
+		 *
+		 * @since 1.0.0
+		 * @version 1.0.0
+		 *
+		 * @return string Le nom de la classe avec le namespace si existant.
+		 */
+		 public function get_class() {
+			 $class_name = get_class( $this );
+			 $class_name = str_replace( 'Model', 'Class', $class_name );
+			 $class_name = str_replace( 'model', 'Class', $class_name );
+			 $class_name = str_replace( '\\', '/', $class_name );
 
-			$class = str_replace( 'model', 'class', \get_class( $this ) );
-			$class = str_replace( 'Model', 'Class', $class );
-			$class = str_replace( $called_class[0], '', $class );
-			$class = str_replace( '\\', '', $class );
-			return $class;
-		}
+			 return $class_name;
+		 }
 
 		/**
 		 * Permet de faire echo sur un objet et supprimes la définition du modèle avant l'affichage.

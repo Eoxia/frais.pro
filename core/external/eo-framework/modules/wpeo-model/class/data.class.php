@@ -65,20 +65,23 @@ if ( ! class_exists( '\eoxia\Data_Class' ) ) {
 		 * @param Array  $data       Les données non traité. Peut être null, permet de récupérer le schéma.
 		 * @param string $req_method La méthode HTTP actuellement utilisée.
 		 */
-		public function __construct( $data = null, $req_method = null ) {
+		public function __construct( $data = null, $req_method ) {
 			$this->wp_errors  = new \WP_Error();
 			$this->req_method = ( null !== $req_method ) ? strtoupper( $req_method ) : null;
 
 			// On construit les types autorisés à partir des listes séparées. Permet de ne pas mettre de type en dur dans le code.
 			self::$accepted_types = wp_parse_args( self::$custom_types, self::$built_in_types );
 
-			if ( null !== $data ) {
-				$this->data = $this->handle_data( $data );
+			// Filtre du schéma.
+			$this->schema = apply_filters( 'eo_model_handle_schema', $this->schema, $this->req_method );
 
-				if ( ! empty( $this->wp_errors->errors ) ) {
-					echo wp_json_encode( $this->wp_errors );
-					exit;
-				}
+			if ( null !== $data && null !== $this->req_method ) {
+				$this->data = $this->handle_data( $data );
+			}
+
+			if ( ! empty( $this->wp_errors->errors ) ) {
+				echo wp_json_encode( $this->wp_errors );
+				exit;
 			}
 		}
 
@@ -190,6 +193,18 @@ if ( ! class_exists( '\eoxia\Data_Class' ) ) {
 								$rendered_value = is_object( $value ) ? 'Object item' : $value;
 
 								$this->wp_errors->add( 'eo_model_invalid_type', get_class( $this ) . ' => ' . $field_name . ': ' . $rendered_value . '(' . gettype( $value ) . ') is not a ' . $field_def['type'] );
+							} elseif ( isset( $field_def['array_type'] ) ) {
+								if ( ! empty( $value ) ) {
+									foreach ( $value as $key => $sub_value ) {
+										$field_def['type'] = $field_def['array_type'];
+										$this->check_value_type( $sub_value, $field_name, $field_def );
+
+										if ( isset( $field_def['key_type'] ) ) {
+											$field_def['type'] = $field_def['key_type'];
+											$this->check_value_type( $key, $field_name, $field_def );
+										}
+									}
+								}
 							}
 							break;
 						default:
@@ -261,10 +276,10 @@ if ( ! class_exists( '\eoxia\Data_Class' ) ) {
 
 				if ( ! empty( $field_def['field'] ) ) {
 					if ( isset( $this->data[ $field_name ] ) ) {
-						$value = isset( $this->data[ $field_name ] ) ? $this->data[ $field_name ] : null;
+						$value = ( ( isset( $this->data[ $field_name ] ) && null !== $this->data[ $field_name ] ) ) ? $this->data[ $field_name ] : null;
 
 						if ( null !== $value ) {
-							if ( ! in_array( $field_def['type'], self::$custom_types, true ) ) {
+							if ( ! in_array( $field_def['type'], self::$custom_types, true ) || ! isset( $value['raw'] ) ) {
 								$data[ $field_def['field'] ] = $value;
 							} elseif ( isset( $value['raw'] ) ) {
 								$data[ $field_def['field'] ] = $value['raw'];
@@ -276,7 +291,6 @@ if ( ! class_exists( '\eoxia\Data_Class' ) ) {
 
 			return $data;
 		}
-
 	}
 
 } // End if().

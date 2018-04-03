@@ -56,15 +56,6 @@ class Line_Class extends \eoxia\Post_Class {
 	 */
 	public $element_prefix = 'L';
 
-	protected $callback_func = array(
-		'before_get'  => array(),
-		'before_put'  => array( '\frais_pro\before_update_line' ),
-		'before_post' => array( '\frais_pro\before_get_identifier', '\frais_pro\before_update_line' ),
-		'after_get'   => array( '\frais_pro\after_get_line' ),
-		'after_put'   => array( '\frais_pro\after_update_line' ),
-		'after_post'  => array(),
-	);
-
 	/**
 	 * Le nom pour le resgister post type
 	 *
@@ -159,7 +150,8 @@ class Line_Class extends \eoxia\Post_Class {
 				$line_custom_class[] = 'input-is-required';
 				if ( empty( $line->data[ $field_key ] ) && ! $current_field_state ) {
 					$line_custom_class[] = 'input-error';
-				} elseif ( $current_field_state || $note_status ) {
+				}
+				if ( $current_field_state || $note_status ) {
 					$line_custom_class[] = 'form-element-disable';
 				}
 			}

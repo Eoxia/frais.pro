@@ -67,6 +67,13 @@ window.eoxiaJS.fraisPro.note.changeNoteStatus = function( event ) {
 		// D'abord on vérifier si l'utilisateur utilise un statut avec un traitement special.
 		if ( 'closed' === jQuery( this ).attr( 'data-special-treatment' ) && ! confirm( fraisPro.confirmMarkAsPayed ) ) {
 			return false;
+		} else {
+			if ( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut ) {
+				clearTimeout( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut );
+			}
+			jQuery( this ).closest( 'div.single-note' ).find( '.note-last-update' ).html( fraisPro.updateInProgress );
+			jQuery( this ).closest( 'div.single-note' ).find( '.wpeo-notification' ).addClass( 'notification-active' );
+			jQuery( this ).closest( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.updateInProgress );
 		}
 	}
 
@@ -219,8 +226,8 @@ window.eoxiaJS.fraisPro.note.exportedfraisProSuccess = function( triggeredElemen
 	jQuery( '.document-list-container .notice.notice-info' ).remove();
 	jQuery( '.document-list-container table.wpeo-table tbody' ).prepend( response.data.item_view );
 
-	triggeredElement.closest( '.note' ).find( '.note-action' ).html( response.data.actions_view );
-	triggeredElement.closest( '.single-note' ).find( '.export.toggle' ).html( response.data.actions_view );
+	triggeredElement.closest( '.note' ).find( '.note-action' ).html( response.data.actions_view ).find( '.wpeo-dropdown.fp-note-export-dropdown' ).addClass( 'dropdown-active' );
+	triggeredElement.closest( '.single-note' ).find( '.export.toggle' ).html( response.data.actions_view ).find( '.wpeo-dropdown.fp-note-export-dropdown' ).addClass( 'dropdown-active' );
 };
 
 /**
@@ -234,6 +241,13 @@ window.eoxiaJS.fraisPro.note.exportedfraisProSuccess = function( triggeredElemen
  * @version 1.4.0
  */
 window.eoxiaJS.fraisPro.note.noteUpdated = function( triggeredElement, response ) {
+	jQuery( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.updateDone );
+	jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut = setTimeout( function() {
+		jQuery( 'div.single-note' ).find( '.wpeo-notification' ).removeClass( 'notification-active' );
+		jQuery( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( '' );
+	}, 3000 );
+	jQuery( 'div.single-note' ).find( '.note-last-update' ).html( response.data.note.data.date_modified.rendered.date_human_readable );
+
 	if ( 'closed' === response.data.status.data.special_treatment ) {
 		window.location.href = response.data.link;
 	}
@@ -252,4 +266,20 @@ window.eoxiaJS.fraisPro.note.noteUpdated = function( triggeredElement, response 
 window.eoxiaJS.fraisPro.note.deletedAllLine = function( triggeredElement, response ) {
 	triggeredElement.closest( '.note' ).find( '.note-title .count-line' ).text( '(' + response.data.countLine + ')' );
 	window.eoxiaJS.dropdown.close();
+};
+
+/**
+ * Vérifie si la note ne contient plus de ligne, si c'est le cas, on réaffiche le message "Actually you do not have any line in this note".
+ *
+ * @since 1.4.0
+ * @version 1.4.0
+ *
+ * @param  {HTMLElement} element La note en elle même.
+ *
+ * @return {void}
+ */
+window.eoxiaJS.fraisPro.note.checkGotLine = function( element ) {
+	if ( 0 == jQuery( element ).find( '.wpeo-table.list-line .table-row:visible' ).length ) {
+		jQuery( element ).find( '.table-row.notice-info' ).show();
+	}
 };

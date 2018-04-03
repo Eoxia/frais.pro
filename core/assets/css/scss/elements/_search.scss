@@ -12,7 +12,7 @@
 		box-shadow: 0 0 14px rgba(0,0,0,0.2);
 	}
 	.form-field-container {
-		&:hover .form-field, &:hover .form-icon, &:hover .wpeo-button, &:hover .autocomplete-label {
+		&:hover .form-field, &:hover [class*="form-field-icon"], &:hover .wpeo-button, &:hover .autocomplete-label {
 			background: #fff !important;
 		}
 	}

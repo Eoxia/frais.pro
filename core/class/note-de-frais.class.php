@@ -48,7 +48,7 @@ class Note_De_Frais_Class extends \eoxia\Singleton_Util {
 		$user = User_Class::g()->get( array( 'id' => get_current_user_id() ), true );
 
 		\eoxia\View_Util::exec( 'frais-pro', 'core', $view, array(
-			'waiting_updates' => get_option( \eoxia\Config_Util::$init['frais-pro']->key_waited_updates, array() ),
+			'waiting_updates' => get_option( \eoxia\Config_Util::$init['frais-pro']->key_waiting_updates, array() ),
 			'user'            => $user->data,
 		) );
 	}

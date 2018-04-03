@@ -61,7 +61,12 @@ window.eoxiaJS.fraisPro.line.save = function( event, element ) {
 		'parent_id': parentElement.closest( 'div.single-note' ).data( 'id' )
 	};
 
-	jQuery( parentElement.closest( 'div.single-note' ).find( '.note-last-update' ) ).html( fraisPro.updateInProgress );
+	if ( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut ) {
+		clearTimeout( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut );
+	}
+	parentElement.closest( 'div.single-note' ).find( '.wpeo-notification' ).addClass( 'notification-active' );
+	parentElement.closest( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.updateInProgress );
+	parentElement.closest( 'div.single-note' ).find( '.note-last-update' ).html( fraisPro.updateInProgress );
 
 	for ( i = 0; i < listInput.length; i++ ) {
 		if ( listInput[i].name ) {
@@ -83,9 +88,15 @@ window.eoxiaJS.fraisPro.line.save = function( event, element ) {
 window.eoxiaJS.fraisPro.line.lineSaved = function( element, response ) {
 	jQuery( '.note-recap .note-ttc span.value' ).html( response.data.note.data.tax_inclusive_amount );
 	jQuery( '.note-recap .note-tva span.value' ).html( response.data.note.data.tax_amount );
-	jQuery( 'div[data-id=' + response.data.line.data.id + '] input[name=tax_inclusive_amount]' ).val( response.data.line.data.tax_inclusive_amount);
-	jQuery( 'div[data-id=' + response.data.line.data.id + '] input[tax_amount]' ).val( response.data.line.data.tax_amount);
+	jQuery( 'div[data-id=' + response.data.line.data.id + '] input[name=tax_inclusive_amount]' ).val( response.data.line.data.tax_inclusive_amount );
+	jQuery( 'div[data-id=' + response.data.line.data.id + '] input[tax_amount]' ).val( response.data.line.data.tax_amount );
 	jQuery( '.title .note-last-update' ).html( response.data.note_last_update );
+
+	jQuery( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( fraisPro.updateDone );
+	jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut = setTimeout( function() {
+		jQuery( 'div.single-note' ).find( '.wpeo-notification' ).removeClass( 'notification-active' );
+		jQuery( 'div.single-note' ).find( '.wpeo-notification .notification-title' ).html( '' );
+	}, 3000 );
 };
 
 /**
@@ -98,8 +109,9 @@ window.eoxiaJS.fraisPro.line.lineSaved = function( element, response ) {
  */
 window.eoxiaJS.fraisPro.line.displayLine = function( element, response ) {
 	if ( 1 === jQuery( 'div.list-line .table-row.line.notice-info' ).length ) {
-		jQuery( 'div.list-line .table-row.line.notice-info' ).remove();
+		jQuery( 'div.list-line .table-row.line.notice-info' ).hide();
 	}
+
 	jQuery( 'div.list-line' ).prepend( response.data.view );
 };
 
@@ -112,7 +124,9 @@ window.eoxiaJS.fraisPro.line.displayLine = function( element, response ) {
  * @version 1.4.0
  */
 window.eoxiaJS.fraisPro.line.deleteLineFromDisplay = function( element, response ) {
-	jQuery( element ).closest( '.line' ).fadeOut();
+	jQuery( element ).closest( '.line' ).fadeOut( function() {
+		window.eoxiaJS.fraisPro.note.checkGotLine( jQuery( element ).closest( 'div.single-note' ) );
+	} );
 };
 
 /**
@@ -210,6 +224,16 @@ window.eoxiaJS.fraisPro.line.setReadOnly = function( element, nameField, enabled
 	element.find( '.' + nameField + ' input[type=text]' ).attr( 'readonly', enabled );
 };
 
+/**
+ * Rafraichit le bouton permettant d'associer une image a une ligne.
+ *
+ * @since 1.2.0
+ * @version 1.4.0
+ *
+ * @param  {HTMLULListElement} args
+ *
+ * @return {void}
+ */
 window.eoxiaJS.fraisPro.line.eoUploadAssociatedFile = function( args ) {
 	if ( window.eoxiaJS.upload.currentButton.hasClass( 'media-grid' ) ) {
 		window.eoxiaJS.upload.currentButton = args.element.closest( '.line' ).find( '.media.media-list' );
@@ -217,4 +241,4 @@ window.eoxiaJS.fraisPro.line.eoUploadAssociatedFile = function( args ) {
 		window.eoxiaJS.upload.currentButton = args.element.closest( '.line' ).find( '.media.media-grid' );
 	}
 	window.eoxiaJS.upload.refreshButton( args.response.data );
-}
+};
