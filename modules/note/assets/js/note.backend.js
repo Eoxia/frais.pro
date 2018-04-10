@@ -225,6 +225,7 @@ window.eoxiaJS.fraisPro.note.scrollSticky = function( event ) {
 window.eoxiaJS.fraisPro.note.exportedfraisProSuccess = function( triggeredElement, response ) {
 	jQuery( '.document-list-container .notice.notice-info' ).remove();
 	jQuery( '.document-list-container table.wpeo-table tbody' ).prepend( response.data.item_view );
+  jQuery( '.wpeo-tooltip' ).remove();
 
 	triggeredElement.closest( '.note' ).find( '.note-action' ).html( response.data.actions_view ).find( '.wpeo-dropdown.fp-note-export-dropdown' ).addClass( 'dropdown-active' );
 	triggeredElement.closest( '.single-note' ).find( '.export.toggle' ).html( response.data.actions_view ).find( '.wpeo-dropdown.fp-note-export-dropdown' ).addClass( 'dropdown-active' );
