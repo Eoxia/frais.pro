@@ -212,8 +212,8 @@ class Line_Action {
 		$line_args['date_modified']        = isset( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : current_time( 'mysql' );
 		$line_args['parent_id']            = isset( $_POST['parent_id'] ) ? intval( $_POST['parent_id'] ) : 0;
 		$line_args['distance']             = isset( $_POST['distance'] ) ? intval( $_POST['distance'] ) : 0;
-		$line_args['tax_amount']           = isset( $_POST['tax_amount'] ) ? floatval( $_POST['tax_amount'] ) : 0;
-		$line_args['tax_inclusive_amount'] = isset( $_POST['tax_inclusive_amount'] ) ? floatval( $_POST['tax_inclusive_amount'] ) : 0;
+		$line_args['tax_amount']           = isset( $_POST['tax_amount'] ) ? floatval( str_replace( ',', '.', $_POST['tax_amount'] ) ) : 0;
+		$line_args['tax_inclusive_amount'] = isset( $_POST['tax_inclusive_amount'] ) ? floatval( str_replace( ',', '.', $_POST['tax_inclusive_amount'] ) ) : 0;
 
 		// Ajout de la catégorie de la ligne.
 		$line_args['taxonomy'][ Line_Type_Class::g()->get_type() ][] = isset( $_POST['type'] ) ? intval( $_POST['type'] ) : 0;

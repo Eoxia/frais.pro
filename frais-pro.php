@@ -3,7 +3,7 @@
  * Plugin Name: Frais.pro
  * Plugin URI:  http://www.eoxia.com/
  * Description: Manage your professional fees from your WordPress website and never search for what you spent.
- * Version:     1.4.0
+ * Version:     1.4.1
  * Author:      Eoxia
  * Author URI:  https://www.eoxia.com
  * License:     GPL2

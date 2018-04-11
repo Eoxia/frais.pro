@@ -48,7 +48,7 @@ if ( ! class_exists( '\eoxia\Module_Util' ) ) {
 		 */
 		public function exec_module( $path, $plugin_slug ) {
 			if ( empty( \eoxia\Config_Util::$init[ $plugin_slug ] ) ) {
-				return new \WP_Error( 'broke', sptrinf( __( 'Main config %s not init', $plugin_slug ), $plugin_slug ) );
+				return new \WP_Error( 'broke', sprintf( __( 'Main config %s not init', $plugin_slug ), $plugin_slug ) );
 			}
 
 			if ( empty( \eoxia\Config_Util::$init[ $plugin_slug ]->modules ) ) {
@@ -162,7 +162,8 @@ if ( ! class_exists( '\eoxia\Module_Util' ) ) {
 		 * @param bool $state       true ou false.
 		 */
 		public function set_state( $namespace, $slug, $state ) {
-			$path_to_json = plugin_dir_path( __FILE__ ) . '../../../modules/' . $slug . '/' . $slug . '.config.json';
+			$path_to_json = \eoxia\Config_Util::$init[ $namespace ]->$slug->path . '/' . $slug . '.config.json';
+
 			$json_content = \eoxia\JSON_Util::g()->open_and_decode( $path_to_json );
 			$json_content->state = $state;
 			$json_content = json_encode( $json_content, JSON_PRETTY_PRINT );
