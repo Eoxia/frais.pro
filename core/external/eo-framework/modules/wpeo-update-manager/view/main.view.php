@@ -3,10 +3,10 @@
  * La vue principale pour les mises à jour.
  *
  * @author Eoxia <dev@eoxia.com>
- * @since 1.6.0
- * @version 1.6.0
+ * @since 1.0.0
+ * @version 1.0.0
  * @copyright 2015-2018 Eoxia
- * @package Task_Manager
+ * @package EO_Framework\EO_Update_Manager\View
  */
 
 namespace task_manager;
@@ -76,6 +76,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<form action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
 			<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( $def['action'] ) ); ?>" />
 			<input type="hidden" name="action" value="<?php echo esc_attr( $redirect_action ); ?>" />
+			<input type="hidden" name="version" value="<?php echo esc_attr( $version ); ?>" />
 		</form>
 	</div>
 	<div class="wpeo-update-general-message" ></div>

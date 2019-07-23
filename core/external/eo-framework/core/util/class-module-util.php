@@ -3,11 +3,11 @@
  * Gestion des modules.
  * Les externals doivent être placés dans modules/
  *
- * @author Jimmy Latour <dev@eoxia.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 0.1.0
- * @version 1.2.0
- * @copyright 2015-2017 Eoxia
- * @package WPEO_Util
+ * @version 1.0.0
+ * @copyright 2015-2018 Eoxia
+ * @package EO_Framework\Core\Util
  */
 
 namespace eoxia;
@@ -41,7 +41,7 @@ if ( ! class_exists( '\eoxia\Module_Util' ) ) {
 		 * @param string $path        Le chemin vers le module externe.
 		 * @param string $plugin_slug Le slug principale du plugin dans le fichier principale config.json.
 		 *
-		 * @return WP_Error|boolean {
+		 * @return \WP_Error|boolean {
 		 *																		WP_Error Si le fichier est inexistant ou si le plugin n'a pas de submodule.
 		 *                                    boolean  True si aucune erreur s'est produite.
 		 *}.
@@ -51,18 +51,12 @@ if ( ! class_exists( '\eoxia\Module_Util' ) ) {
 				return new \WP_Error( 'broke', sprintf( __( 'Main config %s not init', $plugin_slug ), $plugin_slug ) );
 			}
 
-			if ( empty( \eoxia\Config_Util::$init[ $plugin_slug ]->modules ) ) {
-				return new \WP_Error( 'broke', __( 'No module to load', $plugin_slug ) );
-			}
-
 			if ( ! empty( \eoxia\Config_Util::$init[ $plugin_slug ]->modules ) ) {
 				foreach ( \eoxia\Config_Util::$init[ $plugin_slug ]->modules as $module_json_path ) {
 					self::inc_config_module( $plugin_slug, $path . $module_json_path );
 					self::inc_module( $plugin_slug, $path . $module_json_path );
 				}
 			}
-
-			return true;
 		}
 
 		/**
@@ -77,7 +71,12 @@ if ( ! class_exists( '\eoxia\Module_Util' ) ) {
 		 * @return void
 		 */
 		public function inc_config_module( $plugin_slug, $module_json_path ) {
-			\eoxia\Config_Util::g()->init_config( $module_json_path, $plugin_slug );
+			$init_status = \eoxia\Config_Util::g()->init_config( $module_json_path, $plugin_slug );
+
+			if ( \is_wp_error( $init_status ) ) {
+				exit( $init_status->errors['broke'][0] );
+			}
+
 		}
 
 		/**
@@ -94,6 +93,12 @@ if ( ! class_exists( '\eoxia\Module_Util' ) ) {
 		public function inc_module( $plugin_slug, $module_json_path ) {
 			$module_name = basename( $module_json_path, '.config.json' );
 			$module_path = dirname( $module_json_path );
+
+			if ( 'eo-framework' !== $plugin_slug ) {
+				if ( ! isset( \eoxia\Config_Util::$init[ $plugin_slug ]->$module_name ) ) {
+					exit( __( sprintf( '%s not exists. You need to check: 1. The folder name and file name.config.json is equal at the slug name in config.', $module_name ) ) );
+				}
+			}
 
 			if ( ! isset( \eoxia\Config_Util::$init[ $plugin_slug ]->$module_name->state ) || ( isset( \eoxia\Config_Util::$init[ $plugin_slug ]->$module_name->state ) && \eoxia\Config_Util::$init[ $plugin_slug ]->$module_name->state ) ) {
 				if ( ! empty( \eoxia\Config_Util::$init[ $plugin_slug ]->$module_name->dependencies ) ) {
@@ -140,11 +145,7 @@ if ( ! class_exists( '\eoxia\Module_Util' ) ) {
 		public function inc_priority_file( $path_to_module_and_dependence_folder, $dependence_folder, $list_priority_file ) {
 			if ( ! empty( $list_priority_file ) ) {
 				foreach ( $list_priority_file as $file_name ) {
-					if ( in_array( $dependence_folder, array( 'class', 'helper' ), true ) ) {
-						$path_file = realpath( $path_to_module_and_dependence_folder . $file_name . '.' . $dependence_folder . '.php' );
-					} else {
-						$path_file = realpath( $path_to_module_and_dependence_folder . 'class-' . $file_name . '-' . $dependence_folder . '.php' );
-					}
+					$path_file = realpath( $path_to_module_and_dependence_folder . $file_name  );
 
 					require_once( $path_file );
 				}

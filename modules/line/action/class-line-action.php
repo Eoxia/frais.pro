@@ -138,12 +138,32 @@ class Line_Action {
 
 		$unaffected_note->data['count_line']++;
 		Note_Class::g()->update( $unaffected_note->data );
+		
+		$compilated_tax_amount           = 0;
+		$compilated_tax_inclusive_amount = 0;
+
+		$lines = Line_Class::g()->get( array(
+			'post_parent' => $note->data['id'],
+		) );
+		foreach ( $lines as $line ) {
+			$compilated_tax_inclusive_amount += $line->data['tax_inclusive_amount'];
+			$compilated_tax_amount           += $line->data['tax_amount'];
+		}
+
+		$note->data['date_modified']        = current_time( 'mysql' );
+		$note->data['tax_inclusive_amount'] = $compilated_tax_inclusive_amount;
+		$note->data['tax_amount']           = $compilated_tax_amount;
+		Note_Class::g()->update( $note->data );
 
 		wp_send_json_success( array(
-			'namespace'        => 'fraisPro',
-			'module'           => 'line',
-			'callback_success' => 'deleteLineFromDisplay',
-			'line'             => $line,
+			'namespace'            => 'fraisPro',
+			'module'               => 'line',
+			'callback_success'     => 'deleteLineFromDisplay',
+			'line'                 => $line,
+			'id'                   => $note->data['id'],
+			'tax_inclusive_amount' => $note->data['tax_inclusive_amount'],
+			'tax_amount'           => $note->data['tax_amount'],
+			
 		) );
 	}
 

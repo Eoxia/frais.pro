@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="form-element date group-date <?php echo esc_attr( Line_Class::g()->check_field_status( $line, 'date', $note_is_closed ) ); ?>" >
 			<span class="form-label"><?php esc_attr_e( 'Date', 'frais-pro' ); ?></span>
 			<label class="form-field-container">
-				<span class="form-field-icon-prev"><i class="fal fa-calendar-alt"></i></span>
+				<span class="form-field-icon-prev"><i class="fas fa-calendar-alt"></i></span>
 				<input type="hidden" class="mysql-date" name="date" value="<?php echo esc_attr( $line->data['date_modified']['raw'] ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?>/>
 				<input type="text" class="date form-field" value="<?php echo esc_html( $line->data['date_modified']['rendered']['date'] ); ?>" <?php echo ( $note_is_closed ? 'readonly="readonly"' : '' ); ?> />
 			</label>
@@ -81,7 +81,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="action">
 		<?php if ( ! $note_is_closed ) : ?>
 			<div class="wpeo-dropdown dropdown-right">
-				<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-eventwpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>"><i class="button-icon far fa-ellipsis-v"></i></button>
+				<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-eventwpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>">
+					<i class="button-icon fas fa-ellipsis-v"></i>
+				</button>
+				
 				<ul class="dropdown-content">
 					<?php echo apply_filters( 'fp_filter_line_item_action_before', '', $line ); // WPCS: XSS ok. ?>
 					<li class="dropdown-item action-delete"

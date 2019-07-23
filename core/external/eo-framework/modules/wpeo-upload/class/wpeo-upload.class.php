@@ -2,11 +2,11 @@
 /**
  * All methods utils for associate, dessociate and anothers things about upload.
  *
- * @author Eoxia
+ * @author Eoxia <dev@eoxia.com>
  * @since 0.1.0-alpha
  * @version 1.0.0
- * @copyright 2017
- * @package EO-Framework/WPEO-Upload
+ * @copyright 2017-2018 Eoxia
+ * @package EO_Framework\EO_Upload\Class
  */
 
 namespace eoxia;
@@ -69,6 +69,7 @@ if ( ! class_exists( '\eoxia\WPEO_Upload_Class' ) ) {
 			$data['mime_type']    = ! empty( $_POST['mime_type'] ) ? sanitize_text_field( $_POST['mime_type'] ) : '';
 			$data['display_type'] = ! empty( $_POST['display_type'] ) ? sanitize_text_field( $_POST['display_type'] ) : '';
 			$data['file_id']      = ! empty( $_POST['file_id'] ) ? (int) $_POST['file_id'] : 0;
+			$data['upload_dir']   = ! empty( $_POST['upload_dir'] ) ? sanitize_text_field( $_POST['upload_dir'] ) : '';
 
 			return $data;
 		}

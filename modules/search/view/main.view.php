@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div>
 		<div class="form-element group-date">
 			<label class="form-field-container">
-				<span class="form-field-icon-prev"><i class="fal fa-calendar-alt"></i></span>
+				<span class="form-field-icon-prev"><i class="fas fa-calendar-alt"></i></span>
 				<input type="hidden" class="mysql-date" name="start_date" value="" />
 				<input type="text" class="form-field date" placeholder="<?php esc_html_e( 'Start date', 'frais-pro' ); ?>" value="" />
 			</label>
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div>
 		<div class="form-element group-date">
 			<label class="form-field-container">
-				<span class="form-field-icon-prev"><i class="fal fa-calendar-alt"></i></span>
+				<span class="form-field-icon-prev"><i class="fas fa-calendar-alt"></i></span>
 				<input type="hidden" class="mysql-date" name="end_date" value="" />
 				<input type="text" class="form-field date" placeholder="<?php esc_html_e( 'End date', 'frais-pro' ); ?>" value="" />
 			</label>
@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="wpeo-autocomplete autocomplete-light" data-action="fp_search_users" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_search_users' ) ); ?>">
 					<input type="hidden" name="selected_user_id" value="" />
 					<label class="autocomplete-label" for="autocomplete-search-users">
-						<i class="autocomplete-icon-before far fa-search"></i>
+						<i class="autocomplete-icon-before fas fa-search"></i>
 						<input id="autocomplete-search-users" placeholder="Utilisateur" class="autocomplete-search-input" type="text" />
 						<span class="autocomplete-icon-after"><i class="far fa-times"></i></span>
 					</label>
@@ -72,6 +72,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 	<!-- Search icon -->
 	<div>
-		<div data-action="fp_search_notes" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_search_notes' ) ); ?>" class="action-input wpeo-button button-blue button-square-40" data-parent="bloc-search"><i class="button-icon far fa-search"></i></div>
+		<div data-action="fp_search_notes"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_search_notes' ) ); ?>" 
+			data-parent="bloc-search"
+			class="action-input wpeo-button button-blue button-square-40">
+			<i class="button-icon fas fa-search"></i>
+		</div>
 	</div>
 </div>

@@ -67,6 +67,7 @@ class Note_De_Frais_Action {
 	 * @version 1.4.0
 	 */
 	public function callback_admin_enqueue_scripts_js() {
+		wp_enqueue_script( 'frais-pro-math', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/js/math.min.js', array(), \eoxia\Config_Util::$init['frais-pro']->version, false );
 		wp_enqueue_script( 'frais-pro-script', PLUGIN_NOTE_DE_FRAIS_URL . 'core/assets/js/backend.min.js', array( 'jquery' ), \eoxia\Config_Util::$init['frais-pro']->version, false );
 		wp_localize_script( 'frais-pro-script', 'fraisPro', array(
 			'updateDataUrlPage'        => 'admin_page_' . \eoxia\Config_Util::$init['frais-pro']->update_page_url,

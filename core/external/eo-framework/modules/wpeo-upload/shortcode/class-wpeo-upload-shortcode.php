@@ -2,11 +2,11 @@
 /**
  * Call the main view of the plugin.
  *
- * @author Eoxia
+ * @author Eoxia <dev@eoxia.com>
  * @since 0.1.0-alpha
  * @version 1.0.0
  * @copyright 2017-2018 Eoxia
- * @package EO-Framework/WPEO-Upload
+ * @package EO_Framework\EO_Upload\Shortcode
  */
 
 namespace eoxia;
@@ -59,6 +59,7 @@ if ( ! class_exists( '\eoxia\WPEO_Upload_Shortcode' ) ) {
 				'single'       => 'true',                              // One media or more.
 				'mime_type'    => 'image',                             // Can be application, image, audio or empty for all mime types. By default "image".
 				'display_type' => 'box',                               // Can be box or list. By default box.
+				'upload_dir'   => '',                                  // Empty for default WordPress upload dir.
 			), $atts );
 
 			// Convert "//" to "\".
@@ -74,7 +75,6 @@ if ( ! class_exists( '\eoxia\WPEO_Upload_Shortcode' ) ) {
 			}
 
 			$element = $atts['model_name']::g()->get( $args, true );
-
 			$main_picture_id = $element->data['thumbnail_id'];
 
 			if ( empty( $main_picture_id ) ) {

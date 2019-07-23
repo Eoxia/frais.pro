@@ -320,8 +320,16 @@ class Note_Class extends \eoxia\Post_Class {
 
 		$document->data['title']  = implode( '_', $args_title );
 		$document->data['title'] .= '.' . $extension;
-
-		$response = Document_Class::g()->create_document( $document, array( $type ), $sheet_details, $extension );
+		
+		$response = Document_Class::g()->create_doc( $document, array( $type ), $sheet_details, $extension );
+		
+		if ( $extension == 'odt' ) {
+			$response = Document_Class::g()->create_document( $response['document']->data['id'] );
+		} else {
+			$doc      = $response['document'];
+			$response = Document_Class::g()->generate_file( $response['document'], 'csv' );
+			$response['document'] = $doc;
+		}
 
 		return $response;
 	}

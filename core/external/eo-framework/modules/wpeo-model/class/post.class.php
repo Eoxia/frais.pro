@@ -6,7 +6,7 @@
  * @since 0.1.0
  * @version 1.0.0
  * @copyright 2015-2018
- * @package EO_Framework
+ * @package EO_Framework\EO_Model\Class
  */
 
 namespace eoxia;
@@ -99,14 +99,14 @@ if ( ! class_exists( '\eoxia\Post_Class' ) ) {
 		 * @return boolean
 		 */
 		public function init_post_type() {
-			$args = array(
+			$args = apply_filters( 'eo_model_' . $this->get_type() . '_register_post_type_args', array(
 				'label' => $this->post_type_name,
-			);
+			) );
 
 			$return = register_post_type( $this->get_type(), $args );
 
 			if ( ! empty( $this->attached_taxonomy_type ) ) {
-				register_taxonomy( $this->attached_taxonomy_type, $this->get_type() );
+				register_taxonomy( $this->attached_taxonomy_type, $this->get_type(), apply_filters( 'eo_model_' . $this->get_type() . '_' . $this->attached_taxonomy_type, array() ) );
 			}
 
 			return $return;
@@ -128,7 +128,7 @@ if ( ! class_exists( '\eoxia\Post_Class' ) ) {
 
 			// Définition des arguments par défaut pour la récupération des "posts".
 			$default_args = array(
-				'post_status'    => 'any',
+				'post_status'    => 'any,auto-draft',
 				'post_type'      => $this->get_type(),
 				'posts_per_page' => -1,
 			);
@@ -225,11 +225,14 @@ if ( ! class_exists( '\eoxia\Post_Class' ) ) {
 			$args_cb['append_taxonomies'] = $append;
 
 			$data = apply_filters( 'eo_model_post_before_' . $req_method, $data, $args_cb );
+
 			// Il ne faut pas lancer plusieurs fois pour post.
 			if ( 'post' !== $this->get_type() ) {
 				$data = apply_filters( 'eo_model_' . $this->get_type() . '_before_' . $req_method, $data, $args_cb );
 			}
 			$args_cb['data'] = $data;
+
+			$data['id'] = (int) ! empty( $data['id'] ) ? $data['id'] : 0;
 
 			$object = new $model_name( $data, $req_method );
 
@@ -245,6 +248,7 @@ if ( ! class_exists( '\eoxia\Post_Class' ) ) {
 			if ( is_wp_error( $post_save_result ) ) {
 				return $post_save_result;
 			}
+
 
 			$object = apply_filters( 'eo_model_post_after_' . $req_method, $object, $args_cb );
 			$object = $this->get( array(
@@ -279,6 +283,7 @@ if ( ! class_exists( '\eoxia\Post_Class' ) ) {
 			}
 
 			$where = ' AND ( ';
+
 			if ( ! empty( $array ) ) {
 				foreach ( $array as $key => $element ) {
 					if ( is_array( $element ) ) {
@@ -318,6 +323,18 @@ if ( ! class_exists( '\eoxia\Post_Class' ) ) {
 		 */
 		public function get_attached_taxonomy() {
 			return $this->attached_taxonomy_type;
+		}
+
+		/**
+		 * Retournes le nom du post type.
+		 *
+		 * @since 1.0.0
+		 * @version 1.0.0
+		 *
+		 * @return string Le nom du post type.
+		 */
+		public function get_post_type_name() {
+			return $this->post_type_name;
 		}
 
 	}
