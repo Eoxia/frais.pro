@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Définition du modèle des documents de note de frais.
  */
-class Document_Model extends \eoxia\Attachment_Model {
+class Document_Model extends \eoxia\ODT_Model {
 
 	/**
 	 * Add custom field for fees sheet into default model.
@@ -41,6 +41,12 @@ class Document_Model extends \eoxia\Attachment_Model {
 			'type'      => 'string',
 			'meta_type' => 'single',
 			'field'     => 'fp_unique_identifier',
+		);
+		
+		$this->schema['document_meta'] = array(
+			'type'      => 'array',
+			'meta_type' => 'single',
+			'field'     => 'document_meta',
 		);
 
 		parent::__construct( $data, $req_method );

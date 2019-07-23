@@ -194,8 +194,8 @@ class Note_Action {
 		}
 
 		$response = Note_Class::g()->generate_document( $note_id, $category, $extension );
-		Document_Class::g()->generate_file( $response['document'], $extension );
-
+		// Document_Class::g()->generate_file( $response['document'], $extension );
+		// 
 		$response['document'] = Document_Class::g()->get( array( 'id' => $response['document']->data['id'] ), true );
 		ob_start();
 		Document_Class::g()->display_item( $response['document'] );
@@ -210,7 +210,6 @@ class Note_Action {
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',
 			'module'           => 'note',
-			'filename'         => $response['filename'],
 			'item_view'        => $item_view,
 			'actions_view'     => $actions_view,
 			'callback_success' => 'exportedfraisProSuccess',

@@ -42,7 +42,7 @@ class Note_Unaffected_Action {
 	public function callback_search_notes_reassign() {
 		check_ajax_referer( 'search_notes_reassign' );
 
-		$s = ! empty( $_POST['s'] ) ? sanitize_text_field( $_POST['s'] ) : '';
+		$s = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
 
 		if ( empty( $s ) ) {
 			wp_send_json_error();

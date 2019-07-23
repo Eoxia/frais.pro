@@ -16,7 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div class="wpeo-dropdown dropdown-right fp-note-export-dropdown" >
-	<button class="dropdown-toggle wpeo-button button-main button-square-40 button-rounded wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Generate file', 'frais-pro' ); ?>" ><i class="button-icon far fa-arrow-to-bottom"></i></button>
+	<button class="dropdown-toggle wpeo-button button-main button-square-40 button-rounded wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Generate file', 'frais-pro' ); ?>" >
+		<i class="button-icon fas fa-download"></i>
+	</button>
+	
 	<ul class="dropdown-content" >
 		<li class="dropdown-item clear" >
 				<p class="alignleft" ><i class="icon fa-fw fas fa-file-image">&nbsp;</i><?php esc_html_e( 'With picture', 'frais-pro' ); ?></p>
@@ -24,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						aria-label="<?php echo esc_attr( $note->data['last_document']['note-photo']['tooltip'] ); ?>"
 						data-direction="left"
 						href="<?php echo esc_attr( $note->data['last_document']['note-photo']['file_informations']['link'] ); ?>">
-					<i class="button-icon far fa-arrow-to-bottom">&nbsp;</i>
+					<i class="button-icon fas fa-download">&nbsp;</i>
 				</a>
 				<button class="wpeo-button button-main button-square-40 button-rounded wpeo-tooltip-event alignright action-attribute"
 					data-id="<?php echo esc_attr( $note->data['id'] ); ?>"
@@ -40,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						aria-label="<?php echo esc_attr( $note->data['last_document']['note']['tooltip'] ); ?>"
 						data-direction="left"
 						href="<?php echo esc_attr( $note->data['last_document']['note']['file_informations']['link'] ); ?>">
-					<i class="button-icon far fa-arrow-to-bottom">&nbsp;</i>
+					<i class="button-icon fas fa-download">&nbsp;</i>
 				</a>
 				<button class="wpeo-button button-main button-square-40 button-rounded wpeo-tooltip-event alignright action-attribute"
 					data-id="<?php echo esc_attr( $note->data['id'] ); ?>"
@@ -56,7 +59,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						aria-label="<?php echo esc_attr( $note->data['last_document']['note-csv']['tooltip'] ); ?>"
 						data-direction="left"
 						href="<?php echo esc_attr( $note->data['last_document']['note-csv']['file_informations']['link'] ); ?>">
-					<i class="button-icon far fa-arrow-to-bottom">&nbsp;</i>
+					<i class="button-icon fas fa-download">&nbsp;</i>
 				</a>
 				<button class="wpeo-button button-main button-square-40 button-rounded wpeo-tooltip-event alignright action-attribute"
 					data-id="<?php echo esc_attr( $note->data['id'] ); ?>"
@@ -69,7 +72,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 <div class="wpeo-dropdown dropdown-right" >
 <?php if ( 'archive' !== $note->data['status'] ) : ?>
-	<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>" ><i class="button-icon far fa-ellipsis-v"></i></button>
+	<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>" ><i class="button-icon fas fa-ellipsis-v"></i></button>
 	<ul class="dropdown-content" >
 		<li class="dropdown-item action-attribute"
 			data-id="<?php echo esc_attr( $note->data['id'] ); ?>"

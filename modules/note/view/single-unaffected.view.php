@@ -23,12 +23,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="wpeo-notification">
 		<div class="notification-title"></div>
-		<div class="notification-close"><i class="far fa-times"></i></div>
+		<div class="notification-close"><i class="fa fa-times"></i></div>
 	</div>
 
 	<div class="container">
 		<div class="header">
-			<a href="<?php echo esc_url( menu_page_url( \eoxia\Config_Util::$init['frais-pro']->slug, false ) ); ?>" class="close"><i class="icon far fa-chevron-left"></i></a>
+			<a href="<?php echo esc_url( menu_page_url( \eoxia\Config_Util::$init['frais-pro']->slug, false ) ); ?>" class="close"><i class="icon fas fa-chevron-left"></i></a>
 			<div class="title">
 				<h2><?php echo esc_html( $note->data['title'] ); ?></h2>
 				<div class="note-last-update" ><?php esc_html_e( 'Last update', 'frais-pro' ); ?> : <?php echo esc_html( $note->data['date_modified']['rendered']['date_human_readable'] ); ?></div>
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<div class="wpeo-autocomplete" data-action="fp_search_notes_reassign" data-nonce="<?php echo esc_attr( wp_create_nonce( 'search_notes_reassign' ) ); ?>">
 							<input type="hidden" name="selected_note_id" value="" />
 							<label class="autocomplete-label" for="mon-autocomplete">
-								<i class="autocomplete-icon-before far fa-search"></i>
+								<i class="autocomplete-icon-before fas fa-search"></i>
 								<input id="mon-autocomplete" placeholder="<?php esc_attr_e( 'Note name', 'frais-pro' ); ?>" class="autocomplete-search-input" type="text" />
 								<span class="autocomplete-icon-after"><i class="far fa-times"></i></span>
 							</label>
@@ -63,7 +63,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				<div class="display-method">
 					<span class="wpeo-button button-square-50 button-grey <?php echo esc_attr( 'grid' === $display_mode ? 'active' : '' ); ?>" data-display-type="grid" ><i class="icon fas fa-th-large"></i></span>
-					<span class="wpeo-button button-square-50 button-grey <?php echo esc_attr( 'list' === $display_mode ? 'active' : '' ); ?>" data-display-type="list" ><i class="icon far fa-list-ul"></i></span>
+					<span class="wpeo-button button-square-50 button-grey <?php echo esc_attr( 'list' === $display_mode ? 'active' : '' ); ?>" data-display-type="list" ><i class="icon fas fa-list-ul"></i></span>
 				</div> <!-- .display-method -->
 			</div> <!-- .note-action -->
 

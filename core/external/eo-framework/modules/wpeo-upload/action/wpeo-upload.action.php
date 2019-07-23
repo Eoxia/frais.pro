@@ -2,11 +2,11 @@
 /**
  * Actions for wpeo_upload.
  *
- * @author Eoxia
+ * @author Eoxia <dev@eoxia>
  * @since 0.1.0-alpha
  * @version 1.0.0
- * @copyright 2017
- * @package EO-Framework/WPEO-Upload
+ * @copyright 2016-2018 Eoxia
+ * @package EO_Framework\EO_Upload\Action
  */
 
 namespace eoxia;
@@ -76,6 +76,28 @@ if ( ! class_exists( '\eoxia\WPEO_Upload_Action' ) ) {
 
 			$view          = '';
 			$document_view = '';
+
+			if ( ! empty( $data['file_id'] ) && ! empty( $data['upload_dir'] ) ) {
+				$wp_upload_dir = wp_upload_dir();
+				$path          = str_replace( '\\', '/', $wp_upload_dir['path'] );
+				$basedir       = str_replace( '\\', '/', $wp_upload_dir['basedir'] );
+				$baseurl       = str_replace( '\\', '/', $wp_upload_dir['baseurl'] );
+
+				$file      = get_post( $data['file_id'] );
+				$file_path = str_replace( $wp_upload_dir['url'], $path, $file->guid );
+				$basename  = basename( $file->guid );
+				$new_path  = $basedir . '/' . $data['upload_dir'] . '/' . $basename;
+				$new_url   = $baseurl . '/' . $data['upload_dir'] . '/' . $basename;
+
+				rename( $file_path, $new_path );
+
+				global $wpdb;
+
+				$wpdb->query( $wpdb->prepare("UPDATE {$wpdb->posts} SET guid=%s WHERE ID=%d", array( $new_url, $data['file_id'] ) ) );
+				update_post_meta( $data['file_id'], '_wp_attached_file', $data['upload_dir'] . '/' . $basename );
+				set_post_type( $data['file_id'], 'wps-file' );
+			}
+
 			// If post ID is not empty.
 			if ( ! empty( $data['id'] ) ) {
 				if ( 'true' === $data['single'] ) {
@@ -94,14 +116,16 @@ if ( ! class_exists( '\eoxia\WPEO_Upload_Action' ) ) {
 				}
 			} else {
 				if ( 'application' === $data['mime_type'] ) {
-					$document_view = '<div class="document"><i class="icon far fa-paperclip"></i></div>';
+					$document_view = '<div class="document"><i class="icon fas fa-paperclip"></i></div>';
 				}
 			}
 
 			if ( 'list' === $data['display_type'] ) {
 				$filelink      = get_attached_file( $data['file_id'] );
 				$filename_only = basename( $filelink );
-				$fileurl_only  = wp_get_attachment_url( $data['file_id'] );
+				$file          = get_post( $data['file_id'] );
+				$fileurl_only  = $file->guid;
+
 				ob_start();
 				require \eoxia\Config_Util::$init['eo-framework']->wpeo_upload->path . '/view/' . $data['display_type'] . '/list-item.view.php';
 				$view = ob_get_clean();

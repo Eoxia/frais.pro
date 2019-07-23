@@ -2,11 +2,11 @@
 /**
  * The gallery
  *
- * @author Eoxia
+ * @author Eoxia <dev@eoxia.com>
  * @since 0.1.0-alpha
  * @version 1.0.0
- * @copyright 2017
- * @package EO-Framework/WPEO-Upload
+ * @copyright 2017-2018 Eoxia
+ * @package EO_Framework\EO_Upload\Gallery\View
  */
 
 namespace eoxia;
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				) );
 				?>
 			</h2>
-			<div class="modal-close"><i class="fal fa-times"></i></div>
+			<div class="modal-close"><i class="fas fa-times"></i></div>
 		</div>
 
 		<!-- Corps -->

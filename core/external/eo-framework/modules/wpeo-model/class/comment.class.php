@@ -6,7 +6,7 @@
  * @since 0.1.0
  * @version 1.0.0
  * @copyright 2015-2018
- * @package EO_Framework
+ * @package EO_Framework\EO_Model\Class
  */
 
 namespace eoxia;
@@ -187,7 +187,13 @@ if ( ! class_exists( '\eoxia\Comment_Class' ) ) {
 			}
 
 			if ( empty( $data['id'] ) ) {
-				$user = wp_get_current_user();
+
+				if ( ! empty( $data['author_id'] ) ) {
+					$user = get_userdata( $data['author_id'] );
+				} else {
+					$user = wp_get_current_user();
+				}
+
 				if ( $user->exists() ) {
 					if ( empty( $data['author_id'] ) ) {
 						$data['author_id'] = $user->ID;

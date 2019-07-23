@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<td class="document-action" >
 	<?php if ( $document_checked['exists'] ) : ?>
 		<a href="<?php echo esc_url( $document_checked['link'] ); ?>" class="wpeo-button button-main button-square-40 button-rounded wpeo-tooltip-event" aria-label="<?php echo esc_attr( sprintf( __( 'Download %s file', 'frais-pro' ), $document_checked['mime_type']['ext'] ) ); ?>" >
-			<i class="button-icon far fa-arrow-to-bottom" ></i>
+			<i class="button-icon fas fa-download"></i>
 		</a>
 	<?php else : ?>
 		<span class="wpeo-button button-disable button-event button-square-40 button-rounded wpeo-tooltip-event" aria-label="<?php echo esc_attr_e( 'File does not exists', 'frais-pro' ); ?>">

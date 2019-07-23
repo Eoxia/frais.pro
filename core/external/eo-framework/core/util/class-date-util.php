@@ -2,11 +2,11 @@
 /**
  * Méthodes utilitaires pour les dates.
  *
- * @author Jimmy Latour <dev@eoxia.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 0.1.0
  * @version 1.0.0
- * @copyright 2015-2017 Eoxia
- * @package WPEO_Util
+ * @copyright 2015-2018 Eoxia
+ * @package EO_Framework\Core\Util
  */
 
 namespace eoxia;
@@ -61,7 +61,7 @@ if ( ! class_exists( '\eoxia\Date_Util' ) ) {
 		 *         }
 		 * }
 		 */
-		function fill_date( $current_time ) {
+		public function fill_date( $current_time ) {
 			$data = array();
 
 			$locale = get_locale();
@@ -70,19 +70,46 @@ if ( ! class_exists( '\eoxia\Date_Util' ) ) {
 			$data['mysql']   = $current_time;
 			$data['iso8601'] = mysql_to_rfc3339( $current_time );
 
-			$formatter    = new \IntlDateFormatter( $locale, \IntlDateFormatter::SHORT, \IntlDateFormatter::NONE );
-			$data['date'] = $formatter->format( $date );
+			if ( class_exists( '\IntlDateFormatter' ) ) {
+				$formatter    = new \IntlDateFormatter( $locale, \IntlDateFormatter::SHORT, \IntlDateFormatter::NONE );
+				$data['date'] = $formatter->format( $date );
 
-			$formatter         = new \IntlDateFormatter( $locale, \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT );
-			$data['date_time'] = $formatter->format( $date );
+				$formatter         = new \IntlDateFormatter( $locale, \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT );
+				$data['date_time'] = $formatter->format( $date );
 
-			$formatter    = new \IntlDateFormatter( $locale, \IntlDateFormatter::NONE, \IntlDateFormatter::SHORT );
-			$data['time'] = $formatter->format( $date );
+				$formatter    = new \IntlDateFormatter( $locale, \IntlDateFormatter::NONE, \IntlDateFormatter::SHORT );
+				$data['time'] = $formatter->format( $date );
 
-			$formatter                   = new \IntlDateFormatter( $locale, \IntlDateFormatter::FULL, \IntlDateFormatter::SHORT );
-			$data['date_human_readable'] = \ucwords( $formatter->format( $date ) );
+				$formatter                   = new \IntlDateFormatter( $locale, \IntlDateFormatter::FULL, \IntlDateFormatter::SHORT );
+				$data['date_human_readable'] = \ucwords( $formatter->format( $date ) );
+			} else {
+				$data['date'] = $date->format( 'n/j/Y' );
+				$data['date_time'] = $date->format( 'n/j/Y, g:i A' );
+				$data['time'] = $date->format( 'g:i A' );
+				$data['date_human_readable'] = $date->format( 'l, F j, Y \A\t g:i A' );
+			}
 
 			return apply_filters( 'eo_model_fill_date', $data );
+		}
+
+		/**
+		 * Renvoie la date au format du WordPress de l'utilisateur.
+		 *
+		 * @since 0.1.0
+		 * @version 1.0.0
+		 *
+		 * @param  string $date La date à formater.
+		 * @return string      	La date formatée au format SQL
+		 *
+		 * @todo: Est-ce utile ?
+		 */
+		public function mysqldate2wordpress( $date, $with_time = true ) {
+			$format = get_option( 'date_format' );
+			if ( $with_time ) {
+				$format .= ' ' . get_option( 'time_format' );
+			}
+
+			return mysql2date( $format, $date );
 		}
 
 		/**
@@ -104,12 +131,12 @@ if ( ! class_exists( '\eoxia\Date_Util' ) ) {
 			$clone_min         = intval( $sub_min - ( $hour * 60 ) );
 			$display           = '';
 
-			if ( ! empty( $day ) ) {
+			// if ( ! empty( $day ) ) {
 				$display .= $day . 'j ';
-			}
-			if ( ! empty( $hour ) ) {
+			// }
+			// if ( ! empty( $hour ) ) {
 				$display .= $hour . 'h ';
-			}
+			// }
 			$display .= $clone_min . 'min';
 			if ( $display_full_min ) {
 				$display .= ' (' . $min . 'min)';

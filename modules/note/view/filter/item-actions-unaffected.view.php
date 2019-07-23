@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div class="wpeo-dropdown dropdown-right" >
-	<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>" ><i class="button-icon far fa-ellipsis-v"></i></button>
+	<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>" ><i class="button-icon fas fa-ellipsis-v"></i></button>
 	<ul class="dropdown-content" >
 		<li class="dropdown-item action-attribute"
 			data-id="<?php echo esc_attr( $note->data['id'] ); ?>"

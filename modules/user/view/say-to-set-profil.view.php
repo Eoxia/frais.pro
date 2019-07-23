@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="modal-container">
 		<div class="modal-header">
 			<h2 class="title"><?php echo esc_html_e( 'Missing profil settings', 'frais-pro' ); ?></h2>
-			<div class="modal-close"><i class="fal fa-times"></i></div>
+			<div class="modal-close"><i class="fas fa-times"></i></div>
 		</div>
 		<div class="modal-content">
 			<p style="font-size: 1.4em; margin-top: 10px;"><?php esc_html_e( 'You have to set your profil to get full feature from Frais.pro application.', 'frais-pro' ); ?></p>

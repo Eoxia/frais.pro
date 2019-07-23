@@ -2,11 +2,11 @@
 /**
  * The button for upload media.
  *
- * @author Eoxia
+ * @author Eoxia <dev@eoxia.com>
  * @since 0.1.0-alpha
  * @version 1.0.0
- * @copyright 2017
- * @package EO-Framework/EO-Upload
+ * @copyright 2017-2018 Eoxia
+ * @package EO_Framework\EO_Upload\View
  */
 
 namespace eoxia;
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		else :
 			?>
 			<div class="document default-icon-container">
-				<i class="icon far fa-paperclip" aria-hidden="true"></i>
+				<i class="icon fas fa-paperclip" aria-hidden="true"></i>
 			</div>
 			<?php
 		endif;
@@ -36,14 +36,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		if ( 'image' === $atts['mime_type'] ) :
 		?>
 		<div class="default default-icon-container">
-			<i class="default-image far fa-image"></i>
+			<i class="default-image fas fa-image"></i>
 			<img src="" class="hidden"/>
 		</div>
 		<?php
 		else :
 			?>
 			<div class="document default-icon-container">
-				<i class="icon far fa-paperclip" aria-hidden="true"></i>
+				<i class="icon fas fa-paperclip" aria-hidden="true"></i>
 			</div>
 			<?php
 		endif;
