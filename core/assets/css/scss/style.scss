@@ -55,3 +55,128 @@
 # Modules externes
 --------------------------------------------------------------*/
 @import "external/external.scss";
+
+
+/*--------------------------------------------------------------
+# Jimmy temporaire Frais Pro Custom Page Backadmin WordPress
+--------------------------------------------------------------*/
+.toplevel_page_frais-pro, .admin_page_frais-pro-edit {
+
+	// Fait disparaitre le menu et l'admin bar
+	#adminmenuwrap, #wpadminbar, #adminmenumain, #screen-meta-links, #wpfooter {
+		display: none!important;
+	}
+
+	// Enlève la marge sur le contenu principale car le menu custom ne fait pas la même taille
+	#wpcontent {
+		margin-left: 0!important;
+		padding-left: 0;
+	}
+
+	// Menu navigation
+	.nav-wrap {
+		background: #1c1d1b;
+		width: 200px;
+		position: fixed;
+		left: 0;
+		top: 0;
+		bottom: 0px;
+
+		.nav-menu {
+			.item {
+				transition: background .1s ease,box-shadow .1s ease,color .1s ease,-webkit-box-shadow .1s ease;
+
+				&:before {
+					position: absolute;
+					content: '';
+					width: 100%;
+					height: 1px;
+					background: rgba(255,255,255,.08);
+				}
+
+				&:hover {
+					background: rgba(255,255,255,.15);
+				}
+
+				a {
+					padding: 16px;
+					padding-left: 20px;
+					font-size: 1.1em;
+					display: block;
+					color: #eee;
+					text-decoration: none;
+					font-weight: bolder;
+				}
+
+				&.item-bottom {
+					position: absolute;
+					width: 200px;
+					bottom: 0;
+				}
+			}
+		}
+	}
+
+	// Contenu principale
+	.content-wrap {
+		background: #fafafa;
+		margin-left: 200px;
+
+		// Header
+		#top-header {
+			background-color: white;
+			border-bottom: solid black 2px;
+			min-height: 60px;
+
+			.dropdown-toggle {
+				width: 100%;
+			}
+
+			.pin-label {
+				color: black;
+			}
+
+			i {
+				color: black;
+			}
+
+			.page-title {
+				margin: 0;
+				font-size: 2em;
+				padding-top: 20px;
+				padding-left: 20px;
+			}
+
+			/** Bouton Ajouter dans le header */
+			.wpeo-button {
+				margin-top: 12px;
+				margin-left: 20px;
+			}
+
+			.alignright {
+				padding-right: 20px;
+				margin: 0;
+			}
+		}
+
+		// Contenu
+		.wrap-frais-pro {
+			padding-right: 0;
+			padding-left: 20px;
+		}
+	}
+}
+
+// Enlève le padding par défaut de WordPress pour l'admin bar. Cette ligne est éxécuté que sur les pages commençant par frais-pro dans le $_GET['page']
+// ex: https://<address>/wp-admin/admin.php?page=frais-pro
+html.wp-toolbar{
+    padding-top: 0;
+}
+
+.modal-profil .wpeo-form select {
+	padding: 0;
+}
+
+/*--------------------------------------------------------------
+# Fin Jimmy temporaire Frais Pro Custom Page Backadmin WordPress
+--------------------------------------------------------------*/

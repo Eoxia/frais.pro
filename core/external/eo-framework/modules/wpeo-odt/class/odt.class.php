@@ -280,7 +280,7 @@ if ( ! class_exists( '\eoxia\ODT_Class' ) ) {
 				'filename' => '',
 				'path'     => '',
 			);
-			
+
 			$document = $this->generate_document( $document_id );
 
 			$file_info = $this->check_file( $document );

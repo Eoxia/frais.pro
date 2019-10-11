@@ -42,7 +42,10 @@ class Note_De_Frais_Action {
 
 		add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
 		add_action( 'init', array( $this, 'callback_init' ), 11 );
+		add_action( 'admin_init', array( $this, 'redirect_to' ) );
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
+
+		add_action( 'wp_ajax_fp_modal_profil', array( $this, 'open_modal_profil' ) );
 	}
 
 	/**
@@ -122,6 +125,19 @@ class Note_De_Frais_Action {
 	}
 
 	/**
+	 * Permet de redirigé l'utilisateur vers la page de frais pro.
+	 *
+	 * @since 1.5.0
+	 */
+	public function redirect_to() {
+		$_pos = strlen( $_SERVER[ 'REQUEST_URI' ] ) - strlen( '/wp-admin/' );
+		if ( strpos( $_SERVER['REQUEST_URI'], '/wp-admin/' ) !== false && strpos( $_SERVER['REQUEST_URI'], '/wp-admin/' ) == $_pos ) {
+				wp_redirect( admin_url( 'admin.php?page=frais-pro' ) );
+				die();
+		}
+	}
+
+	/**
 	 * Définition du menu dans l'administration de WordPress pour Frais Pro.
 	 *
 	 * @since 1.0.0
@@ -131,6 +147,24 @@ class Note_De_Frais_Action {
 		add_menu_page( __( 'Frais.pro', 'frais-pro' ), __( 'Frais.pro', 'frais-pro' ), 'manage_options', \eoxia\Config_Util::$init['frais-pro']->slug, array( Note_De_Frais_Class::g(), 'display' ), 'dashicons-format-aside' );
 		add_submenu_page( \eoxia\Config_Util::$init['frais-pro']->slug, __( 'Frais.pro - Notes', 'frais-pro' ), __( 'Notes', 'frais-pro' ), 'manage_options', \eoxia\Config_Util::$init['frais-pro']->slug, array( Note_De_Frais_Class::g(), 'display' ) );
 		add_submenu_page( \eoxia\Config_Util::$init['frais-pro']->menu_edit_parent_slug, __( 'Frais.pro', 'frais-pro' ), __( 'Frais.pro', 'frais-pro' ), 'manage_options', \eoxia\Config_Util::$init['frais-pro']->slug . '-edit', array( Note_De_Frais_Class::g(), 'display' ) );
+	}
+
+	public function open_modal_profil() {
+		check_ajax_referer( 'open_modal_profil' );
+
+		$user = User_Class::g()->get( array(
+			'id' => get_current_user_id(),
+		), true );
+
+		ob_start();
+		\eoxia\View_Util::exec( 'frais-pro', 'core', 'modal-profile', array(
+			'data' => $user->data,
+		) );
+
+		wp_send_json_success( array(
+			'view'        => ob_get_clean(),
+			'modal_title' => __( 'User profile', 'frais-pro' ),
+		) );
 	}
 
 }

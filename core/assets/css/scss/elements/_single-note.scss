@@ -6,7 +6,6 @@
 
 // Header page single note
 .single-note .header {
-	background: $color__primary;
 	@include flexbox();
 	flex-wrap: nowrap;
 
@@ -20,13 +19,8 @@
 	}
 	.close {
 		font-size: 28px;
-		color: rgba(255,255,255,0.6);
 		padding: 0.8em;
 		@include transition();
-
-		&:hover {
-			color: rgba(255,255,255,1);
-		}
 	}
 	.title {
 		width: 100%;
@@ -36,10 +30,8 @@
 			font-size: 18px;
 			text-transform: uppercase;
 			font-weight: 400;
-			color: #fff;
 		}
 		.note-last-update {
-			color: rgba(255,255,255,0.4);
 			font-size: 14px;
 			font-style: italic;
 		}
