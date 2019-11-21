@@ -84,7 +84,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<button class="dropdown-toggle wpeo-button button-transparent wpeo-tooltip-eventwpeo-tooltip-event" aria-label="<?php esc_html_e( 'Options', 'frais-pro' ); ?>">
 					<i class="button-icon fas fa-ellipsis-v"></i>
 				</button>
-				
+
 				<ul class="dropdown-content">
 					<?php echo apply_filters( 'fp_filter_line_item_action_before', '', $line ); // WPCS: XSS ok. ?>
 					<li class="dropdown-item action-delete"
