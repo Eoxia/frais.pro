@@ -36,6 +36,8 @@ class Note_Filter {
 		add_filter( "eo_model_{$current_type}_before_post", array( $this, 'set_note_name' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_get", array( $this, 'get_full_note' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_put", array( $this, 'get_full_note' ), 10, 2 );
+
+		add_filter( 'eoxia_main_header_li', array( $this, 'new_button' ) );
 	}
 
 	/**
@@ -178,10 +180,10 @@ class Note_Filter {
 
 		if ( ! empty( $object->data['id'] ) && ! empty( $object->data['taxonomy'][ Note_Status_Class::g()->get_type() ] ) ) {
 			$args_note_status = array( 'id' => end( $object->data['taxonomy'][ Note_Status_Class::g()->get_type() ] ) );
+			// var_dump( $args_note_status );
 		}
 		// Récupères la catégorie du danger.
 		$object->data['current_status'] = Note_Status_Class::g()->get( $args_note_status, true );
-
 		// Récupères les documents générés.
 		$args_doc = array(
 			'posts_per_page' => 1,
@@ -203,6 +205,17 @@ class Note_Filter {
 		$object->data['last_document']['note-csv']   = Document_Class::g()->get( $args_doc, true );
 
 		return $object;
+	}
+
+	public function new_button( $content ) {
+		$current_screen = get_current_screen();
+
+		if ( \eoxia\Config_Util::$init['frais-pro']->dashboard_page_url === $current_screen->base ) {
+			ob_start();
+			\eoxia\View_Util::exec('frais-pro', 'note', 'add');
+			$content .= ob_get_clean();
+		}
+		return $content;
 	}
 
 }

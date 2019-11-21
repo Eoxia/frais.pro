@@ -68,9 +68,9 @@ class Document_Class extends \eoxia\ODT_Class {
 	 * @var string
 	 */
 	protected $model_path = PLUGIN_NOTE_DE_FRAIS_PATH;
-	
+
 	protected $path = PLUGIN_NOTE_DE_FRAIS_PATH;
-	
+
 	/**
 	 * Création d'un fichier odt a partir d'un modèle de document donné et d'un modèle de donnée
 	 *
@@ -152,7 +152,7 @@ class Document_Class extends \eoxia\ODT_Class {
 
 		return $document;
 	}
-	
+
 	/**
 		 * Récupération de la liste des modèles de fichiers disponible pour un type d'élément
 		 *
@@ -201,7 +201,7 @@ class Document_Class extends \eoxia\ODT_Class {
 			}
 			return $response;
 		}
-		
+
 	/**
 	 * Création du document dans la base de données puis appel de la fonction de génération du fichier
 	 *
@@ -217,7 +217,7 @@ class Document_Class extends \eoxia\ODT_Class {
 	 */
 	public function create_doc( $element, $types, $document_meta, $extension = 'odt' ) {
 		$upload_dir = wp_upload_dir();
-		
+
 		$response = array(
 			'status'   => true,
 			'message'  => '',
@@ -251,7 +251,7 @@ class Document_Class extends \eoxia\ODT_Class {
 			'path'          => $this->get_dir_path() . '/ndf/' . $element->data['title'],
 			'_wp_attached_file' => '/ndf/' . $element->data['title'],
 		);
-		
+
 		$response['document'] = $this->update( $document_args );
 		return $response;
 	}
@@ -340,7 +340,7 @@ class Document_Class extends \eoxia\ODT_Class {
 		}
 
 		require_once PLUGIN_NOTE_DE_FRAIS_PATH . '/core/external/odtPhpLibrary/odf.php';
-		
+
 
 		$odf_php_lib = new \NdfOdf( $document->data['model_path'], $config );
 
@@ -386,6 +386,7 @@ class Document_Class extends \eoxia\ODT_Class {
 
 		foreach ( $document->data['document_meta'] as $key => $value ) {
 			if ( 'ndf' !== $key && 'ndf_medias' !== $key ) {
+
 				$csv_file_content = str_replace( '{' . $key . '}', $value, $csv_file_content );
 			} elseif ( 'ndf' === $key ) {
 				$file_lines = '';
@@ -468,7 +469,7 @@ class Document_Class extends \eoxia\ODT_Class {
 			}
 		}
 	}
-	
+
 	/**
 	 * Ecris dans le document ODT
 	 *

@@ -56,13 +56,13 @@ window.eoxiaJS.fraisPro.line.save = function( event, element ) {
 		var content = math.evaluate(jQuery( this ).val());
 		jQuery( this ).val(content);
 	}
-	
+
 	if ( jQuery( this ).closest( '.form-element' ).hasClass( 'tva' ) ) {
 		var content = math.evaluate(jQuery( this ).val());
 		jQuery( this ).val(content);
 	}
-	
-		
+
+
 	element = element ? element : jQuery( this );
 	var parentElement = element.closest( 'div.line-content' );
 	var listInput = window.eoxiaJS.arrayForm.getInput( parentElement );
@@ -154,10 +154,25 @@ window.eoxiaJS.fraisPro.line.deleteLineFromDisplay = function( element, response
  */
 window.eoxiaJS.fraisPro.line.checkInputStatus = function( event ) {
 	var currentInputValue = jQuery( this ).val();
+	var line = jQuery( this ).closest( 'div.line-content' );
+	var lineAction = line.children( 'div.status' );
+	var pinStatus = lineAction.find( 'span.pin' );
 
 	window.eoxiaJS.fraisPro.line.setStatusField( jQuery( this ).closest( 'div.form-element' ), true );
 
+	if ( ! jQuery( '.form-element.empty input[name="tax_inclusive_amount"]' ).length && ! jQuery( '.form-element.empty input[name="tax_amount"]' ).length ) {
+		if (parseFloat(jQuery('input[name="tax_inclusive_amount"]').val()) < parseFloat(jQuery('input[name="tax_amount"]').val())) {
+			jQuery('input[name="tax_inclusive_amount"]').closest('.form-element').addClass('input-error');
+			jQuery('input[name="tax_amount"]').closest('.form-element').addClass('input-error');
+		} else {
+			jQuery('input[name="tax_inclusive_amount"]').closest('.form-element').removeClass('input-error');
+			jQuery('input[name="tax_amount"]').closest('.form-element').removeClass('input-error');
+		}
+	}
+
 	window.eoxiaJS.fraisPro.line.checkLineStatus( jQuery( this ) );
+
+
 };
 
 /**
@@ -213,9 +228,9 @@ window.eoxiaJS.fraisPro.line.setStatusField = function( element, action ) {
 	}
 
 	if ( isRequired && action && ( ( '' === input ) || ( 0 == input ) ) ) {
-		element.addClass( 'input-error' );
+		element.addClass( 'input-error empty' );
 	} else {
-		element.removeClass( 'input-error' );
+		element.removeClass( 'input-error empty' );
 	}
 };
 

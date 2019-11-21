@@ -3,9 +3,9 @@ Contributors: Eoxia
 Tags: Expense account, bill of expenses, fill out expense report,
 Donate link: https://www.eoxia.com
 Requires at least: 4.5
-Tested up to: 5.2.2
+Tested up to: 5.3
 Requires PHP: 5.6.3
-Stable tag: 1.4.2
+Stable tag: 1.5.0
 License: GPLv3 or later
 
 frais.pro allows you to fill your expense very easily, send to the accountant directly in * .csv. Export with photos for archives.
@@ -44,6 +44,13 @@ The installation of the plugin can be done in two ways:
 5. Archive in a file libreoffice .odt
 
 == Changelog ==
+
+= Version 1.5.0 =
+
+* 27279 - Update ODT Document and CSV
+* 35764 - Add Custom Menu in /wp-admin
+* 15795 - TTC Value need to be hightler than VAT.
+* 37183 - When going to "Paid" a note, adding a window to confirm the payment. 
 
 = Version 1.4.2 =
 

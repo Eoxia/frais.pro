@@ -218,6 +218,8 @@ class Note_Class extends \eoxia\Post_Class {
 			'include' => array( $note->data['author_id'] ),
 		), true );
 
+		$payment = Payment::g()->get( array( 'post_id' => $note_id, 'number' => 1 ), true );
+
 		$types_de_note     = Line_Type_Class::g()->get();
 		$list_type_de_note = array();
 		foreach ( $types_de_note as $type_de_note ) {
@@ -301,11 +303,17 @@ class Note_Class extends \eoxia\Post_Class {
 			}
 		}
 
-		$sheet_details['totaltva'] = $total_tax_amount . '€';
-		$sheet_details['totalttc'] = $total_tax_inclusive_amount . '€';
-		$sheet_details['marque']   = $user->data['marque'];
-		$sheet_details['chevaux']  = $user->data['chevaux'];
-		$sheet_details['prixkm']   = $user->data['prixkm'];
+		$sheet_details['totaltva']              = $total_tax_amount . '€';
+		$sheet_details['totalttc']              = $total_tax_inclusive_amount . '€';
+		$sheet_details['marque']                = $user->data['marque'];
+		$sheet_details['chevaux']               = $user->data['chevaux'];
+		$sheet_details['prixkm']                = $user->data['prixkm'];
+		$sheet_details['ref_reglement']         = $payment->data['unique_identifier'];
+		$sheet_details['date_reglement']        = $payment->data['date']['rendered']['date_human_readable'];
+		$sheet_details['mode_reglement']        = $payment->data['payment_type'];
+		$sheet_details['numero_reglement']      = $payment->data['payment_number'];
+		$sheet_details['commentaire_reglement'] = $payment->data['content'];
+		$sheet_details['montant_reglement']     = $payment->data['payment_amount'];
 
 		$document                    = Document_Class::g()->get( array( 'schema' => true ), true );
 		$document->data['parent_id'] = $note->data['id'];
@@ -320,9 +328,9 @@ class Note_Class extends \eoxia\Post_Class {
 
 		$document->data['title']  = implode( '_', $args_title );
 		$document->data['title'] .= '.' . $extension;
-		
+
 		$response = Document_Class::g()->create_doc( $document, array( $type ), $sheet_details, $extension );
-		
+
 		if ( $extension == 'odt' ) {
 			$response = Document_Class::g()->create_document( $response['document']->data['id'] );
 		} else {

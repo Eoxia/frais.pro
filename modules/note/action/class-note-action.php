@@ -117,10 +117,10 @@ class Note_Action {
 		$note_args['date_modified'] = current_time( 'mysql' );
 
 		// Ajout de la catégorie de la ligne.
-		$note_args['taxonomy'][ Note_Status_Class::g()->get_type() ][] = isset( $_POST['selected_status_id'] ) ? intval( $_POST['selected_status_id'] ) : 0;
+		$note_args['taxonomy'][ Note_Status_Class::g()->get_type() ] = array( isset( $_POST['selected_status_id'] ) ? intval( $_POST['selected_status_id'] ) : 0 );
 
 		// On lance la mise à jour de la note.
-		$note                = Note_Class::g()->update( $note_args );
+		$note = Note_Class::g()->update( $note_args );
 
 		wp_send_json_success( array(
 			'namespace'        => 'fraisPro',
@@ -195,7 +195,7 @@ class Note_Action {
 
 		$response = Note_Class::g()->generate_document( $note_id, $category, $extension );
 		// Document_Class::g()->generate_file( $response['document'], $extension );
-		// 
+		//
 		$response['document'] = Document_Class::g()->get( array( 'id' => $response['document']->data['id'] ), true );
 		ob_start();
 		Document_Class::g()->display_item( $response['document'] );
