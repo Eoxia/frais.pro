@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<!-- Note status -->
 	<div>
 		<div class="form-element">
-			<?php Note_Status_Class::g()->display( 0, array( 'current_screen' => 'search' ) ); ?>
+			<?php Note_Status_Class::g()->display( null, array( 'current_screen' => 'search' ) ); ?>
 		</div>
 	</div>
 	<!-- User search -->
@@ -73,7 +73,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<!-- Search icon -->
 	<div>
 		<div data-action="fp_search_notes"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_search_notes' ) ); ?>" 
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_search_notes' ) ); ?>"
 			data-parent="bloc-search"
 			class="action-input wpeo-button button-blue button-square-40">
 			<i class="button-icon fas fa-search"></i>
