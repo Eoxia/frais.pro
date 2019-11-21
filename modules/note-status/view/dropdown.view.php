@@ -26,11 +26,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<i class="button-icon fas fa-caret-down"></i>
 	</button>
 	<ul class="dropdown-content" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_update_note' ) ); ?>" >
-		<?php foreach ( $status_list as $note_status ) : ?>
-			<li data-id="<?php echo esc_attr( $note_status->data['id'] ); ?>" class="dropdown-item pin-status" data-special-treatment="<?php echo esc_attr( $note_status->data['special_treatment'] ); ?>" >
-				<span class="pin-dot" style="background:<?php echo esc_html( $note_status->data['color'] ); ?>;"></span>
-				<span class="pin-label"><?php echo esc_html( $note_status->data['name'] ); ?></span>
-			</li>
+		<?php foreach ( $status_list as $key => $note_status ) : ?>
+			<?php
+			if ( 1 === $key && 'search' !== $args['current_screen'] ) :
+				?>
+				<li data-action="load_modal_payment" data-id="<?php echo esc_attr( $note->data['id'] ); ?>"
+					data-title="<?php esc_html_e( 'Enter payment', 'frais-pro' ); ?>"
+					class="dropdown-item pin-status wpeo-modal-event" data-special-treatment="<?php echo esc_attr( $note_status->data['special_treatment'] ); ?>" >
+					<span class="pin-dot" style="background:<?php echo esc_html( $note_status->data['color'] ); ?>;"></span>
+					<span class="pin-label"><?php echo esc_html( $note_status->data['name'] ); ?></span>
+				</li>
+				<?php
+			else :
+				?>
+				<li data-id="<?php echo esc_attr( $note_status->data['id'] ); ?>" class="dropdown-item pin-status" data-special-treatment="<?php echo esc_attr( $note_status->data['special_treatment'] ); ?>" >
+					<span class="pin-dot" style="background:<?php echo esc_html( $note_status->data['color'] ); ?>;"></span>
+					<span class="pin-label"><?php echo esc_html( $note_status->data['name'] ); ?></span>
+				</li>
+				<?php
+			endif;
+			?>
+
 		<?php endforeach; ?>
 	</ul>
 </div>
