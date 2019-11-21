@@ -108,6 +108,7 @@ class Line_Class extends \eoxia\Post_Class {
 				if ( in_array( $field_key, \eoxia\Config_Util::$init['frais-pro']->line->amount_entries, true ) ) {
 					$special_treatment   = isset( $line_schema[ $field_key ]['special_treatment'] ) ? $line_schema[ $field_key ]['special_treatment'] : '';
 					$current_field_state = $this->check_amount_input_status( $line, $special_treatment );
+
 					if ( ! $current_field_state ) {
 						$line_state['status']   = false;
 						$line_state['errors'][] = $field_key;
@@ -115,6 +116,15 @@ class Line_Class extends \eoxia\Post_Class {
 				} else {
 					$line_state['status']   = false;
 					$line_state['errors'][] = $field_key;
+				}
+			} else {
+				if( in_array( $field_key, array( 'tax_inclusive_amount', 'tax_amount' ) ) ) {
+					$current_field_state = $this->check_tax_and_amount( $line );
+
+					if ( ! $current_field_state ) {
+						$line_state['status']   = false;
+						$line_state['errors'][] = $field_key;
+					}
 				}
 			}
 		}
@@ -161,7 +171,21 @@ class Line_Class extends \eoxia\Post_Class {
 			$line_custom_class[] = 'form-element-disable';
 		}
 
+		if( in_array( $field, array( 'tax_inclusive_amount', 'tax_amount' ) ) ) {
+			if ( (float) $line->data['tax_amount'] > (float) $line->data['tax_inclusive_amount'] ) {
+				$line_custom_class[] = 'input-error';
+			}
+		}
+
 		return implode( ' ', $line_custom_class );
+	}
+
+	public function check_tax_and_amount( $line ) {
+		if ( (float) $line->data['tax_amount'] > (float) $line->data['tax_inclusive_amount'] ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
