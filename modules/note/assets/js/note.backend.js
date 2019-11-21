@@ -43,9 +43,7 @@ window.eoxiaJS.fraisPro.note.init = function() {
 	jQuery( document ).on( 'click', '.list-note .note', window.eoxiaJS.fraisPro.note.goToLink );
 	jQuery( document ).on( 'click', '.display-method span.wpeo-button', window.eoxiaJS.fraisPro.note.changeDisplayMode );
 	jQuery( document ).on( 'click', '.wrap-frais-pro .fraispro-mass-line-creation', window.eoxiaJS.fraisPro.note.openMedia );
-	jQuery( document ).on( 'click', '.validation_status.wpeo-dropdown li', window.eoxiaJS.fraisPro.note.changeNoteStatus );
-
-	// jQuery( window ).on( 'scroll', window.eoxiaJS.fraisPro.note.scrollSticky );
+	jQuery( document ).on( 'click', '.validation_status.wpeo-dropdown li:not(.wpeo-modal-event)', window.eoxiaJS.fraisPro.note.changeNoteStatus );
 };
 
 /**
@@ -65,7 +63,7 @@ window.eoxiaJS.fraisPro.note.changeNoteStatus = function( event ) {
 		};
 
 		// D'abord on vérifier si l'utilisateur utilise un statut avec un traitement special.
-		if ( 'closed' === jQuery( this ).attr( 'data-special-treatment' ) && ! confirm( fraisPro.confirmMarkAsPayed ) ) {
+		if ( 'closed' === jQuery( this ).attr( 'data-special-treatment' ) ) {
 			return false;
 		} else {
 			if ( jQuery( 'div.single-note' ).find( '.wpeo-notification' )[0].fraisProTimeOut ) {

@@ -9,6 +9,7 @@
  */
 
 namespace frais_pro;
+use \eoxia\Custom_Menu_Handler as CMH;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -130,11 +131,11 @@ class Note_De_Frais_Action {
 	 * @since 1.5.0
 	 */
 	public function redirect_to() {
-		$_pos = strlen( $_SERVER[ 'REQUEST_URI' ] ) - strlen( '/wp-admin/' );
+		/*$_pos = strlen( $_SERVER[ 'REQUEST_URI' ] ) - strlen( '/wp-admin/' );
 		if ( strpos( $_SERVER['REQUEST_URI'], '/wp-admin/' ) !== false && strpos( $_SERVER['REQUEST_URI'], '/wp-admin/' ) == $_pos ) {
 				wp_redirect( admin_url( 'admin.php?page=frais-pro' ) );
 				die();
-		}
+		}*/
 	}
 
 	/**
@@ -144,9 +145,11 @@ class Note_De_Frais_Action {
 	 * @version 1.4.0
 	 */
 	public function callback_admin_menu() {
-		add_menu_page( __( 'Frais.pro', 'frais-pro' ), __( 'Frais.pro', 'frais-pro' ), 'manage_options', \eoxia\Config_Util::$init['frais-pro']->slug, array( Note_De_Frais_Class::g(), 'display' ), 'dashicons-format-aside' );
-		add_submenu_page( \eoxia\Config_Util::$init['frais-pro']->slug, __( 'Frais.pro - Notes', 'frais-pro' ), __( 'Notes', 'frais-pro' ), 'manage_options', \eoxia\Config_Util::$init['frais-pro']->slug, array( Note_De_Frais_Class::g(), 'display' ) );
-		add_submenu_page( \eoxia\Config_Util::$init['frais-pro']->menu_edit_parent_slug, __( 'Frais.pro', 'frais-pro' ), __( 'Frais.pro', 'frais-pro' ), 'manage_options', \eoxia\Config_Util::$init['frais-pro']->slug . '-edit', array( Note_De_Frais_Class::g(), 'display' ) );
+		CMH::register_container( 'Frais.pro', 'Frais.pro', 'manage_options', 'frais-pro' );
+		CMH::add_logo( 'frais-pro', PLUGIN_NOTE_DE_FRAIS_URL . '/core/assets/images/icone-fond-blanc.png', admin_url( 'admin.php?page=frais-pro' ) );
+
+		CMH::register_menu( 'frais-pro', __( 'Frais.pro', 'digirisk' ), __( 'Frais.pro', 'digirisk' ), 'manage_options', \eoxia\Config_Util::$init['frais-pro']->slug, array( Note_De_Frais_Class::g(), 'display' ), 'fa fa-home' );
+		CMH::register_menu( \eoxia\Config_Util::$init['frais-pro']->slug, __( 'Edit note', 'digirisk' ), __( 'Edit note', 'digirisk' ), 'manage_options', \eoxia\Config_Util::$init['frais-pro']->slug . '-edit', array( Note_De_Frais_Class::g(), 'display' ), 'fa fa-home', 'hidden' );
 	}
 
 	public function open_modal_profil() {
