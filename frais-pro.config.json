@@ -1,7 +1,7 @@
 {
 	"name": "Note de frais",
 	"slug": "frais-pro",
-	"version": "1.4.2",
+	"version": "1.5.0",
 	"description": "L'application Note de frais",
 	"insert_scripts_pages_js": [
 		"frais-pro",
