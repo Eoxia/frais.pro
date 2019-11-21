@@ -144,6 +144,7 @@
 }
 
 .wrap-frais-pro .list-note.main .note {
+  -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
@@ -201,9 +202,13 @@
 }
 
 .wrap-frais-pro .single-note .header {
+  display: -webkit-box;
   display: flex;
-  flex-flow: row wrap;
-  flex: 0 1 auto;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-flow: row wrap;
+  -webkit-box-flex: 0;
+          flex: 0 1 auto;
   flex-wrap: nowrap;
 }
 
@@ -221,6 +226,7 @@
 .wrap-frais-pro .single-note .header .close {
   font-size: 28px;
   padding: 0.8em;
+  -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
@@ -322,9 +328,13 @@
 }
 
 .wrap-frais-pro .single-note .note-action {
+  display: -webkit-box;
   display: flex;
-  flex-flow: row wrap;
-  flex: 0 1 auto;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-flow: row wrap;
+  -webkit-box-flex: 0;
+          flex: 0 1 auto;
   margin-left: -0.4em;
   margin-right: -0.4em;
 }
@@ -339,7 +349,9 @@
 
 @media (max-width: 480px) {
   .wrap-frais-pro .single-note .note-action {
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
   }
 }
 
@@ -403,9 +415,13 @@
 }
 
 .wrap-frais-pro .list-line .line .line-content {
+  display: -webkit-box;
   display: flex;
-  flex-flow: row wrap;
-  flex: 0 1 auto;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-flow: row wrap;
+  -webkit-box-flex: 0;
+          flex: 0 1 auto;
   flex-wrap: nowrap;
 }
 
@@ -477,7 +493,8 @@
 .wrap-frais-pro .list-line .line .line-content .type .dropdown-toggle .button-icon {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
   right: 14px;
 }
 
@@ -730,6 +747,7 @@
 }
 
 .wrap-frais-pro .bloc-search .form-element {
+  -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
@@ -867,112 +885,13 @@
 # Modules externes
 --------------------------------------------------------------*/
 /*--------------------------------------------------------------
-# Jimmy temporaire Frais Pro Custom Page Backadmin WordPress
---------------------------------------------------------------*/
-.toplevel_page_frais-pro #adminmenuwrap, .toplevel_page_frais-pro #wpadminbar, .toplevel_page_frais-pro #adminmenumain, .toplevel_page_frais-pro #screen-meta-links, .toplevel_page_frais-pro #wpfooter, .admin_page_frais-pro-edit #adminmenuwrap, .admin_page_frais-pro-edit #wpadminbar, .admin_page_frais-pro-edit #adminmenumain, .admin_page_frais-pro-edit #screen-meta-links, .admin_page_frais-pro-edit #wpfooter {
-  display: none !important;
+ # UI Header
+ --------------------------------------------------------------*/
+.single-note .ui {
+  background-color: #898de5;
+  color: white !important;
 }
 
-.toplevel_page_frais-pro #wpcontent, .admin_page_frais-pro-edit #wpcontent {
-  margin-left: 0 !important;
-  padding-left: 0;
+.single-note .ui i {
+  color: white;
 }
-
-.toplevel_page_frais-pro .nav-wrap, .admin_page_frais-pro-edit .nav-wrap {
-  background: #1c1d1b;
-  width: 200px;
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0px;
-}
-
-.toplevel_page_frais-pro .nav-wrap .nav-menu .item, .admin_page_frais-pro-edit .nav-wrap .nav-menu .item {
-  transition: background .1s ease,box-shadow .1s ease,color .1s ease;
-}
-
-.toplevel_page_frais-pro .nav-wrap .nav-menu .item:before, .admin_page_frais-pro-edit .nav-wrap .nav-menu .item:before {
-  position: absolute;
-  content: '';
-  width: 100%;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.toplevel_page_frais-pro .nav-wrap .nav-menu .item:hover, .admin_page_frais-pro-edit .nav-wrap .nav-menu .item:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.toplevel_page_frais-pro .nav-wrap .nav-menu .item a, .admin_page_frais-pro-edit .nav-wrap .nav-menu .item a {
-  padding: 16px;
-  padding-left: 20px;
-  font-size: 1.1em;
-  display: block;
-  color: #eee;
-  text-decoration: none;
-  font-weight: bolder;
-}
-
-.toplevel_page_frais-pro .nav-wrap .nav-menu .item.item-bottom, .admin_page_frais-pro-edit .nav-wrap .nav-menu .item.item-bottom {
-  position: absolute;
-  width: 200px;
-  bottom: 0;
-}
-
-.toplevel_page_frais-pro .content-wrap, .admin_page_frais-pro-edit .content-wrap {
-  background: #fafafa;
-  margin-left: 200px;
-}
-
-.toplevel_page_frais-pro .content-wrap #top-header, .admin_page_frais-pro-edit .content-wrap #top-header {
-  background-color: white;
-  border-bottom: solid black 2px;
-  min-height: 60px;
-  /** Bouton Ajouter dans le header */
-}
-
-.toplevel_page_frais-pro .content-wrap #top-header .dropdown-toggle, .admin_page_frais-pro-edit .content-wrap #top-header .dropdown-toggle {
-  width: 100%;
-}
-
-.toplevel_page_frais-pro .content-wrap #top-header .pin-label, .admin_page_frais-pro-edit .content-wrap #top-header .pin-label {
-  color: black;
-}
-
-.toplevel_page_frais-pro .content-wrap #top-header i, .admin_page_frais-pro-edit .content-wrap #top-header i {
-  color: black;
-}
-
-.toplevel_page_frais-pro .content-wrap #top-header .page-title, .admin_page_frais-pro-edit .content-wrap #top-header .page-title {
-  margin: 0;
-  font-size: 2em;
-  padding-top: 20px;
-  padding-left: 20px;
-}
-
-.toplevel_page_frais-pro .content-wrap #top-header .wpeo-button, .admin_page_frais-pro-edit .content-wrap #top-header .wpeo-button {
-  margin-top: 12px;
-  margin-left: 20px;
-}
-
-.toplevel_page_frais-pro .content-wrap #top-header .alignright, .admin_page_frais-pro-edit .content-wrap #top-header .alignright {
-  padding-right: 20px;
-  margin: 0;
-}
-
-.toplevel_page_frais-pro .content-wrap .wrap-frais-pro, .admin_page_frais-pro-edit .content-wrap .wrap-frais-pro {
-  padding-right: 0;
-  padding-left: 20px;
-}
-
-html.wp-toolbar {
-  padding-top: 0;
-}
-
-.modal-profil .wpeo-form select {
-  padding: 0;
-}
-
-/*--------------------------------------------------------------
-# Fin Jimmy temporaire Frais Pro Custom Page Backadmin WordPress
---------------------------------------------------------------*/
