@@ -30,12 +30,17 @@ function before_post_identifier( $data, $args ) {
 	$model_name      = $args['model_name'];
 	$controller_name = str_replace( 'model', 'class', $model_name );
 	$controller_name = str_replace( 'Model', 'Class', $controller_name );
+	if ( ! class_exists( $controller_name ) ) {
+		$controller_name = str_replace( '_Class', '', $controller_name );
+	}
+
 	$next_identifier = get_last_unique_key( $controller_name );
 	$next_identifier++;
 
 	if ( ! isset( $data['unique_key'] ) || empty( $data['unique_key'] ) ) {
 		$data['unique_key'] = $next_identifier;
 	}
+
 	if ( ! isset( $data['unique_identifier'] ) || empty( $data['unique_identifier'] ) ) {
 		$data['unique_identifier'] = $controller_name::g()->element_prefix . $next_identifier;
 	}
@@ -71,6 +76,7 @@ function after_get_identifier( $object, $args ) {
  * @return int               L'identifiant unique
  */
 function get_last_unique_key( $controller ) {
+
 	$element_type = $controller::g()->get_type();
 	$wp_type      = $controller::g()->get_identifier_helper();
 
@@ -114,6 +120,7 @@ function get_last_unique_key( $controller ) {
 	if ( ! empty( $query ) ) {
 		$last_unique_key = $wpdb->get_var( $query );
 	}
+
 
 	if ( empty( $last_unique_key ) ) {
 		return 0;
