@@ -1,0 +1,13 @@
+{
+  "name": "Paiements",
+  "slug": "payment",
+  "version": "1.7.0",
+  "description": "Le module gérant les paiements",
+  "path": "modules/payment/",
+  "dependencies": {
+    "model": {},
+    "class": {},
+    "action": {},
+    "filter": {}
+  }
+}
