@@ -282,3 +282,19 @@ window.eoxiaJS.fraisPro.note.checkGotLine = function( element ) {
 		jQuery( element ).find( '.table-row.notice-info' ).show();
 	}
 };
+
+/**
+ *  Filtre pour les Notes de frais.
+ *
+ * @since 1.5.1
+ * @version 1.5.1
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ *
+ * @return {void}
+ */
+window.eoxiaJS.fraisPro.note.filterNoteSuccess = function( triggeredElement, response ){
+	//window.location.assign( response.data.url );
+	triggeredElement.closest( '.single-note' ).find( '.list-line' ).html( response.data.view );
+};
+

@@ -342,6 +342,36 @@ class Note_Class extends \eoxia\Post_Class {
 		return $response;
 	}
 
+	/**
+	 * Appel la vue pour afficher les filtres des Notes de Frais.
+	 *
+	 * @since   1.5.1
+	 * @version 1.5.1
+	 *
+	 * @return void
+	 */
+	public function display_filters( $note ) {
+
+		$filter = isset ( $_GET['filter'] ) ? sanitize_text_field( $_GET['filter'] ) : 'id';
+
+		$filter_options = array(
+			'id'     => __( 'ID', 'theepi' ),
+			'amount' => __( 'Amount', 'theepi' ),
+			'date'   => __( 'Date', 'theepi' ),
+		);
+
+		\eoxia\View_Util::exec(
+			'frais-pro',
+			'note',
+			'filters',
+			array(
+				'filter' => $filter,
+				'filter_options' => $filter_options,
+				'note' => $note,
+			)
+		);
+	}
+
 }
 
 Note_Class::g();

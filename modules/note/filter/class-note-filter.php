@@ -28,8 +28,8 @@ class Note_Filter {
 	 */
 	public function __construct() {
 		add_filter( 'fp_filter_note_item_title', array( $this, 'callback_note_item_title' ), 10, 2 );
-		add_filter( 'fp_filter_note_item_informations', array( $this, 'callback_note_item_informations' ) );
-		add_filter( 'fp_filter_note_item_actions', array( $this, 'callback_note_item_actions' ) );
+		add_filter( 'fp_filter_note_item_informations', array( $this, 'callback_note_item_informations' ), 10, 2 );
+		add_filter( 'fp_filter_note_item_actions', array( $this, 'callback_note_item_actions' ), 10, 2 );
 
 		$current_type = Note_Class::g()->get_type();
 		add_filter( "eo_model_{$current_type}_before_post", '\frais_pro\before_post_identifier', 10, 2 );
@@ -52,15 +52,18 @@ class Note_Filter {
 	 * @return string Titre modifié de la note.
 	 */
 	public function callback_note_item_title( $title, $note ) {
-		if ( ! $note->data['contains_unaffected'] ) {
+//		if ( ! $note->data['contains_unaffected'] ) {
+//			return $title;
+//		}
+		$max = 35;
+		if( strlen( $title ) > $max ) {
+			return substr( $title, 0, $max ). " &hellip;";
+		} else {
 			return $title;
 		}
-
-		ob_start();
-		\eoxia\View_Util::exec( 'frais-pro', 'note', 'filter/item-title', array( 'note' => $note ) );
-		$title .= ob_get_clean();
-
-		return $title;
+//		ob_start();
+//		\eoxia\View_Util::exec( 'frais-pro', 'note', 'filter/item-title', array( 'note' => $note ) );
+//		$title .= ob_get_clean();
 	}
 
 	/**
@@ -79,8 +82,11 @@ class Note_Filter {
 		if ( $note->data['contains_unaffected'] ) {
 			return;
 		}
-
-		\eoxia\View_Util::exec( 'frais-pro', 'note', 'filter/item-informations', array( 'note' => $note ) );
+		$payment = '';
+		if ( $note->data['current_status']->data['slug'] == 'payee' ) {
+			$payment = Payment::g()->get( array( 'post_id' => $note->data['id'] ), true );
+		}
+		\eoxia\View_Util::exec( 'frais-pro', 'note', 'filter/item-informations', array( 'note' => $note, 'payment' => $payment ) );
 	}
 
 	/**
@@ -154,12 +160,13 @@ class Note_Filter {
 		}
 		update_user_meta( get_current_user_id(), 'ndf_' . $date . '_identifier', $identifier );
 
-		$name = $user->data['firstname'] . '_' . $user->data['lastname'];
-		if ( '_' === $name ) {
-			$name = $user->data['displayname'];
+		//$name = $user->data['firstname'] . '_' . $user->data['lastname'];
+		$initial =  $user->data['initial'];
+		if ( '_' === $initial ) {
+			$initial = $user->data['displayname'];
 		}
 
-		$data['title'] = str_replace( '_', '', $date ) . $identifier . '_' . $name;
+		$data['title'] = str_replace( '_', '', $date ) . '_' . $identifier . '_' . $initial;
 
 		return $data;
 	}

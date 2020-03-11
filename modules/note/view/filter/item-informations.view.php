@@ -15,6 +15,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
+
+<?php if ( $note->data['current_status']->data['slug'] == 'payee' ) : ?>
+	<td class="note-payment">
+		<span class="amout"><?php esc_html_e( 'Payed Amout', 'frais-pro' ); ?></span>
+		<span class="value"><?php echo esc_html( $payment->data['payment_amount'] ); ?></span>
+		<span class="currency"><?php esc_html_e( '€', 'frais-pro' ); ?></span>
+	</td>
+<?php else: ?>
+	<td></td>
+<?php endif; ?>
+
 <td class="note-ttc">
 	<span class="value"><?php echo esc_html( $note->data['tax_inclusive_amount'] ); ?></span>
 	<span class="currency"><?php esc_html_e( '€', 'frais-pro' ); ?></span>

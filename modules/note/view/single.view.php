@@ -61,6 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 				<?php endif; ?>
 
+				<?php Note_Class::g()->display_filters( $note ); ?>
 
 				<div class="note-recap">
 					<div class="note-ttc">

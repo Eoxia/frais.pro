@@ -34,6 +34,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wpeo-table table-flex list-line" data-nonce="<?php echo esc_attr( wp_create_nonce( 'fp_update_line' ) ); ?>" >
 <?php
 if ( ! empty( $lines ) ) :
+	usort(
+		$lines ,
+		function( $a, $b ) {
+			if ( $a->data['unique_key'] === $b->data['unique_key'] ) {
+				return 0;
+			}
+			return ( $a->data['unique_key'] < $b->data['unique_key'] ) ? 1 : -1;
+		}
+	);
 	foreach ( $lines as $line ) :
 		Line_Class::g()->display( $line, array( 'note_is_closed' => $note_is_closed ) );
 	endforeach;

@@ -31,6 +31,7 @@ class Note_Action {
 		add_action( 'wp_ajax_fp_note_archive', array( $this, 'callback_fp_note_archive' ) );
 		add_action( 'wp_ajax_fp_update_note', array( $this, 'callback_fp_update_note' ) );
 		add_action( 'wp_ajax_fp_delete_all_lines', array( $this, 'callback_fp_delete_all_lines' ) );
+		add_action( 'wp_ajax_fp_filter_note', array( $this, 'callback_fp_filter_note' ) );
 
 		add_action( 'wp_ajax_export_note', array( $this, 'callback_export_note' ) );
 
@@ -267,6 +268,65 @@ class Note_Action {
 		) );
 	}
 
+	/**
+	 * Filtre les Note de frais.
+	 *
+	 * @since   1.5.1
+	 * @version 1.5.1
+	 *
+	 * @return void
+	 */
+	public function callback_fp_filter_note() {
+		check_ajax_referer( 'fp_filter_note' );
+
+		$note_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$filters = ! empty( $_POST['filters'] ) ? sanitize_text_field( wp_unslash( $_POST['filters'] ) ) : 'id';
+		$url     = $_SERVER['HTTP_REFERER'] . '&filter=' . $filters;
+
+		$lines = Line_Class::g()->get( array( 'post_parent' => $note_id ) );
+
+		switch ( $filters ) {
+			case 'id' :
+				$filter_value = 'unique_key';
+				break;
+			case 'amount' :
+				$filter_value = 'tax_inclusive_amount';
+				break;
+//			case 'date' :
+//				$filter_value = 'unique_key';
+//				break;
+		}
+
+		if ( ! empty( $lines ) ) {
+			usort(
+				$lines,
+				function ( $a, $b ) use ( $filter_value ) {
+					if ( $a->data[ $filter_value ] === $b->data[ $filter_value ] ) {
+						return 0;
+					}
+
+					return ( $a->data[ $filter_value ] < $b->data[ $filter_value ] ) ? 1 : - 1;
+				}
+			);
+			ob_start();
+			foreach ( $lines as $line ) {
+				Line_Class::g()->display( $line, array( 'note_is_closed' => $note_is_closed ) );
+			}
+			$view = ob_get_clean();
+		}
+
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'fraisPro',
+				'module'           => 'note',
+				'callback_success' => 'filterNoteSuccess',
+				'url'              => $url,
+				'filters'          => $filters,
+				'view'             => $view,
+			)
+		);
+	}
 }
 
 new Note_Action();
