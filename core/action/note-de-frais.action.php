@@ -22,8 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Note_De_Frais_Action {
 
 	/**
-	 * Le constructeur ajoutes les actions WordPress suivantes:
-	 * admin_enqueue_scripts (Pour appeller les scripts JS et CSS dans l'admin)
+	 * Le constructeur ajoute les actions WordPress suivantes:
+	 * admin_enqueue_scripts (Pour appeler les scripts JS et CSS dans l'admin)
 	 * admin_print_scripts (Pour appeler les scripts JS en bas du footer)
 	 * plugins_loaded (Pour appeler le domaine de traduction)
 	 */
@@ -126,7 +126,7 @@ class Note_De_Frais_Action {
 	}
 
 	/**
-	 * Permet de redirigé l'utilisateur vers la page de frais pro.
+	 * Permet de rediriger l'utilisateur vers la page de frais pro.
 	 *
 	 * @since 1.5.0
 	 */
